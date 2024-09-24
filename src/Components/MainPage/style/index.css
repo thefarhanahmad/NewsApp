@@ -1,0 +1,312 @@
+
+.webStoryContainer{
+  inset: 0;
+  margin: auto;
+  position: absolute;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+
+}
+.webStoryBlurredImage {
+  
+  /* Add the blur effect */
+  filter: blur(16px);
+  -webkit-filter: blur(16px);
+  
+  /* Full height */
+  height: 100vh;
+  width: 100%; 
+  
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.webStoryControlIcon{
+  font-size:25px;
+  color: black;
+  background-color: white;
+  border-radius: 50%;
+  display: block;
+  padding: 12px;
+}
+
+.WebstroyCardImg{
+  height: 80vh;
+  width: 100%;
+  object-fit: cover;
+  transition:transform 5s;
+  transform: scale(1);
+}
+.WebstroyCardImgActive{
+  transform: scale(1.5);
+}
+.WebstroyCardText{
+  font-family:Poppins;
+  text-align: center;
+  position: absolute;
+  top:60%;
+  font-weight: 600;
+  font-size: large;
+  color: white;
+  width: 432px;
+  height: 100px;
+  transform: translate(0,100%);
+  transition: transform 5s;
+}
+.WebstroyCardTextActive{
+  transform: translate(0,0);
+}
+
+.ImageCarouselContainer{
+  position: absolute;
+  width: 100%;
+  inset: 0;
+  background-color: rgb(61, 61, 61);
+}
+.ImageCarsouel{
+  padding-top: 70px;
+  margin: auto;
+  width: 70%;
+  /* height: 500px; */
+}
+.ImageCrasoulCancelButton{
+  color: white;
+  font-size: xx-large;
+  position: absolute;
+  right: 30px;
+  top: 30px;
+}
+
+/* mobile */
+
+.mobileTopStoryCard {
+  display: flex;
+  flex-direction: column;
+  height: 110px;
+  min-width: 100px;
+  background-color: rgb(235, 235, 235);
+  border-radius: 5px;
+  overflow: hidden; 
+}
+
+.mobileTopStoryCardText {
+  height: 32%;
+  width: auto; 
+  margin-left: 0;
+  padding: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word; 
+  max-height: 3.2em;
+}
+
+/* mobile */
+
+
+
+
+
+.video-card {
+  /* width: 210px;
+  height: 150px; */
+  position: relative;
+  border-radius: 5px;
+}
+.video-card-main-box {
+  width: 100%;
+  /* height: 210px; */
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+/* .video-card-main-center-box{
+  aspect-ratio: 1;
+
+} */
+.video-card-length {
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: rgba(255, 255, 255, 1);
+  display: flex;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 1);
+  position: absolute;
+  padding: 2px;
+  bottom: 0;
+  border-radius: 2px;
+}
+.video-card-img {
+  object-fit: fill;
+  width: 100%;
+  height: 100%;
+}
+.video-card-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 50px;
+  font-family: Poppins;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0em;
+  color: rgba(255, 255, 255, 1);
+  margin-top: 10px;
+}
+.video-center-card-text{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* height: 50px; */
+  font-family: Poppins;
+  font-weight: 500;
+  letter-spacing: 0em;
+  margin-top: 10px;
+  background-color: rgba(8, 8, 8, 0.3);
+  font-size: larger;
+  padding:30px;
+  color: rgba(255, 255, 255, 1);
+}
+
+.image-box {
+  border-radius: 5px;
+  position: relative;
+}
+.image-box > img {
+  width: 100%;
+  height: 100%;
+}
+.image-text-box > div {
+  overflow: hidden;
+  height: 70px;
+  background-color: rgba(8, 8, 8, 0.3);
+  width: 100%;
+  font-family: Poppins;
+  font-size: 21px;
+  font-weight: 500;
+  letter-spacing: 0em;
+  padding: 10px;
+  color: rgba(255, 255, 255, 1);
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.image-text-box {
+  display: flex;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+.stories-card {
+  width: 100%;
+  height: 115px;
+  background-color: white;
+  margin-top: 10px;
+  border-radius: 6px;
+  display: flex;
+  cursor: pointer;
+}
+
+.stories-card > img {
+  object-fit: cover;
+  object-position: center;
+  height: 100%;
+  width: 40%;
+}
+
+.stories-card-text {
+  width: 60%;
+  font-family: Poppins, sans-serif;
+  font-weight: 400;
+  color: rgba(30, 30, 30, 1);
+  margin-left: 10px;
+  padding: 5px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word; 
+  max-height: 4em;
+}
+.news-card-mian-area{
+  width: 100%;
+  height: 220px;
+  border-radius: 6px;
+  margin: 10px 10px;
+}
+.news-card-mian-area:hover{
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 10;
+  cursor: pointer;
+}
+.news-card-mian-area>img{
+  object-fit: cover;
+  width: 100%;
+  height: 140px;
+}
+.news-card-main-area-text{
+  max-height: 100px;
+font-family: Poppins;
+font-size: 16px;
+font-weight: 400;
+letter-spacing: 0em;
+color: rgba(0, 0, 0, 1);
+text-overflow: ellipsis;
+}
+@media screen and (max-width: 500px) {
+  .video-card-main-box{
+    margin: 20px 0;
+  }
+  .video-center-card-text{
+    padding: 5px;
+  }
+}
+
+/* Responsive font sizes */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .stories-card-text {
+    font-size: 14px;
+  }
+  .stories-card {
+    height: 75px !important;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .stories-card-text {
+    font-size: 16px;
+  }
+  .stories-card {
+    height: 85px;
+  }
+}
+
+@media (min-width: 1440px) and (max-width: 2559px) {
+  .stories-card-text {
+    font-size: 18px;
+  }
+  .stories-card {
+    height: 100px;
+  }
+}
+
+@media (min-width: 2560px) {
+  .stories-card-text {
+    font-size: 22px;
+  }
+  .stories-card {
+    height: 120px;
+  }
+}
+ 
+
+ /* Ensure text fits in 3 lines for all screen sizes */
+.stories-card-text {
+  max-height: calc(3 * 1.3em);
+}
