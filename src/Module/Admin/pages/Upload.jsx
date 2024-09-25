@@ -15,7 +15,7 @@ import axios from "axios";
 import React, { useState, useRef, useMemo, useContext, useEffect } from "react";
 import JoditEditor from "jodit-react";
 import { OnEdit as onEditContext } from "../../../Context";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { API_URL } from "../../../../API";
 const { TextArea } = Input;
 const Upload = () => {
@@ -48,6 +48,29 @@ const Upload = () => {
   const navigation = useNavigate();
   const [items, setItems] = useState(["jack", "lucy"]);
   const [name, setName] = useState("");
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === "/dashboard/upload") {
+      setTitle("");
+      setTopic("");
+      setdesc("");
+      setkeyword([]);
+      setImg(null);
+      setLanguage("");
+      // setpublish("");
+      setreported("");
+      setNewType("");
+      setType("img");
+      setLoading(false);
+      setSubCategory("");
+      setSlug("");
+      setComment(false);
+      setPriority(false);
+      setSlider(false);
+    }
+  }, []);
+
   const inputRef = useRef(null);
   const onNameChange = (event) => {
     setName(event.target.value);
@@ -515,56 +538,57 @@ const Upload = () => {
                     overflow: "hidden",
                   }}
                 >
-                  {img == null ? (
-                    <div
-                      style={{
-                        height: "100%",
-                        fontSize: "25px",
-                        fontWeight: "600",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        display: "flex",
-                        color: "rgba(0,0,0,0.5)",
-                        overflow: "hidden",
-                      }}
-                    >
-                      Upload Image or Video here
-                    </div>
-                  ) : type === "img" ? (
-                    <>
-                      <img
+                  {
+                    img == null ? (
+                      <div
                         style={{
-                          width: "100%",
-                          height: "200px",
-                          borderRadius: "10px",
+                          height: "100%",
+                          fontSize: "25px",
+                          fontWeight: "600",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          display: "flex",
+                          color: "rgba(0,0,0,0.5)",
                           overflow: "hidden",
                         }}
-                        src={Update ? URL.createObjectURL(img) : img}
-                      />
-                    </>
-                  ) : (
-                    <>
-                      <video
-                        style={{
-                          objectFit: "fit",
-                          width: "100%",
-                          height: "200px",
-                          borderRadius: "10px",
-                          overflow: "hidden",
-                        }}
-                        src={Update ? URL.createObjectURL(img) : img}
-                      />
-                    </>
-                  )
-                  // <img
-                  //   style={{
-                  //     width: "auto",
-                  //     height: "200px",
-                  //     borderRadius: "10px",
-                  //     overflow: "hidden",
-                  //   }}
-                  //   src={Update?URL.createObjectURL(img):img}
-                  // />
+                      >
+                        Upload Image or Video here
+                      </div>
+                    ) : type === "img" ? (
+                      <>
+                        <img
+                          style={{
+                            width: "100%",
+                            height: "200px",
+                            borderRadius: "10px",
+                            overflow: "hidden",
+                          }}
+                          src={Update ? URL.createObjectURL(img) : img}
+                        />
+                      </>
+                    ) : (
+                      <>
+                        <video
+                          style={{
+                            objectFit: "fit",
+                            width: "100%",
+                            height: "200px",
+                            borderRadius: "10px",
+                            overflow: "hidden",
+                          }}
+                          src={Update ? URL.createObjectURL(img) : img}
+                        />
+                      </>
+                    )
+                    // <img
+                    //   style={{
+                    //     width: "auto",
+                    //     height: "200px",
+                    //     borderRadius: "10px",
+                    //     overflow: "hidden",
+                    //   }}
+                    //   src={Update?URL.createObjectURL(img):img}
+                    // />
                   }
                 </div>
               </Col>

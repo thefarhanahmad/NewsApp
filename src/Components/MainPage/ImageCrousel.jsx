@@ -8,6 +8,7 @@ const contentStyle = {
   height: "160px",
   color: "#fff",
   lineHeight: "160px",
+
   textAlign: "center",
   background: "#364d79",
 };
@@ -17,11 +18,14 @@ function ImageCrousel() {
   useEffect(() => {
     axios
       .get(`${API_URL}/photo`)
+
       .then((data) => {
+        console.log("img api res in corousel : ", data);
         setPhoto(data.data);
       })
       .catch(() => {});
   }, []);
+  console.log("photo corousel : ", photo);
 
   return (
     <>

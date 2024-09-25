@@ -14,6 +14,7 @@ import {
 } from "antd";
 import axios from "axios";
 import { API_URL } from "../../../../API";
+import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 
 const { TextArea } = Input;
 
@@ -46,6 +47,13 @@ const Video = () => {
   const handleEditCancel = () => {
     setIsEditModalOpen(false);
     setEditingVideo(null);
+  };
+
+  // custom vdo upload dropdown
+  const [dropdownUp, setDropdownUp] = useState(false);
+
+  const handleDropdown = () => {
+    setDropdownUp(!dropdownUp);
   };
 
   const handleEditSave = async () => {
@@ -353,60 +361,96 @@ const Video = () => {
       <div>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
           <div>
-            <Input
-              type="file"
-              name="file"
-              id="file-name"
-              onChange={(e) => {
-                setImg(e.target.files[0]);
-              }}
-              style={{ display: "none" }}
-              hidden={true}
-            />
-            <div
-              onClick={() => {
-                document.getElementById("file-name").click();
-              }}
+            <button
               style={{
-                width: "auto",
-                height: "200px",
-                backgroundColor: "rgba(0,0,0,0.1)",
+                width: "content-fit",
+                padding: "3px 6px",
                 borderRadius: "10px",
-                marginBottom: 10,
+                fontSize: "1.2rem",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: "2px",
+                marginBottom: "10px",
+                border: "1px solid gray",
+                marginRight: "10px",
               }}
             >
-              {img == null ? (
-                <div
-                  style={{
-                    height: "100%",
-                    fontSize: "25px",
-                    fontWeight: "600",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    display: "flex",
-                    color: "rgba(0,0,0,0.5)",
-                  }}
-                >
-                  Upload video here
+              <span onClick={handleDropdown}>Upload Custom Video</span>
+              {dropdownUp ? (
+                <IoMdArrowDropup
+                  onClick={handleDropdown}
+                  style={{ fontSize: "2.7rem" }}
+                />
+              ) : (
+                <IoMdArrowDropdown
+                  onClick={handleDropdown}
+                  style={{ fontSize: "2.7rem" }}
+                />
+              )}
+            </button>
+            <div>
+              {dropdownUp ? (
+                <div>
+                  <Input
+                    type="file"
+                    name="file"
+                    id="file-name"
+                    onChange={(e) => {
+                      setImg(e.target.files[0]);
+                    }}
+                    style={{ display: "none" }}
+                    hidden={true}
+                  />
+                  <div
+                    onClick={() => {
+                      document.getElementById("file-name").click();
+                    }}
+                    style={{
+                      width: "auto",
+                      height: "100px",
+                      backgroundColor: "rgba(0,0,0,0.1)",
+                      borderRadius: "10px",
+                      marginBottom: 10,
+                    }}
+                  >
+                    {img == null ? (
+                      <div
+                        style={{
+                          height: "100%",
+                          fontSize: "25px",
+                          fontWeight: "600",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          display: "flex",
+                          color: "rgba(0,0,0,0.5)",
+                        }}
+                      >
+                        Upload video here
+                      </div>
+                    ) : (
+                      <video
+                        id="video-element"
+                        src=""
+                        style={{
+                          width: "auto",
+                          height: "200px",
+                          borderRadius: "10px",
+                        }}
+                      />
+                      // <img
+                      //   style={{
+                      //     width: "auto",
+                      //     height: "200px",
+                      //     borderRadius: "10px",
+                      //   }}
+                      //   src={URL.createObjectURL(img)}
+                      // />
+                    )}
+                  </div>
                 </div>
               ) : (
-                <video
-                  id="video-element"
-                  src=""
-                  style={{
-                    width: "auto",
-                    height: "200px",
-                    borderRadius: "10px",
-                  }}
-                />
-                // <img
-                //   style={{
-                //     width: "auto",
-                //     height: "200px",
-                //     borderRadius: "10px",
-                //   }}
-                //   src={URL.createObjectURL(img)}
-                // />
+                ""
               )}
             </div>
           </div>

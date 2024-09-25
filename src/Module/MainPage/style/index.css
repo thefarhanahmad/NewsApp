@@ -630,9 +630,25 @@
     padding: 0%;
     border: none;
   }
+
   .news-main-rigth-part2 {
-    /* display: none; */
+    height: fit-content;
+    background-color: red;
+
+    position: static;
+    /* top: -34.5rem;
+    left: -2.5rem; */
   }
+
+  /* @media (min-width: 1024px) {
+    .news-main-rigth-part2 {
+      background-color: green;
+      height: fit-content;
+      position: relative;
+      top: -30rem;
+      left: -2rem;
+    }
+  } */
   .video-card-box-1 {
     display: flex;
     justify-content: center;

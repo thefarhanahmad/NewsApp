@@ -48,9 +48,13 @@ const VideoCard = ({
       className={
         !isMain
           ? "video-card-main-box"
-          : "video-card-main-box video-card-main-center-box"
+          : "video-card-main-box video-card-main-center-box "
       }
-      style={{ position: "relative", overflow: "hidden" }}
+      style={{
+        position: "relative",
+        overflow: "hidden",
+        // backgroundColor: "red",
+      }}
       onClick={() => {
         if (!fromVideoGallery) {
           //!fromvideogallery means video articles
@@ -75,23 +79,23 @@ const VideoCard = ({
                   ? "video-card-img"
                   : "video-card-img video-card-img-center"
               }
-              //  autoPlay={true}
+              // autoPlay={true}
             >
-              <source src={data.image} />
+              <source src={data.url} />
             </video>
           ) : (
             <iframe
               className="video video-card-img"
               title="Youtube player"
               sandbox="allow-same-origin allow-forms allow-popups allow-scripts allow-presentation"
-              src={data.link}
+              src={data?.link}
               // width={"300px"}
               // height={"200px"}
             ></iframe>
           )
         ) : (
           <img
-            src={img1}
+            src={data?.image ? data.image : "video"}
             style={{ height, width }}
             alt=""
             className="video-card-img"

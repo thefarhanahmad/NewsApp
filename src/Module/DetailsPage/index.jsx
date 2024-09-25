@@ -16,8 +16,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import {
   EmailIcon,
   EmailShareButton,
-  FacebookIcon, 
-  FacebookShareButton, 
+  FacebookIcon,
+  FacebookShareButton,
   TwitterIcon,
   TwitterShareButton,
   WhatsappIcon,
@@ -32,7 +32,7 @@ import { useContext } from "react";
 import { API_URL } from "../../../API";
 import LatesetNewsSection from "../../Components/SharedComponents/LatestNewsSection";
 import RelatedNewsSection from "../../Components/SharedComponents/RelatedNewSection";
-import { InstagramFilled } from "@ant-design/icons"; 
+import { InstagramFilled } from "@ant-design/icons";
 const { TextArea } = Input;
 
 // Instagram share button (custom implementation)

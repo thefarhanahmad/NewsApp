@@ -45,7 +45,8 @@ const Ads = () => {
   useEffect(() => {
     setImpression((prevImpression) => prevImpression + 1);
   }, []);
-  useEffect(() => {
+
+  const fetchAds = () => {
     console.log("h");
     axios
       .get(`${API_URL}/ads`)
@@ -57,6 +58,9 @@ const Ads = () => {
       .catch((err) => {
         console.log("err=>>>", err);
       });
+  };
+  useEffect(() => {
+    fetchAds();
   }, []);
   const onUpload = () => {
     setLoading(true);
@@ -85,12 +89,32 @@ const Ads = () => {
           setDate("");
           setTitle("");
           setPrice("");
+          fetchAds();
         })
+
         .catch(() => {
           message.error("Your Ad was not successfully Uploaded");
           setLoading(false);
         });
     });
+    fetchAds();
+  };
+
+  const handleDeleteAd = async (id) => {
+    try {
+      const res = await axios.delete(`${API_URL}/ads_delete/${id}`);
+      console.log("ads delete api response : ", res);
+      if (res.data.data.status === 200) {
+        message.success(res.data.message);
+      } else {
+        message.error(res.data.message);
+      }
+      fetchAds();
+    } catch (error) {
+      console.log("error is delete ads : ", error);
+      message.error(error.response.data.message);
+    }
+    fetchAds();
   };
 
   const handleToggleStatus = (adId, currentStatus) => {
@@ -102,6 +126,7 @@ const Ads = () => {
       .then(() => {
         // Handle success
         message.success(`Status  Changed `);
+        fetchAds();
         // Refresh the article data
       })
       .catch((error) => {
@@ -109,6 +134,7 @@ const Ads = () => {
         console.error("Error updating status", error);
         message.error("Failed to update  status");
       });
+    fetchAds();
   };
   const columns = [
     {
@@ -228,6 +254,7 @@ const Ads = () => {
       key: "_id",
       render: (_, { _id }) => (
         <button
+          onClick={() => handleDeleteAd(_id)}
           style={{
             padding: "3px 8px",
             backgroundColor: "#fadcd9",

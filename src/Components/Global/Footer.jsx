@@ -13,7 +13,7 @@ const Footer = () => {
   const { t } = useTranslation();
   const { loading, setLoading, setEffect, effect } = useContext(Loading);
   const [itsItem, setItsItem] = useState([]);
-  const [email,setEmail] = useState()
+  const [email, setEmail] = useState();
   const Navigation = useNavigate();
   const [mainObject, setMainObject] = useState({});
   // useEffect(() => {
@@ -34,7 +34,7 @@ const Footer = () => {
   //       }
   //       setItsItem(arr);
   //       setLoading(false);
-        
+
   //       Promise.all(
   //         [
   //           arr?.map(async(cat)=>{
@@ -46,16 +46,12 @@ const Footer = () => {
   //                 tempArr.push(element);
   //               }
   //             }).catch((er)=>{console.log(er)}))
-              
+
   //           })
   //         ]
   //       ).then((data)=>{
   //         console.log("tempArr",data)
   //       })
-        
-
-
-        
 
   //     })
   //     .catch((err) => {
@@ -84,12 +80,12 @@ const Footer = () => {
             setLoading(false);
           })
           .catch((error) => {
-            console.error('Error fetching subcategories:', error);
+            console.error("Error fetching subcategories:", error);
             setLoading(false);
           });
       })
       .catch((error) => {
-        console.error('Error fetching categories:', error);
+        console.error("Error fetching categories:", error);
         setLoading(false);
       });
   }, []);
@@ -104,16 +100,18 @@ const Footer = () => {
 
       // Send a POST request to the backend
       const response = await axios.post(`${API_URL}/newsletter`, { email });
+      console.log("newsletter api response : ", response);
 
       if (response.status === 201) {
-        message.success("Subcribed to News Letter")
+        message.success("Subcribed to News Letter");
         // alert(response.data.message);
       } else {
+        console.log("newsletter api response : ", response);
         throw new Error(response.data.message);
       }
     } catch (error) {
-      console.error('Error subscribing to newsletter:', error.message);
-      message.error("unable to subscribe to newsletter")
+      console.error("Error subscribing to newsletter:", error.message);
+      message.error("unable to subscribe to newsletter");
     }
   }
 
@@ -170,82 +168,84 @@ const Footer = () => {
         </div>
         <div className="footer-checkup-main-conatiner">
           <div className="footer-main">
-              
-          {Object.entries(mainObject).map(([categoryName, subcategories],index) => {
-            
-            if(index<=3){
-              return (
-                <div className="footer-item-box">
-          
-                    <div
-                      className="footer-heading"
-                      style={{ cursor: "pointer" }}
-                      onClick={() => {
-                        Navigation(`/itempage?item=${categoryName}`);
-                        setEffect(!effect);
-                      }}
-                        >{categoryName}
+            {Object.entries(mainObject).map(
+              ([categoryName, subcategories], index) => {
+                if (index <= 3) {
+                  return (
+                    <div className="footer-item-box">
+                      <div
+                        className="footer-heading"
+                        style={{ cursor: "pointer" }}
+                        onClick={() => {
+                          Navigation(`/itempage?item=${categoryName}`);
+                          setEffect(!effect);
+                        }}
+                      >
+                        {categoryName}
+                      </div>
+                      <div className="footer-items">
+                        {subcategories.map((item) => (
+                          <div
+                            onClick={() => {
+                              Navigation(
+                                `/itempage?item=${categoryName}&sub=${item.text}`
+                              );
+                            }}
+                          >
+                            {item.text}
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                    <div className="footer-items">
-                    {subcategories.map((item)=>(
-                        <div onClick={()=>{
-                        Navigation(`/itempage?item=${categoryName}&sub=${item.text}`)
-                        }}>{item.text}</div>
-                    ))}
-                    </div> 
-                </div>
-              )
-
-            }
-            
-                    
-          })}
-           
-                    
-           </div>
-           <div className="footer-main">
-              
-          {Object.entries(mainObject).map(([categoryName, subcategories],index) => {
-            
-            if(index>=4 && index<=7){
-              return (
-                <div className="footer-item-box">
-          
-                    <div
-                      className="footer-heading"
-                      style={{ cursor: "pointer" }}
-                      onClick={() => {
-                        Navigation(`/itempage?item=${categoryName}`);
-                        setEffect(!effect);
-                      }}
-                        >{categoryName}
+                  );
+                }
+              }
+            )}
+          </div>
+          <div className="footer-main">
+            {Object.entries(mainObject).map(
+              ([categoryName, subcategories], index) => {
+                if (index >= 4 && index <= 7) {
+                  return (
+                    <div className="footer-item-box">
+                      <div
+                        className="footer-heading"
+                        style={{ cursor: "pointer" }}
+                        onClick={() => {
+                          Navigation(`/itempage?item=${categoryName}`);
+                          setEffect(!effect);
+                        }}
+                      >
+                        {categoryName}
+                      </div>
+                      <div className="footer-items">
+                        {subcategories.map((item) => (
+                          <div
+                            onClick={() => {
+                              Navigation(
+                                `/itempage?item=${categoryName}&sub=${item.text}`
+                              );
+                            }}
+                          >
+                            {item.text}
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                    <div className="footer-items">
-                    {subcategories.map((item)=>(
-                        <div onClick={()=>{
-                        Navigation(`/itempage?item=${categoryName}&sub=${item.text}`)
-                        }}>{item.text}</div>
-                    ))}
-                    </div> 
-                </div>
-              )
-
-            }
-            
-                    
-          })}
-           
-                    
-           </div>
-                  {/* 
+                  );
+                }
+              }
+            )}
+          </div>
+          {/* 
                     <div>{arr[0]?.text}</div>
                     <div>{arr[1]?.text}</div>
                     <div>{arr[2]?.text}</div>
                     <div>{arr[3]?.text}</div>
                     <div>{arr[4]?.text}</div>
                   */}
-               
-            {/* <div className="footer-item-box">
+
+          {/* <div className="footer-item-box">
             <div className="footer-heading">business</div>
             <div className="footer-items">
               <div>start-up</div>
@@ -285,7 +285,7 @@ const Footer = () => {
               <div>Uttarakhand </div>
             </div>
           </div> */}
-          
+
           {/* <div className="footer-main">
             <div className="footer-item-box">
               <div className="footer-heading">entertainment</div>
@@ -363,9 +363,18 @@ const Footer = () => {
                   className="footer-input"
                   placeholder="name@email.com"
                   value={email}
-                  onChange={(e)=>{setEmail(e.target.value)}}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
                 />
-                <div className="footer-input-button"  onClick={()=>{subscribeToNewsLetter()}}>Subscribe Now</div>
+                <div
+                  className="footer-input-button"
+                  onClick={() => {
+                    subscribeToNewsLetter();
+                  }}
+                >
+                  Subscribe Now
+                </div>
               </div>
             </div>
           </div>

@@ -16,25 +16,31 @@ const CreateUser = () => {
   const { onEdit, setOnEdit, id, setId } = useContext(onEditContext);
   const onSumbit = (e) => {
     e.preventDefault();
-    axios
-      .post(`${API_URL}/registerd`, {
-        email,
-        password,
-        phone: phoneNumber,
-        byAdmin: true,
-        role,
-        acsses,
-        selectedKeywords,
-      })
-      .then(async (data) => {
-        message.success("New User Was Created");
-        setEmail("");
-        setPassword("");
-        setPhoneNumber("");
-      })
-      .catch(() => {
-        message.error("New User Was Not Created");
-      });
+
+    if (email != "" || password != "" || phoneNumber != "") {
+      axios
+        .post(`${API_URL}/registerd`, {
+          email,
+          password,
+          phone: phoneNumber,
+          byAdmin: true,
+          role,
+          acsses,
+          selectedKeywords,
+        })
+        .then(async (data) => {
+          message.success("New User Was Created");
+          setEmail("");
+          setPassword("");
+          setPhoneNumber("");
+        })
+        .catch((err) => {
+          console.log("error in creating user : ", err);
+          message.error(err.response.data.err);
+        });
+    } else {
+      message.error("Input Fields Can't be empty");
+    }
   };
   console.log(acsses);
   const options = [

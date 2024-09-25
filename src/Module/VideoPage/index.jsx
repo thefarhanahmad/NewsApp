@@ -112,10 +112,11 @@ const VideoPage = () => {
   }, []);
   useEffect(() => {
     axios.get(`${API_URL}/comment?id=${query.get("id")}`).then((res) => {
-      console.log(res.data);
+      console.log("api data from video2 routes : ", res.data);
       setData2(res.data);
     });
   }, []);
+  console.log("vdo data in vdo2 file : ", data);
   const showModal = () => {
     setIsModalOpen(true);
   };

@@ -40,6 +40,7 @@ const MainPage = () => {
   const [flashnews, setflashnews] = useState([]);
   const [Article, setArticle] = useState([]);
   const [video, setVideo] = useState([]);
+  console.log("videos on home page : ", video);
   const [photo, setPhoto] = useState([]);
   const [latestNews, setLatestNews] = useState([]);
   const [ArticleTop, setArticleTop] = useState(null);
@@ -1165,7 +1166,20 @@ const MainPage = () => {
                 />
               </div>
             </div>
-            <div className="news-main-rigth-part2">
+            <div
+              className={
+                "news-main-rigth-part2 static top-0 left-0 md:relative"
+              }
+              style={{
+                height: "fit-content",
+                position: "relative",
+                top: "-26.5rem",
+                width: "50%",
+                left: "-0.61rem",
+                // border: "1px solid black",
+                backgroundColor: "white",
+              }}
+            >
               {/* <a
                 href={midAd?.link}
                 target="_blank"
@@ -1330,10 +1344,10 @@ const MainPage = () => {
           className="main-page-videos-conatiner container2 container3 webMainPagecomponent"
         >
           <div className="main-page-video-heading">{t("v")} </div>
-          <div className="video-cards">
+          <div className="video-cards ">
             <div className="video-card-box-1 video-card-box-left">
               {video && video[0] ? (
-                <VideoCard fromVideoGallery={true} data={video && video[0]} />
+                <VideoCard fromVideoGallery={true} data={video[0]} />
               ) : null}
               {video && video[1] ? (
                 <VideoCard fromVideoGallery={true} data={video && video[1]} />
