@@ -68,6 +68,7 @@ function findStoryIdFromUrl(pathname) {
   const idMatch = pathname.match(idRegex);
 
   // Check if the 'id' parameter is found
+  console.log;
   if (idMatch) {
     // Extract the value of the 'id' parameter
     const id = idMatch[1];
@@ -88,7 +89,6 @@ const DetailsPage = () => {
   const [isFav, setIsFav] = useState(false);
   const [data, setData] = useState(null);
   const [article, setArticle] = useState(null);
-
   const [name, setName] = useState("");
   const [Email, setEmail] = useState("");
   const [comment, setComment] = useState("");
@@ -105,11 +105,12 @@ const DetailsPage = () => {
     axios
       .get(`${API_URL}/article?id=${storyId}`)
       .then(async (article) => {
+        console.log("news detail api response : ", article);
         setArticle(article);
-        // let title = article.data[0].title.split(" ").join("-");
-        console.log(article.data[0], "art");
+        // let title = article?.data[0].title.split(" ").join("-");
+        console.log(article?.data[0], "art");
         setLoading(false);
-        setData(article.data[0]);
+        setData(article?.data[0]);
         // navigation(`/details/${title}`);
         document.getElementById("mob_parar").innerHTML =
           article?.data[0].discription;
@@ -121,11 +122,11 @@ const DetailsPage = () => {
         setLoading(false);
       });
   }, [storyId]);
-  console.log(article);
+  console.log("article : ", article);
   const [data2, setData2] = useState([]);
   useEffect(() => {
     axios.get(`${API_URL}/comment?id=${query.get("id")}`).then((res) => {
-      console.log(res.data);
+      console.log("article from api : ", res.data);
       setData2(res.data);
     });
   }, []);
@@ -245,6 +246,28 @@ const DetailsPage = () => {
 
   const shareUrl = window.location.href;
   const title = "News App";
+  const imgUrl = data?.image;
+
+  console.log("image url : ", imgUrl);
+
+  // meta tags included
+  <>
+    <meta property="og:image" content={imgUrl} />
+    <meta name="twitter:image" content={imgUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={title} />
+    <meta property="og:url" content={shareUrl} />
+    <meta property="og:image" content={imgUrl} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={title} />
+    <meta name="twitter:image" content={imgUrl} />
+  </>;
+
+  console.log("article data  : ", article?.data[0]);
+  console.log("data   : ", data);
+  console.log("data2 : ", data2);
 
   return (
     <>
@@ -267,7 +290,7 @@ const DetailsPage = () => {
           <div className="deatils-main-para-area" id="mob_parar"></div>
           <div
             style={{ margin: " 15px 0px" }}
-            className="details-page-top-item3"
+            className="details-page-top-item3 bg-red-500 p-2"
           >
             {isFav ? (
               <>
@@ -332,7 +355,7 @@ const DetailsPage = () => {
                 <EmailShareButton
                   url={shareUrl}
                   subject={title}
-                  body="body"
+                  body={`Check this out: ${title} \n ${shareUrl} \n ${imgUrl}`}
                   className="Demo__some-network__share-button"
                 >
                   <EmailIcon size={32} round />
@@ -340,14 +363,17 @@ const DetailsPage = () => {
                 <InstagramShareButton url={window.location.href} />
               </div>
             </div>
-            <WhatsappShareButton
-              url={shareUrl}
-              title={title}
-              separator=":: "
-              className="Demo__some-network__share-button"
-            >
-              <WhatsappIcon size={32} round />
-            </WhatsappShareButton>
+            {/* whatsapp share */}
+            <div style={{ backgroundColor: "red" }}>
+              <WhatsappShareButton
+                url={shareUrl}
+                title={`${title} \n ${imgUrl}`}
+                separator=":: "
+                className="Demo__some-network__share-button"
+              >
+                <WhatsappIcon size={32} round />
+              </WhatsappShareButton>
+            </div>
           </div>
           <div className="container-detail-page-rigth-side">
             {topStories && (
@@ -546,7 +572,7 @@ const DetailsPage = () => {
                   <EmailShareButton
                     url={shareUrl}
                     subject={title}
-                    body="body"
+                    body={`Check this out: ${title} \n ${shareUrl} \n ${imgUrl}`}
                     className="Demo__some-network__share-button"
                   >
                     <EmailIcon size={32} round />
@@ -555,14 +581,17 @@ const DetailsPage = () => {
                   <InstagramShareButton url={window.location.href} />
                 </div>
               </div>
-              <WhatsappShareButton
-                url={shareUrl}
-                title={title}
-                separator=":: "
-                className="Demo__some-network__share-button"
-              >
-                <WhatsappIcon size={32} round />
-              </WhatsappShareButton>
+              {/* whatsapp share */}
+              <div style={{ backgroundColor: "red" }}>
+                <WhatsappShareButton
+                  url={shareUrl}
+                  title={`${title} \n ${imgUrl}`}
+                  separator=":: "
+                  className="Demo__some-network__share-button"
+                >
+                  <WhatsappIcon size={32} round />
+                </WhatsappShareButton>
+              </div>
             </div>
           </div>
           <img

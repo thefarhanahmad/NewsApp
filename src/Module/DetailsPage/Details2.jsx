@@ -19,8 +19,8 @@ const { TextArea } = Input;
 import {
   EmailIcon,
   EmailShareButton,
-  FacebookIcon, 
-  FacebookShareButton, 
+  FacebookIcon,
+  FacebookShareButton,
   TwitterIcon,
   TwitterShareButton,
   WhatsappIcon,
@@ -285,7 +285,7 @@ const DetailsPage2 = () => {
                 />
               ) : null
             ) : null}
-            <div style={{ position: "relative" }}>
+            <div style={{ position: "relative", backgroundColor: "red" }}>
               <GrShareOption
                 style={{ marginRight: "18px", cursor: "pointer" }}
                 onClick={() => setIsOpen(!isOpen)}
@@ -491,7 +491,7 @@ const DetailsPage2 = () => {
                   />
                 ) : null
               ) : null}
-              <div style={{ position: "relative" }}>
+              <div style={{ position: "relative", backgroundColor: "red" }}>
                 <GrShareOption
                   style={{ marginRight: "18px", cursor: "pointer" }}
                   onClick={() => setIsOpen(!isOpen)}
