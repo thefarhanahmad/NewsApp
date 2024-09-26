@@ -33,6 +33,7 @@ import { API_URL } from "../../../API";
 import LatesetNewsSection from "../../Components/SharedComponents/LatestNewsSection";
 import RelatedNewsSection from "../../Components/SharedComponents/RelatedNewSection";
 import { InstagramFilled } from "@ant-design/icons";
+import { Helmet } from "react-helmet";
 const { TextArea } = Input;
 
 // Instagram share button (custom implementation)
@@ -275,6 +276,22 @@ const DetailsPage = () => {
 
   return (
     <>
+      {/* helmet */}
+      <>
+        <Helmet>
+          <meta property="og:url" content={shareUrl} />
+          <meta property="og:type" content="website" />
+          <meta property="og:title" content={title} />
+          <meta property="og:description" content="News App" />
+          <meta property="og:image" content={imgUrl} />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:url" content={shareUrl} />
+          <meta name="twitter:title" content={title} />
+          <meta name="twitter:description" content="News App" />
+          <meta name="twitter:image" content={imgUrl} />
+        </Helmet>
+      </>
+
       {/* mobile version  */}
       <div className="mobileDetailsPage">
         <div className="mobileDetailsMainImage">
