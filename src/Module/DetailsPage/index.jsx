@@ -259,6 +259,10 @@ const DetailsPage = () => {
     <meta property="og:url" content={shareUrl} />
     <meta property="og:image" content={imgUrl} />
 
+    <meta property="og:url" content={shareUrl} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:image" content={imgUrl} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={title} />
@@ -364,7 +368,7 @@ const DetailsPage = () => {
               </div>
             </div>
             {/* whatsapp share */}
-            <div style={{ backgroundColor: "red" }}>
+            <div>
               <WhatsappShareButton
                 url={shareUrl}
                 title={`${title} \n ${imgUrl}`}
@@ -582,7 +586,7 @@ const DetailsPage = () => {
                 </div>
               </div>
               {/* whatsapp share */}
-              <div style={{ backgroundColor: "red" }}>
+              <div>
                 <WhatsappShareButton
                   url={shareUrl}
                   title={`${title} \n ${imgUrl}`}
