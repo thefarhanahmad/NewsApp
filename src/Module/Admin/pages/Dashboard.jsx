@@ -335,9 +335,10 @@ const Dashboard = () => {
               whiteSpace: "nowrap",
               overflow: "hidden",
               textOverflow: "ellipsis",
+              textAlign: "center",
             }}
           >
-            {value}
+            {value.slice(0, 8)}
           </div>
         );
       },
@@ -575,6 +576,8 @@ const Dashboard = () => {
     },
   ];
 
+  console.log("sorted articledata  : ", articleData);
+
   const dataWithSerialNumbers = sortedArticleData.map((serialNumber) => ({
     ...articleData[serialNumber - 1],
     serialNumber,
@@ -804,7 +807,7 @@ const Dashboard = () => {
           </Col>
 
           <Col style={{ marginTop: 10 }} span={6}>
-          <label>Published By</label>
+            <label>Published By</label>
             <Select
               value={filterItemResponse.publishBy}
               onChange={(value) =>
@@ -839,7 +842,7 @@ const Dashboard = () => {
             </Button>
           </Col>
 
-          <Col span={24} style={{marginTop: '20px'}}>
+          <Col span={24} style={{ marginTop: "20px" }}>
             <Table
               scroll={{ x: 1300 }}
               columns={columns}

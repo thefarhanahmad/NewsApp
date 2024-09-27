@@ -13,7 +13,7 @@ import { useTranslation } from "react-i18next";
 import axios from "axios";
 import { Col, Modal, Progress, Radio, Row } from "antd";
 import { API_URL } from "../../../API";
-import { redirect, useNavigate } from "react-router-dom";
+import { Link, redirect, useNavigate } from "react-router-dom";
 import { Card } from "antd";
 const { Meta } = Card;
 
@@ -30,6 +30,7 @@ import AllSectionArticle from "../../Components/MainPage/SectionArticle";
 import { PlayCircleOutlined } from "@ant-design/icons";
 import ImageCrousel from "../../Components/MainPage/ImageCrousel";
 import WebStory from "../../Components/MainPage/WebStory";
+import VdoThumb from "../../Components/common/VdoThumb";
 
 const MainPage = () => {
   const [sliderItem, setSliderItem] = useState(0);
@@ -119,6 +120,18 @@ const MainPage = () => {
         console.log(err);
       });
   }, []);
+  console.log("photo in home page gallery : ", photo);
+  // Video handlers
+  // Function to convert YouTube link to embed URL
+  const convertToEmbedUrl = (url) => {
+    const urlParts = url.split("watch?v=");
+    if (urlParts.length > 1) {
+      return `https://www.youtube.com/embed/${urlParts[1].split("&")[0]}`;
+    }
+    return url.replace("youtu.be/", "www.youtube.com/embed/").split("?")[0];
+  };
+
+  // style for video
 
   useEffect(() => {
     // Fetch stories when the component mounts
@@ -747,10 +760,10 @@ const MainPage = () => {
                         key={img._id}
                         // img.title
                       >
-                        <img src={img.image} alt="" />
+                        <img src={img.images[0].img} alt="" />
                       </div>
                       <a
-                        href={img.title}
+                        href={`/photos/${img?._id}`}
                         target="_blank"
                         style={{
                           color: "white",
@@ -1173,11 +1186,16 @@ const MainPage = () => {
               style={{
                 height: "fit-content",
                 position: "relative",
-                top: "-26.5rem",
-                width: "50%",
-                left: "-0.61rem",
-                // border: "1px solid black",
-                backgroundColor: "white",
+                // background: "red",
+                display: "flex",
+                gap: "2rem",
+                top: "-72.4rem",
+                width: "1000px",
+                left: "-55.78rem",
+                // marginBottom: "20px",
+                border: "1px solid gray",
+                background: "white",
+                paddingBottom: "0px",
               }}
             >
               {/* <a
@@ -1262,44 +1280,52 @@ const MainPage = () => {
               )}
               <div
                 style={{
-                  width: "100%",
-                  // height: "100%",
+                  width: "200%",
+                  display: "flex",
+                  alignItems: "start",
+                  gap: "10px",
+                  // height: "15%",
+                  justifyContent: "space-between",
                   background: "White",
-                  marginTop: 10,
+                  // marginTop: 10,
                   borderRadius: 10,
                   padding: 10,
-                  paddingBottom: 50,
+                  // paddingBottom: 50,
                 }}
               >
                 <div
                   style={{
                     fontWeight: "600",
+                    // background: "red",
+
                     fontSize: 18,
                     textAlign: "start",
+
                     fontFamily: "Poppins",
+                    width: "fit-content",
                   }}
                 >
                   {currentPoll?.question}
                 </div>
-                <Radio.Group
-                  value={selectedOption}
-                  style={{ width: "100%", marginTop: "20px" }}
-                >
+                <Radio.Group value={selectedOption} style={{ width: "100%" }}>
                   <Row gutter={12}>
                     {pollOptions.map((option, index) => (
                       <Col xs={12} key={index}>
                         <div
                           style={{
-                            width: "90%",
+                            width: "100%",
                             minHeight: "40px",
                             maxHeight: "60px",
                             overflow: "hidden",
                             borderRadius: 10,
                             border: "1px solid black",
-                            marginBottom: 10,
+                            marginBottom: 5,
+                            // marginRight: 5,
                             alignItems: "center",
                             display: "flex",
-                            paddingLeft: "10px",
+                            gap: "2px",
+                            justifyContent: "center",
+                            // padding: "5px",
                             textTransform: "capitalize",
                           }}
                         >
@@ -1315,7 +1341,7 @@ const MainPage = () => {
                           >
                             <div
                               style={{
-                                fontSize: "18px",
+                                fontSize: "14px",
                                 fontWeight: "600",
                                 marginTop: "-10px",
                               }}
@@ -1339,22 +1365,128 @@ const MainPage = () => {
             </div>
           </div>
         </div>
+
         <div
+          style={{
+            backgroundColor: "blue",
+            padding: "1rem 2.5rem",
+            height: "content-fit",
+          }}
+        >
+          <h1 className="main-page-video-heading2"> Videos</h1>
+
+          <div
+            style={{
+              // backgroundColor: "yellow",
+              display: "flex",
+              justifyContent: "space-between",
+              padding: "10px 0px",
+              height: "content-fit",
+            }}
+          >
+            <div
+              style={{
+                // backgroundColor: "red",
+                width: "27%",
+                display: "flex",
+                flexDirection: "column",
+                gap: "1.2rem",
+              }}
+            >
+              {video.slice(0, 2).map((vdo, i) => {
+                return <VdoThumb data={vdo} />;
+              })}
+            </div>
+            <div
+              style={{
+                // backgroundColor: "red",
+                width: "40%",
+              }}
+            >
+              <VdoThumb data={video[2]} />;
+            </div>
+            <div
+              style={{
+                // backgroundColor: "red",
+                width: "27%",
+                display: "flex",
+                flexDirection: "column",
+                gap: "1.2rem",
+              }}
+            >
+              {video.slice(3, 5).map((vdo, i) => {
+                return <VdoThumb data={vdo} />;
+              })}
+            </div>
+          </div>
+        </div>
+        {/* <div
           id="Videos"
           className="main-page-videos-conatiner container2 container3 webMainPagecomponent"
         >
-          <div className="main-page-video-heading">{t("v")} </div>
-          <div className="video-cards ">
-            <div className="video-card-box-1 video-card-box-left">
-              {video && video[0] ? (
+          <div
+            className="main-page-video-heading"
+            // style={{ backgroundColor: "green" }}
+          >
+            {t("v")}{" "}
+          </div>
+          {/* Video Container */}
+        {/* <div className="video-cards "> */}
+        {/* <div style={{ backgroundColor: "red" }}>video container</div> */}
+        {/* <div
+              className=""
+              style={{
+                // backgroundColor: "yellow",
+                paddingLeft: "5rem",
+                paddingTop: "2rem",
+                // gap:"px",
+                display: "flex",
+                flexWrap: "wrap",
+                width: "100%",
+                justifyContent: "space-between",
+                margin: "auto",
+                // gap:"-20px"
+              }}
+            > */}
+        {/* video container */}
+        {/* {video.slice(0, 4).map((video) => (
+                <div style={{ width: "50%" }} key={video._id}>
+                  {video.link.includes("<iframe") ? (
+                    // If the link already contains iframe, render it with dangerouslySetInnerHTML
+                    <div
+                      // style={{ width: "400px", height: "200px", marginBottom:"10px" }}
+                      dangerouslySetInnerHTML={{
+                        __html: video.link,
+                      }}
+                    />
+                  ) : ( */}
+        {/* // Otherwise, convert the link to an embed URL and use an iframe */}
+        {/* <iframe
+                      width="500"
+                      height="250"
+                      // style={{ marginBottom: "140px" }}
+                      src={convertToEmbedUrl(video.link)}
+                      title={video.title}
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    ></iframe>
+                  )}
+                </div> */}
+        {/* ))} */}
+        {/* </div> */}
+        {/* <div className="video-card-box-1 video-card-box-left">
+            {video && video[0] ? (
                 <VideoCard fromVideoGallery={true} data={video[0]} />
               ) : null}
               {video && video[1] ? (
-                <VideoCard fromVideoGallery={true} data={video && video[1]} />
+                // <VideoCard fromVideoGallery={true} data={video && video[1]} />
+                <Link>
+                <img src={video[0].image} alt="thumbnail" />
+                </Link>
               ) : null}
-            </div>
-
-            <div className="video-box" style={{ marginBottom: "40px" }}>
+            </div> */}
+        {/* <div className="video-box" style={{ marginBottom: "40px" }}>
               {video && video[2] ? (
                 <VideoCard
                   fromVideoGallery={true}
@@ -1363,8 +1495,7 @@ const MainPage = () => {
                   data={video && video[2]}
                 />
               ) : null}
-
-              {/* <div className="video-items-box">
+            <div className="video-items-box">
                 <FaRegCirclePlay size={50} color="red" style={{ zIndex: 1 }} />
                 <div className="video-text-box">
                   <div>
@@ -1372,10 +1503,9 @@ const MainPage = () => {
                     Cup Exit: Report
                   </div>
                 </div>
-              </div> */}
-            </div>
-
-            <div className="video-card-box-1 video-card-box-right">
+              </div>
+            </div> */}
+        {/* <div className="video-card-box-1 video-card-box-right">
               {video && video[3] ? (
                 <VideoCard fromVideoGallery={true} data={video && video[3]} />
               ) : null}
@@ -1384,10 +1514,10 @@ const MainPage = () => {
               ) : null}
             </div>
           </div>
-        </div>
-        <div className="webMainPagecomponent">
-          <AllSectionArticle data={allCategoriesData} />
-        </div>
+        {/* </div> */}
+        {/* <div className="webMainPagecomponent"> */}
+        {/* <AllSectionArticle data={allCategoriesData} /> */}
+        {/* </div> */}
 
         {/* <div className="main-page-technology-container container2 container3">
           <div className="main-page-technology-heading">{t("t")}</div>
@@ -1598,13 +1728,13 @@ const MainPage = () => {
               photo.map((img) => {
                 return (
                   <div>
-                    <a href="/photos" target="_blank">
+                    <a href={`/photos/${img?._id}`} target="_blank">
                       <div
                         className="photoGallery-card"
                         key={img._id}
                         // img.title
                       >
-                        <img src={img.image} alt="" />
+                        <img src={img.images[0].img} alt="" />
                       </div>
                     </a>
                     <a

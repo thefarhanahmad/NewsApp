@@ -71,6 +71,24 @@ const Upload = () => {
     }
   }, []);
 
+  useEffect(() => {
+    setTitle("");
+    setTopic("");
+    setdesc("");
+    setkeyword([]);
+    setImg(null);
+    setLanguage("");
+    // setpublish("");
+    setreported("");
+    setNewType("");
+    setType("img");
+    setLoading(false);
+    setSubCategory("");
+    setSlug("");
+    setComment(false);
+    setPriority(false);
+  }, []);
+
   const inputRef = useRef(null);
   const onNameChange = (event) => {
     setName(event.target.value);

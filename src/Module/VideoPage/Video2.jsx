@@ -13,7 +13,8 @@ import { FaRegComment } from "react-icons/fa";
 import DetailsNewsCard from "../../Components/DetailsPage/NewsCard";
 import DetailsVideoCard from "../../Components/DetailsPage/VideoCard";
 import AdCard from "../../Components/Global/AdCard";
-import { useLocation, useNavigate } from "react-router-dom";
+
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   EmailIcon,
   EmailShareButton,
@@ -100,6 +101,7 @@ const VideoPage2 = () => {
   const [latestVidData, setLatestVidData] = useState();
   const storyId = findStoryIdFromUrl(search);
   const query = new URLSearchParams(search);
+  const [vdoData, setVideoData] = useState("");
   const navigation = useNavigate();
 
   const formatDatetime = (datetimeStr) => {
@@ -188,6 +190,27 @@ const VideoPage2 = () => {
     const data = response.data;
     setLatestVidData(data);
   }
+
+  // fetch video details
+
+  console.log("vdo data m : ", vdoData);
+
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const id = queryParams.get("id");
+
+  console.log("id from params : ", id);
+
+  useEffect(async () => {
+    try {
+      const res = await axios.get(`${API_URL}/video/${id}`);
+      console.log("video find by id res : ", res.data.data);
+      setVideoData(res.data.data);
+      // setData(res.data.data);
+    } catch (error) {
+      console.log("error in vdo detail page : ", error);
+    }
+  }, []);
 
   useEffect(() => {
     fetchLatestVidData();

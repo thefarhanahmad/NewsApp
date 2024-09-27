@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Carousel } from "antd";
 import axios from "axios";
 import { API_URL } from "../../../API";
+import { useParams } from "react-router-dom";
 
 const contentStyle = {
   margin: 0,
@@ -14,14 +15,16 @@ const contentStyle = {
 };
 
 function ImageCrousel() {
-  const [photo, setPhoto] = useState();
+  const [photo, setPhoto] = useState([]);
+  const { id } = useParams();
+  console.log("id in params corousel  : ", id);
   useEffect(() => {
     axios
-      .get(`${API_URL}/photo`)
+      .get(`${API_URL}/photo/${id}`)
 
       .then((data) => {
         console.log("img api res in corousel : ", data);
-        setPhoto(data.data);
+        setPhoto(data.data.images);
       })
       .catch(() => {});
   }, []);
@@ -42,7 +45,7 @@ function ImageCrousel() {
                   key={img._id}
                   // img.title
                 >
-                  <img src={img.image} alt="" />
+                  <img src={img.img} alt="" />
                 </div>
               );
             })}

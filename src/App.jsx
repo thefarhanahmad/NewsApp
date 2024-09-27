@@ -97,7 +97,7 @@ const App = () => {
               />
               <Route path="/login" element={<Login />} />
               <Route path="/stories" element={<WebStory />} />
-              <Route path="/photos" element={<ImageCrousel />} />
+              <Route path="/photos/:id" element={<ImageCrousel />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/verfication/:id" element={<OtpVerify />} />
               <Route

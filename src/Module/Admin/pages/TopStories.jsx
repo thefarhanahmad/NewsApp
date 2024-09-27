@@ -72,10 +72,28 @@ const Upload = () => {
   }));
 
   useEffect(() => {
+    setTitle("");
+    setTopic("");
+    setdesc("");
+    setkeyword([]);
+    setImg(null);
+    setLanguage("");
+    // setpublish("");
+    setreported("");
+    setNewType("");
+    setType("img");
+    setLoading(false);
+    setSubCategory("");
+    setSlug("");
+    setComment(false);
+    setPriority(false);
+  }, []);
+
+  useEffect(() => {
     // setSlug(createSlug(title));
     console.log(id, "id");
     console.log(onEdit, "onEdit");
-    if (onEdit) {
+    if (onEdit && location.pathname != "/dashboard/topstories") {
       axios.get(`${API_URL}/article?id=${id}`).then((item) => {
         let data = item.data[0];
         console.log("data", data);
@@ -96,6 +114,22 @@ const Upload = () => {
         setNewType(data?.newsType);
         setType(data?.type);
       });
+    } else {
+      setTitle("");
+      setTopic("");
+      setdesc("");
+      setkeyword([]);
+      setImg(null);
+      setLanguage("");
+      setOnEdit(false);
+      setreported("");
+      setNewType("");
+      setType("img");
+      setLoading(false);
+      setSubCategory("");
+      setSlug("");
+      setComment(false);
+      setPriority(false);
     }
     axios
       .get(`${API_URL}/content?type=tag`)
