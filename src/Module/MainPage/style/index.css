@@ -633,7 +633,7 @@
 
   .news-main-rigth-part2 {
     height: fit-content;
-    background-color: red;
+    /* background-color: red; */
 
     position: static;
     /* top: -34.5rem;

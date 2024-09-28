@@ -65,6 +65,8 @@ const MainPage = () => {
   const [allCategoriesData, setAllCategoriesData] = useState(null);
   const [DisplayImageCrousal, setDisplayImageCrousal] = useState(false);
 
+  console.log("ads on page : ", topAd, midAd, bottomAd);
+
   useEffect(() => {
     axios
       .get(`${API_URL}/content?type=category`)
@@ -1179,25 +1181,7 @@ const MainPage = () => {
                 />
               </div>
             </div>
-            <div
-              className={
-                "news-main-rigth-part2 static top-0 left-0 md:relative"
-              }
-              style={{
-                height: "fit-content",
-                position: "relative",
-                // background: "red",
-                display: "flex",
-                gap: "2rem",
-                top: "-72.4rem",
-                width: "1000px",
-                left: "-55.78rem",
-                // marginBottom: "20px",
-                border: "1px solid gray",
-                background: "white",
-                paddingBottom: "0px",
-              }}
-            >
+            <div className="news-main-rigth-part2">
               {/* <a
                 href={midAd?.link}
                 target="_blank"
@@ -1252,6 +1236,16 @@ const MainPage = () => {
               )}
               {topAd && (
                 <a
+                  style={{
+                    background: "white",
+                    padding: "10px",
+                    position: "absolute",
+                    top: "0",
+                    left: "13rem",
+                    width: "20%",
+                    paddingBottom: "0px",
+                    height: "auto",
+                  }}
                   href={topAd.link}
                   target="_blank"
                   onClick={() => {
@@ -1266,6 +1260,7 @@ const MainPage = () => {
               )}
               {bottomAd && (
                 <a
+                  // style={{ backgroundColor: "red", padding: "10px" }}
                   href={bottomAd.link}
                   target="_blank"
                   onClick={() => {
@@ -1280,52 +1275,44 @@ const MainPage = () => {
               )}
               <div
                 style={{
-                  width: "200%",
-                  display: "flex",
-                  alignItems: "start",
-                  gap: "10px",
-                  // height: "15%",
-                  justifyContent: "space-between",
+                  width: "100%",
+                  // height: "100%",
                   background: "White",
-                  // marginTop: 10,
+                  marginTop: 10,
                   borderRadius: 10,
                   padding: 10,
-                  // paddingBottom: 50,
+                  paddingBottom: 50,
                 }}
               >
                 <div
                   style={{
                     fontWeight: "600",
-                    // background: "red",
-
                     fontSize: 18,
                     textAlign: "start",
-
                     fontFamily: "Poppins",
-                    width: "fit-content",
                   }}
                 >
                   {currentPoll?.question}
                 </div>
-                <Radio.Group value={selectedOption} style={{ width: "100%" }}>
+                <Radio.Group
+                  value={selectedOption}
+                  style={{ width: "100%", marginTop: "20px" }}
+                >
                   <Row gutter={12}>
                     {pollOptions.map((option, index) => (
                       <Col xs={12} key={index}>
                         <div
                           style={{
-                            width: "100%",
+                            width: "90%",
                             minHeight: "40px",
                             maxHeight: "60px",
                             overflow: "hidden",
                             borderRadius: 10,
                             border: "1px solid black",
-                            marginBottom: 5,
-                            // marginRight: 5,
+                            marginBottom: 10,
                             alignItems: "center",
                             display: "flex",
-                            gap: "2px",
-                            justifyContent: "center",
-                            // padding: "5px",
+                            paddingLeft: "10px",
                             textTransform: "capitalize",
                           }}
                         >
@@ -1341,7 +1328,7 @@ const MainPage = () => {
                           >
                             <div
                               style={{
-                                fontSize: "14px",
+                                fontSize: "18px",
                                 fontWeight: "600",
                                 marginTop: "-10px",
                               }}
