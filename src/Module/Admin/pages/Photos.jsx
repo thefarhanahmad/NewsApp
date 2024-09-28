@@ -36,9 +36,12 @@ const Photos = () => {
   const [allPhotos, setAllPhoto] = useState([]);
   const [currentPhoto, setCurrentPhoto] = useState({}); //while deleting
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
-
+  const [imgTexts, setImgTexts] = useState({});
   const [loading, setLoading] = useState(false);
-  const [img, setImg] = useState(null);
+  // const [img, setImg] = useState([]);
+  const [imgs, setImgs] = useState([]);
+  const [editImgs, setEditImgs] = useState([]);
+  const [newImgs, setNewImgs] = useState([]); // Changed to array
 
   useEffect(() => {
     // setSlug(createSlug(title));
@@ -86,90 +89,166 @@ const Photos = () => {
     setIsVerifyModalOpen(false);
   };
 
-
   const onUpload = async () => {
     try {
       setLoading(true);
       // Step 1: Upload Image
-      let formData = new FormData();
-      formData.append("file", img, img.name);
-      console.log("formData", formData);
+      // let formData = new FormData();
+      // formData.append("file", img, img.name);
+      // console.log("formData", formData);
 
-      const imageResponse = await axios.post(`${API_URL}/image`, formData);
+      // const imageResponse = await axios.post(`${API_URL}/image`, formData);
 
+      // Step 1: Upload Images
+      const imageUploadPromises = imgs.map(async (img) => {
+        let formData = new FormData();
+        formData.append("file", img, img.name);
+        const imageResponse = await axios.post(`${API_URL}/image`, formData);
+        return imageResponse.data.image;
+      });
+      const images = await Promise.all(imageUploadPromises);
+      console.log("uploaded images", images);
+
+      // // Step 2: Create Story
+      // const storyResponse = await axios.post(`${API_URL}/photo`, {
+      //   title,
+      //   image: imageResponse.data.image,
+      // });
       // Step 2: Create Story
       const storyResponse = await axios.post(`${API_URL}/photo`, {
         title,
-        image: imageResponse.data.image,
+        image: images, // Store array of image URLs
+        imageTexts: imgTexts,
       });
-
+      // Additional logic if needed after successful upload
+      // message.success("Your Photo was successfully uploaded");
+      // setTitle("");
+      // setLoading(false);
+      // setImg(null);
       // Additional logic if needed after successful upload
       message.success("Your Photo was successfully uploaded");
       setTitle("");
       setLoading(false);
-      setImg(null);
+      setImgs([]); // Reset to empty array
     } catch (error) {
+      //   message.error("Your Photo was not successfully uploaded");
+      //   // Handle error
+      //   setTitle("");
+      //   setLoading(false);
+      //   setImg(null);
+      // }
+      // setLoading(false);
       message.error("Your Photo was not successfully uploaded");
       // Handle error
       setTitle("");
       setLoading(false);
-      setImg(null);
+      setImgs([]); // Reset to empty array
     }
     setLoading(false);
   };
 
+  const RemoveImage = (item) => {
+    setEditImgs(editImgs.filter((img) => img.img !== item));
+  };
+
   const onUpdate = async () => {
     try {
-      let imageResponse = null;
-      // let imgWithText;
-      setLoading(true);
-      if (img) {
-        // Step 1: Upload Image
-        let formData = new FormData();
-        formData.append("file", img, img.name);
-        console.log("formData", formData);
+      // let imageResponse = null;
+      // // let imgWithText;
+      // setLoading(true);
+      // if (img) {
+      //   // Step 1: Upload Image
+      //   let formData = new FormData();
+      //   formData.append("file", img, img.name);
+      //   console.log("formData", formData);
 
-        imageResponse = await axios.post(`${API_URL}/image`, formData);
-        // setEditImgs((prev) => [...prev, ...imgWithText]);
+      //   imageResponse = await axios.post(`${API_URL}/image`, formData);
+      //   // setEditImgs((prev) => [...prev, ...imgWithText]);
+      // }
+
+      let imgWithText;
+      setLoading(true);
+      if (imgs.length > 0) {
+        // Step 1: Upload Images
+        const imageUploadPromises = imgs.map(async (img) => {
+          let formData = new FormData();
+          formData.append("file", img, img.name);
+          const imageResponse = await axios.post(`${API_URL}/image`, formData);
+          return imageResponse.data.image;
+        });
+
+        const images = await Promise.all(imageUploadPromises);
+        console.log("images", images);
+        imgWithText = images?.map((img, index) => ({
+          img: img,
+          text: imgTexts[index],
+        }));
+        setNewImgs(imgWithText);
       }
 
       // setTimeout(() => {
       // Step 2: update Story
       console.log("imgWithText", imageResponse, title, editPhoto);
 
+      // axios
+      //   .put(`${API_URL}/photo/${id}`, {
+      //     title: title,
+      //     image: imageResponse ? imageResponse?.data?.image : editPhoto,
+      //   })
       axios
         .put(`${API_URL}/photo/${id}`, {
           title: title,
-          image: imageResponse ? imageResponse?.data?.image : editPhoto,
+          images: [...editImgs, ...imgWithText],
         })
         .then((res) => {
           console.log("storyEditResponse", res);
           // Additional logic if needed after successful upload
           message.success("Your Photo was successfully updated");
           setTitle("");
-          setEditPhoto("");
-          setImg(null);
           setLoading(false);
+          setEditImgs([]); // Reset to empty array
+          setImgs([]);
           setIsVerifyModalOpen(false);
           navigation("/dashboard/photos");
         });
-      // }, 2000);
     } catch (error) {
       message.error("Your Photo was not successfully uploaded");
       // Handle error
       setTitle("");
-      setEditPhoto("");
-      setImg(null);
       setLoading(false);
+      setImgs([]); // Reset to empty array
     }
     setLoading(false);
   };
+  // .then((res) => {
+  //   console.log("storyEditResponse", res);
+  //   // Additional logic if needed after successful upload
+  //   message.success("Your Photo was successfully updated");
+  //   setTitle("");
+  //   setEditPhoto("");
+  //   setImg(null);
+  //   setLoading(false);
+  //   setIsVerifyModalOpen(false);
+  //   navigation("/dashboard/photos");
+  // });
+  // }, 2000);
+  //   } catch (error) {
+  //     message.error("Your Photo was not successfully uploaded");
+  //     // Handle error
+  //     setTitle("");
+  //     setEditPhoto("");
+  //     setImg(null);
+  //     setLoading(false);
+  //   }
+  //   setLoading(false);
+  // };
 
   async function fetchAllPhotos() {
     try {
       // Fetch comments from your API
       const response = await fetch(`${API_URL}/photo`);
       const data = await response.json();
+      console.log("images from res : ", data);
       setAllPhoto(data);
     } catch (error) {
       console.error("Error fetching photo:", error);
@@ -262,23 +341,57 @@ const Photos = () => {
     },
     {
       title: "Image",
-      dataIndex: "image", // Assuming 'likes' is the property representing the likes
-      key: "image",
-      render: (_, { image }) => {
-        console.log(image);
-
+      dataIndex: "images", // Assuming 'likes' is the property representing the likes
+      key: "images",
+      // render: (_, { images }) => {
+      render: (images) => {
+        console.log("image in image section : ", images);
         return (
-          <>
-            <img
-              width={100}
-              style={{
-                width: "100px",
-                height: "100px",
-              }}
-              src={image}
-            />
-          </>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              // width: "500px",
+            }}
+          >
+            {images.map((image, index) => (
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  marginLeft: "10px",
+                }}
+              >
+                <img
+                  key={index}
+                  width={100}
+                  style={{
+                    width: "100px",
+                    height: "100px",
+                    marginRight: "5px",
+                  }}
+                  src={image?.img}
+                />
+                <p style={{ height: "40px", textAlign: "center" }}>
+                  {image?.text}
+                </p>
+              </div>
+            ))}
+          </div>
         );
+
+        // return (
+        //   <>
+        //     <img
+        //       width={100}
+        //       style={{
+        //         width: "100px",
+        //         height: "100px",
+        //       }}
+        //       src={image}
+        //     />
+        //   </>
+        // );
       },
     },
 
@@ -354,7 +467,9 @@ const Photos = () => {
       >
         Photos
       </h1>
-      <div>
+      <div
+      // style={{ backgroundColor: "yellowgreen" }}
+      >
         <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
           {editPhoto ? (
             <>
@@ -379,8 +494,9 @@ const Photos = () => {
                 type="file"
                 name="file"
                 id="file-name"
+                multiple // Allow multiple files
                 onChange={(e) => {
-                  setImg(e.target.files[0]);
+                  setImgs([...e.target.files]);
                 }}
                 style={{ display: "none" }}
                 hidden={true}
@@ -396,9 +512,30 @@ const Photos = () => {
                   backgroundColor: "rgba(0,0,0,0.1)",
                   borderRadius: "10px",
                   marginBottom: 10,
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: "10px",
                 }}
               >
-                {img == null ? (
+                <div
+                  style={{
+                    height: "100%",
+                    fontSize: "25px",
+                    fontWeight: "600",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    display: "flex",
+                    color: "rgba(0,0,0,0.5)",
+                    textAlign: "center",
+                    alignSelf: "center",
+                    margin: "auto",
+                  }}
+                >
+                  {imgs.length === 0
+                    ? "Upload images here"
+                    : "Upload more images"}
+                </div>
+                {/* {img == null ? (
                   <div
                     style={{
                       height: "100%",
@@ -421,7 +558,90 @@ const Photos = () => {
                     }}
                     src={URL.createObjectURL(img)}
                   />
-                )}
+                )} */}
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  // backgroundColor: "red",
+                  // padding: "10px",
+                  flexDirection: "row",
+                }}
+              >
+                {imgs.length > 0 &&
+                  imgs.map((img, index) => (
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        marginLeft: "10px",
+                      }}
+                    >
+                      <img
+                        key={index}
+                        style={{
+                          width: "100px",
+                          height: "100px",
+                          borderRadius: "10px",
+                          objectFit: "cover",
+                          alignSelf: "center",
+                          margin: "2px",
+                        }}
+                        src={URL.createObjectURL(img)}
+                      />
+                      <Input
+                        style={{ height: "40px", width: "150px" }}
+                        placeholder="Image Text"
+                        value={imgTexts[index]}
+                        onChange={(e) =>
+                          setImgTexts((old) => ({
+                            ...old,
+                            [index]: e.target.value,
+                          }))
+                        }
+                      />
+                    </div>
+                  ))}{" "}
+                {editImgs.length > 0 &&
+                  editImgs.map((img, index) => (
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        marginLeft: "10px",
+                      }}
+                    >
+                      <FaTrashAlt
+                        style={{ marginLeft: "7%", marginBottom: "-10%" }}
+                        size={"15"}
+                        color="red"
+                        onClick={() => RemoveImage(img.img)}
+                      />
+                      <img
+                        key={index}
+                        style={{
+                          width: "100px",
+                          height: "100px",
+                          borderRadius: "10px",
+                          objectFit: "cover",
+                          alignSelf: "center",
+                          margin: "2px",
+                        }}
+                        src={img.img}
+                      />
+                      <Input
+                        style={{ height: "40px", width: "150px" }}
+                        placeholder="Image Text"
+                        value={img.text}
+                        onChange={(e) =>
+                          setImgTexts((old) => ({
+                            ...old,
+                            [index]: e.target.value,
+                          }))
+                        }
+                      />
+                    </div>
+                  ))}
               </div>
             </div>
           )}

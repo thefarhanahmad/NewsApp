@@ -190,6 +190,7 @@ const VisualStories = () => {
       // Fetch comments from your API
       const response = await fetch(`${API_URL}/story`);
       const data = await response.json();
+      console.log("visual stories res : ", data);
       setAllPhoto(data);
     } catch (error) {
       console.error("Error fetching photo:", error);
@@ -397,7 +398,9 @@ const VisualStories = () => {
       >
         Visual Story
       </h1>
-      <div>
+      <div
+      // style={{ backgroundColor: "yellow" }}
+      >
         <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
           <div>
             <Input
@@ -446,7 +449,14 @@ const VisualStories = () => {
                   : "Upload more images"}
               </div>
             </div>
-            <div style={{ display: "flex", flexDirection: "row" }}>
+            <div
+              style={{
+                display: "flex",
+                // backgroundColor: "red",
+                // padding: "10px",
+                flexDirection: "row",
+              }}
+            >
               {imgs.length > 0 &&
                 imgs.map((img, index) => (
                   <div

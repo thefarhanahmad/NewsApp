@@ -250,12 +250,12 @@ const DetailsPage2 = () => {
           />
         </div>
         <div className="container3">
-          {/* <h1
+          <h1
             style={{ fontSize: "20px" }}
             className="details-page-main-heading"
           >
             {data?.title}
-          </h1> */}
+          </h1>
           <div className="deatils-main-para-area" id="mob_parar"></div>
           <div
             style={{ margin: " 15px 0px" }}

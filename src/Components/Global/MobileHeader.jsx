@@ -44,7 +44,7 @@ const MobileHeader = ({ data }) => {
 
   const navigate = useNavigate();
   const goToPreviousPage = () => {
-    navigate(-1);
+    window.history.back();
   };
 
   const storyId = findStoryIdFromUrl(searchQueryId);
@@ -101,14 +101,14 @@ const MobileHeader = ({ data }) => {
       <div className="mobilevisibleNavItems">
         <div>
           {pathname !== "/" ? (
-            <Link
+            <div
               style={{
                 color: "white",
                 fontFamily: "sans-serif",
                 cursor: "pointer",
                 textDecoration: "none",
               }}
-              to={"/"}
+              onClick={goToPreviousPage}
             >
               <ArrowLeftOutlined color="white" />
               {isVideoPresent && "Video"}
@@ -117,7 +117,7 @@ const MobileHeader = ({ data }) => {
                 (articleType === "breakingNews"
                   ? "Breaking News"
                   : "Top Stories")}
-            </Link>
+            </div>
           ) : isHamBurgClicked ? (
             <RxCross1
               size={25}

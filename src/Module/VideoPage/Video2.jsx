@@ -217,7 +217,7 @@ const VideoPage2 = () => {
     <>
       {/* mobile version */}
 
-      <div className="mobileDetailsPage">
+      <div className="mobileDetailsPage" style={{ marginTop: "5px" }}>
         {/* <div className="mobileDetailsMainImage">
           <video
             style={{ height: "200px", objectFit: "cover" }}
@@ -228,7 +228,7 @@ const VideoPage2 = () => {
           />
         </div> */}
         <h1 style={{ fontSize: "20px" }} className="details-page-main-heading">
-          {vdoData?.title}
+          {/* {vdoData?.title} */}
         </h1>
         {/* video player */}
         <div
