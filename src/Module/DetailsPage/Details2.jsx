@@ -250,12 +250,12 @@ const DetailsPage2 = () => {
           />
         </div>
         <div className="container3">
-          <h1
+          {/* <h1
             style={{ fontSize: "20px" }}
             className="details-page-main-heading"
           >
             {data?.title}
-          </h1>
+          </h1> */}
           <div className="deatils-main-para-area" id="mob_parar"></div>
           <div
             style={{ margin: " 15px 0px" }}
@@ -456,7 +456,7 @@ const DetailsPage2 = () => {
       {/* mobile version  */}
       <div className="detail-page-top-container container2 container3 webDetailsContainer">
         <div className="container-detail-page-left-side">
-          <h1 className="details-page-main-heading">{data?.title}</h1>
+          {/* <h1 className="details-page-main-heading">{data?.title}</h1> */}
           <div className="details-page-top-items">
             <div className="details-page-top-item1">
               <FaUser style={{ marginRight: "10px" }} />

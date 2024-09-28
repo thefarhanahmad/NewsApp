@@ -1,18 +1,17 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { GiHamburgerMenu } from 'react-icons/gi';
-import { RxCross1 } from 'react-icons/rx';
+import React, { useContext, useEffect, useState } from "react";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { RxCross1 } from "react-icons/rx";
 import { BiSolidSearch } from "react-icons/bi";
-import { Loading } from '../../Context';
-import {  useLocation, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { API_URL } from '../../../API';
+import { Loading } from "../../Context";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { API_URL } from "../../../API";
 import { AutoComplete, Dropdown, Input } from "antd";
 
 import { MdArrowDropDown } from "react-icons/md";
-import { ArrowLeftOutlined, PlayCircleOutlined } from '@ant-design/icons';
+import { ArrowLeftOutlined, PlayCircleOutlined } from "@ant-design/icons";
 
 function findStoryIdFromUrl(pathname) {
-  
   // Regular expression to find the 'id' parameter and its value
   const idRegex = /id=([^&]+)/;
 
@@ -21,35 +20,35 @@ function findStoryIdFromUrl(pathname) {
 
   // Check if the 'id' parameter is found
   if (idMatch) {
-      // Extract the value of the 'id' parameter
-      const id = idMatch[1];
-      
-      return  id 
-      
-      // You can now use the 'id' variable for further processing
+    // Extract the value of the 'id' parameter
+    const id = idMatch[1];
+
+    return id;
+
+    // You can now use the 'id' variable for further processing
   } else {
-      console.log("ID parameter not found in the URL.");
+    console.log("ID parameter not found in the URL.");
   }
 }
 
-const MobileHeader = ({data}) => {
-  const [isHamBurgClicked,setHambergClicked] = useState(false)
+const MobileHeader = ({ data }) => {
+  const [isHamBurgClicked, setHambergClicked] = useState(false);
   const [itsItem, setItsItem] = useState([]);
   const [itsItem2, setItsItem2] = useState([]);
   const { loading, setLoading, setEffect, effect } = useContext(Loading);
   const [search, setSearch] = useState(false);
-  const {search:searchQueryId,pathname} = useLocation()
+  const { search: searchQueryId, pathname } = useLocation();
   const isVideoPresent = pathname.includes("/video");
   const isDetailsPresent = pathname.includes("/details");
   const isLivePage = pathname.includes("/live");
 
-  
+  const navigate = useNavigate();
   const goToPreviousPage = () => {
-    window.history.back();
+    navigate(-1);
   };
-  
-  const storyId = findStoryIdFromUrl(searchQueryId)
-  const [articleType , setArticleType] = useState("")
+
+  const storyId = findStoryIdFromUrl(searchQueryId);
+  const [articleType, setArticleType] = useState("");
 
   const Navigation = useNavigate();
   useEffect(() => {
@@ -57,7 +56,6 @@ const MobileHeader = ({data}) => {
       .get(`${API_URL}/article?id=${storyId}`)
       .then(async (article) => {
         setArticleType(article.data[0].newsType);
-        
       })
       .catch((err) => {
         console.log(err);
@@ -65,7 +63,6 @@ const MobileHeader = ({data}) => {
   }, []);
   // console.log(pathname,isDetailsPresent,isVideoPresent)
 
-  
   useEffect(() => {
     setLoading(true);
     axios
@@ -98,154 +95,166 @@ const MobileHeader = ({data}) => {
       .catch((err) => {
         setLoading(false);
       });
-    
   }, []);
   return (
-    
-    <div className='mobileNavBarContainer'>
-      <div className='mobilevisibleNavItems'>
+    <div className="mobileNavBarContainer">
+      <div className="mobilevisibleNavItems">
         <div>
-        {pathname !== "/" ? (
-          < div 
-          style={{color:"white",fontFamily:"sans-serif",cursor:"pointer"}}
-          onClick={goToPreviousPage}
-          >
-          <ArrowLeftOutlined color="white"  />
-          {isVideoPresent && "Video"}
-          {isLivePage && "Live"}
-          {isDetailsPresent && (articleType ==="breakingNews"? "Breaking News" :"Top Stories")}
-          </div>
-      ) : (
-        isHamBurgClicked ? (
-          <RxCross1
-            size={25}
-            color="white"
-            onClick={() => setHambergClicked(false)}
-            className="ham-burger-area-cross-child"
-          />
-        ) : (
-          <GiHamburgerMenu
-            className="ham-burger"
-            size={25}
-            color="white"
-            onClick={() => { setHambergClicked(prevState => !prevState) }}
-          />
-        )
-      )}
-          
-        
+          {pathname !== "/" ? (
+            <Link
+              style={{
+                color: "white",
+                fontFamily: "sans-serif",
+                cursor: "pointer",
+                textDecoration: "none",
+              }}
+              to={"/"}
+            >
+              <ArrowLeftOutlined color="white" />
+              {isVideoPresent && "Video"}
+              {isLivePage && "Live"}
+              {isDetailsPresent &&
+                (articleType === "breakingNews"
+                  ? "Breaking News"
+                  : "Top Stories")}
+            </Link>
+          ) : isHamBurgClicked ? (
+            <RxCross1
+              size={25}
+              color="white"
+              onClick={() => setHambergClicked(false)}
+              className="ham-burger-area-cross-child"
+            />
+          ) : (
+            <GiHamburgerMenu
+              className="ham-burger"
+              size={25}
+              color="white"
+              onClick={() => {
+                setHambergClicked((prevState) => !prevState);
+              }}
+            />
+          )}
         </div>
-        
-        <ul  className='mobilevisibleNavItemsUlChild'>
-          {!isLivePage?
-            <li  style={{cursor:"pointer"}} onClick={() => Navigation("/live")}>
-            <PlayCircleOutlined style={{marginRight:"5px"}} /> live
-          </li>:null
-          }
-        
-        <li><BiSolidSearch
-                    onClick={() => {
-                      setSearch((prevState)=>!prevState);
-                    }}
-                    size={25}
-                    color="white"
-                    style={{
-                      marginLeft: "10px",
-                      cursor:"pointer"
-                    }}
-                  />
-        </li>
+
+        <ul className="mobilevisibleNavItemsUlChild">
+          {!isLivePage ? (
+            <li
+              style={{ cursor: "pointer" }}
+              onClick={() => Navigation("/live")}
+            >
+              <PlayCircleOutlined style={{ marginRight: "5px" }} /> live
+            </li>
+          ) : null}
+
+          <li>
+            <BiSolidSearch
+              onClick={() => {
+                setSearch((prevState) => !prevState);
+              }}
+              size={25}
+              color="white"
+              style={{
+                marginLeft: "10px",
+                cursor: "pointer",
+              }}
+            />
+          </li>
         </ul>
-
-
-        
-
       </div>
-      
 
-      <div className={`mobileNavAbsoluteContainer ${isHamBurgClicked?"mobileNavAbsoluteContainerCLicked":""}`}>
+      <div
+        className={`mobileNavAbsoluteContainer ${
+          isHamBurgClicked ? "mobileNavAbsoluteContainerCLicked" : ""
+        }`}
+      >
         <ul>
-        {itsItem.length > 0 &&
-                  itsItem.map((data) => {
-                    let arr = [];
-                    // let item = [];
-                    axios
-                      .get(`${API_URL}/subcategory?category=${data.text}`)
-                      .then((data) => {
-                        for (let i = 0; i < data.data.length; i++) {
-                          const element = data.data[i];
-                          arr.push({
-                            key: element._id,
-                            label: (
-                              <a
-                                target="_blank"
-                                onClick={() => {
-                                  Navigation(
-                                    `/itempage?item=${element.category}&sub=${element.text}`
-                                  );
-                                  setEffect(!effect);
-                                }}
-                              >
-                                {element.text}
-                              </a>
-                            ),
-                          });
-                        }
-                      });
-                    return (
-                      // <Dropdown
-                      //   key={data._id}
-                      //   menu={{
-                      //     items: arr,
-                      //   }}
-                      //   placement="bottom"
-                      //   arrow
-                      // >
-                        <li
+          {itsItem.length > 0 &&
+            itsItem.map((data) => {
+              let arr = [];
+              // let item = [];
+              axios
+                .get(`${API_URL}/subcategory?category=${data.text}`)
+                .then((data) => {
+                  for (let i = 0; i < data.data.length; i++) {
+                    const element = data.data[i];
+                    arr.push({
+                      key: element._id,
+                      label: (
+                        <a
+                          target="_blank"
                           onClick={() => {
-                            setHambergClicked(false)
-                            Navigation(`/itempage?item=${data.text}`);
+                            Navigation(
+                              `/itempage?item=${element.category}&sub=${element.text}`
+                            );
                             setEffect(!effect);
                           }}
                         >
-                          {data.text}
-                          {/* {data.text} <MdArrowDropDown size={20} /> */}
-                        </li>
-                      // </Dropdown>
-                    );
-                  })}
+                          {element.text}
+                        </a>
+                      ),
+                    });
+                  }
+                });
+              return (
+                // <Dropdown
+                //   key={data._id}
+                //   menu={{
+                //     items: arr,
+                //   }}
+                //   placement="bottom"
+                //   arrow
+                // >
+                <li
+                  onClick={() => {
+                    setHambergClicked(false);
+                    Navigation(`/itempage?item=${data.text}`);
+                    setEffect(!effect);
+                  }}
+                >
+                  {data.text}
+                  {/* {data.text} <MdArrowDropDown size={20} /> */}
+                </li>
+                // </Dropdown>
+              );
+            })}
         </ul>
       </div>
-      
-      {search && 
-      (<div style={{display:"flex",justifyContent:"center",alignItems:"center",marginTop:"10px"}}>
-      <AutoComplete
-              style={{
-                width:"90%",
-                height:"100%"
+
+      {search && (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: "10px",
+          }}
+        >
+          <AutoComplete
+            style={{
+              width: "90%",
+              height: "100%",
+            }}
+            options={itsItem2}
+            // placeholder="try to type `b`"
+            filterOption={(inputValue, option) =>
+              option.value?.toUpperCase().indexOf(inputValue.toUpperCase()) !==
+              -1
+            }
+          >
+            <Input.Search
+              autoFocus
+              size="large"
+              placeholder="Search"
+              enterButton
+              onSearch={(e) => {
+                Navigation(`itempage?item=${e}`);
+                setSearch(false);
               }}
-              options={itsItem2}
-              // placeholder="try to type `b`"
-              filterOption={(inputValue, option) =>
-                option.value
-                  ?.toUpperCase()
-                  .indexOf(inputValue.toUpperCase()) !== -1
-              }
-            >
-              <Input.Search
-                autoFocus
-                size="large"
-                placeholder="Search"
-                enterButton
-                onSearch={(e) => {
-                  Navigation(`itempage?item=${e}`);
-                  setSearch(false);
-                }}
-              />
-      </AutoComplete>
-      </div>)
-      }
-      
+            />
+          </AutoComplete>
+        </div>
+      )}
     </div>
   );
 };

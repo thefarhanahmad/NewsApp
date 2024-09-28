@@ -4,6 +4,7 @@ import videoPlayer from "../../assets/video2.mp4";
 import img7 from "../../assets/Rectangle 67.png";
 import RelatedNewsCard from "../../Components/DetailsPage";
 import { FaUser } from "react-icons/fa6";
+import ReactPlayer from "react-player";
 import { AiFillHeart, AiOutlineCalendar } from "react-icons/ai";
 import { TiHeartOutline } from "react-icons/ti";
 import { RiMessage2Fill } from "react-icons/ri";
@@ -128,20 +129,18 @@ const VideoPage2 = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
+
   useEffect(() => {
-    console.log("heee");
-    axios
-      .get(`${API_URL}/article?id=${storyId}`)
-      .then(async (article) => {
-        console.log(article.data[0], "art");
-        setData(article.data[0]);
-        document.getElementById("pararvideo").innerHTML =
-          article?.data[0].discription;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (storyId) {
+      axios
+        .get(`${API_URL}/article?id=${storyId}`)
+        .then(async (article) => {
+          setData(article.data[0]);
+        })
+        .catch((err) => console.log(err));
+    }
   }, [storyId]);
+
   useEffect(() => {
     axios.get(`${API_URL}/comment?id=${query.get("id")}`).then((res) => {
       console.log(res.data);
@@ -154,15 +153,13 @@ const VideoPage2 = () => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+
   const onAdd = () => {
+    if (!data) {
+      message.error("Post data not found.");
+      return;
+    }
     setLoading2(true);
-    console.log(
-      { email: Email, name, message: comment, postId: data._id },
-      "dd"
-    );
     axios
       .post(`${API_URL}/comment`, {
         email: Email,
@@ -180,9 +177,9 @@ const VideoPage2 = () => {
         console.log(err);
         message.error("Successfully Not Added");
         setLoading2(false);
-        message.success("Successfully Added");
       });
   };
+
   async function fetchLatestVidData() {
     const response = await axios.get(
       `${API_URL}/article?pagenation=true&limit=10&type=vid&newsType=breakingNews&status=online`
@@ -196,21 +193,21 @@ const VideoPage2 = () => {
   console.log("vdo data m : ", vdoData);
 
   const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const id = queryParams.get("id");
-
-  console.log("id from params : ", id);
-
-  useEffect(async () => {
-    try {
-      const res = await axios.get(`${API_URL}/video/${id}`);
-      console.log("video find by id res : ", res.data.data);
-      setVideoData(res.data.data);
-      // setData(res.data.data);
-    } catch (error) {
-      console.log("error in vdo detail page : ", error);
-    }
-  }, []);
+  useEffect(() => {
+    const fetchVideoData = async () => {
+      const queryParams = new URLSearchParams(location.search);
+      const id = queryParams.get("id");
+      console.log("id from params : ", id);
+      try {
+        const res = await axios.get(`${API_URL}/video/${id}`);
+        console.log("video find by id res : ", res.data.data);
+        setVideoData(res.data.data);
+      } catch (error) {
+        console.log("error in vdo detail page : ", error);
+      }
+    };
+    fetchVideoData();
+  }, [location.search]);
 
   useEffect(() => {
     fetchLatestVidData();
@@ -221,7 +218,7 @@ const VideoPage2 = () => {
       {/* mobile version */}
 
       <div className="mobileDetailsPage">
-        <div className="mobileDetailsMainImage">
+        {/* <div className="mobileDetailsMainImage">
           <video
             style={{ height: "200px", objectFit: "cover" }}
             className="details-page-main-video"
@@ -229,13 +226,28 @@ const VideoPage2 = () => {
             src={data?.image}
             muted
           />
+        </div> */}
+        <h1 style={{ fontSize: "20px" }} className="details-page-main-heading">
+          {vdoData?.title}
+        </h1>
+        {/* video player */}
+        <div
+          className="mobileDetailsMainImage video-container"
+          style={{ height: "200px", overflow: "hidden" }}
+        >
+          <ReactPlayer
+            // style={{ height: "200px", objectFit: "cover" }}
+            className="details-page-main-video"
+            url={vdoData?.link}
+            controls={true} // Enable video controls
+          />
         </div>
         <div className="container3">
           <h1
             style={{ fontSize: "20px" }}
             className="details-page-main-heading"
           >
-            {data?.title}
+            {vdoData?.title}
           </h1>
         </div>
         <div
@@ -432,7 +444,8 @@ const VideoPage2 = () => {
       {/* mobile version */}
       <div className="detail-page-top-container container2 container3 webDetailsContainer">
         <div className="container-detail-page-left-side">
-          <h1 className="details-page-main-heading">{data?.title}</h1>
+          {/* <h1 className="details-page-main-heading">{vdoData?.title}</h1> */}
+          <h1 className="details-page-main-heading">{vdoData?.title}</h1>
           <div className="details-page-top-items">
             <div className="details-page-top-item1">
               <FaUser style={{ marginRight: "10px" }} />
@@ -508,14 +521,25 @@ const VideoPage2 = () => {
               </WhatsappShareButton>
             </div>
           </div>
-          <video
+          {/* <video
             className="details-page-main-video"
             controls
             src={data?.image}
             muted
-          />
+            
+          /> */}
+
+          {/* video player */}
+          <div className="details-page-main-video">
+            <ReactPlayer
+              url={vdoData?.link}
+              controls={true} // Enable video controlsht
+            />
+          </div>
           <div className="details-main-text-area">
-            <div className="details-main-text-area-heading">{data?.title}</div>
+            <div className="details-main-text-area-heading details-page-main-heading">
+              {data?.title}
+            </div>
             <div className="deatils-main-para-area">
               <div id="pararvideo"></div>
             </div>

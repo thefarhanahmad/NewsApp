@@ -86,6 +86,7 @@ const Photos = () => {
     setIsVerifyModalOpen(false);
   };
 
+
   const onUpload = async () => {
     try {
       setLoading(true);
