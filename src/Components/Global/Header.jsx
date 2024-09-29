@@ -90,9 +90,11 @@ const Header = () => {
         setLoading(false);
       });
     axios.get(`${API_URL}/ads?active=true&side=top`).then((data) => {
-      setTopAd(data.reverse()[0]);
+      console.log("top ad in header res : ", data);
+      setTopAd(data.data.reverse()[0]);
     });
   }, []);
+  console.log("top ad in header page : ", topAd);
   useEffect(() => {
     if (topAd && topAd._id) {
       // console.log("mid ad impressioning")
@@ -119,6 +121,7 @@ const Header = () => {
         <div className="header-main-area">
           <div>
             <a
+              // style={{ backgroundColor: "red", padding: "10px",objectFit:"contain",width:"30%" }}
               href={topAd?.link}
               target="_blank"
               onClick={() => {
@@ -126,11 +129,16 @@ const Header = () => {
               }}
             >
               <img
-                style={{ cursor: "pointer" }}
+                style={{
+                  cursor: "pointer",
+                  // objectFit: "contain",
+                  padding: "2px",
+                }}
                 className="top-header-img"
                 src={topAd?.imgLink}
                 alt=""
               />
+              {/* top ad will show here */}
             </a>
             {/* <img src={TopHeaderImg} alt="" " /> */}
             <select

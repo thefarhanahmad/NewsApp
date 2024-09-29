@@ -249,10 +249,15 @@ const DetailsPage = () => {
   const title = "News App";
   const imgUrl = data?.image;
 
-  console.log("image url : ", imgUrl);
+  console.log(
+    "shareurl,title,imgurl in share button : ",
+    shareUrl,
+    title,
+    imgUrl
+  );
 
   // meta tags included
-  <>
+  <Helmet>
     <meta property="og:image" content={imgUrl} />
     <meta name="twitter:image" content={imgUrl} />
     <meta property="og:title" content={title} />
@@ -268,7 +273,7 @@ const DetailsPage = () => {
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={title} />
     <meta name="twitter:image" content={imgUrl} />
-  </>;
+  </Helmet>;
 
   console.log("article data  : ", article?.data[0]);
   console.log("data   : ", data);

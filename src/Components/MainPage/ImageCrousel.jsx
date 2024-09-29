@@ -38,15 +38,38 @@ function ImageCrousel() {
             photo.map((img) => {
               console.log("IMG", img);
               return (
-                <div
-                  style={{ cursor: "pointer" }}
-                  className="photoGallery-card"
-                  onClick={() => window.open(img.title, "_blank")}
-                  key={img._id}
-                  // img.title
-                >
-                  <img src={img.img} alt="" />
-                </div>
+                <>
+                  <div
+                    style={{
+                      backgroundColor: "white",
+                      // opacity:"100%",
+                      padding: "6px",
+                      fontSize: "1.2rem",
+                      // paddingLeft: "50px",
+                      bottom: "30px",
+                      textAlign: "center",
+                      // width: "98%",
+                      borderRadius: "10px",
+                      overflow: "hidden",
+                      marginBottom: "5px",
+                    }}
+                  >
+                    {img?.text}
+                  </div>
+                  <div
+                    style={{
+                      cursor: "pointer",
+                      position: "relative",
+                      width: "100%",
+                    }}
+                    className="photoGallery-card"
+                    onClick={() => window.open(img.title, "_blank")}
+                    key={img._id}
+                    // img.title
+                  >
+                    <img src={img.img} alt="" />
+                  </div>
+                </>
               );
             })}
         </Carousel>

@@ -46,11 +46,14 @@ const Ads = () => {
     setImpression((prevImpression) => prevImpression + 1);
   }, []);
 
+  console.log("user data in ad : ", userData);
+
   const fetchAds = () => {
     console.log("h");
     axios
       .get(`${API_URL}/ads`)
       .then((users) => {
+        console.log("userdata ad section : ", users);
         setUserData(users.data.reverse());
         setNoOfImpression(users.data[0].noOfImpression);
         console.log(users.data[0].noOfImpression);

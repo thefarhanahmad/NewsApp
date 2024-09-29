@@ -260,19 +260,24 @@ const MainPage = () => {
       axios.get(`${API_URL}/ads/click?id=${bottomAd._id}`).then((data) => {});
     }
     if (topAd && topAd._id) {
-      axios.get(`${API_URL}/ads/click?id=${topAd._id}`).then((data) => {});
+      axios.get(`${API_URL}/ads/click?id=${topAd._id}`).then((data) => {
+        // console.log("top ad data response : ", data);
+      });
     }
   }, [midAd, bottomAd, topAd]);
 
   useEffect(() => {
+    axios.get(`${API_URL}/ads?active=true&side=top`).then((data) => {
+      console.log("top ad data response : ", data);
+      setTopAd(data.data.reverse()[0]);
+    });
     axios.get(`${API_URL}/ads?active=true&side=mid`).then((data) => {
+      console.log("mid ad data response : ", data);
       setMidAd(data.data.reverse()[0]);
     });
     axios.get(`${API_URL}/ads?active=true&side=bottom`).then((data) => {
+      console.log("bottom ad data response : ", data);
       setBottomAd(data.data.reverse()[0]);
-    });
-    axios.get(`${API_URL}/ads?active=true&side=top`).then((data) => {
-      setTopAd(data.data.reverse()[0]);
     });
   }, []);
   const showModal2 = () => {
@@ -1234,7 +1239,7 @@ const MainPage = () => {
                   </p>
                 </a>
               )}
-              {topAd && (
+              {/* {topAd && (
                 <a
                   style={{
                     background: "white",
@@ -1257,8 +1262,8 @@ const MainPage = () => {
                     {topAd.slugName}
                   </p>
                 </a>
-              )}
-              {bottomAd && (
+              )} */}
+              {/* {bottomAd && (
                 <a
                   // style={{ backgroundColor: "red", padding: "10px" }}
                   href={bottomAd.link}
@@ -1272,7 +1277,7 @@ const MainPage = () => {
                     {bottomAd.slugName}
                   </p>
                 </a>
-              )}
+              )} */}
               <div
                 style={{
                   width: "100%",
@@ -1501,12 +1506,12 @@ const MainPage = () => {
               ) : null}
             </div>
           </div>
-        {/* </div> */}
-        {/* <div className="webMainPagecomponent"> */}
-        {/* <AllSectionArticle data={allCategoriesData} /> */}
-        {/* </div> */}
+        </div>*/}
+        <div className="webMainPagecomponent">
+          <AllSectionArticle data={allCategoriesData} />
+        </div>
 
-        {/* <div className="main-page-technology-container container2 container3">
+        <div className="main-page-technology-container container2 container3">
           <div className="main-page-technology-heading">{t("t")}</div>
           <div className="main-page-technology-area">
             <div>
@@ -1617,7 +1622,7 @@ const MainPage = () => {
               </div>
             </div>
           </div>
-        </div> */}
+        </div>
         {stories && stories.length > 0 && (
           <div
             id="VisualStories"

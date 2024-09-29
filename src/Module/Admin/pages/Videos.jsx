@@ -257,22 +257,81 @@ const Video = () => {
     },
     {
       title: "link",
-      dataIndex: "link", // Assuming 'likes' is the property representing the likes
+      dataIndex: "link",
       key: "link",
       render: (_, { link }) => {
-        console.log(link);
+        console.log("yt vdo link in video section : ", link);
 
-        return link ? (
-          <iframe
-            className="video"
-            title="Youtube player"
-            sandbox="allow-same-origin allow-forms allow-popups allow-scripts allow-presentation"
-            src={link}
-            width={"200px"}
-            height={"100px"}
-          ></iframe>
+        // Function to extract video ID from various YouTube URL formats
+        const extractVideoId = (url) => {
+          const regex =
+            /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/|youtube\.com\/live\/)([^"&?/\s]{11})/;
+          const match = url?.match(regex);
+          return match ? match[1] : null;
+        };
+
+        // Function to check if the link is already in embed format
+        const isEmbedLink = (url) => {
+          return url?.includes("youtube.com/embed/");
+        };
+
+        // Function to check if the link is a live stream link
+        const isLiveLink = (url) => {
+          return url?.includes("youtube.com/live/");
+        };
+
+        // If it's already an embed link, use it directly
+        let embedLink = link;
+
+        if (!isEmbedLink(link)) {
+          const videoId = extractVideoId(link);
+
+          if (videoId) {
+            // If it's a live link, construct the embed URL for live videos
+            if (isLiveLink(link)) {
+              embedLink = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+            } else {
+              // Otherwise, it's a normal YouTube video, use the standard embed link
+              embedLink = `https://www.youtube.com/embed/${videoId}`;
+            }
+          }
+        }
+
+        // Placeholder image when video is unavailable or live stream fails
+        const unavailableThumbnail =
+          "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/breaking-news-broadcast-youtube-thumbnail-design-template-d06ddc9f11789b47d62564e6e22a7730_screen.jpg?ts=1652194145";
+
+        // If no valid video ID is found, display a message or fallback thumbnail
+        return embedLink ? (
+          <>
+            <iframe
+              className="video"
+              title="Youtube player"
+              src={embedLink}
+              width={"200px"}
+              height={"100px"}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              onError={(e) => {
+                e.target.style.display = "none"; // Hide the iframe if the video is unavailable
+                e.target.nextElementSibling.style.display = "block"; // Show the placeholder thumbnail
+              }}
+            ></iframe>
+            <img
+              src={unavailableThumbnail}
+              alt="Live stream unavailable"
+              style={{ display: "none", width: "200px", height: "100px" }}
+            />
+          </>
         ) : (
-          <div></div>
+          <div>
+            <img
+              src={unavailableThumbnail}
+              alt="Default placeholder for unavailable video"
+              width={"200px"}
+              height={"100px"}
+            />
+            <div>No valid video link</div>
+          </div>
         );
       },
     },

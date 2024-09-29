@@ -50,45 +50,6 @@ const Upload = () => {
   const [name, setName] = useState("");
   const location = useLocation();
 
-  useEffect(() => {
-    if (location.pathname === "/dashboard/upload") {
-      setTitle("");
-      setTopic("");
-      setdesc("");
-      setkeyword([]);
-      setImg(null);
-      setLanguage("");
-      // setpublish("");
-      setreported("");
-      setNewType("");
-      setType("img");
-      setLoading(false);
-      setSubCategory("");
-      setSlug("");
-      setComment(false);
-      setPriority(false);
-      setSlider(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    setTitle("");
-    setTopic("");
-    setdesc("");
-    setkeyword([]);
-    setImg(null);
-    setLanguage("");
-    // setpublish("");
-    setreported("");
-    setNewType("");
-    setType("img");
-    setLoading(false);
-    setSubCategory("");
-    setSlug("");
-    setComment(false);
-    setPriority(false);
-  }, []);
-
   const inputRef = useRef(null);
   const onNameChange = (event) => {
     setName(event.target.value);
@@ -251,7 +212,7 @@ const Upload = () => {
     console.log(formdata);
 
     axios.post(`${API_URL}/image`, formdata).then(async (image) => {
-      console.log(image);
+      console.log("upload image response ", image);
       await axios
         .post(`${API_URL}/article/${localStorage.getItem("id")}`, {
           title: title,
@@ -271,6 +232,7 @@ const Upload = () => {
           slider: slider,
         })
         .then((data) => {
+          console.log("upload article response : ", data);
           console.log(data.data);
           console.log(
             {

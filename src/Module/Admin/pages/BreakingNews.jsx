@@ -71,23 +71,23 @@ const Upload = () => {
     value: item,
   }));
 
-  useEffect(() => {
-    setTitle("");
-    setTopic("");
-    setdesc("");
-    setkeyword([]);
-    setImg(null);
-    setLanguage("");
-    // setpublish("");
-    setreported("");
-    setNewType("");
-    setType("img");
-    setLoading(false);
-    setSubCategory("");
-    setSlug("");
-    setComment(false);
-    setPriority(false);
-  }, []);
+  // useEffect(() => {
+  //   setTitle("");
+  //   setTopic("");
+  //   setdesc("");
+  //   setkeyword([]);
+  //   setImg(null);
+  //   setLanguage("");
+  //   // setpublish("");
+  //   setreported("");
+  //   setNewType("");
+  //   setType("img");
+  //   setLoading(false);
+  //   setSubCategory("");
+  //   setSlug("");
+  //   setComment(false);
+  //   setPriority(false);
+  // }, []);
 
   useEffect(() => {
     console.log(id, "id");
@@ -114,22 +114,22 @@ const Upload = () => {
         setType(data?.type);
       });
     } else {
-      setTitle("");
-      setTopic("");
-      setdesc("");
-      setkeyword([]);
-      setImg(null);
-      setLanguage("");
-      // setpublish("");
-      setreported("");
-      setNewType("");
-      setType("img");
-      setLoading(false);
-      setSubCategory("");
-      setSlug("");
-      setOnEdit(false);
-      setComment(false);
-      setPriority(false);
+      // setTitle("");
+      // setTopic("");
+      // setdesc("");
+      // setkeyword([]);
+      // setImg(null);
+      // setLanguage("");
+      // // setpublish("");
+      // setreported("");
+      // setNewType("");
+      // setType("img");
+      // setLoading(false);
+      // setSubCategory("");
+      // setSlug("");
+      // setOnEdit(false);
+      // setComment(false);
+      // setPriority(false);
     }
     axios
       .get(`${API_URL}/content?type=tag`)
