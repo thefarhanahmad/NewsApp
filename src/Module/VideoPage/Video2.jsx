@@ -104,7 +104,7 @@ const VideoPage2 = () => {
   const query = new URLSearchParams(search);
   const [vdoData, setVideoData] = useState("");
   const navigation = useNavigate();
-
+  console.log("data in videos page : ", data);
   const formatDatetime = (datetimeStr) => {
     if (!datetimeStr) return "12|08|2023 12:15"; // Default date if no datetime string is provided
 
@@ -447,14 +447,22 @@ const VideoPage2 = () => {
           {/* <h1 className="details-page-main-heading">{vdoData?.title}</h1> */}
           <h1 className="details-page-main-heading">{vdoData?.title}</h1>
           <div className="details-page-top-items">
-            <div className="details-page-top-item1">
+            <div
+              className="details-page-top-item1"
+              // style={{ backgroundColor: "red" }}
+            >
               <FaUser style={{ marginRight: "10px" }} />
-              {data?.reportedBy}
+              {/* {data?.reportedBy}
+              {console.log(data?.reportedBy)} */}
+              {vdoData?.reportedBy}
               {console.log(data?.reportedBy)}
             </div>
             <div className="details-page-top-item2">
               <AiOutlineCalendar size={22} style={{ marginRight: "10px" }} />
-              {data ? formatDatetime(data.updatedAt) : "12|08|2023 12:15"}
+              {/* {data ? formatDatetime(data.updatedAt) : "12|08|2023 12:15"} */}
+              {vdoData
+                ? formatDatetime(vdoData?.updatedAt)
+                : "12|08|2023 12:15"}
               {/* { data?data.updatedAt:"12|05|2024"} */}
             </div>
             <div className="details-page-top-item3">

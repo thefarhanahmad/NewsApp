@@ -15,6 +15,7 @@ import axios from "axios";
 import { API_URL } from "../../../API";
 import SubCardSection from "../../Components/SharedComponents/SubCardSection";
 import RelatedNewsCard from "../../Components/DetailsPage";
+import { data } from "autoprefixer";
 
 const ItemPage = () => {
   const { t } = useTranslation();
@@ -57,7 +58,7 @@ const ItemPage = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
-
+  console.log("i am stand on items2 page");
   async function onClickAd(id) {
     try {
       const response = await axios.post(`${API_URL}/ads/click`, { id });
@@ -75,6 +76,9 @@ const ItemPage = () => {
   const query = new URLSearchParams(search);
   const navigation = useNavigate();
   console.log(query.get("item"));
+
+  console.log("data in item page  :", Data);
+
   useEffect(() => {
     setIsLoad(true);
     window.scroll(0, 0);
@@ -108,7 +112,10 @@ const ItemPage = () => {
           )}
         </div>
         <div className="item-page-main-area">
-          <div className="item-page-main-area-1">
+          <div
+            // style={{ backgroundColor: "red" }}
+            className="item-page-main-area-1"
+          >
             {isLoad ? (
               <>
                 <div>
@@ -229,6 +236,7 @@ const ItemPage = () => {
             ) : (
               <div style={{ marginTop: 50 }}>
                 <Empty />
+                {/* data */}
               </div>
             )}
           </div>

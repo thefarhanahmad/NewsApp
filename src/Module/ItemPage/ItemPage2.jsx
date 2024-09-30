@@ -15,145 +15,187 @@ const ItemPage2 = () => {
       <div className="container2 container3">
         <div className="item-page-heading">{t("h15")}</div>
         <div className="item-page-main-area">
-          <div className="item-page-main-area-1">
+          <div
+            className="item-page-main-area-1"
+           
+          >
             <Row>
               <Col span={8}>
                 <div className="item-page-main-area-1-main-box">
-                  <img className="item-page-main-area-1-main-box-img" src={img7}/>
+                  <img
+                    className="item-page-main-area-1-main-box-img"
+                    src={img7}
+                  />
                   <div className="item-page-main-area-1-main-box-text">
-                  "Will Ensure...": On Indian Student's Death, An Apology By Mayor, Top Cop
+                    "Will Ensure...": On Indian Student's Death, An Apology By
+                    Mayor, Top Cop
                   </div>
                 </div>
               </Col>
               <Col span={8}>
                 <div className="item-page-main-area-1-main-box">
-                  <img className="item-page-main-area-1-main-box-img" src={img7}/>
+                  <img
+                    className="item-page-main-area-1-main-box-img"
+                    src={img7}
+                  />
                   <div className="item-page-main-area-1-main-box-text">
-                  "Will Ensure...": On Indian Student's Death, An Apology By Mayor, Top Cop
+                    "Will Ensure...": On Indian Student's Death, An Apology By
+                    Mayor, Top Cop
                   </div>
                 </div>
               </Col>
               <Col span={8}>
                 <div className="item-page-main-area-1-main-box">
-                  <img className="item-page-main-area-1-main-box-img" src={img7}/>
+                  <img
+                    className="item-page-main-area-1-main-box-img"
+                    src={img7}
+                  />
                   <div className="item-page-main-area-1-main-box-text">
-                  "Will Ensure...": On Indian Student's Death, An Apology By Mayor, Top Cop
+                    "Will Ensure...": On Indian Student's Death, An Apology By
+                    Mayor, Top Cop
                   </div>
                 </div>
               </Col>
               <Col span={8}>
                 <div className="item-page-main-area-1-main-box">
-                  <img className="item-page-main-area-1-main-box-img" src={img7}/>
+                  <img
+                    className="item-page-main-area-1-main-box-img"
+                    src={img7}
+                  />
                   <div className="item-page-main-area-1-main-box-text">
-                  "Will Ensure...": On Indian Student's Death, An Apology By Mayor, Top Cop
+                    "Will Ensure...": On Indian Student's Death, An Apology By
+                    Mayor, Top Cop
                   </div>
                 </div>
               </Col>
               <Col span={8}>
                 <div className="item-page-main-area-1-main-box">
-                  <img className="item-page-main-area-1-main-box-img" src={img7}/>
+                  <img
+                    className="item-page-main-area-1-main-box-img"
+                    src={img7}
+                  />
                   <div className="item-page-main-area-1-main-box-text">
-                  "Will Ensure...": On Indian Student's Death, An Apology By Mayor, Top Cop
+                    "Will Ensure...": On Indian Student's Death, An Apology By
+                    Mayor, Top Cop
                   </div>
                 </div>
               </Col>
               <Col span={8}>
                 <div className="item-page-main-area-1-main-box">
-                  <img className="item-page-main-area-1-main-box-img" src={img7}/>
+                  <img
+                    className="item-page-main-area-1-main-box-img"
+                    src={img7}
+                  />
                   <div className="item-page-main-area-1-main-box-text">
-                  "Will Ensure...": On Indian Student's Death, An Apology By Mayor, Top Cop
+                    "Will Ensure...": On Indian Student's Death, An Apology By
+                    Mayor, Top Cop
                   </div>
                 </div>
               </Col>
               <Col span={8}>
                 <div className="item-page-main-area-1-main-box">
-                  <img className="item-page-main-area-1-main-box-img" src={img7}/>
+                  <img
+                    className="item-page-main-area-1-main-box-img"
+                    src={img7}
+                  />
                   <div className="item-page-main-area-1-main-box-text">
-                  "Will Ensure...": On Indian Student's Death, An Apology By Mayor, Top Cop
+                    "Will Ensure...": On Indian Student's Death, An Apology By
+                    Mayor, Top Cop
                   </div>
                 </div>
               </Col>
               <Col span={8}>
                 <div className="item-page-main-area-1-main-box">
-                  <img className="item-page-main-area-1-main-box-img" src={img7}/>
+                  <img
+                    className="item-page-main-area-1-main-box-img"
+                    src={img7}
+                  />
                   <div className="item-page-main-area-1-main-box-text">
-                  "Will Ensure...": On Indian Student's Death, An Apology By Mayor, Top Cop
+                    "Will Ensure...": On Indian Student's Death, An Apology By
+                    Mayor, Top Cop
                   </div>
                 </div>
               </Col>
               <Col span={8}>
                 <div className="item-page-main-area-1-main-box">
-                  <img className="item-page-main-area-1-main-box-img" src={img7}/>
+                  <img
+                    className="item-page-main-area-1-main-box-img"
+                    src={img7}
+                  />
                   <div className="item-page-main-area-1-main-box-text">
-                  "Will Ensure...": On Indian Student's Death, An Apology By Mayor, Top Cop
+                    "Will Ensure...": On Indian Student's Death, An Apology By
+                    Mayor, Top Cop
                   </div>
                 </div>
               </Col>
             </Row>
             <div className="visual-stories-main-container container3">
-        <div className="main-page-technology-heading">{t("vs")}</div>
-        <div className="visual-stories-main-container2 container3" >
-          <div className="visual-stories-main-container-part1" style={{width:"100%"}}>
-            <div
-              style={{
-                margin: "0 7px",
-              }}
-              className="visual-stories-main-container-main-area"
-            >
-              <ImageCard
-                style={{
-                  fontSize: "14px",
-                  fontWeight: 400,
-                  height: "60px",
-                }}
-                height="270px"
-                width="250px"
-                border="10px"
-                img={img6}
-                text="iPhone 15, iPhone 15 Plus, iPhone 15 Pro, iPhone 15 Pro Max Preord..."
-              />
+              <div className="main-page-technology-heading">{t("vs")}</div>
+              <div className="visual-stories-main-container2 container3">
+                <div
+                  className="visual-stories-main-container-part1"
+                  style={{ width: "100%" }}
+                >
+                  <div
+                    style={{
+                      margin: "0 7px",
+                    }}
+                    className="visual-stories-main-container-main-area"
+                  >
+                    <ImageCard
+                      style={{
+                        fontSize: "14px",
+                        fontWeight: 400,
+                        height: "60px",
+                      }}
+                      height="270px"
+                      width="250px"
+                      border="10px"
+                      img={img6}
+                      text="iPhone 15, iPhone 15 Plus, iPhone 15 Pro, iPhone 15 Pro Max Preord..."
+                    />
+                  </div>
+                  <div
+                    style={{
+                      margin: "0 7px",
+                    }}
+                    className="visual-stories-main-container-main-area"
+                  >
+                    <ImageCard
+                      style={{
+                        fontSize: "14px",
+                        fontWeight: 400,
+                        height: "60px",
+                      }}
+                      height="270px"
+                      width="250px"
+                      border="10px"
+                      img={img6}
+                      text="iPhone 15, iPhone 15 Plus, iPhone 15 Pro, iPhone 15 Pro Max Preord..."
+                    />
+                  </div>
+                  <div
+                    style={{
+                      margin: "0 7px",
+                    }}
+                    className="visual-stories-main-container-main-area"
+                  >
+                    <ImageCard
+                      style={{
+                        fontSize: "14px",
+                        fontWeight: 400,
+                        height: "60px",
+                      }}
+                      height="270px"
+                      width="250px"
+                      border="10px"
+                      img={img6}
+                      text="iPhone 15, iPhone 15 Plus, iPhone 15 Pro, iPhone 15 Pro Max Preord..."
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
-            <div
-              style={{
-                margin: "0 7px",
-              }}
-              className="visual-stories-main-container-main-area"
-            >
-              <ImageCard
-                style={{
-                  fontSize: "14px",
-                  fontWeight: 400,
-                  height: "60px",
-                }}
-                height="270px"
-                width="250px"
-                border="10px"
-                img={img6}
-                text="iPhone 15, iPhone 15 Plus, iPhone 15 Pro, iPhone 15 Pro Max Preord..."
-              />
-            </div>
-            <div
-              style={{
-                margin: "0 7px",
-              }}
-              className="visual-stories-main-container-main-area"
-            >
-              <ImageCard
-                style={{
-                  fontSize: "14px",
-                  fontWeight: 400,
-                  height: "60px",
-                }}
-                height="270px"
-                width="250px"
-                border="10px"
-                img={img6}
-                text="iPhone 15, iPhone 15 Plus, iPhone 15 Pro, iPhone 15 Pro Max Preord..."
-              />
-            </div>
-          </div>
-        </div>
-      </div>
           </div>
           <div className="item-page-main-area-2">
             <div className="item-page-main-area-2-header-strip">

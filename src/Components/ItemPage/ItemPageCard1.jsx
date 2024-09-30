@@ -8,7 +8,7 @@ const ItemPageCard1 = ({ title, discription, date, image, onPress, type }) => {
   const [desc, SetDesc] = useState(discription);
   useEffect(() => {
     let tt = "";
-    let times = desc.length > 500 ? 500 : desc.length;
+    let times = desc?.length > 500 ? 500 : desc?.length;
 
     for (let i = 0; i < times; i++) {
       tt += desc[i];

@@ -24,6 +24,24 @@ const Poll = () => {
   const [options, setOptions] = useState([{ text: "" }, { text: "" }]);
 
   console.log(userData);
+  const handleDeletePoll = async (id) => {
+    // console.log("delete btn clicked");
+    // console.log("poll id : ", id);
+    try {
+      const res = await axios.delete(`${API_URL}/delete_pool/${id}`);
+      console.log("polls delete api response : ", res);
+      if (res.data.data.status === 200) {
+        message.success(res.data.message);
+      } else {
+        message.error(res.data.message);
+      }
+      getAllPolls();
+    } catch (error) {
+      console.log("error is delete ads : ", error);
+      message.error(error.response.data.message);
+    }
+    getAllPolls();
+  };
 
   const columns = [
     {
@@ -31,7 +49,18 @@ const Poll = () => {
       dataIndex: "_id",
       key: "_id",
       render: (value) => {
-        return <div style={{ width: "70px" ,whiteSpace: "nowrap",overflow:"hidden",textOverflow: "ellipsis"}}>{value}</div>
+        return (
+          <div
+            style={{
+              width: "70px",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+          >
+            {value}
+          </div>
+        );
       },
     },
     {
@@ -54,27 +83,46 @@ const Poll = () => {
         </ul>
       ),
     },
+    {
+      title: "Delete",
+      dataIndex: "_id",
+      key: "_id",
+      render: (_, { _id }) => (
+        <button
+          onClick={() => handleDeletePoll(_id)}
+          style={{
+            padding: "3px 8px",
+            backgroundColor: "#fadcd9",
+            color: "red",
+            font: "message-box",
+            borderRadius: "5px",
+            cursor: "pointer",
+            border: "1px solid red",
+          }}
+        >
+          Delete
+        </button>
+      ),
+    },
   ];
-  const onFilter = () =>{
-    console.log(filterItem,filterItemResponse)
-    axios.get(
-        `${API_URL}/polls?${filterItem}=${filterItemResponse}`
-      )
+  const onFilter = () => {
+    console.log(filterItem, filterItemResponse);
+    axios
+      .get(`${API_URL}/polls?${filterItem}=${filterItemResponse}`)
       .then((poll) => {
         setUserData(poll.data);
-        console.log(poll.data)
+        console.log(poll.data);
       })
       .catch((err) => {
         console.log(err);
         message.error("Error in Filtering");
       });
-  }
-  const onReset =()=>{
-    setfilterItem("")
-    setfilterItemResponse("")
-    getAllPolls()
-  }
-
+  };
+  const onReset = () => {
+    setfilterItem("");
+    setfilterItemResponse("");
+    getAllPolls();
+  };
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -94,11 +142,11 @@ const Poll = () => {
           percentage: 0, // Assuming you want to initialize percentage to 0
         })),
       });
-      
-      const polls = response.data
-      setUserData(polls.reverse())
+
+      const polls = response.data;
+      setUserData(polls.reverse());
       message.success("Successfully Added");
-      handleCancel()
+      handleCancel();
 
       // rest of the code
     } catch (error) {
@@ -136,38 +184,50 @@ const Poll = () => {
       </h1>
       <Card style={{ height: "100%" }}>
         <Row gutter={20}>
-            <Col span={6}>
-                <Select
-                value={filterItem}
-                  style={{ width: "100%" }}
-                  defaultValue="id"
-                  onChange={(e) => setfilterItem(e)}
-                  options={[
-                    {
-                      value: "id",
-                      label: "By Id",
-                    },
-                    {
-                      value: "question",
-                      label: "By Question",
-                    }
-                  ]}
-                />
-            </Col>
-            <Col span={6}>
-              <Input value={filterItemResponse } onChange={e=>setfilterItemResponse(e.target.value)} placeholder={filterItem == "id"?"Id":"Question"} style={{ width: "100%" }} />
-            
-            </Col>
-            <Col span={2}>
-            <Button type="primary" onClick={onFilter}>Filter</Button>
-            </Col>
-            <Col span={2}>
-              <Button type="primary" style={{backgroundColor:"red"}} onClick={onReset}>Reset</Button>
-            </Col>
+          <Col span={6}>
+            <Select
+              value={filterItem}
+              style={{ width: "100%" }}
+              defaultValue="id"
+              onChange={(e) => setfilterItem(e)}
+              options={[
+                {
+                  value: "id",
+                  label: "By Id",
+                },
+                {
+                  value: "question",
+                  label: "By Question",
+                },
+              ]}
+            />
+          </Col>
+          <Col span={6}>
+            <Input
+              value={filterItemResponse}
+              onChange={(e) => setfilterItemResponse(e.target.value)}
+              placeholder={filterItem == "id" ? "Id" : "Question"}
+              style={{ width: "100%" }}
+            />
+          </Col>
+          <Col span={2}>
+            <Button type="primary" onClick={onFilter}>
+              Filter
+            </Button>
+          </Col>
+          <Col span={2}>
+            <Button
+              type="primary"
+              style={{ backgroundColor: "red" }}
+              onClick={onReset}
+            >
+              Reset
+            </Button>
+          </Col>
         </Row>
         <Row>
           <Col style={{ marginTop: 20 }} span={4}>
-            <Space >
+            <Space>
               <Button
                 type="primary"
                 style={{ backgroundColor: "green" }}

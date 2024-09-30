@@ -331,14 +331,14 @@ const Dashboard = () => {
         return (
           <div
             style={{
-              width: "70px",
+              width: "90px",
               whiteSpace: "nowrap",
               overflow: "hidden",
               textOverflow: "ellipsis",
               textAlign: "center",
             }}
           >
-            {value.slice(0, 8)}
+            {value}
           </div>
         );
       },
@@ -456,7 +456,15 @@ const Dashboard = () => {
         );
       },
     },
+    {
+      title: "Category",
+      key: "topic",
+      render: (topic) => {
+        console.log("topic in colomn : ", topic);
 
+        return <a>{topic?.topic}</a>;
+      },
+    },
     {
       title: "News Type",
       key: "newsType",

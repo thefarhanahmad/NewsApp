@@ -39,23 +39,26 @@ function ImageCrousel() {
               console.log("IMG", img);
               return (
                 <>
-                  <div
+                  <h3
+                    className="main-page-video-heading2"
                     style={{
-                      backgroundColor: "white",
+                      // backgroundColor: "white",
                       // opacity:"100%",
                       padding: "6px",
-                      fontSize: "1.2rem",
+                      fontSize: "2rem",
                       // paddingLeft: "50px",
+                      color: "white",
                       bottom: "30px",
                       textAlign: "center",
                       // width: "98%",
                       borderRadius: "10px",
                       overflow: "hidden",
+                      textAlignLast: "left",
                       marginBottom: "5px",
                     }}
                   >
                     {img?.text}
-                  </div>
+                  </h3>
                   <div
                     style={{
                       cursor: "pointer",

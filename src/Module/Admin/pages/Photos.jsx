@@ -43,6 +43,7 @@ const Photos = () => {
   const [editImgs, setEditImgs] = useState([]);
   const [newImgs, setNewImgs] = useState([]); // Changed to array
 
+  
   useEffect(() => {
     // setSlug(createSlug(title));
     console.log(id, "id");

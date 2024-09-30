@@ -65,11 +65,14 @@ const Ads = () => {
   useEffect(() => {
     fetchAds();
   }, []);
+
+  // console.log("formdata in ads: ", link,slug);
+
   const onUpload = () => {
     setLoading(true);
     let formdata = new FormData();
     formdata.append("file", img, img.name);
-    console.log(formdata);
+    console.log("formdata in ads: ", formdata);
 
     axios.post(`${API_URL}/image`, formdata).then(async (image) => {
       console.log(image);
@@ -78,25 +81,27 @@ const Ads = () => {
           imgLink: image.data.image,
           link: link,
           slugName: title,
-          Price: price,
+          // Price: price,
           noOfImpression: Impression,
           StartAt: JSON.parse(date)[0].split("T")[0],
           EndAt: JSON.parse(date)[1].split("T")[0],
           side,
         })
         .then((data) => {
+          console.log("api res ad post : ", data);
           message.success("Your Ad was successfully Uploaded");
           setImg(null);
           setLink("");
           setLoading(false);
           setDate("");
           setTitle("");
-          setPrice("");
+          // setPrice("");
           fetchAds();
         })
 
-        .catch(() => {
+        .catch((err) => {
           message.error("Your Ad was not successfully Uploaded");
+          console.log(err);
           setLoading(false);
         });
     });
@@ -251,6 +256,7 @@ const Ads = () => {
         );
       },
     },
+
     {
       title: "Delete",
       dataIndex: "_id",
@@ -355,11 +361,11 @@ const Ads = () => {
             />
           </Col>
           <Col span={6}>
-            <Input
+            {/* <Input
               placeholder="Enter Price"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
-            />
+            /> */}
           </Col>
           <Col span={6}></Col>
           <Col span={6} style={{ marginTop: 10 }}>

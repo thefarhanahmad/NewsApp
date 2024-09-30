@@ -244,7 +244,24 @@ const Upload = () => {
     console.log(formdata);
 
     axios.post(`${API_URL}/image`, formdata).then(async (image) => {
-      console.log(image);
+      console.log("image", image);
+      console.log("formdata obj : ", {
+        title: title,
+        discription: desc,
+        topic: Topic,
+        keyWord: keyword,
+        language: Language,
+        reportedBy: reported,
+        publishBy: publish,
+        newsType: newType,
+        image: image.data.image,
+        type: type,
+        subCategory: subCategory,
+        slug: slug,
+        comment: comment,
+        priority: priority,
+        slider: slider,
+      });
       await axios
         .post(`${API_URL}/article/${localStorage.getItem("id")}`, {
           title: title,

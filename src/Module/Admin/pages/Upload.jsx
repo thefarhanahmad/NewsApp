@@ -73,6 +73,25 @@ const Upload = () => {
     value: item,
   }));
 
+  console.log(
+    "form data in upload article : ",
+    title,
+    desc,
+    "topic is  :",
+    Topic,
+    keyword,
+    Language,
+    reported,
+    publish,
+    newType,
+    // image: image.data.image,
+    type,
+    subCategory,
+    slug,
+    comment,
+    priority,
+    slider
+  );
   useEffect(() => {
     // setSlug(createSlug(title));
     console.log(id, "id");

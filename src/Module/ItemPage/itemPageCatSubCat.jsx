@@ -15,6 +15,8 @@ import axios from "axios";
 import { API_URL } from "../../../API";
 import SubCardSection from "../../Components/SharedComponents/SubCardSection";
 import RelatedNewsCard from "../../Components/DetailsPage";
+import { data } from "autoprefixer";
+import VdoThumb from "../../Components/common/VdoThumb";
 
 const ItemPage = () => {
   const { t } = useTranslation();
@@ -72,21 +74,46 @@ const ItemPage = () => {
   const [isLoad, setIsLoad] = useState(true);
   const [isChange, setIsChange] = useState(true);
   const { loading, setLoading, effect } = useContext(Loading);
+  const [videos, setVideos] = useState([]);
   const query = new URLSearchParams(search);
   const navigation = useNavigate();
   console.log(query.get("item"));
+  const queryParams = new URLSearchParams(window.location.search);
+  const newsType = queryParams.get("newsType"); // 'video' or another value
+  const [thumbnailUrl, setThumbnailUrl] = useState("");
+  console.log("data in itemconcat page : ", Data);
+  console.log("newstype in itemconcat page : ", newsType);
+  useEffect(() => {
+    if (newsType === "videos") {
+      // Function to extract video ID from YouTube URL
+    }
+  }, [newsType]);
   useEffect(() => {
     setIsLoad(true);
     setTimeout(() => {
-      axios
-        .get(`${API_URL}/article?newsType=${query.get("newsType")}`)
-        .then((data) => {
-          setData(data.data);
-          setIsLoad(false);
-        })
-        .catch(() => {
-          setIsLoad(false);
-        });
+      if (newsType === "videos") {
+        axios
+          .get(`${API_URL}/video`)
+          .then((data) => {
+            console.log("data res in itempage : ", data);
+            setData(data.data);
+            setIsLoad(false);
+          })
+          .catch(() => {
+            setIsLoad(false);
+          });
+      } else {
+        axios
+          .get(`${API_URL}/article?newsType=${query.get("newsType")}`)
+          .then((data) => {
+            console.log("data res in itempage : ", data);
+            setData(data.data);
+            setIsLoad(false);
+          })
+          .catch(() => {
+            setIsLoad(false);
+          });
+      }
     }, 2000);
   }, [effect]);
 
@@ -102,6 +129,9 @@ const ItemPage = () => {
               {query.get("newsType") && query.get("newsType") === "upload"
                 ? "Upload"
                 : null}
+              {query.get("newsType") && query.get("newsType") === "videos"
+                ? "videos"
+                : null}
               {query.get("newsType") && query.get("newsType") === "breakingNews"
                 ? "Breaking News"
                 : null}
@@ -109,7 +139,10 @@ const ItemPage = () => {
           ) : null}
         </div>
         <div className="item-page-main-area">
-          <div className="item-page-main-area-1">
+          <div
+            className="item-page-main-area-1"
+            // style={{ backgroundColor: "red" }}
+          >
             {isLoad ? (
               <>
                 <div>
@@ -210,6 +243,13 @@ const ItemPage = () => {
                 if (item.slug) {
                   title = item.slug;
                 }
+
+                console.log("data in mapped item: ", item);
+
+                // if (newsType === "videos") {
+                //   return <VdoThumb data={Data} />;
+                // }
+
                 return (
                   <ItemPageCard1
                     onPress={() => {
@@ -221,7 +261,7 @@ const ItemPage = () => {
                     }}
                     title={item?.title}
                     discription={item?.discription}
-                    image={item?.image}
+                    image={newsType === "videos" ? thumbnailUrl : item?.image}
                     date={date}
                     type={item.type}
                   />

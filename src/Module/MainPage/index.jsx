@@ -53,7 +53,7 @@ const MainPage = () => {
   const sliderItems = [slider, img1, img2, img4];
   const { t } = useTranslation();
   const [topAd, setTopAd] = useState({});
-  const [midAd, setMidAd] = useState({});
+  const [midAd, setMidAd] = useState([]);
   const [bottomAd, setBottomAd] = useState({});
   const [topStories, settopStories] = useState([]);
   const navigation = useNavigate();
@@ -64,8 +64,6 @@ const MainPage = () => {
   const [stories, setStories] = useState(null);
   const [allCategoriesData, setAllCategoriesData] = useState(null);
   const [DisplayImageCrousal, setDisplayImageCrousal] = useState(false);
-
-  console.log("ads on page : ", topAd, midAd, bottomAd);
 
   useEffect(() => {
     axios
@@ -132,7 +130,7 @@ const MainPage = () => {
     }
     return url.replace("youtu.be/", "www.youtube.com/embed/").split("?")[0];
   };
-
+  const navigate = useNavigate();
   // style for video
 
   useEffect(() => {
@@ -162,16 +160,27 @@ const MainPage = () => {
             `${API_URL}/article?pagenation=true&limit=12&type=img&newsType=breakingNews&status=online&priority=true`
           )
           .then((breakingData) => {
+            console.log("breaking news res : ", breakingData);
             // Filter out articles that are already present in sliderArticles
-            const uniqueBreakingNews = breakingData.data.filter(
-              (article) =>
-                !sliderData.data.some(
-                  (sliderArticle) => sliderArticle._id === article._id
-                )
-            );
+            // const uniqueBreakingNews = breakingData.data.filter(
+            //   (article) =>
+            //     !sliderData.data.some(
+            //       (sliderArticle) => sliderArticle._id === article._id
+            //     )
+            // );
 
             // console.log("breaking New",breakingData,uniqueBreakingNews)
-            setbreakingNews(uniqueBreakingNews);
+            // setbreakingNews(uniqueBreakingNews);
+            setbreakingNews(breakingData?.data);
+
+            // console.log("unique breaking news : ", uniqueBreakingNews);
+
+            // const sortedData = uniqueBreakingNews.sort(
+            //   (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
+            // );
+
+            // console.log("uniquebreaking news data after sorting: ", sortedData);
+            // setbreakingNews(uniqueBreakingNews);
           })
           .catch(() => {});
         axios
@@ -195,21 +204,33 @@ const MainPage = () => {
             `${API_URL}/article?pagenation=true&limit=14&type=img&newsType=upload&status=online&priority=true`
           )
           .then((latestData) => {
+            console.log("latest news get response  : ", latestData);
             // Filter out articles that are already present in sliderArticles
-            const uniqueLatestData = latestData.data.filter(
-              (article) =>
-                !sliderData.data.some(
-                  (sliderArticle) => sliderArticle._id === article._id
-                )
-            );
+            // const uniqueLatestData = latestData.data.filter(
+            //   (article) =>
+            //     !sliderData.data.some(
+            //       (sliderArticle) => sliderArticle._id === article._id
+            //     )
+            // );
 
             // console.log("latestNews",latestData,uniqueLatestData)
-            setLatestNews(uniqueLatestData);
+            // setLatestNews(uniqueLatestData);
+            setLatestNews(latestData?.data);
+
+            // console.log("uniquelatest data : ", uniqueLatestData);
+            // const sortedData = uniqueLatestData.sort(
+            //   (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
+            // );
+
+            // console.log("uniquelatest data after sorting: ", sortedData);
+            // setLatestNews(sortedData);
           })
           .catch(() => {});
       })
       .catch(() => {});
   }, []);
+  console.log("latest news on homepage : ", latestNews);
+  console.log("breaking news on homepage : ", breakingNews);
   useEffect(() => {
     axios
       .get(`${API_URL}/polls`)
@@ -273,13 +294,14 @@ const MainPage = () => {
     });
     axios.get(`${API_URL}/ads?active=true&side=mid`).then((data) => {
       console.log("mid ad data response : ", data);
-      setMidAd(data.data.reverse()[0]);
+      setMidAd(data.data.reverse());
     });
     axios.get(`${API_URL}/ads?active=true&side=bottom`).then((data) => {
       console.log("bottom ad data response : ", data);
       setBottomAd(data.data.reverse()[0]);
     });
   }, []);
+  console.log("midads on homepage : ", midAd);
   const showModal2 = () => {
     setIsModal2Open(true);
   };
@@ -1074,7 +1096,11 @@ const MainPage = () => {
           </div>
         </div>
         <div className="main-news-area webMainPagecomponent">
-          <div id="LatestNews" className="news-main-side-left">
+          <div
+            id="LatestNews"
+            // style={{ backgroundColor: "red" }}
+            className="news-main-side-left"
+          >
             <div className="main-news-heading">{t("ln")}</div>
             <div className="news-cards-area container3 ">
               {latestNews.map((data, index) => {
@@ -1141,10 +1167,14 @@ const MainPage = () => {
           <div className="news-main-side-rigth">
             <div id="BigNews" className="news-main-rigth-part1">
               <div className="main-news-heading">{t("bn")}</div>
-              <div className="news-cards-area container3">
+              <div
+                className="news-cards-area  container3"
+                // style={{ backgroundColor: "yellow" }}
+              >
                 {breakingNews &&
                   breakingNews.length > 2 &&
-                  breakingNews.map((data, index) => {
+                  // breakingNews.map((data, index) => {
+                  breakingNews.slice(0, 7).map((data, index) => {
                     let title = data?.title
                       ?.replace(/[/\%.?]/g, "")
                       .split(" ")
@@ -1154,7 +1184,8 @@ const MainPage = () => {
                     }
 
                     // Check if title is defined before rendering the NewsCard
-                    if (title && index > 1 && index < 5) {
+                    // if (title && index > 1 && index < 5) {
+                    if (title) {
                       return (
                         <div className="news-card-items-area" key={data?._id}>
                           <NewsCard
@@ -1171,6 +1202,27 @@ const MainPage = () => {
                       return null; // or handle it in a way that makes sense for your application
                     }
                   })}
+
+                {/* {breakingNews.length > 0 &&
+                  breakingNews.map((data) => {
+                    let title = data?.title
+                      ?.replace(/[/\%.?]/g, "")
+                      .split(" ")
+                      .join("-");
+                    if (data.slug) {
+                      title = data.slug;
+                    }
+                    return (
+                      <div className="news-card-items-area" key={data?._id}>
+                        <NewsCard
+                          data={data}
+                          onPress={() =>
+                            navigation(`/details/${title}?id=${data._id}`)
+                          }
+                        />
+                      </div>
+                    );
+                  })} */}
               </div>
               <div
                 className="more-text"
@@ -1225,19 +1277,29 @@ const MainPage = () => {
                   <a href={midAd?.link}>{midAd?.link}</a>
                 </div>
               </a> */}
-              {midAd && (
-                <a
-                  href={midAd.link}
-                  target="_blank"
-                  onClick={() => {
-                    onClickAd(midAd._id);
-                  }}
-                >
-                  <img src={midAd.imgLink} style={{ width: "100%" }} />
-                  <p style={{ fontSize: "16px", fontFamily: "Poppins" }}>
-                    {midAd.slugName}
-                  </p>
-                </a>
+              {midAd.length > 0 && (
+                <div>
+                  {midAd?.slice(0, 4).map((midAd) => {
+                    return (
+                      <a
+                        key={midAd._id}
+                        href={midAd.link}
+                        target="_blank"
+                        onClick={() => {
+                          onClickAd(midAd._id);
+                        }}
+                      >
+                        <img
+                          src={midAd.imgLink}
+                          style={{ width: "100%", marginBottom: "10px" }}
+                        />
+                        <p style={{ fontSize: "16px", fontFamily: "Poppins" }}>
+                          {/* {midAd.slugName} */}
+                        </p>
+                      </a>
+                    );
+                  })}
+                </div>
               )}
               {/* {topAd && (
                 <a
@@ -1410,6 +1472,19 @@ const MainPage = () => {
                 return <VdoThumb data={vdo} />;
               })}
             </div>
+          </div>
+          {/* see more btn */}
+
+          <div
+            className="more-text"
+            onClick={() => navigate("/itempage2?newsType=videos")}
+          >
+            {"more"}{" "}
+            <FaGreaterThan
+              style={{
+                marginLeft: "6px",
+              }}
+            />
           </div>
         </div>
         {/* <div
