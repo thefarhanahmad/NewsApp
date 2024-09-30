@@ -15,10 +15,7 @@ const ItemPage2 = () => {
       <div className="container2 container3">
         <div className="item-page-heading">{t("h15")}</div>
         <div className="item-page-main-area">
-          <div
-            className="item-page-main-area-1"
-           
-          >
+          <div className="item-page-main-area-1">
             <Row>
               <Col span={8}>
                 <div className="item-page-main-area-1-main-box">

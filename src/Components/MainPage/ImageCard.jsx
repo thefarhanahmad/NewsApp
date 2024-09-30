@@ -12,18 +12,24 @@ const ImageCard = ({
   id,
   slug,
   title,
+  dis,
 }) => {
   const navigate = useNavigate();
+  console.log("dis value in imgcard : ", dis);
   return (
     <div
       className="image-box"
       style={{ width, height, borderRadius: border, cursor: "pointer" }}
       onClick={() => {
-        if (fromVStrories) {
-          // navigate(`/stories?id=${id}`)
-          console.log("Visual story");
+        if (dis === false) {
+          return;
         } else {
-          navigate(`/details/${slug}?id=${id}`);
+          if (fromVStrories) {
+            // navigate(`/stories?id=${id}`)
+            console.log("Visual story");
+          } else {
+            navigate(`/details/${slug}?id=${id}`);
+          }
         }
       }}
     >

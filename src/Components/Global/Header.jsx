@@ -149,9 +149,9 @@ const Header = () => {
                 i18n.changeLanguage(e.target.value);
               }}
             >
+              <option value="hi">Hindi</option>
               <option value="en">English</option>
               <option value="ur">Urdu</option>
-              <option value="hi">Hindi</option>
             </select>
           </div>
           <div className="header-contianer">

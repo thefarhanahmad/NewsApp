@@ -16,7 +16,6 @@ import { API_URL } from "../../../API";
 import SubCardSection from "../../Components/SharedComponents/SubCardSection";
 import RelatedNewsCard from "../../Components/DetailsPage";
 import { data } from "autoprefixer";
-import VdoThumb from "../../Components/common/VdoThumb";
 
 const ItemPage = () => {
   const { t } = useTranslation();
@@ -24,6 +23,9 @@ const ItemPage = () => {
   const [topStories, settopStories] = useState();
   const [stories, setStories] = useState(null);
   const [bottomAd, setBottomAd] = useState({});
+  const [imageUrl, setImageUrl] = useState(
+    "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/breaking-news-broadcast-youtube-thumbnail-design-template-d06ddc9f11789b47d62564e6e22a7730_screen.jpg?ts=1652194145"
+  );
 
   useEffect(() => {
     axios.get(`${API_URL}/ads?active=true&side=bottom`).then((data) => {
@@ -233,9 +235,65 @@ const ItemPage = () => {
                 </div>
               </>
             ) : Data.length > 0 ? (
+              // Data?.map((item) => {
+              //   let date = new Date(item.date);
+              //   date = JSON.stringify(date).split("T")[0].split('"')[1];
+              //   let title = item.title
+              //     .replace(/[/\%.?]/g, "")
+              //     .split(" ")
+              //     .join("-");
+              //   if (item.slug) {
+              //     title = item.slug;
+              //   }
+
+              //   console.log("data in mapped item: ", item);
+              //   // Function to format the date
+              //   const formatDate = (dateString) => {
+              //     const date = new Date(dateString);
+              //     return date.toISOString().split("T")[0];
+              //   };
+
+              //   const link = item?.link;
+              //   // Function to extract video ID from a YouTube URL
+              //   const extractVideoId = (link) => {
+              //     const regex =
+              //       /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/;
+              //     const match = url.match(regex);
+              //     return match ? match[1] : null;
+              //   };
+
+              //   // Generate the thumbnail URL using the video ID
+              //   const generateThumbnailUrl = (videoId) => {
+              //     return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+              //   };
+
+              //   return (
+              //     <ItemPageCard1
+              //       onPress={() => {
+              //         if (item.type === "img") {
+              //           navigation(`/details/${title}?id=${item._id}`);
+              //         } else {
+              //           navigation(`/videos/${title}?id=${item._id}`);
+              //         }
+              //       }}
+              //       title={item?.title}
+              //       discription={item?.discription}
+              //       image={
+              //         item?.image
+              //           ? item?.image
+              //           : "yt vido thumbnail"
+              //       }
+              //       date={date ? date : `${formatDate(item?.createdAt)}`}
+              //       type={item.type}
+              //     />
+              //   );
+              // })
               Data?.map((item) => {
+                // Format the date
                 let date = new Date(item.date);
                 date = JSON.stringify(date).split("T")[0].split('"')[1];
+
+                // Generate the title or use slug if available
                 let title = item.title
                   .replace(/[/\%.?]/g, "")
                   .split(" ")
@@ -244,11 +302,33 @@ const ItemPage = () => {
                   title = item.slug;
                 }
 
+                // Log the item data for debugging
                 console.log("data in mapped item: ", item);
 
-                // if (newsType === "videos") {
-                //   return <VdoThumb data={Data} />;
-                // }
+                // Helper function to format date
+                const formatDate = (dateString) => {
+                  const date = new Date(dateString);
+                  return date.toISOString().split("T")[0];
+                };
+
+                // Extract video ID from a YouTube URL
+                const extractVideoId = (link) => {
+                  const regex =
+                    /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/;
+                  const match = link?.match(regex); // Updated to use `link` variable
+                  return match ? match[1] : null;
+                };
+
+                // Generate the thumbnail URL using the video ID
+                const generateThumbnailUrl = (videoId) => {
+                  return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+                };
+
+                // Check if the link is a YouTube video, and extract the thumbnail if so
+                const videoId = extractVideoId(item?.link);
+                const videoThumbnail = videoId
+                  ? generateThumbnailUrl(videoId)
+                  : null;
 
                 return (
                   <ItemPageCard1
@@ -261,8 +341,14 @@ const ItemPage = () => {
                     }}
                     title={item?.title}
                     discription={item?.discription}
-                    image={newsType === "videos" ? thumbnailUrl : item?.image}
-                    date={date}
+                    image={
+                      newsType === "videos"
+                        ? videoThumbnail
+                          ? videoThumbnail
+                          : "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/breaking-news-broadcast-youtube-thumbnail-design-template-d06ddc9f11789b47d62564e6e22a7730_screen.jpg?ts=1652194145"
+                        : item?.image
+                    }
+                    date={date ? date : `${formatDate(item?.createdAt)}`}
                     type={item.type}
                   />
                 );

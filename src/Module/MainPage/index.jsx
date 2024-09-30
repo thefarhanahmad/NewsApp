@@ -1590,8 +1590,12 @@ const MainPage = () => {
           <div className="main-page-technology-heading">{t("t")}</div>
           <div className="main-page-technology-area">
             <div>
-              <div className="main-page-technology-first-column">
+              <div
+                className="main-page-technology-first-column "
+                // style={{ backgroundColor: "red" }}
+              >
                 <div
+                  // onClick={() => console.log("btn clicked!")}
                   style={{
                     marginTop: "10px",
                   }}
@@ -1606,10 +1610,12 @@ const MainPage = () => {
                     height="200px"
                     width="100%"
                     img={img4}
+                    dis={false}
                     text="iPhone 15, iPhone 15 Plus, iPhone 15 Pro, iPhone 15 Pro Max Preorders Be..."
                   />
                 </div>
                 <div
+                  // onClick={() => console.log("btn clicked!")}
                   style={{
                     marginTop: "10px",
                   }}
@@ -1624,6 +1630,7 @@ const MainPage = () => {
                     height="200px"
                     width="100%"
                     img={img3}
+                    dis={false}
                     text="iPhone 15, iPhone 15 Plus, iPhone 15 Pro, iPhone 15 Pro Max Preorders Be..."
                   />
                 </div>
@@ -1644,7 +1651,7 @@ const MainPage = () => {
                     }
                   />
                 </div>
-                <div
+                {/* <div
                   style={{
                     marginTop: "10px",
                   }}
@@ -1658,8 +1665,8 @@ const MainPage = () => {
                       "iPhone 15 price in India starts at Rs. 79,900 for the base model with 128GB of storage, while the iPhone 15 Plus with the same amount of storage starts at Rs. 89,900.."
                     }
                   />
-                </div>
-                <div
+                </div> */}
+                {/* <div
                   style={{
                     marginTop: "10px",
                   }}
@@ -1673,17 +1680,17 @@ const MainPage = () => {
                       "iPhone 15 price in India starts at Rs. 79,900 for the base model with 128GB of storage, while the iPhone 15 Plus with the same amount of storage starts at Rs. 89,900.."
                     }
                   />
-                </div>
-                <div className="more-text">
+                </div> */}
+                {/* <div className="more-text">
                   {"more"}{" "}
                   <FaGreaterThan
                     style={{
                       marginLeft: "6px",
                     }}
                   />
-                </div>
+                </div> */}
               </div>
-              <div className="main-page-technology-third-column">
+              {/* <div className="main-page-technology-third-column">
                 <VideoCard color="black" width="100%" />
                 <VideoCard color="black" width="100%" />
                 <div className="more-text">
@@ -1694,7 +1701,7 @@ const MainPage = () => {
                     }}
                   />
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -1745,7 +1752,7 @@ const MainPage = () => {
                       style={{ width: "100%", height: "100%" }}
                     />
                     <p style={{ fontSize: "16px", fontFamily: "Poppins" }}>
-                      {bottomAd.slugName}
+                      {/* {bottomAd.slugName} */}
                     </p>
                   </a>
                 )}

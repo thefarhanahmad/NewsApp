@@ -63,7 +63,8 @@ const Footer = () => {
     axios
       .get(`${API_URL}/content?type=category`)
       .then((response) => {
-        const categories = response.data.slice(0, 5); // Only take the first 5 categories
+        // const categories = response.data.slice(0, 5); // Only take the first 5 categories
+        const categories = response?.data; // Only take the first 5 categories
         setItsItem(categories);
         const tempMainObject = {};
         const requests = categories.map((category) =>
@@ -73,7 +74,8 @@ const Footer = () => {
           .then((subcategoriesResponses) => {
             subcategoriesResponses.forEach((subcategoriesResponse, index) => {
               const categoryName = categories[index].text;
-              const subcategories = subcategoriesResponse.data.slice(0, 5); // Only take the first 5 subcategories
+              // const subcategories = subcategoriesResponse.data.slice(0, 5); // Only take the first 5 subcategories
+              const subcategories = subcategoriesResponse?.data; // Only take the first 5 subcategories
               tempMainObject[categoryName] = subcategories;
             });
             setMainObject(tempMainObject);
@@ -89,6 +91,9 @@ const Footer = () => {
         setLoading(false);
       });
   }, []);
+
+  console.log("categories and subcategories : ", mainObject);
+
   // console.log("main obj",mainObject)
   async function subscribeToNewsLetter() {
     try {
@@ -167,7 +172,7 @@ const Footer = () => {
           />
         </div>
         <div className="footer-checkup-main-conatiner">
-          <div className="footer-main">
+          {/* <div className="footer-main" style={{ backgroundColor: "red" }}>
             {Object.entries(mainObject).map(
               ([categoryName, subcategories], index) => {
                 if (index <= 3) {
@@ -201,39 +206,65 @@ const Footer = () => {
                 }
               }
             )}
-          </div>
-          <div className="footer-main">
+          </div> */}
+
+          <div
+            className="footer-main"
+            style={{
+              // backgroundColor: "red",
+              // width: "100%",
+              display: "flex",
+              justifyContent: "flex-start",
+              // alignItems: "center",
+              gap: "15px",
+              flexWrap: "wrap",
+            }}
+          >
             {Object.entries(mainObject).map(
               ([categoryName, subcategories], index) => {
-                if (index >= 4 && index <= 7) {
-                  return (
-                    <div className="footer-item-box">
-                      <div
-                        className="footer-heading"
-                        style={{ cursor: "pointer" }}
-                        onClick={() => {
-                          Navigation(`/itempage?item=${categoryName}`);
-                          setEffect(!effect);
-                        }}
-                      >
-                        {categoryName}
-                      </div>
-                      <div className="footer-items">
-                        {subcategories.map((item) => (
-                          <div
-                            onClick={() => {
-                              Navigation(
-                                `/itempage?item=${categoryName}&sub=${item.text}`
-                              );
-                            }}
-                          >
-                            {item.text}
-                          </div>
-                        ))}
-                      </div>
+                // if (index >= 4 && index <= 7) {
+                return (
+                  <div
+                    className="footer-item-box"
+                    style={{
+                      // backgroundColor: "yellow",
+                      width: "10%",
+                    }}
+                  >
+                    <div
+                      className="footer-heading"
+                      style={{ cursor: "pointer" }}
+                      onClick={() => {
+                        Navigation(`/itempage?item=${categoryName}`);
+                        setEffect(!effect);
+                      }}
+                    >
+                      {categoryName}
                     </div>
-                  );
-                }
+                    <div
+                      className="footer-items"
+                      style={
+                        {
+                          //  backgroundColor: "blue"
+                          // marginBottom: "5px",
+                        }
+                      }
+                    >
+                      {subcategories.map((item) => (
+                        <div
+                          onClick={() => {
+                            Navigation(
+                              `/itempage?item=${categoryName}&sub=${item.text}`
+                            );
+                          }}
+                        >
+                          {item.text}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+                // }
               }
             )}
           </div>
