@@ -331,7 +331,7 @@ const Dashboard = () => {
         return (
           <div
             style={{
-              width: "90px",
+              width: "100px",
               whiteSpace: "nowrap",
               overflow: "hidden",
               textOverflow: "ellipsis",
