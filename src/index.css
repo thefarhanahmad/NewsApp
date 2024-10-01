@@ -1,6 +1,8 @@
 * {
   margin: 0;
   padding: 0;
+  /* overflow-x: hidden; */
+  /* box-sizing: border-box; */
 }
 .container {
   margin: 0 80px;

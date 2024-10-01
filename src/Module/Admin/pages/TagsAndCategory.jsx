@@ -64,6 +64,7 @@ const TagsAndCategory = () => {
         console.log(err);
       });
   }, []);
+
   const onFilter = () => {
     console.log(filterItem);
     if (filterItem != "sub") {
@@ -143,6 +144,21 @@ const TagsAndCategory = () => {
         setIsEditModalOpen(null);
       });
   };
+  const handleDeleteTagCategory = async (id) => {
+    try {
+      const res = await axios.delete(`${API_URL}/delete_content/${id}`);
+      console.log("tag&category delete api response : ", res);
+      if (res.data.data.status === 200) {
+        message.success(res.data.message);
+      } else {
+        message.error(res.data.message);
+      }
+    } catch (error) {
+      console.log("error is delete tag&category : ", error);
+      message.error(error.response);
+    }
+  };
+
   const columns = [
     {
       title: "ID",
@@ -189,6 +205,30 @@ const TagsAndCategory = () => {
               {filterItem != "sub" ? data.type : data.category}
             </Tag>
           </>
+        );
+      },
+    },
+    {
+      title: "Delete",
+      dataIndex: "_id",
+      key: "_id",
+      render: (_, { _id }) => {
+        console.log("id in delete tag & category: ", _id);
+        return (
+          <button
+            onClick={() => handleDeleteTagCategory(_id)}
+            style={{
+              padding: "3px 8px",
+              backgroundColor: "#fadcd9",
+              color: "red",
+              font: "message-box",
+              borderRadius: "5px",
+              cursor: "pointer",
+              border: "1px solid red",
+            }}
+          >
+            Delete
+          </button>
         );
       },
     },

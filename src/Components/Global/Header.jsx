@@ -157,7 +157,9 @@ const Header = () => {
           <div className="header-contianer">
             <div
               onClick={() => Navigation("/")}
-              style={{ cursor: "pointer" }}
+              style={{
+                cursor: "pointer",
+              }}
               className="header-logo-box"
             >
               <img src={logo} alt="" />
@@ -297,6 +299,7 @@ const Header = () => {
             width: "100%",
             height: "100%",
             backgroundColor: "rgba(0,0,0,0.2)",
+
             position: "absolute",
             zIndex: 10,
             top: 0,
@@ -304,39 +307,64 @@ const Header = () => {
             alignItems: "center",
           }}
         >
-          <div style={{ width: "100%", height: "100%" }}>
-            <div>
-              <IoIosCloseCircle
-                onClick={() => setSearch(false)}
-                size={40}
-                style={{ marginLeft: 10, marginTop: 10, cursor: "pointer" }}
-              />
-            </div>
-            <AutoComplete
+          <div
+            style={{
+              width: "100%",
+              // height: "100%",
+              // backgroundColor: "red",
+              padding: "10px",
+              display: "flex",
+            }}
+          >
+            <div
               style={{
-                width: "70%",
-                marginTop: 20,
-                marginLeft: 180,
+                width: "100%",
+                // backgroundColor: "yellow",
+                display: "flex",
+                justifyContent: "center",
+                // alignItems: "center",
               }}
-              options={itsItem2}
-              // placeholder="try to type `b`"
-              filterOption={(inputValue, option) =>
-                option.value
-                  ?.toUpperCase()
-                  .indexOf(inputValue.toUpperCase()) !== -1
-              }
             >
-              <Input.Search
-                autoFocus
-                size="large"
-                placeholder="Search"
-                enterButton
-                onSearch={(e) => {
-                  Navigation(`itempage?item=${e}`);
-                  setSearch(false);
+              <AutoComplete
+                style={{
+                  width: "70%",
+                  marginTop: 88,
+                  // marginLeft: 180,
                 }}
-              />
-            </AutoComplete>
+                options={itsItem2}
+                // placeholder="try to type `b`"
+                filterOption={(inputValue, option) =>
+                  option.value
+                    ?.toUpperCase()
+                    .indexOf(inputValue.toUpperCase()) !== -1
+                }
+              >
+                <Input.Search
+                  autoFocus
+                  size="large"
+                  placeholder="Search"
+                  enterButton
+                  onSearch={(e) => {
+                    Navigation(`itempage?item=${e}`);
+                    setSearch(false);
+                  }}
+                />
+              </AutoComplete>
+              <div style={{}}>
+                <IoIosCloseCircle
+                  onClick={() => setSearch(false)}
+                  size={45}
+                  style={{
+                    // backgroundColor: "red",
+                    padding: "10px",
+                    marginLeft: 20,
+                    // marginTop: 10,
+                    marginTop: 75,
+                    cursor: "pointer",
+                  }}
+                />
+              </div>
+            </div>
           </div>
         </div>
       ) : (

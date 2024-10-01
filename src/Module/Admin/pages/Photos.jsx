@@ -43,7 +43,6 @@ const Photos = () => {
   const [editImgs, setEditImgs] = useState([]);
   const [newImgs, setNewImgs] = useState([]); // Changed to array
 
-  
   useEffect(() => {
     // setSlug(createSlug(title));
     console.log(id, "id");
@@ -128,6 +127,7 @@ const Photos = () => {
       // setImg(null);
       // Additional logic if needed after successful upload
       message.success("Your Photo was successfully uploaded");
+      setIsVerifyModalOpen(false);
       setTitle("");
       setLoading(false);
       setImgs([]); // Reset to empty array
@@ -141,6 +141,7 @@ const Photos = () => {
       // setLoading(false);
       message.error("Your Photo was not successfully uploaded");
       // Handle error
+      // setIsVerifyModalOpen(false);
       setTitle("");
       setLoading(false);
       setImgs([]); // Reset to empty array
@@ -646,18 +647,26 @@ const Photos = () => {
               </div>
             </div>
           )}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              marginLeft: "2%",
+            }}
+          >
+            <Input
+              style={{ height: "40px", width: "300px" }}
+              placeholder="Photo title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
 
-          <Input
-            style={{ height: "40px", width: "300px" }}
-            placeholder="Photo title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </div>
-        <div style={{ marginTop: "20px", display: "flex" }}>
-          <Button onClick={showVerifyModal} type="primary">
-            Preview
-          </Button>
+            <div style={{ marginTop: "5%", display: "flex" }}>
+              <Button onClick={showVerifyModal} type="primary">
+                Preview
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
       <Row gutter={20}>

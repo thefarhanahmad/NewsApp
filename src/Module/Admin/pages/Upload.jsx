@@ -26,7 +26,8 @@ const Upload = () => {
   const [reported, setreported] = useState("");
   const [publish, setpublish] = useState("");
   const [type, setType] = useState("img");
-  const [Language, setLanguage] = useState("English");
+  // const [Language, setLanguage] = useState("English");
+  const [Language, setLanguage] = useState("Hindi");
   const [newType, setNewType] = useState("upload");
   const [keyword, setkeyword] = useState([]);
   const [isVerifyModalOpen, setIsVerifyModalOpen] = useState(false);
@@ -288,6 +289,7 @@ const Upload = () => {
           setComment(false);
           setPriority(false);
           setSlider(false);
+          setIsVerifyModalOpen(false);
         })
         .catch(() => {
           message.error("Your article was not successfully Uploaded");
@@ -348,6 +350,7 @@ const Upload = () => {
             setOnEdit(false);
             setSlug("");
             setLoading(false);
+            setIsVerifyModalOpen(false);
             navigation("/dashboard/articles");
           })
           .catch(() => {
@@ -394,6 +397,7 @@ const Upload = () => {
           setOnEdit(false);
           setSlug("");
           setLoading(false);
+          setIsVerifyModalOpen(false);
           navigation("/dashboard/articles");
         })
         .catch(() => {
@@ -630,14 +634,14 @@ const Upload = () => {
                         marginBottom: "20px",
                       }}
                       options={[
-                        {
-                          value: "English",
-                          label: "English",
-                        },
-                        {
-                          value: "Urdu",
-                          label: "Urdu",
-                        },
+                        // {
+                        //   value: "English",
+                        //   label: "English",
+                        // },
+                        // {
+                        //   value: "Urdu",
+                        //   label: "Urdu",
+                        // },
                         {
                           value: "Hindi",
                           label: "Hindi",

@@ -34,7 +34,7 @@ const Video = () => {
 
   const [loading, setLoading] = useState(false);
   const [img, setImg] = useState(null);
-
+  const [reported, setreported] = useState("");
   // state for edit functionality
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editingVideo, setEditingVideo] = useState(null);
@@ -67,6 +67,7 @@ const Video = () => {
         message.success("Video updated successfully");
         setIsEditModalOpen(false);
         fetchAllPhotos(); // Refresh the video list
+        setIsVerifyModalOpen(false);
       }
     } catch (error) {
       console.error("Error updating video:", error);
@@ -96,7 +97,7 @@ const Video = () => {
   useEffect(() => {
     fetchAllPhotos();
   }, []);
-
+  console.log("reportedby jn : ", reported);
   const showVerifyModal = () => {
     setIsVerifyModalOpen(true);
     document.getElementById("preview").innerHTML = photo;
@@ -135,6 +136,7 @@ const Video = () => {
         title,
         image: img ? imageResponse.data.image : "",
         link: link,
+        reportedBy: reported,
       });
 
       // Additional logic if needed after successful upload
@@ -143,6 +145,8 @@ const Video = () => {
       setLoading(false);
       setImg(null);
       setLink(null);
+      setreported("");
+      setIsVerifyModalOpen(false);
       if (img) {
         document.getElementById("video-element").src = "";
       }
@@ -152,8 +156,11 @@ const Video = () => {
       setTitle("");
       setLoading(false);
       setImg(null);
+      setreported("");
+      setIsVerifyModalOpen(false);
     }
     setLoading(false);
+    setIsVerifyModalOpen(false);
   };
 
   async function fetchAllPhotos() {
@@ -180,6 +187,7 @@ const Video = () => {
         message.success("video has Successfully Deleted");
         setCurrentPhoto("");
         setIsModalDeleteOpen(false);
+        setIsVerifyModalOpen(false);
       })
       .catch((err) => {
         console.log(err);
@@ -532,14 +540,50 @@ const Video = () => {
               value={link}
               onChange={(e) => setLink(e.target.value)}
             />
+            <div>
+              <Select
+                placeholder="Reported By"
+                value={reported ? reported : null}
+                onChange={(e) => setreported(e)}
+                style={{ height: "40px", width: "300px", marginTop: "5%" }}
+                options={[
+                  {
+                    value: "LOKSATYA.AGENCIES",
+                    label: "LOKSATYA.AGENCIES",
+                  },
+                  {
+                    value: "PTI",
+                    label: "PTI",
+                  },
+                  {
+                    value: "UNIVARTI",
+                    label: "UNIVARTI",
+                  },
+                  {
+                    value: "BHASHA",
+                    label: "BHASHA",
+                  },
+                ]}
+              />
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+
+                marginBottom: "5%",
+                height: "40px",
+                width: "300px",
+                marginTop: "5%",
+              }}
+            >
+              <Button onClick={showVerifyModal} type="primary">
+                Preview
+              </Button>
+            </div>
           </div>
 
           <div id="dd"></div>
-        </div>
-        <div style={{ marginTop: "20px", display: "flex" }}>
-          <Button onClick={showVerifyModal} type="primary">
-            Preview
-          </Button>
         </div>
       </div>
       <Row gutter={20}>

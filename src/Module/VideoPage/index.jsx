@@ -276,7 +276,7 @@ const VideoPage = () => {
               </div>
             </div>
           )}
-          <div className="detail-page-relate-new-cards">
+          <div className="detail-page-relate-new-cards ">
             {latestVidData?.map((data, index) => {
               let title = data.title
                 .replace(/[/\%.?]/g, "")

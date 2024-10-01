@@ -77,6 +77,9 @@ const FlashNews = () => {
       })
       .then(() => {
         message.success(`Flash News Updated!`);
+        setLink("");
+        setLoading(false);
+        setTitle("");
         // Refresh the flash news data
         axios.get(`${API_URL}/flashnews`).then((users) => {
           setUserData(users.data.reverse());
@@ -188,7 +191,7 @@ const FlashNews = () => {
               type="primary"
               onClick={editData ? onEdit : onUpload}
             >
-              {editData ? "Edit" : "Upload"}
+              {editData ? "Save" : "Upload"}
             </Button>
           </Col>
           {editData && (

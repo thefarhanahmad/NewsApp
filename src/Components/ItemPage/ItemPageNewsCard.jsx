@@ -2,13 +2,17 @@ import React from "react";
 import "./style/index.css";
 import img from "../../assets/Rectangle 28.png";
 
-const ItemPageNewsCard = ({data,OnPress,text,image}) => {
+const ItemPageNewsCard = ({ data, OnPress, text, image }) => {
   return (
     <>
       <div className="ItemPageNewsCard-main" onClick={OnPress}>
         <div>
-          <img src={image?image:img} alt="" />
-          <div>{text?text:"Conference leader Mohd Akbar Lone, there are only two highly debatable issues"} </div>
+          <img src={image ? image : img} alt="" />
+        </div>
+        <div className="ttxxtt">
+          {text
+            ? text
+            : "Conference leader Mohd Akbar Lone, there are only two highly debatable issues"}{" "}
         </div>
       </div>
     </>

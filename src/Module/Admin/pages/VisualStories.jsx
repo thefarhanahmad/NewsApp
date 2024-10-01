@@ -117,11 +117,13 @@ const VisualStories = () => {
       setTitle("");
       setLoading(false);
       setImgs([]); // Reset to empty array
+      setIsVerifyModalOpen(false);
     } catch (error) {
       message.error("Your Photo was not successfully uploaded");
       // Handle error
       setTitle("");
       setLoading(false);
+      setIsVerifyModalOpen(false);
       setImgs([]); // Reset to empty array
     }
     setLoading(false);
@@ -168,11 +170,13 @@ const VisualStories = () => {
           setEditImgs([]); // Reset to empty array
           setImgs([]);
           setIsVerifyModalOpen(false);
+
           navigation("/dashboard/stories");
         });
       // }, 2000);
     } catch (error) {
       message.error("Your Photo was not successfully uploaded");
+      setIsVerifyModalOpen(false);
       // Handle error
       setTitle("");
       setLoading(false);
@@ -533,17 +537,25 @@ const VisualStories = () => {
                 ))}
             </div>
           </div>
-          <Input
-            style={{ height: "40px", width: "300px" }}
-            placeholder="Story title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </div>
-        <div style={{ marginTop: "20px", display: "flex" }}>
-          <Button onClick={showVerifyModal} type="primary">
-            Preview
-          </Button>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              marginLeft: "2%",
+            }}
+          >
+            <Input
+              style={{ height: "40px", width: "300px" }}
+              placeholder="Story title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+            <div style={{ marginTop: "5%", display: "flex" }}>
+              <Button onClick={showVerifyModal} type="primary">
+                Preview
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
       <Row gutter={20}>

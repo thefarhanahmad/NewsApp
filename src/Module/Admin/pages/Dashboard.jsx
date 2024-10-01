@@ -58,6 +58,9 @@ const Dashboard = () => {
   const navigation = useNavigate();
   const [categoryOptions, setCategoryOptions] = useState();
   const [subCategoryOptions, setSubCategoryOptions] = useState();
+  const [allPublishedBy, setAllPublishedBy] = useState([]);
+
+  console.log("filterItemdd response : ", filterItemResponse);
 
   useEffect(() => {
     axios
@@ -93,6 +96,9 @@ const Dashboard = () => {
         console.log(err);
       });
   }, []);
+
+  console.log("category in article edit section : ", categoryOptions);
+
   useEffect(() => {
     axios
       .get(`${API_URL}/subcategory?category=${filterItemResponse.category}`)
@@ -115,10 +121,22 @@ const Dashboard = () => {
 
   useEffect(() => {
     axios.get(`${API_URL}/article`).then((article) => {
+      console.log("article response df : ", article);
       setArticleData(article.data);
+
+      // Extract 'publishedBy' and filter out duplicates
+      const publishedByArray = article?.data?.map((item) => item.publishBy);
+      const uniquePublishedBy = [...new Set(publishedByArray)];
+
+      // Update the state
+      setAllPublishedBy(uniquePublishedBy);
+
       console.log(article);
     });
   }, [axios]);
+
+  console.log("filterItemdd response : ", filterItemResponse);
+  console.log("publishedby response : ", allPublishedBy);
 
   const stripHtmlTags = (html) => {
     const doc = new DOMParser().parseFromString(html, "text/html");
@@ -568,9 +586,12 @@ const Dashboard = () => {
       title: "Published By",
       key: "publishBy",
       dataIndex: "publish",
-      render: (data, { publishBy }) => (
-        <a>{publishBy ? publishBy : "admin@gmail.com"}</a>
-      ),
+      render: (data, { publishBy }) => {
+        // Log the value to the console
+        console.log("Publish By:", publishBy);
+
+        return <a>{publishBy ? publishBy : "admin@gmail.com"}</a>;
+      },
     },
     {
       title: "Language",
@@ -599,6 +620,7 @@ const Dashboard = () => {
     publishBy: article.publishBy,
     reportedBy: article.reportedBy,
   }));
+
   // Extract unique reportedBy values
   const uniqueReportedBy = [
     ...new Set(publishAndReportedByArray.map((item) => item.reportedBy)),
@@ -607,7 +629,7 @@ const Dashboard = () => {
   const uniquePublishBy = [
     ...new Set(publishAndReportedByArray.map((item) => item.publishBy)),
   ];
-
+  console.log("published by, : ", uniquePublishBy, filterItemResponse);
   return (
     <>
       <h1

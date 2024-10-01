@@ -358,6 +358,7 @@ const VideoPage2 = () => {
                       flexGrow: "1",
                       flexDirection: "row",
                       justifyContent: "space-between",
+                    
                     }}
                     className="related-news-card-text"
                   >

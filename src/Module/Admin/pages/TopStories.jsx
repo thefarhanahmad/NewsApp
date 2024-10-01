@@ -300,6 +300,7 @@ const Upload = () => {
           setComment(false);
           setPriority(false);
           setSlider(false);
+          setIsVerifyModalOpen(false);
         })
         .catch(() => {
           message.error("Your article was not successfully Uploaded");
@@ -360,6 +361,7 @@ const Upload = () => {
             setOnEdit(false);
             setSlug("");
             setLoading(false);
+            setIsVerifyModalOpen(false);
             navigation("/dashboard/articles");
           })
           .catch(() => {
@@ -406,6 +408,7 @@ const Upload = () => {
           setOnEdit(false);
           setSlug("");
           setLoading(false);
+          setIsVerifyModalOpen(false);
           navigation("/dashboard/articles");
         })
         .catch(() => {
