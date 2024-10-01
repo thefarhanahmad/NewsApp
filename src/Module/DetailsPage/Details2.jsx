@@ -227,6 +227,11 @@ const DetailsPage2 = () => {
     return formattedDateTime;
   };
 
+  // title share url
+  const shareUrl = window.location.href;
+  const title = "News App";
+  // const imgUrl = data?.image;
+
   useEffect(() => {
     axios
       .get(
@@ -285,7 +290,7 @@ const DetailsPage2 = () => {
                 />
               ) : null
             ) : null}
-            <div style={{ position: "relative", backgroundColor: "red" }}>
+            <div style={{ position: "relative" }}>
               <GrShareOption
                 style={{ marginRight: "18px", cursor: "pointer" }}
                 onClick={() => setIsOpen(!isOpen)}
@@ -456,7 +461,7 @@ const DetailsPage2 = () => {
       {/* mobile version  */}
       <div className="detail-page-top-container container2 container3 webDetailsContainer">
         <div className="container-detail-page-left-side">
-          {/* <h1 className="details-page-main-heading">{data?.title}</h1> */}
+          <h1 className="details-page-main-heading">{data?.title}</h1>
           <div className="details-page-top-items">
             <div className="details-page-top-item1">
               <FaUser style={{ marginRight: "10px" }} />
@@ -491,7 +496,7 @@ const DetailsPage2 = () => {
                   />
                 ) : null
               ) : null}
-              <div style={{ position: "relative", backgroundColor: "red" }}>
+              <div style={{ position: "relative" }}>
                 <GrShareOption
                   style={{ marginRight: "18px", cursor: "pointer" }}
                   onClick={() => setIsOpen(!isOpen)}

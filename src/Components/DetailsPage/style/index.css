@@ -34,10 +34,10 @@
   margin: 20px 0;
   padding: 5px;
 }
-/* .Detail-news-card-mian-area:hover {
+.Detail-news-card-mian-area:hover {
   background-color: rgb(61, 60, 60, 0.1);
   cursor: pointer;
-} */
+}
 .Detail-news-card-mian-area > img {
   width: 100%;
   height: 160px;
