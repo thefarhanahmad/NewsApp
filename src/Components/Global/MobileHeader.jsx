@@ -7,7 +7,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { API_URL } from "../../../API";
 import { AutoComplete, Dropdown, Input } from "antd";
-
+import logo from "../../assets/logo.svg";
 import { MdArrowDropDown } from "react-icons/md";
 import { ArrowLeftOutlined, PlayCircleOutlined } from "@ant-design/icons";
 
@@ -135,6 +135,12 @@ const MobileHeader = ({ data }) => {
               }}
             />
           )}
+        </div>
+        <div className="mobile-visible-containerr">
+          <span className="mobilevisibleNavItemsUlChild">Home</span>
+          <div onClick={() => Navigation("/")} className="header-logo-boxx">
+            <img src={logo} alt="" />
+          </div>
         </div>
 
         <ul className="mobilevisibleNavItemsUlChild">

@@ -462,39 +462,6 @@ const MainPage = () => {
           {/* main mobile */}
 
           <div className="main-conatiner container container3 ">
-            <div id="LatestNews" className="main-left-side">
-              <div className="mobileMainPageHeading">
-                <div>{t("ln")}</div>
-              </div>
-              <div className="top-stories-all-cards">
-                {breakingNews.map((data, index) => {
-                  let title = data.title
-                    .replace(/[/\%.?]/g, "")
-                    .split(" ")
-                    .join("-");
-                  if (data.slug) {
-                    title = data.slug;
-                  }
-                  if (index <= 3) return;
-                  if (title) {
-                    return (
-                      <StoriesCard
-                        data={data}
-                        key={index}
-                        OnPress={() =>
-                          navigation(`/details/${title}?id=${data?._id}`)
-                        }
-                        image={data?.image}
-                        text={data?.title}
-                      />
-                    );
-                  } else {
-                    return null;
-                  }
-                })}
-              </div>
-            </div>
-
             <div className="main-page-slider-setting" style={{ width: "100%" }}>
               {sliderArticles?.map((data, index) => {
                 // let title = data?.title;
@@ -553,6 +520,38 @@ const MainPage = () => {
                       }}
                     ></div>
                   ))}
+              </div>
+            </div>
+            <div id="LatestNews" className="main-left-side">
+              <div className="mobileMainPageHeading">
+                <div>{t("ln")}</div>
+              </div>
+              <div className="top-stories-all-cards">
+                {breakingNews.map((data, index) => {
+                  let title = data.title
+                    .replace(/[/\%.?]/g, "")
+                    .split(" ")
+                    .join("-");
+                  if (data.slug) {
+                    title = data.slug;
+                  }
+                  if (index <= 3) return;
+                  if (title) {
+                    return (
+                      <StoriesCard
+                        data={data}
+                        key={index}
+                        OnPress={() =>
+                          navigation(`/details/${title}?id=${data?._id}`)
+                        }
+                        image={data?.image}
+                        text={data?.title}
+                      />
+                    );
+                  } else {
+                    return null;
+                  }
+                })}
               </div>
             </div>
 
@@ -651,11 +650,12 @@ const MainPage = () => {
           </div>
 
           <div
-            id="Videos"
+            // id="Videos"
             style={{
               backgroundColor: "blue",
               padding: "0px 10px",
               width: "90%",
+              display: "none",
             }}
             className="main-left-side"
           >
@@ -1427,54 +1427,26 @@ const MainPage = () => {
             height: "content-fit",
           }}
         >
-          <h1 className="main-page-video-heading2"> Videos</h1>
-
-          <div
-            style={{
-              // backgroundColor: "yellow",
-              display: "flex",
-              justifyContent: "space-between",
-              padding: "10px 0px",
-              height: "content-fit",
-            }}
-          >
-            <div
-              style={{
-                // backgroundColor: "red",
-                width: "27%",
-                display: "flex",
-                flexDirection: "column",
-                gap: "1.2rem",
-              }}
-            >
+          <h1 className="main-page-video-heading2" id="Videos">
+            {" "}
+            Videos
+          </h1>
+          <div className="video-containerr">
+            <div className="left-columnn">
               {video.slice(0, 2).map((vdo, i) => {
                 return <VdoThumb data={vdo} />;
               })}
             </div>
-            <div
-              style={{
-                // backgroundColor: "red",
-                width: "40%",
-              }}
-            >
+            <div className="middle-columnn">
               <VdoThumb data={video[2]} />;
             </div>
-            <div
-              style={{
-                // backgroundColor: "red",
-                width: "27%",
-                display: "flex",
-                flexDirection: "column",
-                gap: "1.2rem",
-              }}
-            >
+            <div className="right-columnn">
               {video.slice(3, 5).map((vdo, i) => {
                 return <VdoThumb data={vdo} />;
               })}
             </div>
           </div>
-          {/* see more btn */}
-
+          ;{/* see more btn */}
           <div
             className="more-text"
             onClick={() => navigate("/itempage2?newsType=videos")}
