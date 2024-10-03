@@ -229,7 +229,7 @@
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
-  overflow: hidden;
+  /* overflow: hidden; */
   text-overflow: ellipsis;
   word-wrap: break-word; 
   max-height: 4em;

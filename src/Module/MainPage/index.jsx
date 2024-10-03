@@ -1662,8 +1662,11 @@ const MainPage = () => {
                   />
                 </div> */}
               </div>
-              {/* <div className="main-page-technology-third-column">
-                <VideoCard color="black" width="100%" />
+              <div
+                className="main-page-technology-third-column"
+                style={{ display: "block" }}
+              >
+                {/* <VideoCard color="black" width="100%" />
                 <VideoCard color="black" width="100%" />
                 <div className="more-text">
                   {"more"}{" "}
@@ -1672,8 +1675,8 @@ const MainPage = () => {
                       marginLeft: "6px",
                     }}
                   />
-                </div>
-              </div> */}
+                </div> */}
+              </div>
             </div>
           </div>
         </div>
