@@ -206,6 +206,7 @@ const Photos = () => {
         editImgs,
         imgWithText
       );
+
       axios
         .put(`${API_URL}/photo/${id}`, {
           title: title,
@@ -478,7 +479,9 @@ const Photos = () => {
       >
         Photos
       </h1>
-      <div style={{ backgroundColor: "yellowgreen" }}>
+      <div 
+      // style={{ backgroundColor: "yellowgreen" }}
+      >
         <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
           {/* {editPhoto ? (
             <>

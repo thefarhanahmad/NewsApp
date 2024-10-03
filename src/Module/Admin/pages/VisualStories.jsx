@@ -410,7 +410,9 @@ const VisualStories = () => {
       >
         Visual Story
       </h1>
-      <div style={{ backgroundColor: "yellow" }}>
+      <div
+      // style={{ backgroundColor: "yellow" }}
+      >
         <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
           <div>
             <Input
