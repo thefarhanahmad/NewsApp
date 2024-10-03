@@ -233,15 +233,22 @@ const VideoPage2 = () => {
         {/* video player */}
         <div
           className="mobileDetailsMainImage video-container"
-          style={{ height: "200px", overflow: "hidden" }}
+          style={{
+            height: "200px",
+            overflow: "hidden",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            padding: "5px",
+          }}
         >
           <ReactPlayer
-            // style={{ height: "200px", objectFit: "cover" }}
             className="details-page-main-video"
             url={vdoData?.link}
             controls={true} // Enable video controls
           />
         </div>
+
         <div className="container3">
           <h1
             style={{ fontSize: "20px" }}
@@ -249,10 +256,23 @@ const VideoPage2 = () => {
           >
             {vdoData?.title}
           </h1>
+          <div className="details-page-top-item1">
+            <FaUser style={{ marginRight: "10px" }} />
+            {/* {data?.reportedBy}
+              {console.log(data?.reportedBy)} */}
+            {vdoData?.reportedBy}
+            {console.log(data?.reportedBy)}
+          </div>
+          <div className="details-page-top-item2">
+            <AiOutlineCalendar size={22} style={{ marginRight: "10px" }} />
+            {/* {data ? formatDatetime(data.updatedAt) : "12|08|2023 12:15"} */}
+            {vdoData ? formatDatetime(vdoData?.updatedAt) : "12|08|2023 12:15"}
+            {/* { data?data.updatedAt:"12|05|2024"} */}
+          </div>
         </div>
         <div
           style={{
-            margin: " 15px 0px",
+            margin: " 15px 10px",
             padding: "5px 0",
             borderTop: "1px solid grey",
             borderBottom: "1px solid grey",
@@ -358,7 +378,6 @@ const VideoPage2 = () => {
                       flexGrow: "1",
                       flexDirection: "row",
                       justifyContent: "space-between",
-                    
                     }}
                     className="related-news-card-text"
                   >

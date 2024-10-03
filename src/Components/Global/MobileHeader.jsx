@@ -137,8 +137,23 @@ const MobileHeader = ({ data }) => {
           )}
         </div>
         <div className="mobile-visible-containerr">
-          <span className="mobilevisibleNavItemsUlChild">Home</span>
-          <div onClick={() => Navigation("/")} className="header-logo-boxx">
+          <span
+            onClick={() => {
+              Navigation("/");
+              setHambergClicked(false);
+            }}
+            className="mobilevisibleNavItemsUlChild"
+          >
+            Home
+          </span>
+          <div
+            onClick={() => {
+              Navigation("/");
+              setHambergClicked(false);
+            }}
+            className="header-logo-boxx"
+            style={{ width: "9rem", marginLeft: "1rem" }}
+          >
             <img src={logo} alt="" />
           </div>
         </div>
@@ -147,7 +162,10 @@ const MobileHeader = ({ data }) => {
           {!isLivePage ? (
             <li
               style={{ cursor: "pointer" }}
-              onClick={() => Navigation("/live")}
+              onClick={() => {
+                Navigation("/live");
+                setHambergClicked(false);
+              }}
             >
               <PlayCircleOutlined style={{ marginRight: "5px" }} /> live
             </li>
@@ -157,6 +175,8 @@ const MobileHeader = ({ data }) => {
             <BiSolidSearch
               onClick={() => {
                 setSearch((prevState) => !prevState);
+
+                setHambergClicked(false);
               }}
               size={25}
               color="white"

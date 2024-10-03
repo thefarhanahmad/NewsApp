@@ -353,13 +353,13 @@ const Header = () => {
               <div style={{}}>
                 <IoIosCloseCircle
                   onClick={() => setSearch(false)}
-                  size={45}
+                  size={55}
                   style={{
                     // backgroundColor: "red",
                     padding: "10px",
                     marginLeft: 20,
                     // marginTop: 10,
-                    marginTop: 75,
+                    marginTop: 79,
                     cursor: "pointer",
                   }}
                 />

@@ -131,7 +131,7 @@ const VisualStories = () => {
 
   const onUpdate = async () => {
     try {
-      let imgWithText;
+      let imgWithText = [];
       setLoading(true);
       if (imgs.length > 0) {
         // Step 1: Upload Images
@@ -183,6 +183,7 @@ const VisualStories = () => {
         });
       // }, 2000);
     } catch (error) {
+      console.log("error in edit vs:", error);
       message.error("Your Photo was not successfully uploaded");
       setIsVerifyModalOpen(false);
       // Handle error
@@ -299,18 +300,17 @@ const VisualStories = () => {
       title: "Image",
       dataIndex: "images", // Assuming 'images' is the property representing the images
       key: "images",
-      // colSpan: 2,
       render: (images) => {
         return (
           <div
             style={{
               display: "flex",
               flexDirection: "row",
-              // width: "500px",
             }}
           >
             {images.map((image, index) => (
               <div
+                key={index} // Key should be on the outermost element inside the map
                 style={{
                   display: "flex",
                   flexDirection: "column",
@@ -318,7 +318,6 @@ const VisualStories = () => {
                 }}
               >
                 <img
-                  key={index}
                   width={100}
                   style={{
                     width: "100px",

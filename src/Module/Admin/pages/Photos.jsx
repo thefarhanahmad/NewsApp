@@ -158,7 +158,7 @@ const Photos = () => {
 
   const onUpdate = async () => {
     try {
-      let imgWithText;
+      let imgWithText = [];
       setLoading(true);
 
       if (imgs?.length > 0) {

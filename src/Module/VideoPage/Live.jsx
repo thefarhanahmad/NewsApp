@@ -78,8 +78,8 @@ const LivePage = () => {
       })
       .catch(() => {});
   }, []);
-  const youtubeLink = Data.link
-    ? Data.link
+  const youtubeLink = Data?.link
+    ? Data?.link
     : "https://www.youtube.com/watch?v=jFrGhodqC08";
   const startIndex = youtubeLink.indexOf("v=") + 2; // Find the index of "v=" and add 2 to skip it
   const endIndex =
@@ -106,7 +106,7 @@ const LivePage = () => {
       const reverseArr = data.data.reverse();
       setData(reverseArr[0]);
       document.getElementById("pararvideo").innerHTML =
-        reverseArr[0].discription;
+        reverseArr[0]?.discription;
     });
   }, []);
   const formatDatetime = (datetimeStr) => {
@@ -149,8 +149,8 @@ const LivePage = () => {
             style={{ fontSize: "16px" }}
             className="details-page-main-heading"
           >
-            {Data.title
-              ? Data.title
+            {Data?.title
+              ? Data?.title
               : "100 Hours On, Forces Locked In Jungle Warfare With Terrorists InKashmir"}
           </h1>
           <div className="details-page-top-items">
@@ -288,7 +288,7 @@ const LivePage = () => {
             )}
             <div className="detail-page-relate-new-cards">
               {topStories?.map((data, index) => {
-                let title = data.title
+                let title = data?.title
                   .replace(/[/\%.?]/g, "")
                   .split(" ")
                   .join("-");
@@ -336,8 +336,8 @@ const LivePage = () => {
       <div className="detail-page-top-container container2 container3 webDetailsContainer">
         <div className="container-detail-page-left-side">
           <h1 className="details-page-main-heading">
-            {Data.title
-              ? Data.title
+            {Data?.title
+              ? Data?.title
               : "100 Hours On, Forces Locked In Jungle Warfare With Terrorists InKashmir"}
           </h1>
           <div className="details-page-top-items">
@@ -418,7 +418,7 @@ const LivePage = () => {
             <div id="pararvideo"></div>
           </div>
           {/*<div className="details-main-text-area">
-          {Data.discription?Data.discription:""}
+          {Data??Data?:""}
            <div className="details-main-related-new-area-heading">
             Loksatya Articles
           </div>
@@ -541,7 +541,7 @@ const LivePage = () => {
           </div>
           <div className="video-page-news-cards">
             {topStories?.map((data, index) => {
-              let title = data.title
+              let title = data?.title
                 .replace(/[/\%.?]/g, "")
                 .split(" ")
                 .join("-");
