@@ -37,6 +37,7 @@ const Photos = () => {
   const [currentPhoto, setCurrentPhoto] = useState({}); //while deleting
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [imgTexts, setImgTexts] = useState({});
+  const [imgUrl, setImgUrl] = useState({});
   const [loading, setLoading] = useState(false);
   // const [img, setImg] = useState([]);
   const [imgs, setImgs] = useState([]);
@@ -52,7 +53,7 @@ const Photos = () => {
         let data = item.data[0];
         console.log("dataedit", data);
         setTitle(data.title);
-        setEditPhoto(data.image);
+        setEditImgs(data?.images);
       });
     }
   }, [onEdit]);
@@ -119,6 +120,7 @@ const Photos = () => {
         title,
         image: images, // Store array of image URLs
         imageTexts: imgTexts,
+        url: imgUrl,
       });
       // Additional logic if needed after successful upload
       // message.success("Your Photo was successfully uploaded");
@@ -128,6 +130,7 @@ const Photos = () => {
       // Additional logic if needed after successful upload
       message.success("Your Photo was successfully uploaded");
       setIsVerifyModalOpen(false);
+      fetchAllPhotos();
       setTitle("");
       setLoading(false);
       setImgs([]); // Reset to empty array
@@ -155,83 +158,72 @@ const Photos = () => {
 
   const onUpdate = async () => {
     try {
-      // let imageResponse = null;
-      // // let imgWithText;
-      // setLoading(true);
-      // if (img) {
-      //   // Step 1: Upload Image
-      //   let formData = new FormData();
-      //   formData.append("file", img, img.name);
-      //   console.log("formData", formData);
-
-      //   imageResponse = await axios.post(`${API_URL}/image`, formData);
-      //   // setEditImgs((prev) => [...prev, ...imgWithText]);
-      // }
-
       let imgWithText;
       setLoading(true);
-      if (imgs.length > 0) {
+
+      if (imgs?.length > 0) {
         // Step 1: Upload Images
         const imageUploadPromises = imgs.map(async (img) => {
           let formData = new FormData();
           formData.append("file", img, img.name);
-          console.log("formdata in edit photos : ", formData);
+          console.log("formdata in edit photos: ", formData);
+
+          // Upload each image and get the response
           const imageResponse = await axios.post(`${API_URL}/image`, formData);
-          console.log("imageREsponse in edit photos : ", imageResponse);
-          return imageResponse.data.image;
+          console.log("imageResponse in edit photos: ", imageResponse);
+          return imageResponse.data.image; // Return the uploaded image URL
         });
 
+        // Wait for all image uploads to finish
         const images = await Promise.all(imageUploadPromises);
-        console.log("images in Photos in edit", images);
+        console.log("images in Photos in edit:", images);
+
+        // Combine the uploaded images with their corresponding texts and URLs
         imgWithText = images?.map((img, index) => ({
           img: img,
           text: imgTexts[index],
+          url: imgUrl[index],
         }));
-        console.log("imgwithtxt in Photos in edit", imgWithText);
-        setNewImgs(imgWithText);
+        console.log("imgWithText in Photos in edit:", imgWithText);
+        setNewImgs(imgWithText); // Set the new images with text
       }
 
-      // setTimeout(() => {
-      // Step 2: update Story
-      console.log("imgWithText", imageResponse, title, editPhoto);
-
-      // axios
-      //   .put(`${API_URL}/photo/${id}`, {
-      //     title: title,
-      //     image: imageResponse ? imageResponse?.data?.image : editPhoto,
-      //   })
+      // Step 2: Update Story
       console.log(
-        "title and editImage and imgwithtxt in photo edit  :",
+        "imgWithText:",
+        imgWithText,
+        "title:",
         title,
-        editImgs,
-        imgWithText
+        "editPhoto:",
+        editPhoto
       );
 
-      axios
-        .put(`${API_URL}/photo/${id}`, {
-          title: title,
-          images: [...editImgs, ...imgWithText],
-        })
-        .then((res) => {
-          console.log("Photos Edit Response", res);
-          // Additional logic if needed after successful upload
-          message.success("Your Photo was successfully updated");
-          setTitle("");
-          setLoading(false);
-          setEditImgs([]); // Reset to empty array
-          setImgs([]);
-          setIsVerifyModalOpen(false);
-          navigation("/dashboard/photos");
-        });
+      // Send the update request with the new images and capture the response
+      const res = await axios.put(`${API_URL}/photo/${id}`, {
+        title: title,
+        images: [...editImgs, ...imgWithText], // Merge existing and new images
+      });
+
+      console.log("Photos Edit Response", res); // Now you can log the response
+      message.success("Your Photo was successfully updated");
+      setIsVerifyModalOpen(false);
+      fetchAllPhotos();
+      setTitle("");
+      setLoading(false);
+      setEditImgs([]); // Reset to empty array
+      setImgs([]);
+      navigation("/dashboard/photos");
     } catch (error) {
+      console.log("error in edit image:", error);
       message.error("Your Photo was not successfully uploaded");
       // Handle error
       setTitle("");
       setLoading(false);
       setImgs([]); // Reset to empty array
     }
-    setLoading(false);
+    setLoading(false); // Ensure loading is false at the end
   };
+
   // .then((res) => {
   //   console.log("storyEditResponse", res);
   //   // Additional logic if needed after successful upload
@@ -479,9 +471,7 @@ const Photos = () => {
       >
         Photos
       </h1>
-      <div 
-      // style={{ backgroundColor: "yellowgreen" }}
-      >
+      <div style={{ paddingBottom: "15px" }}>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
           {/* {editPhoto ? (
             <>
@@ -543,7 +533,7 @@ const Photos = () => {
                   margin: "auto",
                 }}
               >
-                {imgs.length === 0
+                {imgs?.length === 0
                   ? "Upload images here"
                   : "Upload more images"}
               </div>
@@ -580,7 +570,7 @@ const Photos = () => {
                 flexDirection: "row",
               }}
             >
-              {imgs.length > 0 &&
+              {imgs?.length > 0 &&
                 imgs.map((img, index) => (
                   <div
                     style={{
@@ -612,17 +602,28 @@ const Photos = () => {
                         }))
                       }
                     />
+                    <Input
+                      style={{ height: "40px", width: "150px" }}
+                      placeholder="Image Link"
+                      value={imgUrl[index]}
+                      onChange={(e) =>
+                        setImgUrl((old) => ({
+                          ...old,
+                          [index]: e.target.value,
+                        }))
+                      }
+                    />
                   </div>
                 ))}
               {console.log("edit images in photos : ", editImgs)}
-              {editImgs.length > 0 &&
+              {editImgs?.length > 0 &&
                 editImgs.map((img, index) => (
                   <div
                     style={{
                       display: "flex",
                       flexDirection: "column",
                       marginLeft: "10px",
-                      backgroundColor: "red",
+                      // backgroundColor: "red",
                     }}
                   >
                     <FaTrashAlt
@@ -649,6 +650,17 @@ const Photos = () => {
                       value={img.text}
                       onChange={(e) =>
                         setImgTexts((old) => ({
+                          ...old,
+                          [index]: e.target.value,
+                        }))
+                      }
+                    />
+                    <Input
+                      style={{ height: "40px", width: "150px" }}
+                      placeholder="Image Link"
+                      value={img?.url}
+                      onChange={(e) =>
+                        setImgUrl((old) => ({
                           ...old,
                           [index]: e.target.value,
                         }))

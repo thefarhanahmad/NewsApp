@@ -324,13 +324,25 @@ const MainPage = () => {
       })
       .catch(() => {});
   }, []);
+
+  console.log("photo in gallery on home page : ", photo);
+
   useEffect(() => {
     axios
       .get(`${API_URL}/photo`)
-      .then((data) => {
-        setPhoto(data.data);
+      .then((response) => {
+        console.log("data response f photo : ", response.data);
+
+        // Filter images with status true
+        const filteredPhotos = response.data.filter(
+          (item) => item.status === true
+        );
+
+        setPhoto(filteredPhotos);
       })
-      .catch(() => {});
+      .catch((error) => {
+        console.error("Error fetching photos:", error);
+      });
   }, []);
 
   useEffect(() => {

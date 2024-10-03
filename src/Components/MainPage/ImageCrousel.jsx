@@ -66,7 +66,9 @@ function ImageCrousel() {
                       width: "100%",
                     }}
                     className="photoGallery-card"
-                    onClick={() => window.open(img?.img, "_blank")}
+                    onClick={() =>
+                      window.open(img?.url ? img?.url : img?.img, "_blank")
+                    }
                     key={img._id}
                     // img.title
                   >

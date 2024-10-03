@@ -410,9 +410,7 @@ const VisualStories = () => {
       >
         Visual Story
       </h1>
-      <div
-      // style={{ backgroundColor: "yellow" }}
-      >
+      <div style={{ paddingBottom: "15px" }}>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
           <div>
             <Input
@@ -511,7 +509,7 @@ const VisualStories = () => {
                       display: "flex",
                       flexDirection: "column",
                       marginLeft: "10px",
-                      backgroundColor: "red",
+                      // backgroundColor: "red",
                     }}
                   >
                     <FaTrashAlt
