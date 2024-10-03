@@ -175,16 +175,19 @@ const Photos = () => {
         const imageUploadPromises = imgs.map(async (img) => {
           let formData = new FormData();
           formData.append("file", img, img.name);
+          console.log("formdata in edit photos : ", formData);
           const imageResponse = await axios.post(`${API_URL}/image`, formData);
+          console.log("imageREsponse in edit photos : ", imageResponse);
           return imageResponse.data.image;
         });
 
         const images = await Promise.all(imageUploadPromises);
-        console.log("images", images);
+        console.log("images in Photos in edit", images);
         imgWithText = images?.map((img, index) => ({
           img: img,
           text: imgTexts[index],
         }));
+        console.log("imgwithtxt in Photos in edit", imgWithText);
         setNewImgs(imgWithText);
       }
 
@@ -197,13 +200,19 @@ const Photos = () => {
       //     title: title,
       //     image: imageResponse ? imageResponse?.data?.image : editPhoto,
       //   })
+      console.log(
+        "title and editImage and imgwithtxt in photo edit  :",
+        title,
+        editImgs,
+        imgWithText
+      );
       axios
         .put(`${API_URL}/photo/${id}`, {
           title: title,
           images: [...editImgs, ...imgWithText],
         })
         .then((res) => {
-          console.log("storyEditResponse", res);
+          console.log("Photos Edit Response", res);
           // Additional logic if needed after successful upload
           message.success("Your Photo was successfully updated");
           setTitle("");
@@ -469,11 +478,9 @@ const Photos = () => {
       >
         Photos
       </h1>
-      <div
-      // style={{ backgroundColor: "yellowgreen" }}
-      >
+      <div style={{ backgroundColor: "yellowgreen" }}>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
-          {editPhoto ? (
+          {/* {editPhoto ? (
             <>
               <img
                 style={{
@@ -490,54 +497,54 @@ const Photos = () => {
                 onClick={() => setEditPhoto(null)}
               />
             </>
-          ) : (
-            <div>
-              <Input
-                type="file"
-                name="file"
-                id="file-name"
-                multiple // Allow multiple files
-                onChange={(e) => {
-                  setImgs([...e.target.files]);
-                }}
-                style={{ display: "none" }}
-                hidden={true}
-              />
+          ) : ( */}
+          <div>
+            <Input
+              type="file"
+              name="file"
+              id="file-name"
+              multiple // Allow multiple files
+              onChange={(e) => {
+                setImgs([...e.target.files]);
+              }}
+              style={{ display: "none" }}
+              hidden={true}
+            />
+            <div
+              onClick={() => {
+                document.getElementById("file-name").click();
+              }}
+              style={{
+                minWidth: "100px",
+                width: "auto",
+                height: "200px",
+                backgroundColor: "rgba(0,0,0,0.1)",
+                borderRadius: "10px",
+                marginBottom: 10,
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "10px",
+              }}
+            >
               <div
-                onClick={() => {
-                  document.getElementById("file-name").click();
-                }}
                 style={{
-                  minWidth: "100px",
-                  width: "auto",
-                  height: "200px",
-                  backgroundColor: "rgba(0,0,0,0.1)",
-                  borderRadius: "10px",
-                  marginBottom: 10,
+                  height: "100%",
+                  fontSize: "25px",
+                  fontWeight: "600",
+                  alignItems: "center",
+                  justifyContent: "center",
                   display: "flex",
-                  flexWrap: "wrap",
-                  gap: "10px",
+                  color: "rgba(0,0,0,0.5)",
+                  textAlign: "center",
+                  alignSelf: "center",
+                  margin: "auto",
                 }}
               >
-                <div
-                  style={{
-                    height: "100%",
-                    fontSize: "25px",
-                    fontWeight: "600",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    display: "flex",
-                    color: "rgba(0,0,0,0.5)",
-                    textAlign: "center",
-                    alignSelf: "center",
-                    margin: "auto",
-                  }}
-                >
-                  {imgs.length === 0
-                    ? "Upload images here"
-                    : "Upload more images"}
-                </div>
-                {/* {img == null ? (
+                {imgs.length === 0
+                  ? "Upload images here"
+                  : "Upload more images"}
+              </div>
+              {/* {img == null ? (
                   <div
                     style={{
                       height: "100%",
@@ -561,92 +568,94 @@ const Photos = () => {
                     src={URL.createObjectURL(img)}
                   />
                 )} */}
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  // backgroundColor: "red",
-                  // padding: "10px",
-                  flexDirection: "row",
-                }}
-              >
-                {imgs.length > 0 &&
-                  imgs.map((img, index) => (
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        marginLeft: "10px",
-                      }}
-                    >
-                      <img
-                        key={index}
-                        style={{
-                          width: "100px",
-                          height: "100px",
-                          borderRadius: "10px",
-                          objectFit: "cover",
-                          alignSelf: "center",
-                          margin: "2px",
-                        }}
-                        src={URL.createObjectURL(img)}
-                      />
-                      <Input
-                        style={{ height: "40px", width: "150px" }}
-                        placeholder="Image Text"
-                        value={imgTexts[index]}
-                        onChange={(e) =>
-                          setImgTexts((old) => ({
-                            ...old,
-                            [index]: e.target.value,
-                          }))
-                        }
-                      />
-                    </div>
-                  ))}{" "}
-                {editImgs.length > 0 &&
-                  editImgs.map((img, index) => (
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        marginLeft: "10px",
-                      }}
-                    >
-                      <FaTrashAlt
-                        style={{ marginLeft: "7%", marginBottom: "-10%" }}
-                        size={"15"}
-                        color="red"
-                        onClick={() => RemoveImage(img.img)}
-                      />
-                      <img
-                        key={index}
-                        style={{
-                          width: "100px",
-                          height: "100px",
-                          borderRadius: "10px",
-                          objectFit: "cover",
-                          alignSelf: "center",
-                          margin: "2px",
-                        }}
-                        src={img.img}
-                      />
-                      <Input
-                        style={{ height: "40px", width: "150px" }}
-                        placeholder="Image Text"
-                        value={img.text}
-                        onChange={(e) =>
-                          setImgTexts((old) => ({
-                            ...old,
-                            [index]: e.target.value,
-                          }))
-                        }
-                      />
-                    </div>
-                  ))}
-              </div>
             </div>
-          )}
+            <div
+              style={{
+                display: "flex",
+                // backgroundColor: "red",
+                // padding: "10px",
+                flexDirection: "row",
+              }}
+            >
+              {imgs.length > 0 &&
+                imgs.map((img, index) => (
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      marginLeft: "10px",
+                    }}
+                  >
+                    <img
+                      key={index}
+                      style={{
+                        width: "100px",
+                        height: "100px",
+                        borderRadius: "10px",
+                        objectFit: "cover",
+                        alignSelf: "center",
+                        margin: "2px",
+                      }}
+                      src={URL.createObjectURL(img)}
+                    />
+                    <Input
+                      style={{ height: "40px", width: "150px" }}
+                      placeholder="Image Text"
+                      value={imgTexts[index]}
+                      onChange={(e) =>
+                        setImgTexts((old) => ({
+                          ...old,
+                          [index]: e.target.value,
+                        }))
+                      }
+                    />
+                  </div>
+                ))}
+              {console.log("edit images in photos : ", editImgs)}
+              {editImgs.length > 0 &&
+                editImgs.map((img, index) => (
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      marginLeft: "10px",
+                      backgroundColor: "red",
+                    }}
+                  >
+                    <FaTrashAlt
+                      style={{ marginLeft: "7%", marginBottom: "-10%" }}
+                      size={"15"}
+                      color="red"
+                      onClick={() => RemoveImage(img.img)}
+                    />
+                    <img
+                      key={index}
+                      style={{
+                        width: "100px",
+                        height: "100px",
+                        borderRadius: "10px",
+                        objectFit: "cover",
+                        alignSelf: "center",
+                        margin: "2px",
+                      }}
+                      src={img.img}
+                    />
+                    <Input
+                      style={{ height: "40px", width: "150px" }}
+                      placeholder="Image Text"
+                      value={img.text}
+                      onChange={(e) =>
+                        setImgTexts((old) => ({
+                          ...old,
+                          [index]: e.target.value,
+                        }))
+                      }
+                    />
+                  </div>
+                ))}
+            </div>
+          </div>
+          {/* )} */}
           <div
             style={{
               display: "flex",

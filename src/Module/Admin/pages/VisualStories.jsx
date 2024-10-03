@@ -138,16 +138,19 @@ const VisualStories = () => {
         const imageUploadPromises = imgs.map(async (img) => {
           let formData = new FormData();
           formData.append("file", img, img.name);
+          console.log("FormData in edit vs : ", formData);
           const imageResponse = await axios.post(`${API_URL}/image`, formData);
+          console.log("imageREsponse in edit vs : ", imageResponse);
           return imageResponse.data.image;
         });
 
         const images = await Promise.all(imageUploadPromises);
-        console.log("images", images);
+        console.log("images in visual stories in edit", images);
         imgWithText = images?.map((img, index) => ({
           img: img,
           text: imgTexts[index],
         }));
+        console.log("imgwithtxt in vs in edit", imgWithText);
         setNewImgs(imgWithText);
         // setEditImgs((prev) => [...prev, ...imgWithText]);
       }
@@ -155,14 +158,19 @@ const VisualStories = () => {
       // setTimeout(() => {
       // Step 2: update Story
       console.log("imgWithText", editImgs, imgWithText, title);
-
+      console.log(
+        "title and editImage and imgwithtxt in vs edit  :",
+        title,
+        editImgs,
+        imgWithText
+      );
       axios
         .put(`${API_URL}/story/${id}`, {
           title: title,
           images: [...editImgs, ...imgWithText],
         })
         .then((res) => {
-          console.log("storyEditResponse", res);
+          console.log("visual story Edit Response", res);
           // Additional logic if needed after successful upload
           message.success("Your Photo was successfully updated");
           setTitle("");
@@ -402,9 +410,7 @@ const VisualStories = () => {
       >
         Visual Story
       </h1>
-      <div
-      // style={{ backgroundColor: "yellow" }}
-      >
+      <div style={{ backgroundColor: "yellow" }}>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
           <div>
             <Input
@@ -494,7 +500,8 @@ const VisualStories = () => {
                       }
                     />
                   </div>
-                ))}{" "}
+                ))}
+              {console.log("edit images in vs: ", editImgs)}
               {editImgs.length > 0 &&
                 editImgs.map((img, index) => (
                   <div
@@ -502,6 +509,7 @@ const VisualStories = () => {
                       display: "flex",
                       flexDirection: "column",
                       marginLeft: "10px",
+                      backgroundColor: "red",
                     }}
                   >
                     <FaTrashAlt

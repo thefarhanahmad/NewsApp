@@ -26,7 +26,8 @@ const Upload = () => {
   const [reported, setreported] = useState("");
   const [publish, setpublish] = useState("");
   const [type, setType] = useState("img");
-  const [Language, setLanguage] = useState("English");
+  // const [Language, setLanguage] = useState("English");
+  const [Language, setLanguage] = useState("HIndi");
   const [newType, setNewType] = useState("topStories");
   const [keyword, setkeyword] = useState([]);
   const [isVerifyModalOpen, setIsVerifyModalOpen] = useState(false);
@@ -646,14 +647,14 @@ const Upload = () => {
                         marginBottom: "20px",
                       }}
                       options={[
-                        {
-                          value: "English",
-                          label: "English",
-                        },
-                        {
-                          value: "Urdu",
-                          label: "Urdu",
-                        },
+                        // {
+                        //   value: "English",
+                        //   label: "English",
+                        // },
+                        // {
+                        //   value: "Urdu",
+                        //   label: "Urdu",
+                        // },
                         {
                           value: "Hindi",
                           label: "Hindi",
