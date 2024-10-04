@@ -796,25 +796,42 @@ const MainPage = () => {
                 photo.map((img) => {
                   return (
                     <div>
+                      <a href={`/photos/${img?._id}`} target="_blank">
+                        <div
+                          className="photoGallery-card"
+                          key={img._id}
+                          // img.title
+                        >
+                          <img src={img.images[0].img} alt="" />
+                        </div>
+                      </a>
                       <div
-                        className="photoGallery-card"
-                        key={img._id}
-                        // img.title
-                      >
-                        <img src={img.images[0].img} alt="" />
-                      </div>
-                      <a
-                        href={`/photos/${img?._id}`}
-                        target="_blank"
+                        className=""
                         style={{
-                          color: "white",
-                          // textDecoration: "none",
-                          paddingTop: "3%",
-                          float: "right",
+                          // background: "red",
+                          display: "flex",
+                          width: "100%",
+                          justifyContent: "space-between",
+                          // marginTop: "0.5rem",
+                          alignItems: "center",
+                          // padding:"0px 3px"
                         }}
                       >
-                        Go to Link...
-                      </a>
+                        <span className="pgt">{img?.title.toUpperCase()}</span>
+
+                        {/* <a
+                          href={`/photos/${img?._id}`}
+                          target="_blank"
+                          style={{
+                            color: "white",
+                            // textDecoration: "none",
+                            // paddingTop: "3%",
+                            // float: "right",
+                          }}
+                        >
+                          Go to Link...
+                        </a> */}
+                      </div>
                     </div>
                   );
                 })}
@@ -1800,18 +1817,33 @@ const MainPage = () => {
                         <img src={img.images[0].img} alt="" />
                       </div>
                     </a>
-                    <a
-                      href={img.title}
-                      target="_blank"
+                    <div
+                      className=""
                       style={{
-                        color: "white",
-                        // textDecoration: "none",
-                        paddingTop: "3%",
-                        float: "right",
+                        // background: "red",
+                        display: "flex",
+                        width: "100%",
+                        justifyContent: "space-between",
+                        // marginTop: "0.5rem",
+                        alignItems: "center",
+                        // padding:"0px 3px"
                       }}
                     >
-                      Go to Link...
-                    </a>
+                      <span className="pgt">{img?.title.toUpperCase()}</span>
+
+                      {/* <a
+                        href={`/photos/${img?._id}`}
+                        target="_blank"
+                        style={{
+                          color: "white",
+                          // textDecoration: "none",
+                          // paddingTop: "3%",
+                          // float: "right",
+                        }}
+                      >
+                        Go to Link...
+                      </a> */}
+                    </div>
                   </div>
                 );
               })}

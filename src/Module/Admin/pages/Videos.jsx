@@ -136,17 +136,18 @@ const Video = () => {
         title,
         image: img ? imageResponse.data.image : "",
         link: link,
-        reportedBy: reported,
+        reportedBy: "user",
       });
 
       // Additional logic if needed after successful upload
       message.success("Your Video was successfully uploaded");
+      setIsVerifyModalOpen(false);
+      fetchAllPhotos();
       setTitle("");
       setLoading(false);
       setImg(null);
       setLink(null);
-      setreported("");
-      setIsVerifyModalOpen(false);
+      // setreported("");
       if (img) {
         document.getElementById("video-element").src = "";
       }
@@ -156,7 +157,7 @@ const Video = () => {
       setTitle("");
       setLoading(false);
       setImg(null);
-      setreported("");
+      // setreported("");
       setIsVerifyModalOpen(false);
     }
     setLoading(false);
@@ -541,7 +542,7 @@ const Video = () => {
               onChange={(e) => setLink(e.target.value)}
             />
             <div>
-              <Select
+              {/* <Select
                 placeholder="Reported By"
                 value={reported ? reported : null}
                 onChange={(e) => setreported(e)}
@@ -564,7 +565,7 @@ const Video = () => {
                     label: "BHASHA",
                   },
                 ]}
-              />
+              /> */}
             </div>
 
             <div

@@ -192,6 +192,9 @@
   color: rgba(255, 255, 255, 1);
   text-transform: capitalize;
 }
+.footer-heading:hover {
+  color: rgb(216, 213, 213);
+}
 .footer-items > div {
   text-transform: capitalize;
   font-family: Poppins;
@@ -203,6 +206,14 @@
   color: rgba(255, 255, 255, 1);
   margin-top: 15px;
 }
+.sub-items-f {
+  color: rgba(255, 255, 255, 1);
+}
+.sub-items-f:hover {
+  color: rgb(216, 213, 213);
+  cursor: pointer;
+}
+
 .footer-line {
   width: 100%;
   background-color: white;

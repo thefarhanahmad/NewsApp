@@ -532,7 +532,7 @@ const DetailsPage = () => {
             </div>
             <div className="details-page-top-item2">
               <AiOutlineCalendar size={22} style={{ marginRight: "10px" }} />
-              {data ? newFormatDate(data.updatedAt) : "12|08|2023 12:15"}
+              {data ? newFormatDate(data.createdAt) : "12|08|2023 12:15"}
             </div>
             <div className="details-page-top-item3">
               {isFav ? (
@@ -559,7 +559,7 @@ const DetailsPage = () => {
                   />
                 ) : null
               ) : null}
-              <div style={{ position: "relative", background: "red" }}>
+              <div style={{ position: "relative" }}>
                 <GrShareOption
                   style={{ marginRight: "18px", cursor: "pointer" }}
                   onClick={() => setIsOpen(!isOpen)}
@@ -608,7 +608,7 @@ const DetailsPage = () => {
                 </div>
               </div>
               {/* whatsapp share */}
-              <div style={{ background: "red" }}>
+              <div style={{}}>
                 <WhatsappShareButton
                   url={shareUrl}
                   title={`${title} \n ${imgUrl}`}

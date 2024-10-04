@@ -179,6 +179,7 @@ const Dashboard = () => {
         axios.get(`${API_URL}/article`).then((article) => {
           setArticleData(article.data.reverse());
         });
+        getAllArticles();
       })
       .catch((error) => {
         // Handle error

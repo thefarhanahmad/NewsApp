@@ -78,8 +78,8 @@
   letter-spacing: 0em;
   color: rgba(30, 30, 30, 1);
   display: flex;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center;
+  align-items: center; */
   margin-left: 10px;
   width: 55%;
 }
@@ -121,6 +121,16 @@
   text-overflow: ellipsis;
   overflow: hidden;
 }
+
+.sub-News-area-1-img-main {
+  /* background-color: red; */
+  border-radius: 3px;
+}
+.sub-News-area-1-img-main:hover {
+  background-color: rgb(231, 230, 230);
+  cursor: pointer;
+}
+
 .sub-News-area-1-img {
   width: 50%;
   height: 100%;
@@ -136,6 +146,7 @@
   text-overflow: ellipsis;
   width: 55%;
   height: 100%;
+  padding: 8px 0px;
 }
 .sub-News-area-1-text {
   font-family: Poppins;

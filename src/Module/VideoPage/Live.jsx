@@ -345,11 +345,12 @@ const LivePage = () => {
               <FaUser style={{ marginRight: "10px" }} />
               India
             </div>
-
+            {/* {console.log("Data in Live : ", Data)} */}
             <div className="details-page-top-item2">
               <AiOutlineCalendar size={22} style={{ marginRight: "10px" }} />
               {Data ? formatDatetime(new Date()) : "12|08|2023 12:15"}
               {/* {console.log("data.updatedAt",data?.updatedAt)} */}
+              {/* {data ? newFormatDate(data.createdAt) : "12|08|2023 12:15"} */}
             </div>
 
             <div

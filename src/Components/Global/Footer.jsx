@@ -252,6 +252,7 @@ const Footer = () => {
                     >
                       {subcategories.map((item) => (
                         <div
+                          className="sub-items-f"
                           onClick={() => {
                             Navigation(
                               `/itempage?item=${categoryName}&sub=${item.text}`

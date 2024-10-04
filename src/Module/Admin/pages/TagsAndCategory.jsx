@@ -16,16 +16,18 @@ import React, { useEffect, useState } from "react";
 import { API_URL } from "../../../../API";
 
 const TagsAndCategory = () => {
-  const [userData, setUserData] = useState([]);
-  const [filterItem, setfilterItem] = useState("tag");
+  const [userData, setUserData] = useState([]); // All data
+  const [filteredData, setFilteredData] = useState([]); // Data to display after filtering
+  const [filterItem, setFilterItem] = useState("all"); // Default to 'all'
   const [subCategory, setSubCategory] = useState("");
   const [cateGet, setCateGet] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [selectedData, setSelectedData] = useState(null); // Store selected data
-  const [editSequence, setEditSequence] = useState(""); // Separate state for editing sequence
+  const [selectedData, setSelectedData] = useState(null);
+  const [editSequence, setEditSequence] = useState("");
   const [text, setText] = useState("");
   const [type, setType] = useState("tag");
+  const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
     fetchData();
@@ -35,10 +37,12 @@ const TagsAndCategory = () => {
     try {
       const contentRes = await axios.get(`${API_URL}/content`);
       const subCategoryRes = await axios.get(`${API_URL}/subcategory`);
-      setUserData([
+      const allData = [
         ...contentRes.data.reverse(),
         ...subCategoryRes.data.reverse(),
-      ]);
+      ];
+      setUserData(allData); // Store all data
+      setFilteredData(allData); // Also set filtered data to all initially
       const categoryRes = await axios.get(`${API_URL}/content?type=category`);
       const categories = categoryRes.data.map((item) => ({
         key: item._id,
@@ -51,18 +55,30 @@ const TagsAndCategory = () => {
     }
   };
 
+  // Modified filtering logic
   const onFilter = () => {
-    if (filterItem !== "sub") {
-      axios
-        .get(`${API_URL}/content?type=${filterItem}`)
-        .then((response) => setUserData(response.data))
-        .catch((err) => console.log(err));
-    } else {
-      axios
-        .get(`${API_URL}/subcategory`)
-        .then((response) => setUserData(response.data.reverse()))
-        .catch((err) => console.log(err));
+    let filteredResults = userData; // Start with all data
+
+    // Apply filtering based on filterItem selection (By Tag, By Category, By SubCategory)
+    if (filterItem === "tag") {
+      filteredResults = filteredResults.filter((item) => item.type === "tag");
+    } else if (filterItem === "category") {
+      filteredResults = filteredResults.filter(
+        (item) => item.type === "category"
+      );
+    } else if (filterItem === "sub") {
+      filteredResults = filteredResults.filter((item) => item.type === "sub");
     }
+
+    // Apply search filtering if searchValue is not empty
+    if (searchValue.trim() !== "") {
+      filteredResults = filteredResults.filter((item) =>
+        item.text.toLowerCase().includes(searchValue.toLowerCase())
+      );
+    }
+
+    // Update the filtered data state
+    setFilteredData(filteredResults);
   };
 
   const onAdd = () => {
@@ -228,13 +244,27 @@ const TagsAndCategory = () => {
           <Col span={6}>
             <Select
               style={{ width: "100%" }}
-              defaultValue="tag"
-              onChange={(e) => setfilterItem(e)}
+              defaultValue="all" // Default to 'all'
+              onChange={(e) => {
+                setFilterItem(e);
+                if (e === "all") {
+                  setFilteredData(userData); // Reset to all data when 'All' is selected
+                }
+              }}
               options={[
+                { value: "all", label: "All" }, // Added "All" option
                 { value: "tag", label: "By Tag" },
                 { value: "category", label: "By Category" },
                 { value: "sub", label: "By SubCategory" },
               ]}
+            />
+          </Col>
+          <Col span={6}>
+            <Input
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+              onPressEnter={onFilter} // Allow pressing Enter to trigger filter
+              placeholder="Search..."
             />
           </Col>
           <Col span={4}>
@@ -245,20 +275,26 @@ const TagsAndCategory = () => {
               <Button
                 type="primary"
                 style={{ backgroundColor: "green" }}
-                onClick={() => setIsModalOpen(true)}
+                onClick={() => {
+                  setSearchValue(""); // Clear search input
+                  setFilteredData(userData); // Reset to all data
+                }}
               >
                 Add
               </Button>
             </Space>
           </Col>
-          <Col span={24} style={{ marginTop: 20 }}>
-            <Table columns={columns} dataSource={userData} />
-          </Col>
         </Row>
+        <Table
+          style={{ marginTop: 20 }}
+          columns={columns}
+          dataSource={filteredData}
+          pagination={{ pageSize: 10 }} // Add pagination
+        />
       </Card>
 
       <Modal
-        title="Select Category"
+        title="Add Tag or Category"
         open={isModalOpen}
         onOk={onAdd}
         onCancel={handleCancel}
@@ -266,33 +302,30 @@ const TagsAndCategory = () => {
         <Row gutter={16}>
           <Col span={12}>
             <Select
+              defaultValue="tag"
+              style={{ width: "100%" }}
               onChange={(e) => setType(e)}
-              value={type}
-              style={{ width: "100%", height: 50 }}
               options={[
-                { value: "tag", label: "By Tag" },
-                { value: "category", label: "By Category" },
-                { value: "sub", label: "By SubCategory" },
+                { value: "tag", label: "Tag" },
+                { value: "category", label: "Category" },
+                { value: "sub", label: "Sub Category" },
               ]}
             />
           </Col>
-          {type === "sub" && (
-            <>
-              <Col span={12}>
-                <Select
-                  placeholder="Category"
-                  onChange={(e) => setSubCategory(e)}
-                  value={subCategory}
-                  style={{ width: "100%", height: 50, marginBottom: 10 }}
-                  options={cateGet}
-                />
-              </Col>
-            </>
-          )}
           <Col span={12}>
+            {type === "sub" && (
+              <Select
+                placeholder="Select Category"
+                style={{ width: "100%" }}
+                onChange={(e) => setSubCategory(e)}
+                options={cateGet}
+              />
+            )}
+          </Col>
+          <Col span={24} style={{ marginTop: 10 }}>
             <Input
-              style={{ width: "100%", height: 50 }}
-              placeholder="Enter Tag Or Category"
+              placeholder="Enter name"
+              value={text}
               onChange={(e) => setText(e.target.value)}
             />
           </Col>
@@ -306,11 +339,10 @@ const TagsAndCategory = () => {
         onCancel={handleCancel}
       >
         <Row gutter={16}>
-          <Col span={12}>
+          <Col span={24}>
             <Input
-              style={{ width: "100%", height: 50 }}
-              value={editSequence} // Reflect current sequence
-              placeholder="Sequence"
+              placeholder="Enter sequence number"
+              value={editSequence}
               onChange={(e) => setEditSequence(e.target.value)}
             />
           </Col>

@@ -1,5 +1,4 @@
-
-.webStoryContainer{
+.webStoryContainer {
   inset: 0;
   margin: auto;
   position: absolute;
@@ -7,25 +6,23 @@
   gap: 20px;
   justify-content: center;
   align-items: center;
-
 }
 .webStoryBlurredImage {
-  
   /* Add the blur effect */
   filter: blur(16px);
   -webkit-filter: blur(16px);
-  
+
   /* Full height */
   height: 100vh;
-  width: 100%; 
-  
+  width: 100%;
+
   /* Center and scale the image nicely */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 }
-.webStoryControlIcon{
-  font-size:25px;
+.webStoryControlIcon {
+  font-size: 25px;
   color: black;
   background-color: white;
   border-radius: 50%;
@@ -33,51 +30,79 @@
   padding: 12px;
 }
 
-.WebstroyCardImg{
+.WebstroyCardImg {
   height: 80vh;
   width: 100%;
   object-fit: cover;
-  transition:transform 5s;
+  transition: transform 5s;
   transform: scale(1);
 }
-.WebstroyCardImgActive{
+.WebstroyCardImgActive {
   transform: scale(1.5);
 }
-.WebstroyCardText{
-  font-family:Poppins;
+.WebstroyCardText {
+  font-family: Poppins;
   text-align: center;
   position: absolute;
-  top:60%;
+  top: 60%;
   font-weight: 600;
   font-size: large;
   color: white;
   width: 432px;
   height: 100px;
-  transform: translate(0,100%);
+  transform: translate(0, 100%);
   transition: transform 5s;
 }
-.WebstroyCardTextActive{
-  transform: translate(0,0);
+.WebstroyCardTextActive {
+  transform: translate(0, 0);
 }
 
-.ImageCarouselContainer{
+.ImageCarouselContainer {
   position: absolute;
   width: 100%;
   inset: 0;
   background-color: rgb(61, 61, 61);
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
 }
-.ImageCarsouel{
+.ImageCarsouel {
   padding-top: 70px;
   margin: auto;
   width: 70%;
   /* height: 500px; */
 }
-.ImageCrasoulCancelButton{
+.ImageCrasoulCancelButton {
   color: white;
   font-size: xx-large;
   position: absolute;
   right: 30px;
   top: 30px;
+}
+
+/* Style for Ant Design Carousel arrows */
+.ImageCarsouel .slick-prev,
+.ImageCarsouel .slick-next {
+  top: 65%; /* Vertically center */
+  transform: translateY(-65%); /* Adjust positioning for perfect centering */
+  z-index: 1; /* Ensure arrows are above other elements */
+}
+
+.ImageCarsouel .slick-prev {
+  left: -30px; /* Position the left arrow slightly outside the carousel */
+}
+
+.ImageCarsouel .slick-next {
+  right: -30px; /* Position the right arrow slightly outside the carousel */
+}
+
+/* Responsive styles for mobile devices */
+@media (max-width: 767px) {
+  .ImageCarsouel .slick-prev,
+  .ImageCarsouel .slick-next {
+    top: 65%; /* Keep the arrows vertically centered */
+    transform: translateY(-65%);
+  }
 }
 
 /* mobile */
@@ -89,12 +114,12 @@
   min-width: 100px;
   background-color: rgb(235, 235, 235);
   border-radius: 5px;
-  overflow: hidden; 
+  overflow: hidden;
 }
 
 .mobileTopStoryCardText {
   height: 32%;
-  width: auto; 
+  width: auto;
   margin-left: 0;
   padding: 8px;
   display: -webkit-box;
@@ -102,15 +127,11 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  word-wrap: break-word; 
+  word-wrap: break-word;
   max-height: 3.2em;
 }
 
 /* mobile */
-
-
-
-
 
 .video-card {
   /* width: 210px;
@@ -160,7 +181,7 @@
   color: rgba(255, 255, 255, 1);
   margin-top: 10px;
 }
-.video-center-card-text{
+.video-center-card-text {
   overflow: hidden;
   text-overflow: ellipsis;
   /* height: 50px; */
@@ -170,7 +191,7 @@
   margin-top: 10px;
   background-color: rgba(8, 8, 8, 0.3);
   font-size: larger;
-  padding:30px;
+  padding: 30px;
   color: rgba(255, 255, 255, 1);
 }
 
@@ -212,6 +233,10 @@
   cursor: pointer;
 }
 
+.stories-card:hover {
+  background-color: rgb(229, 229, 229);
+}
+
 .stories-card > img {
   object-fit: cover;
   object-position: center;
@@ -231,39 +256,39 @@
   -webkit-box-orient: vertical;
   /* overflow: hidden; */
   text-overflow: ellipsis;
-  word-wrap: break-word; 
+  word-wrap: break-word;
   max-height: 4em;
 }
-.news-card-mian-area{
+.news-card-mian-area {
   width: 100%;
   height: 220px;
   border-radius: 6px;
   margin: 10px 10px;
 }
-.news-card-mian-area:hover{
+.news-card-mian-area:hover {
   background-color: rgba(0, 0, 0, 0.05);
   border-radius: 10;
   cursor: pointer;
 }
-.news-card-mian-area>img{
+.news-card-mian-area > img {
   object-fit: cover;
   width: 100%;
   height: 140px;
 }
-.news-card-main-area-text{
+.news-card-main-area-text {
   max-height: 100px;
-font-family: Poppins;
-font-size: 16px;
-font-weight: 400;
-letter-spacing: 0em;
-color: rgba(0, 0, 0, 1);
-text-overflow: ellipsis;
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0em;
+  color: rgba(0, 0, 0, 1);
+  text-overflow: ellipsis;
 }
 @media screen and (max-width: 500px) {
-  .video-card-main-box{
+  .video-card-main-box {
     margin: 20px 0;
   }
-  .video-center-card-text{
+  .video-center-card-text {
     padding: 5px;
   }
 }
@@ -304,9 +329,8 @@ text-overflow: ellipsis;
     height: 120px;
   }
 }
- 
 
- /* Ensure text fits in 3 lines for all screen sizes */
+/* Ensure text fits in 3 lines for all screen sizes */
 .stories-card-text {
   max-height: calc(3 * 1.3em);
 }

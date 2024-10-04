@@ -256,13 +256,13 @@ const VideoPage2 = () => {
           >
             {vdoData?.title}
           </h1>
-          <div className="details-page-top-item1">
+          {/* <div className="details-page-top-item1">
             <FaUser style={{ marginRight: "10px" }} />
-            {/* {data?.reportedBy}
-              {console.log(data?.reportedBy)} */}
+            {data?.reportedBy}
+              {console.log(data?.reportedBy)}
             {vdoData?.reportedBy}
             {console.log(data?.reportedBy)}
-          </div>
+          </div> */}
           <div className="details-page-top-item2">
             <AiOutlineCalendar size={22} style={{ marginRight: "10px" }} />
             {/* {data ? formatDatetime(data.updatedAt) : "12|08|2023 12:15"} */}
@@ -467,19 +467,19 @@ const VideoPage2 = () => {
           {/* <h1 className="details-page-main-heading">{vdoData?.title}</h1> */}
           <h1 className="details-page-main-heading">{vdoData?.title}</h1>
           <div className="details-page-top-items">
-            <div
+            {/* <div
               className="details-page-top-item1"
-              // style={{ backgroundColor: "red" }}
+              style={{ backgroundColor: "red" }}
             >
               <FaUser style={{ marginRight: "10px" }} />
-              {/* {data?.reportedBy}
-              {console.log(data?.reportedBy)} */}
+              {data?.reportedBy}
+              {console.log(data?.reportedBy)}
               {vdoData?.reportedBy}
               {console.log(data?.reportedBy)}
-            </div>
+            </div> */}
             <div className="details-page-top-item2">
               <AiOutlineCalendar size={22} style={{ marginRight: "10px" }} />
-              {/* {data ? formatDatetime(data.updatedAt) : "12|08|2023 12:15"} */}
+              {data ? newFormatDate(data.createdAt) : "12|08|2023 12:15"}
               {vdoData
                 ? formatDatetime(vdoData?.updatedAt)
                 : "12|08|2023 12:15"}

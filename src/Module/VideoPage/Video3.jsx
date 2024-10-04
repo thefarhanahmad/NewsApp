@@ -41,7 +41,7 @@ const VideoPage3 = () => {
           </div>
           <div className="details-page-top-item2">
             <AiOutlineCalendar size={22} style={{ marginRight: "10px" }} />
-            12|08|2023 12:15
+            {data ? newFormatDate(data.createdAt) : "12|08|2023 12:15"}
           </div>
           <div className="details-page-top-item3">
             <TiHeartOutline style={{ marginRight: "18px" }} />
@@ -53,11 +53,11 @@ const VideoPage3 = () => {
           </div>
         </div>
         <div className="video3-news-cards-area">
-          <div style={{position:"relative"}}>
+          <div style={{ position: "relative" }}>
             <img src={img8} alt="" />
             <div>
               3/11
-              <IoIosShareAlt style={{marginLeft:"5px",cursor:"pointer"}}/>
+              <IoIosShareAlt style={{ marginLeft: "5px", cursor: "pointer" }} />
             </div>
           </div>
           <div className="video3-news-cards-area-text">
@@ -69,11 +69,11 @@ const VideoPage3 = () => {
           </div>
         </div>
         <div className="video3-news-cards-area">
-          <div style={{position:"relative"}}>
+          <div style={{ position: "relative" }}>
             <img src={img8} alt="" />
             <div>
               3/11
-              <IoIosShareAlt style={{marginLeft:"5px",cursor:"pointer"}}/>
+              <IoIosShareAlt style={{ marginLeft: "5px", cursor: "pointer" }} />
             </div>
           </div>
           <div className="video3-news-cards-area-text">
@@ -85,11 +85,11 @@ const VideoPage3 = () => {
           </div>
         </div>
         <div className="video3-news-cards-area">
-          <div style={{position:"relative"}}>
+          <div style={{ position: "relative" }}>
             <img src={img8} alt="" />
             <div>
               3/11
-              <IoIosShareAlt style={{marginLeft:"5px",cursor:"pointer"}}/>
+              <IoIosShareAlt style={{ marginLeft: "5px", cursor: "pointer" }} />
             </div>
           </div>
           <div className="video3-news-cards-area-text">

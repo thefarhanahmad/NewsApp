@@ -55,7 +55,7 @@ const MobileHeader = ({ data }) => {
     axios
       .get(`${API_URL}/article?id=${storyId}`)
       .then(async (article) => {
-        setArticleType(article.data[0].newsType);
+        setArticleType(article.data[0]?.newsType);
       })
       .catch((err) => {
         console.log(err);
