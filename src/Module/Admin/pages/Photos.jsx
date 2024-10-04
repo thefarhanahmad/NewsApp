@@ -16,12 +16,15 @@ import axios from "axios";
 import { API_URL } from "../../../../API";
 import { render } from "react-dom";
 import { OnEdit as onEditContext } from "../../../Context";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { FaTrashAlt } from "react-icons/fa";
 
 const { TextArea } = Input;
 
 const Photos = () => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search); // Parses the query string
+  const edit = queryParams.get("edit");
   const { onEdit, setOnEdit, id, setId } = useContext(onEditContext);
   const navigation = useNavigate();
   const [title, setTitle] = useState("");
@@ -42,13 +45,17 @@ const Photos = () => {
   // const [img, setImg] = useState([]);
   const [imgs, setImgs] = useState([]);
   const [editImgs, setEditImgs] = useState([]);
-  const [newImgs, setNewImgs] = useState([]); // Changed to array
+  const [newImgs, setNewImgs] = useState([]);
 
   useEffect(() => {
     // setSlug(createSlug(title));
     console.log(id, "id");
     console.log(onEdit, "onEdit");
-    if (onEdit) {
+    if (!edit) {
+      setId(null);
+      setOnEdit(false);
+    }
+    if (onEdit && edit) {
       axios.get(`${API_URL}/photo?id=${id}`).then((item) => {
         let data = item.data[0];
         console.log("dataedit", data);
@@ -133,7 +140,9 @@ const Photos = () => {
       fetchAllPhotos();
       setTitle("");
       setLoading(false);
-      setImgs([]); // Reset to empty array
+      setImgs([]);
+      setOnEdit(false); // Reset after upload
+      setId(null); // Reset to empty array
     } catch (error) {
       //   message.error("Your Photo was not successfully uploaded");
       //   // Handle error
@@ -212,6 +221,8 @@ const Photos = () => {
       setLoading(false);
       setEditImgs([]); // Reset to empty array
       setImgs([]);
+      setOnEdit(false); // Reset after upload
+      setId(null); // Reset to empty array
       navigation("/dashboard/photos");
     } catch (error) {
       console.log("error in edit image:", error);
@@ -619,11 +630,11 @@ const Photos = () => {
               {editImgs?.length > 0 &&
                 editImgs.map((img, index) => (
                   <div
+                    key={index}
                     style={{
                       display: "flex",
                       flexDirection: "column",
                       marginLeft: "10px",
-                      // backgroundColor: "red",
                     }}
                   >
                     <FaTrashAlt
@@ -633,7 +644,6 @@ const Photos = () => {
                       onClick={() => RemoveImage(img.img)}
                     />
                     <img
-                      key={index}
                       style={{
                         width: "100px",
                         height: "100px",
@@ -649,21 +659,27 @@ const Photos = () => {
                       placeholder="Image Text"
                       value={img.text}
                       onChange={(e) =>
-                        setImgTexts((old) => ({
-                          ...old,
-                          [index]: e.target.value,
-                        }))
+                        setEditImgs((prev) =>
+                          prev.map((item, i) =>
+                            i === index
+                              ? { ...item, text: e.target.value }
+                              : item
+                          )
+                        )
                       }
                     />
                     <Input
                       style={{ height: "40px", width: "150px" }}
                       placeholder="Image Link"
-                      value={img?.url}
+                      value={img.url}
                       onChange={(e) =>
-                        setImgUrl((old) => ({
-                          ...old,
-                          [index]: e.target.value,
-                        }))
+                        setEditImgs((prev) =>
+                          prev.map((item, i) =>
+                            i === index
+                              ? { ...item, url: e.target.value }
+                              : item
+                          )
+                        )
                       }
                     />
                   </div>

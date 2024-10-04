@@ -104,7 +104,7 @@ function ImageCrousel() {
                       fontSize: "2rem",
                       color: "white",
                       bottom: "30px",
-                      textAlign: "center",
+                      // textAlign: "center",
                       borderRadius: "10px",
                       overflow: "hidden",
                       marginBottom: "5px",

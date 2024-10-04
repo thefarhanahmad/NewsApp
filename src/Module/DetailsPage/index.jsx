@@ -559,7 +559,7 @@ const DetailsPage = () => {
                   />
                 ) : null
               ) : null}
-              <div style={{ position: "relative" }}>
+              <div style={{ position: "relative", background: "red" }}>
                 <GrShareOption
                   style={{ marginRight: "18px", cursor: "pointer" }}
                   onClick={() => setIsOpen(!isOpen)}
@@ -608,7 +608,7 @@ const DetailsPage = () => {
                 </div>
               </div>
               {/* whatsapp share */}
-              <div>
+              <div style={{ background: "red" }}>
                 <WhatsappShareButton
                   url={shareUrl}
                   title={`${title} \n ${imgUrl}`}

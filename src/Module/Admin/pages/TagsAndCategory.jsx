@@ -17,112 +17,86 @@ import { API_URL } from "../../../../API";
 
 const TagsAndCategory = () => {
   const [userData, setUserData] = useState([]);
-  const [filterItem, setfilterItem] = useState("");
+  const [filterItem, setfilterItem] = useState("tag");
   const [subCategory, setSubCategory] = useState("");
   const [cateGet, setCateGet] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(null);
-  const [editData, setEditData] = useState(null);
-
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedData, setSelectedData] = useState(null); // Store selected data
+  const [editSequence, setEditSequence] = useState(""); // Separate state for editing sequence
   const [text, setText] = useState("");
-  const [type, settype] = useState("tag");
+  const [type, setType] = useState("tag");
+
   useEffect(() => {
-    axios
-      .get(`${API_URL}/content`)
-      .then((users) => {
-        axios
-          .get(`${API_URL}/subcategory`)
-          .then((sub) => {
-            setUserData([...users.data.reverse(), ...sub.data.reverse()]);
-            console.log(users);
-          })
-          .catch((err) => {
-            console.log("err=>>>", err);
-          });
-        // setUserData(users.data.reverse());
-        // console.log(users);
-      })
-      .catch((err) => {
-        console.log("err=>>>", err);
-      });
-    axios
-      .get(`${API_URL}/content?type=category`)
-      .then((content) => {
-        let arr = [];
-        for (let i = 0; i < content.data.length; i++) {
-          const element = content.data[i];
-          arr.push({
-            key: element._id,
-            value: element.text,
-            label: element.text,
-          });
-        }
-        setCateGet(arr);
-        // console.log(users);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    fetchData();
   }, []);
 
+  const fetchData = async () => {
+    try {
+      const contentRes = await axios.get(`${API_URL}/content`);
+      const subCategoryRes = await axios.get(`${API_URL}/subcategory`);
+      setUserData([
+        ...contentRes.data.reverse(),
+        ...subCategoryRes.data.reverse(),
+      ]);
+      const categoryRes = await axios.get(`${API_URL}/content?type=category`);
+      const categories = categoryRes.data.map((item) => ({
+        key: item._id,
+        value: item.text,
+        label: item.text,
+      }));
+      setCateGet(categories);
+    } catch (err) {
+      console.log("Error fetching data", err);
+    }
+  };
+
   const onFilter = () => {
-    console.log(filterItem);
-    if (filterItem != "sub") {
+    if (filterItem !== "sub") {
       axios
         .get(`${API_URL}/content?type=${filterItem}`)
-        .then((users) => {
-          setUserData(users.data);
-          console.log(users);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+        .then((response) => setUserData(response.data))
+        .catch((err) => console.log(err));
     } else {
       axios
         .get(`${API_URL}/subcategory`)
-        .then((users) => {
-          setUserData(users.data.reverse());
-          console.log(users);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+        .then((response) => setUserData(response.data.reverse()))
+        .catch((err) => console.log(err));
     }
   };
+
   const onAdd = () => {
-    if (type != "sub") {
+    if (type !== "sub") {
       axios
         .post(`${API_URL}/content?id=${localStorage.getItem("id")}`, {
-          type: type,
-          text: text,
+          type,
+          text,
           sequence: userData?.length + 1,
         })
-        .then((users) => {
-          // setUserData([users.data.data,...userData]);
+        .then(() => {
           message.success("Successfully Added");
           setIsModalOpen(false);
+          fetchData();
         })
         .catch((err) => {
           console.log(err);
-          message.error("Successfully Not Added");
-          setIsModalOpen(false);
+          message.error("Error adding item");
         });
     } else {
       axios
         .post(`${API_URL}/subcategory`, {
           adminId: localStorage.getItem("id"),
           category: subCategory,
-          text: text,
+          text,
         })
-        .then((users) => {
-          setUserData(users.data.data);
+        .then(() => {
           message.success("Successfully Added");
           setIsModalOpen(false);
+          fetchData();
         })
         .catch((err) => {
           console.log(err);
-          message.error("Successfully Not Added");
-          setIsModalOpen(false);
+          message.error("Error adding subcategory");
         });
     }
   };
@@ -130,32 +104,33 @@ const TagsAndCategory = () => {
   const onEditSequence = () => {
     axios
       .put(`${API_URL}/content`, {
-        id: isEditModalOpen?._id,
-        sequence: editData ? editData : isEditModalOpen?.sequence,
+        id: selectedData?._id,
+        sequence: editSequence,
       })
-      .then((users) => {
-        // setUserData([users.data.data,...userData]);
+      .then(() => {
         message.success("Successfully Edited");
-        setIsEditModalOpen(null);
+        setIsEditModalOpen(false);
+        setSelectedData(null);
+        fetchData();
       })
       .catch((err) => {
         console.log(err);
-        message.error("Successfully Not Edited");
-        setIsEditModalOpen(null);
+        message.error("Error editing sequence");
       });
   };
+
   const handleDeleteTagCategory = async (id) => {
     try {
       const res = await axios.delete(`${API_URL}/delete_content/${id}`);
-      console.log("tag&category delete api response : ", res);
       if (res.data.data.status === 200) {
         message.success(res.data.message);
+        fetchData(); // Refresh data after deletion
       } else {
         message.error(res.data.message);
       }
     } catch (error) {
-      console.log("error is delete tag&category : ", error);
-      message.error(error.response);
+      console.log("Error deleting tag/category", error);
+      message.error("Error deleting item");
     }
   };
 
@@ -164,29 +139,34 @@ const TagsAndCategory = () => {
       title: "ID",
       dataIndex: "_id",
       key: "_id",
-      render: (_, { _id }) => <a>{_id}</a>,
+      render: (text, record) => <a>{record._id}</a>,
     },
     {
       title: "Sequence",
       dataIndex: "sequence",
       key: "sequence",
-      render: (_, data) => {
-        console.log(data, "kk");
-        return (
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-around",
-            }}
-          >
-            <p color="geekblue">{data.sequence}</p>
-            <Space size="middle">
-              <a onClick={() => setIsEditModalOpen(data)}>edit</a>
-            </Space>
-          </div>
-        );
-      },
+      render: (text, record) => (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-around",
+          }}
+        >
+          <p>{record.sequence}</p>
+          <Space size="middle">
+            <a
+              onClick={() => {
+                setIsEditModalOpen(true);
+                setSelectedData(record); // Set selected record
+                setEditSequence(record.sequence); // Initialize with current sequence
+              }}
+            >
+              Edit
+            </a>
+          </Space>
+        </div>
+      ),
     },
     {
       title: "Name",
@@ -194,53 +174,42 @@ const TagsAndCategory = () => {
       key: "text",
     },
     {
-      title: filterItem != "sub" ? "Type" : "Category",
-      key: filterItem != "sub" ? "category" : "type",
-      dataIndex: filterItem != "sub" ? "category" : "type",
-      render: (_, data) => {
-        console.log(data, "kk");
-        return (
-          <>
-            <Tag color="geekblue">
-              {filterItem != "sub" ? data.type : data.category}
-            </Tag>
-          </>
-        );
-      },
+      title: filterItem !== "sub" ? "Type" : "Category",
+      key: filterItem !== "sub" ? "type" : "category",
+      dataIndex: filterItem !== "sub" ? "type" : "category",
+      render: (text, record) => (
+        <Tag color="geekblue">
+          {filterItem !== "sub" ? record.type : record.category}
+        </Tag>
+      ),
     },
     {
       title: "Delete",
       dataIndex: "_id",
       key: "_id",
-      render: (_, { _id }) => {
-        console.log("id in delete tag & category: ", _id);
-        return (
-          <button
-            onClick={() => handleDeleteTagCategory(_id)}
-            style={{
-              padding: "3px 8px",
-              backgroundColor: "#fadcd9",
-              color: "red",
-              font: "message-box",
-              borderRadius: "5px",
-              cursor: "pointer",
-              border: "1px solid red",
-            }}
-          >
-            Delete
-          </button>
-        );
-      },
+      render: (text, record) => (
+        <button
+          onClick={() => handleDeleteTagCategory(record._id)}
+          style={{
+            padding: "3px 8px",
+            backgroundColor: "#fadcd9",
+            color: "red",
+            font: "message-box",
+            borderRadius: "5px",
+            cursor: "pointer",
+            border: "1px solid red",
+          }}
+        >
+          Delete
+        </button>
+      ),
     },
   ];
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
+
   const handleCancel = () => {
     setIsModalOpen(false);
+    setIsEditModalOpen(false);
   };
-
-  console.log("UD", userData);
 
   return (
     <>
@@ -262,18 +231,9 @@ const TagsAndCategory = () => {
               defaultValue="tag"
               onChange={(e) => setfilterItem(e)}
               options={[
-                {
-                  value: "tag",
-                  label: "By Tag",
-                },
-                {
-                  value: "category",
-                  label: "By Category",
-                },
-                {
-                  value: "sub",
-                  label: "By SubCategory",
-                },
+                { value: "tag", label: "By Tag" },
+                { value: "category", label: "By Category" },
+                { value: "sub", label: "By SubCategory" },
               ]}
             />
           </Col>
@@ -285,7 +245,7 @@ const TagsAndCategory = () => {
               <Button
                 type="primary"
                 style={{ backgroundColor: "green" }}
-                onClick={showModal}
+                onClick={() => setIsModalOpen(true)}
               >
                 Add
               </Button>
@@ -296,6 +256,7 @@ const TagsAndCategory = () => {
           </Col>
         </Row>
       </Card>
+
       <Modal
         title="Select Category"
         open={isModalOpen}
@@ -305,53 +266,33 @@ const TagsAndCategory = () => {
         <Row gutter={16}>
           <Col span={12}>
             <Select
-              onChange={(e) => settype(e)}
+              onChange={(e) => setType(e)}
               value={type}
-              style={{
-                width: "100%",
-                height: 50,
-              }}
+              style={{ width: "100%", height: 50 }}
               options={[
-                {
-                  value: "tag",
-                  label: "By Tag",
-                },
-                {
-                  value: "category",
-                  label: "By Category",
-                },
-                {
-                  value: "sub",
-                  label: "By SubCategory",
-                },
+                { value: "tag", label: "By Tag" },
+                { value: "category", label: "By Category" },
+                { value: "sub", label: "By SubCategory" },
               ]}
             />
           </Col>
-          {type == "sub" && (
+          {type === "sub" && (
             <>
               <Col span={12}>
                 <Select
                   placeholder="Category"
                   onChange={(e) => setSubCategory(e)}
-                  value={subCategory ? subCategory : null}
-                  style={{
-                    width: "100%",
-                    height: 50,
-                    marginBottom: 10,
-                  }}
+                  value={subCategory}
+                  style={{ width: "100%", height: 50, marginBottom: 10 }}
                   options={cateGet}
                 />
               </Col>
-              <Col span={12}></Col>
             </>
           )}
           <Col span={12}>
             <Input
-              style={{
-                width: "100%",
-                height: 50,
-              }}
-              placeholder="Enter Tag Or Cateogry"
+              style={{ width: "100%", height: 50 }}
+              placeholder="Enter Tag Or Category"
               onChange={(e) => setText(e.target.value)}
             />
           </Col>
@@ -360,20 +301,17 @@ const TagsAndCategory = () => {
 
       <Modal
         title="Edit Sequence"
-        open={isEditModalOpen == null ? false : true}
+        open={isEditModalOpen}
         onOk={onEditSequence}
-        onCancel={() => setIsEditModalOpen(null)}
+        onCancel={handleCancel}
       >
         <Row gutter={16}>
           <Col span={12}>
             <Input
-              style={{
-                width: "100%",
-                height: 50,
-              }}
-              defaultValue={isEditModalOpen?.sequence}
+              style={{ width: "100%", height: 50 }}
+              value={editSequence} // Reflect current sequence
               placeholder="Sequence"
-              onChange={(e) => setEditData(e.target.value)}
+              onChange={(e) => setEditSequence(e.target.value)}
             />
           </Col>
         </Row>

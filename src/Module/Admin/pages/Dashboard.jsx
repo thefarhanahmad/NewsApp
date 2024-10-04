@@ -119,7 +119,7 @@ const Dashboard = () => {
       });
   }, [filterItemResponse.category]);
 
-  useEffect(() => {
+  const getAllArticles = () => {
     axios.get(`${API_URL}/article`).then((article) => {
       console.log("article response df : ", article);
       setArticleData(article.data);
@@ -133,6 +133,10 @@ const Dashboard = () => {
 
       console.log(article);
     });
+  };
+
+  useEffect(() => {
+    getAllArticles();
   }, [axios]);
 
   console.log("filterItemdd response : ", filterItemResponse);
@@ -269,6 +273,7 @@ const Dashboard = () => {
         message.success("Article Has Successfully Deleted");
         setCurrentUser("");
         setIsModalDeleteOpen(false);
+        getAllArticles();
       })
       .catch((err) => {
         console.log(err);
@@ -349,11 +354,11 @@ const Dashboard = () => {
         return (
           <div
             style={{
-              width: "100px",
+              width: "140px",
               whiteSpace: "nowrap",
               overflow: "hidden",
               textOverflow: "ellipsis",
-              textAlign: "center",
+              textAlign: "start",
             }}
           >
             {value}

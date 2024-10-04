@@ -860,6 +860,7 @@ const MainPage = () => {
                     .replace(/[/\%.?]/g, "")
                     .split(" ")
                     .join("-")}
+                  slug={breakingNews?.[0]?.slug}
                   id={breakingNews?.[0]?._id}
                 />
               </div>
@@ -872,10 +873,11 @@ const MainPage = () => {
                 <ImageCard
                   img={breakingNews?.[1]?.image}
                   text={breakingNews?.[1]?.title}
-                  title={breakingNews?.[0]?.title
+                  title={breakingNews?.[1]?.title
                     .replace(/[/\%.?]/g, "")
                     .split(" ")
                     .join("-")}
+                  slug={breakingNews?.[1]?.slug}
                   id={breakingNews?.[1]?._id}
                   height="100%"
                   width="100%"

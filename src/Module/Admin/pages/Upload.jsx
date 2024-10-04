@@ -19,6 +19,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { API_URL } from "../../../../API";
 const { TextArea } = Input;
 const Upload = () => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search); // Parses the query string
+  const edit = queryParams.get("edit");
   const [title, setTitle] = useState("");
   const [slug, setSlug] = useState(title);
   const [Topic, setTopic] = useState("");
@@ -49,7 +52,6 @@ const Upload = () => {
   const navigation = useNavigate();
   const [items, setItems] = useState(["jack", "lucy"]);
   const [name, setName] = useState("");
-  const location = useLocation();
 
   const inputRef = useRef(null);
   const onNameChange = (event) => {
@@ -97,7 +99,10 @@ const Upload = () => {
     // setSlug(createSlug(title));
     console.log(id, "id");
     console.log(onEdit, "onEdit");
-    if (onEdit) {
+    if (!edit) {
+      setOnEdit(false);
+    }
+    if (onEdit && edit) {
       axios.get(`${API_URL}/article?id=${id}`).then((item) => {
         let data = item.data[0];
         console.log("data", data);

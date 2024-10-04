@@ -16,12 +16,15 @@ import axios from "axios";
 import { API_URL } from "../../../../API";
 import { render } from "react-dom";
 import { OnEdit as onEditContext } from "../../../Context";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { FaTrashAlt } from "react-icons/fa";
 
 const { TextArea } = Input;
 
 const VisualStories = () => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search); // Parses the query string
+  const edit = queryParams.get("edit");
   const { onEdit, setOnEdit, id, setId } = useContext(onEditContext);
   const navigation = useNavigate();
 
@@ -34,23 +37,24 @@ const VisualStories = () => {
   const [filterItemResponse, setfilterItemResponse] = useState("");
 
   const [allPhotos, setAllPhoto] = useState([]);
-  const [currentPhoto, setCurrentPhoto] = useState({}); //while deleting
+  const [currentPhoto, setCurrentPhoto] = useState({});
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
 
   const [loading, setLoading] = useState(false);
-  const [imgs, setImgs] = useState([]); // Changed to array
-  const [editImgs, setEditImgs] = useState([]); // Changed to array
-  const [newImgs, setNewImgs] = useState([]); // Changed to array
+  const [imgs, setImgs] = useState([]);
+  const [editImgs, setEditImgs] = useState([]);
+  const [newImgs, setNewImgs] = useState([]);
 
   const [imgTexts, setImgTexts] = useState({});
 
-  // let imgTexts = {};
-
   useEffect(() => {
-    // setSlug(createSlug(title));
-    console.log(id, "id");
+    console.log(id, "id", edit);
     console.log(onEdit, "onEdit");
-    if (onEdit) {
+    if (!edit) {
+      setId(null);
+      setOnEdit(false);
+    }
+    if (onEdit && edit) {
       axios.get(`${API_URL}/story?id=${id}`).then((item) => {
         let data = item.data[0];
         console.log("dataedit", data);
@@ -89,13 +93,14 @@ const VisualStories = () => {
   };
 
   const handleVerifyCancel = () => {
-    setIsVerifyModalOpen(false);
+    setOnEdit(false); // Reset onEdit when modal is closed
+    setId(null); // Reset ID when modal is closed
   };
 
   const onUpload = async () => {
     try {
       setLoading(true);
-      // Step 1: Upload Images
+
       const imageUploadPromises = imgs.map(async (img) => {
         let formData = new FormData();
         formData.append("file", img, img.name);
@@ -105,26 +110,27 @@ const VisualStories = () => {
 
       const images = await Promise.all(imageUploadPromises);
       console.log("uploaded images", images);
-      // Step 2: Create Story
+
       const storyResponse = await axios.post(`${API_URL}/story`, {
         title,
-        image: images, // Store array of image URLs
+        image: images,
         imageTexts: imgTexts,
       });
 
-      // Additional logic if needed after successful upload
       message.success("Your Photo was successfully uploaded");
       setTitle("");
+      fetchAllPhotos();
       setLoading(false);
-      setImgs([]); // Reset to empty array
+      setImgs([]);
       setIsVerifyModalOpen(false);
+      setOnEdit(false);
+      setId(null);
     } catch (error) {
       message.error("Your Photo was not successfully uploaded");
-      // Handle error
       setTitle("");
       setLoading(false);
       setIsVerifyModalOpen(false);
-      setImgs([]); // Reset to empty array
+      setImgs([]);
     }
     setLoading(false);
   };
@@ -152,11 +158,8 @@ const VisualStories = () => {
         }));
         console.log("imgwithtxt in vs in edit", imgWithText);
         setNewImgs(imgWithText);
-        // setEditImgs((prev) => [...prev, ...imgWithText]);
       }
 
-      // setTimeout(() => {
-      // Step 2: update Story
       console.log("imgWithText", editImgs, imgWithText, title);
       console.log(
         "title and editImage and imgwithtxt in vs edit  :",
@@ -171,22 +174,22 @@ const VisualStories = () => {
         })
         .then((res) => {
           console.log("visual story Edit Response", res);
-          // Additional logic if needed after successful upload
           message.success("Your Photo was successfully updated");
           setTitle("");
+          fetchAllPhotos();
           setLoading(false);
           setEditImgs([]); // Reset to empty array
           setImgs([]);
           setIsVerifyModalOpen(false);
+          setOnEdit(false); // Reset after update
+          setId(null); // Reset after update
 
           navigation("/dashboard/stories");
         });
-      // }, 2000);
     } catch (error) {
       console.log("error in edit vs:", error);
       message.error("Your Photo was not successfully uploaded");
       setIsVerifyModalOpen(false);
-      // Handle error
       setTitle("");
       setLoading(false);
       setImgs([]); // Reset to empty array
@@ -215,6 +218,7 @@ const VisualStories = () => {
     console.log(photo);
     setCurrentPhoto(photo);
     setIsModalDeleteOpen(true);
+    setOnEdit(false);
   };
 
   const OnDelete = () => {
@@ -223,6 +227,7 @@ const VisualStories = () => {
       .then(() => {
         message.success("Story has Successfully Deleted");
         setCurrentPhoto("");
+        fetchAllPhotos();
         setIsModalDeleteOpen(false);
       })
       .catch((err) => {
@@ -504,11 +509,11 @@ const VisualStories = () => {
               {editImgs.length > 0 &&
                 editImgs.map((img, index) => (
                   <div
+                    key={index} // Make sure 'key' is added to the root element in the map function
                     style={{
                       display: "flex",
                       flexDirection: "column",
                       marginLeft: "10px",
-                      // backgroundColor: "red",
                     }}
                   >
                     <FaTrashAlt
@@ -518,7 +523,6 @@ const VisualStories = () => {
                       onClick={() => RemoveImage(img.img)}
                     />
                     <img
-                      key={index}
                       style={{
                         width: "100px",
                         height: "100px",
@@ -532,12 +536,15 @@ const VisualStories = () => {
                     <Input
                       style={{ height: "40px", width: "150px" }}
                       placeholder="Image Text"
-                      value={img.text}
+                      value={img.text} // Ensure this accesses the correct value from the array
                       onChange={(e) =>
-                        setImgTexts((old) => ({
-                          ...old,
-                          [index]: e.target.value,
-                        }))
+                        setEditImgs((prev) =>
+                          prev.map((item, i) =>
+                            i === index
+                              ? { ...item, text: e.target.value }
+                              : item
+                          )
+                        )
                       }
                     />
                   </div>
