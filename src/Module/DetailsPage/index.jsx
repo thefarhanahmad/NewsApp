@@ -361,7 +361,10 @@ const DetailsPage = () => {
                   >
                     <EmailIcon size={32} round />
                   </EmailShareButton>
-                  <WhatsappShareButton url={shareUrl} title={`${title}`}>
+                  <WhatsappShareButton
+                    url={shareUrl}
+                    title={`${title} \n ${imgUrl}`}
+                  >
                     <WhatsappIcon size={32} round />
                   </WhatsappShareButton>
                 </div>
@@ -526,7 +529,7 @@ const DetailsPage = () => {
                   />
                 ) : null
               ) : null}
-              <div style={{ position: "relative", backgroundColor: "green" }}>
+              <div style={{ position: "relative" }}>
                 <GrShareOption
                   style={{ marginRight: "18px", cursor: "pointer" }}
                   onClick={() => setIsOpen(!isOpen)}
@@ -548,16 +551,13 @@ const DetailsPage = () => {
                     paddingRight: 5,
                   }}
                 >
-                  <a
-                    href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-                      shareUrl
-                    )}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <FacebookShareButton
+                    url={shareUrl}
+                    quote={title}
+                    hashtag="#news"
                   >
                     <FacebookIcon size={32} round />
-                  </a>
-
+                  </FacebookShareButton>
                   <TwitterShareButton
                     url={shareUrl}
                     title={title}
@@ -581,7 +581,7 @@ const DetailsPage = () => {
               <div style={{}}>
                 <WhatsappShareButton
                   url={shareUrl}
-                  title={`${title}`}
+                  title={`${title} \n ${imgUrl}`}
                   separator=":: "
                   className="Demo__some-network__share-button"
                 >
