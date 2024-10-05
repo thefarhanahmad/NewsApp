@@ -921,20 +921,25 @@
     width: 200px;
   }
 }
-.pgt {
-  color: white;
-  font-size: 1rem;
-  font-family: "Poppins", sans-serif;
-}
+
 .pgt {
   color: white;
   font-family: "Poppins", sans-serif;
   font-size: 1rem; /* Default for small devices */
 }
 
+.pgt-r {
+  color: white;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.9rem; /* Default for small devices */
+}
+
 /* For tablets and larger screens */
 @media (min-width: 768px) {
   .pgt {
     font-size: 1.5rem;
+  }
+  .pgt-r {
+    font-size: 1.1rem;
   }
 }

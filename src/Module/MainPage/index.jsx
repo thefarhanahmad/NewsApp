@@ -11,6 +11,7 @@ import StoriesCard from "../../Components/MainPage/StoriesCard";
 import NewsCard from "../../Components/MainPage/NewsCard";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
+import { IoCameraSharp } from "react-icons/io5";
 import { Col, Modal, Progress, Radio, Row } from "antd";
 import { API_URL } from "../../../API";
 import { Link, redirect, useNavigate } from "react-router-dom";
@@ -819,18 +820,30 @@ const MainPage = () => {
                       >
                         <span className="pgt">{img?.title.toUpperCase()}</span>
 
-                        {/* <a
-                          href={`/photos/${img?._id}`}
-                          target="_blank"
-                          style={{
-                            color: "white",
-                            // textDecoration: "none",
-                            // paddingTop: "3%",
-                            // float: "right",
-                          }}
-                        >
-                          Go to Link...
-                        </a> */}
+                        <div className="pgt-r">
+                          <div
+                            style={{
+                              display: "flex",
+                              gap: "5px",
+                              alignItems: "center", // This aligns items vertically
+                            }}
+                          >
+                            <span
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                lineHeight: "1",
+                              }}
+                            >
+                              <IoCameraSharp />
+                            </span>
+                            <span style={{ lineHeight: "1" }}>
+                              {img?.images?.length < 10
+                                ? "0" + img?.images?.length
+                                : img?.images?.length}
+                            </span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   );
@@ -1826,23 +1839,35 @@ const MainPage = () => {
                         justifyContent: "space-between",
                         // marginTop: "0.5rem",
                         alignItems: "center",
-                        // padding:"0px 3px"
+                        padding: "0px 3px",
                       }}
                     >
                       <span className="pgt">{img?.title.toUpperCase()}</span>
 
-                      {/* <a
-                        href={`/photos/${img?._id}`}
-                        target="_blank"
-                        style={{
-                          color: "white",
-                          // textDecoration: "none",
-                          // paddingTop: "3%",
-                          // float: "right",
-                        }}
-                      >
-                        Go to Link...
-                      </a> */}
+                      <div className="pgt-r">
+                        <div
+                          style={{
+                            display: "flex",
+                            gap: "5px",
+                            alignItems: "center", // This aligns items vertically
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              lineHeight: "1",
+                            }}
+                          >
+                            <IoCameraSharp />
+                          </span>
+                          <span style={{ lineHeight: "1" }}>
+                            {img?.images?.length < 10
+                              ? "0" + img?.images?.length
+                              : img?.images?.length}
+                          </span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 );
