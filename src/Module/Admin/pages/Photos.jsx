@@ -280,6 +280,7 @@ const Photos = () => {
       .then(() => {
         // Handle success
         message.success(`Status  Changed `);
+        fetchAllPhotos();
         // Refresh the article data
       })
       .catch((error) => {
@@ -299,8 +300,10 @@ const Photos = () => {
       .delete(`${API_URL}/photo?id=${currentPhoto._id}`)
       .then(() => {
         message.success("Photo has Successfully Deleted");
+
         setCurrentPhoto("");
         setIsModalDeleteOpen(false);
+        fetchAllPhotos();
       })
       .catch((err) => {
         console.log(err);

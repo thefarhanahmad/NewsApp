@@ -252,6 +252,7 @@ const VisualStories = () => {
       .then(() => {
         // Handle success
         message.success(`Status  Changed `);
+        fetchAllPhotos();
         // Refresh the article data
       })
       .catch((error) => {
