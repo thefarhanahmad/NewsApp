@@ -227,24 +227,41 @@ const DetailsPage2 = () => {
     return formattedDateTime;
   };
 
-  // title share url
+  // Share URL is the current page URL
   const shareUrl = window.location.href;
-  const title = "News App";
-  // const imgUrl = data?.image;
+  const title = data?.title || "News App"; // Fallback title if data is not available
+  const imgUrl =
+    data?.image ||
+    "https://news-app-frontend-main.vercel.app/default-image.png"; // Fallback image if not available
 
   useEffect(() => {
-    axios
-      .get(
-        `${API_URL}/article?pagenation=true&limit=7&type=img&newsType=topStories&status=online`
-      )
-      .then((data) => {
-        settopStories(data.data);
-      })
-      .catch(() => {});
-  }, []);
+    // Set document title dynamically
+    document.title = title;
+  }, [title]);
 
   return (
     <>
+      {/* Helmet for Open Graph and Twitter meta tags */}
+      <Helmet>
+        <meta property="og:url" content={shareUrl} />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={title} />
+        <meta
+          property="og:description"
+          content={data?.description || "Stay updated with the latest news."}
+        />
+        <meta property="og:image" content={imgUrl} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content={shareUrl} />
+        <meta name="twitter:title" content={title} />
+        <meta
+          name="twitter:description"
+          content={data?.description || "Stay updated with the latest news."}
+        />
+        <meta name="twitter:image" content={imgUrl} />
+      </Helmet>
       {/* mobile version  */}
       <div className="mobileDetailsPage">
         <div className="mobileDetailsMainImage">
@@ -329,8 +346,7 @@ const DetailsPage2 = () => {
                 <EmailShareButton
                   url={shareUrl}
                   subject={title}
-                  body="body"
-                  className="Demo__some-network__share-button"
+                  body={`Check this out: ${title} \n ${shareUrl} \n ${imgUrl}`}
                 >
                   <EmailIcon size={32} round />
                 </EmailShareButton>
@@ -535,7 +551,7 @@ const DetailsPage2 = () => {
                   <EmailShareButton
                     url={shareUrl}
                     subject={title}
-                    body="body"
+                    body={`Check this out: ${title} \n ${shareUrl} \n ${imgUrl}`}
                     className="Demo__some-network__share-button"
                   >
                     <EmailIcon size={32} round />
