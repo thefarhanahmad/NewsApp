@@ -526,7 +526,7 @@ const DetailsPage = () => {
                   />
                 ) : null
               ) : null}
-              <div style={{ position: "relative" }}>
+              <div style={{ position: "relative", backgroundColor: "green" }}>
                 <GrShareOption
                   style={{ marginRight: "18px", cursor: "pointer" }}
                   onClick={() => setIsOpen(!isOpen)}
@@ -548,13 +548,16 @@ const DetailsPage = () => {
                     paddingRight: 5,
                   }}
                 >
-                  <FacebookShareButton
-                    url={shareUrl}
-                    quote={title}
-                    hashtag="#news"
+                  <a
+                    href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+                      shareUrl
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     <FacebookIcon size={32} round />
-                  </FacebookShareButton>
+                  </a>
+
                   <TwitterShareButton
                     url={shareUrl}
                     title={title}
