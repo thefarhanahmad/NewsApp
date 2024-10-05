@@ -33,7 +33,7 @@ import { API_URL } from "../../../API";
 import LatesetNewsSection from "../../Components/SharedComponents/LatestNewsSection";
 import RelatedNewsSection from "../../Components/SharedComponents/RelatedNewSection";
 import { InstagramFilled } from "@ant-design/icons";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 const { TextArea } = Input;
 
 // Instagram share button (custom implementation)
