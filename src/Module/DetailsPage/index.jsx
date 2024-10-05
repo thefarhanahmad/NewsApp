@@ -245,57 +245,41 @@ const DetailsPage = () => {
     return formattedDateTime;
   };
 
+  // Share URL is the current page URL
   const shareUrl = window.location.href;
-  const title = "News App";
-  const imgUrl = data?.image;
+  const title = data?.title || "News App"; // Fallback title if data is not available
+  const imgUrl =
+    data?.image ||
+    "https://news-app-frontend-main.vercel.app/default-image.png"; // Fallback image if not available
 
-  console.log(
-    "shareurl,title,imgurl in share button : ",
-    shareUrl,
-    title,
-    imgUrl
-  );
-
-  // meta tags included
-  <Helmet>
-    <meta property="og:image" content={imgUrl} />
-    <meta name="twitter:image" content={imgUrl} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={title} />
-    <meta property="og:url" content={shareUrl} />
-    <meta property="og:image" content={imgUrl} />
-
-    <meta property="og:url" content={shareUrl} />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content={title} />
-    <meta property="og:image" content={imgUrl} />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={title} />
-    <meta name="twitter:image" content={imgUrl} />
-  </Helmet>;
-
-  console.log("article data  : ", article?.data[0]);
-  console.log("data   : ", data);
-  console.log("data2 : ", data2);
+  useEffect(() => {
+    // Set document title dynamically
+    document.title = title;
+  }, [title]);
 
   return (
     <>
-      {/* helmet */}
-      <>
-        <Helmet>
-          <meta property="og:url" content={shareUrl} />
-          <meta property="og:type" content="website" />
-          <meta property="og:title" content={title} />
-          <meta property="og:description" content="News App" />
-          <meta property="og:image" content={imgUrl} />
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:url" content={shareUrl} />
-          <meta name="twitter:title" content={title} />
-          <meta name="twitter:description" content="News App" />
-          <meta name="twitter:image" content={imgUrl} />
-        </Helmet>
-      </>
+      {/* Helmet for Open Graph and Twitter meta tags */}
+      <Helmet>
+        <meta property="og:url" content={shareUrl} />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={title} />
+        <meta
+          property="og:description"
+          content={data?.description || "Stay updated with the latest news."}
+        />
+        <meta property="og:image" content={imgUrl} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content={shareUrl} />
+        <meta name="twitter:title" content={title} />
+        <meta
+          name="twitter:description"
+          content={data?.description || "Stay updated with the latest news."}
+        />
+        <meta name="twitter:image" content={imgUrl} />
+      </Helmet>
 
       {/* mobile version  */}
       <div className="mobileDetailsPage">
@@ -319,86 +303,72 @@ const DetailsPage = () => {
             className="details-page-top-item3 bg-red-500 p-2"
           >
             {isFav ? (
-              <>
-                <AiFillHeart
-                  style={{ marginRight: "18px" }}
-                  color="red"
-                  onClick={() => setIsFav(!isFav)}
-                />
-              </>
+              <AiFillHeart
+                style={{ marginRight: "18px", cursor: "pointer" }}
+                color="red"
+                onClick={() => setIsFav(!isFav)}
+              />
             ) : (
               <TiHeartOutline
-                style={{ marginRight: "18px" }}
+                style={{ marginRight: "18px", cursor: "pointer" }}
                 onClick={() => setIsFav(!isFav)}
               />
             )}
-            {data ? (
-              data.comment ? (
-                <RiMessage2Fill
-                  style={{ marginRight: "18px" }}
-                  onClick={() => {
-                    showModal();
-                  }}
-                />
-              ) : null
-            ) : null}
+
+            {data?.comment && (
+              <RiMessage2Fill
+                style={{ marginRight: "18px", cursor: "pointer" }}
+                onClick={() => showModal()} // Assuming showModal is defined
+              />
+            )}
+
+            {/* Share button toggle */}
             <div style={{ position: "relative" }}>
               <GrShareOption
                 style={{ marginRight: "18px", cursor: "pointer" }}
                 onClick={() => setIsOpen(!isOpen)}
               />
-              <div
-                style={{
-                  position: "absolute",
-                  height: "30px",
-                  width: "150px",
-                  backgroundColor: "#5a5a5a",
-                  borderRadius: 100,
-                  bottom: -40,
-                  left: -20,
-                  alignItems: "center",
-                  justifyContent: "space-around",
-                  display: isOpen ? "flex" : "none",
-                  paddingTop: 10,
-                  paddingLeft: 5,
-                  paddingRight: 5,
-                }}
-              >
-                <FacebookShareButton
-                  url={shareUrl}
-                  quote={title}
-                  hashtag="#news"
+              {isOpen && (
+                <div
+                  style={{
+                    position: "absolute",
+                    height: "40px",
+                    width: "200px",
+                    backgroundColor: "#5a5a5a",
+                    borderRadius: 8,
+                    bottom: -50,
+                    left: -20,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-around",
+                    padding: "5px",
+                  }}
                 >
-                  <FacebookIcon size={32} round />
-                </FacebookShareButton>
-                <TwitterShareButton
-                  url={shareUrl}
-                  title={title}
-                  className="Demo__some-network__share-button"
-                >
-                  <TwitterIcon size={32} round />
-                </TwitterShareButton>
-                <EmailShareButton
-                  url={shareUrl}
-                  subject={title}
-                  body={`Check this out: ${title} \n ${shareUrl} \n ${imgUrl}`}
-                  className="Demo__some-network__share-button"
-                >
-                  <EmailIcon size={32} round />
-                </EmailShareButton>
-                <InstagramShareButton url={window.location.href} />
-              </div>
-            </div>
-            {/* whatsapp share */}
-            <div>
-              <WhatsappShareButton
-                url={shareUrl}
-                title={`${title} \n ${imgUrl}`}
-                separator=":: "
-                className="Demo__some-network__share-button"
-              >
-                <WhatsappIcon size={32} round />
-              </WhatsappShareButton>
+                  <FacebookShareButton
+                    url={shareUrl}
+                    quote={title}
+                    hashtag="#news"
+                  >
+                    <FacebookIcon size={32} round />
+                  </FacebookShareButton>
+                  <TwitterShareButton url={shareUrl} title={title}>
+                    <TwitterIcon size={32} round />
+                  </TwitterShareButton>
+                  <EmailShareButton
+                    url={shareUrl}
+                    subject={title}
+                    body={`Check this out: ${title} \n ${shareUrl} \n ${imgUrl}`}
+                  >
+                    <EmailIcon size={32} round />
+                  </EmailShareButton>
+                  <WhatsappShareButton
+                    url={shareUrl}
+                    title={`${title} \n ${imgUrl}`}
+                  >
+                    <WhatsappIcon size={32} round />
+                  </WhatsappShareButton>
+                </div>
+              )}
             </div>
           </div>
           <div className="container-detail-page-rigth-side">
