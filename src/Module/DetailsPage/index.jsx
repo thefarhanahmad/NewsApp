@@ -361,10 +361,7 @@ const DetailsPage = () => {
                   >
                     <EmailIcon size={32} round />
                   </EmailShareButton>
-                  <WhatsappShareButton
-                    url={shareUrl}
-                    title={`${title} \n ${imgUrl}`}
-                  >
+                  <WhatsappShareButton url={shareUrl} title={`${title}`}>
                     <WhatsappIcon size={32} round />
                   </WhatsappShareButton>
                 </div>
@@ -581,7 +578,7 @@ const DetailsPage = () => {
               <div style={{}}>
                 <WhatsappShareButton
                   url={shareUrl}
-                  title={`${title} \n ${imgUrl}`}
+                  title={`${title}`}
                   separator=":: "
                   className="Demo__some-network__share-button"
                 >
