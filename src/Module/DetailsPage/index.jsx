@@ -268,7 +268,7 @@ const DetailsPage = () => {
           property="og:description"
           content={data?.description || "Stay updated with the latest news."}
         />
-
+        {/* <meta property="og:type" content="article" /> */}
         <meta property="og:image" content={imgUrl} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
