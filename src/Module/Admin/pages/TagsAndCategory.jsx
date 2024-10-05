@@ -136,9 +136,11 @@ const TagsAndCategory = () => {
   };
 
   const handleDeleteTagCategory = async (id) => {
+    console.log("id to delete tag&cat  : ", id);
     try {
       const res = await axios.delete(`${API_URL}/delete_content/${id}`);
-      if (res.data.data.status === 200) {
+      console.log("delete res tag&cat : ", res);
+      if (res.data.status === 200) {
         message.success(res.data.message);
         fetchData(); // Refresh data after deletion
       } else {
@@ -193,11 +195,14 @@ const TagsAndCategory = () => {
       title: filterItem !== "sub" ? "Type" : "Category",
       key: filterItem !== "sub" ? "type" : "category",
       dataIndex: filterItem !== "sub" ? "type" : "category",
-      render: (text, record) => (
-        <Tag color="geekblue">
-          {filterItem !== "sub" ? record.type : record.category}
-        </Tag>
-      ),
+      render: (text, record) => {
+        console.log("record in sub category : ", record);
+        return (
+          <Tag color="geekblue">
+            {filterItem !== "sub" ? record.type : record.category}
+          </Tag>
+        );
+      },
     },
     {
       title: "Delete",
@@ -278,6 +283,7 @@ const TagsAndCategory = () => {
                 onClick={() => {
                   setSearchValue(""); // Clear search input
                   setFilteredData(userData); // Reset to all data
+                  setIsModalOpen(true); // Open the modal to add new item
                 }}
               >
                 Add
