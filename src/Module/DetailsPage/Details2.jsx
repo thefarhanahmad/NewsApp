@@ -35,6 +35,7 @@ import { API_URL } from "../../../API";
 import { Loading } from "../../Context";
 import RelatedNewsSection from "../../Components/SharedComponents/RelatedNewSection";
 import LatesetNewsSection from "../../Components/SharedComponents/LatestNewsSection";
+import { Helmet } from "react-helmet-async";
 
 // Instagram share button (custom implementation)
 const InstagramShareButton = ({ url }) => {
@@ -233,6 +234,7 @@ const DetailsPage2 = () => {
   const imgUrl =
     data?.image ||
     "https://news-app-frontend-main.vercel.app/default-image.png"; // Fallback image if not available
+  const description = data?.discription;
 
   useEffect(() => {
     // Set document title dynamically
@@ -244,22 +246,17 @@ const DetailsPage2 = () => {
       {/* Helmet for Open Graph and Twitter meta tags */}
       <Helmet>
         <meta property="og:url" content={shareUrl} />
-        <meta property="og:type" content="article" />
+        <meta property="og:type" content="article" />{" "}
         <meta property="og:title" content={title} />
-        <meta
-          property="og:description"
-          content={data?.description || "Stay updated with the latest news."}
-        />
+        <meta property="og:description" content={description} />
         <meta property="og:image" content={imgUrl} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
+        {/* Twitter Meta Tags */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:url" content={shareUrl} />
         <meta name="twitter:title" content={title} />
-        <meta
-          name="twitter:description"
-          content={data?.description || "Stay updated with the latest news."}
-        />
+        <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content={imgUrl} />
       </Helmet>
       {/* mobile version  */}
@@ -356,7 +353,7 @@ const DetailsPage2 = () => {
             <WhatsappShareButton
               url={shareUrl}
               title={title}
-              separator=":: "
+              separator=" - "
               className="Demo__some-network__share-button"
             >
               <WhatsappIcon size={32} round />
@@ -563,7 +560,7 @@ const DetailsPage2 = () => {
               <WhatsappShareButton
                 url={shareUrl}
                 title={title}
-                separator=":: "
+                separator="- "
                 className="Demo__some-network__share-button"
               >
                 <WhatsappIcon size={32} round />

@@ -251,10 +251,21 @@ const DetailsPage = () => {
   const imgUrl =
     data?.image ||
     "https://news-app-frontend-main.vercel.app/default-image.png"; // Fallback image if not available
+  const description = data?.discription;
+
+  console.log("data in details page : ", data);
+  console.log(
+    "shareUrl, title,description and imageURl in details page  ",
+    shareUrl,
+    title,
+    description,
+    imgUrl
+  );
 
   useEffect(() => {
     // Set document title dynamically
     document.title = title;
+    console.log("document in details page : ", document);
   }, [title]);
 
   return (
@@ -262,23 +273,17 @@ const DetailsPage = () => {
       {/* Helmet for Open Graph and Twitter meta tags */}
       <Helmet>
         <meta property="og:url" content={shareUrl} />
-        <meta property="og:type" content="article" />
+        <meta property="og:type" content="article" />{" "}
         <meta property="og:title" content={title} />
-        <meta
-          property="og:description"
-          content={data?.description || "Stay updated with the latest news."}
-        />
-        {/* <meta property="og:type" content="article" /> */}
+        <meta property="og:description" content={description} />
         <meta property="og:image" content={imgUrl} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
+        {/* Twitter Meta Tags */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:url" content={shareUrl} />
         <meta name="twitter:title" content={title} />
-        <meta
-          name="twitter:description"
-          content={data?.description || "Stay updated with the latest news."}
-        />
+        <meta name="twitter:description" content={description} />
         <meta name="twitter:image" content={imgUrl} />
       </Helmet>
 
@@ -362,7 +367,11 @@ const DetailsPage = () => {
                   >
                     <EmailIcon size={32} round />
                   </EmailShareButton>
-                  <WhatsappShareButton url={shareUrl} title={`${title}`}>
+                  <WhatsappShareButton
+                    url={shareUrl}
+                    separator=" - "
+                    title={`${title}`}
+                  >
                     <WhatsappIcon size={32} round />
                   </WhatsappShareButton>
                 </div>
@@ -580,7 +589,7 @@ const DetailsPage = () => {
                 <WhatsappShareButton
                   url={shareUrl}
                   title={`${title}`}
-                  separator=":: "
+                  separator=" - "
                   className="Demo__some-network__share-button"
                 >
                   <WhatsappIcon size={32} round />

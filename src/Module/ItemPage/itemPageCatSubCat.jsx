@@ -106,10 +106,22 @@ const ItemPage = () => {
           });
       } else {
         axios
+          // .get(`${API_URL}/article?newsType=${query.get("newsType")}`)
+          // .then((data) => {
+          //   console.log("data res in itempage : ", data);
+          //   setData(data.data);
+          //   setIsLoad(false);
           .get(`${API_URL}/article?newsType=${query.get("newsType")}`)
           .then((data) => {
-            console.log("data res in itempage : ", data);
-            setData(data.data);
+            console.log("data res in itempage: ", data);
+
+            // Filter to ensure only articles with status 'online'
+            const onlineArticles = data?.data.filter(
+              (article) => article.status === "online"
+            );
+
+            // Set the filtered data
+            setData(onlineArticles);
             setIsLoad(false);
           })
           .catch(() => {

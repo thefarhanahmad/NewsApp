@@ -84,6 +84,17 @@ const ItemPage = () => {
     window.scroll(0, 0);
     setTimeout(() => {
       axios
+        // .get(
+        //   `${API_URL}/article?category=${query.get("item")}&search=${query.get(
+        //     "item"
+        //   )}&keyword=${query.get("item")}&pagenation&subCategory=${
+        //     query.get("sub") ? query.get("sub") : ""
+        //   }`
+        // )
+        // .then((data) => {
+        //   console.log("DATA", data);
+        //   setData(data.data);
+        //   setIsLoad(false);
         .get(
           `${API_URL}/article?category=${query.get("item")}&search=${query.get(
             "item"
@@ -93,7 +104,14 @@ const ItemPage = () => {
         )
         .then((data) => {
           console.log("DATA", data);
-          setData(data.data);
+
+          // Filter to ensure only articles with status 'online'
+          const onlineArticles = data?.data.filter(
+            (article) => article.status === "online"
+          );
+
+          // Set the filtered data
+          setData(onlineArticles);
           setIsLoad(false);
         })
         .catch(() => {

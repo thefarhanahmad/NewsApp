@@ -150,12 +150,25 @@ const MainPage = () => {
 
   useEffect(() => {
     axios
+      // .get(
+      //   `${API_URL}/article?pagenation=true&limit=8&type=img&status=online&slider=true`
+      // )
+      // .then((sliderData) => {
+      //   console.log("slider articles", sliderData.data);
+      //   setSliderArticles(sliderData?.data);
       .get(
         `${API_URL}/article?pagenation=true&limit=8&type=img&status=online&slider=true`
       )
       .then((sliderData) => {
         console.log("slider articles", sliderData.data);
-        setSliderArticles(sliderData?.data);
+
+        // Filter to ensure only articles with status 'online'
+        const onlineArticles = sliderData?.data.filter(
+          (article) => article.status === "online"
+        );
+
+        // Set the filtered data
+        setSliderArticles(onlineArticles);
         axios
           .get(
             `${API_URL}/article?pagenation=true&limit=12&type=img&newsType=breakingNews&status=online&priority=true`
