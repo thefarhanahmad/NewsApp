@@ -141,7 +141,7 @@ const Header = () => {
               {/* top ad will show here */}
             </a>
             {/* <img src={TopHeaderImg} alt="" " /> */}
-            <select
+            {/* <select
               name="language"
               id=""
               style={{ width: 100, position: "absolute", right: 10, top: 10 }}
@@ -152,7 +152,7 @@ const Header = () => {
               <option value="hi">Hindi</option>
               <option value="en">English</option>
               <option value="ur">Urdu</option>
-            </select>
+            </select> */}
           </div>
           <div className="header-contianer">
             <div
