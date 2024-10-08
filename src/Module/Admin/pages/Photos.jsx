@@ -8,6 +8,7 @@ import {
   Row,
   Select,
   Space,
+  Switch,
   Table,
   Tag,
   message,
@@ -30,7 +31,7 @@ const Photos = () => {
   const [title, setTitle] = useState("");
   const [photo, setPhoto] = useState("");
   const [editPhoto, setEditPhoto] = useState(null);
-
+  const [priority, setPriority] = useState(false);
   const [isVerifyModalOpen, setIsVerifyModalOpen] = useState(false);
 
   const [filterItem, setfilterItem] = useState("id");
@@ -128,6 +129,7 @@ const Photos = () => {
         image: images, // Store array of image URLs
         imageTexts: imgTexts,
         url: imgUrl,
+        // priority:priority
       });
       // Additional logic if needed after successful upload
       // message.success("Your Photo was successfully uploaded");
@@ -234,6 +236,8 @@ const Photos = () => {
     }
     setLoading(false); // Ensure loading is false at the end
   };
+
+  console.log("priority : ", priority);
 
   // .then((res) => {
   //   console.log("storyEditResponse", res);
@@ -703,7 +707,29 @@ const Photos = () => {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
-
+            <div
+              style={{
+                marginTop: "5%",
+                display: "flex",
+                // background: "red",
+                color: "black",
+                gap: "5px",
+                justifyContent: "start",
+                alignItems: "center",
+              }}
+            >
+              <span>priority</span>
+              <Switch
+                size="small"
+                style={{ marginLeft: 5 }}
+                // value={priority}
+                checked={priority}
+                defaultChecked={priority}
+                onChange={(e) => {
+                  setPriority(e);
+                }}
+              />
+            </div>
             <div style={{ marginTop: "5%", display: "flex" }}>
               <Button onClick={showVerifyModal} type="primary">
                 Preview

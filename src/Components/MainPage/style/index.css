@@ -226,7 +226,7 @@
 .stories-card {
   width: 100%;
   height: 115px;
-  background-color: white;
+  /* background-color: yellow; */
   margin-top: 10px;
   border-radius: 6px;
   display: flex;
@@ -249,16 +249,21 @@
   font-family: Poppins, sans-serif;
   font-weight: 400;
   color: rgba(30, 30, 30, 1);
-  margin-left: 10px;
-  padding: 5px;
+  padding: 5px 5px 5px 10px;
+  /* background-color: red; */
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 3; /* Ensure exactly 3 lines are shown */
   -webkit-box-orient: vertical;
-  /* overflow: hidden; */
+  overflow: hidden;
   text-overflow: ellipsis;
   word-wrap: break-word;
-  max-height: 4em;
+  text-align: start;
+
+  /* New added properties */
+  line-height: 1.3em; /* Set a consistent line height */
+  max-height: calc(3 * 1.3em); /* Ensure the text fits into 3 lines */
 }
+
 .news-card-mian-area {
   width: 100%;
   height: 220px;
@@ -328,9 +333,4 @@
   .stories-card {
     height: 120px;
   }
-}
-
-/* Ensure text fits in 3 lines for all screen sizes */
-.stories-card-text {
-  max-height: calc(3 * 1.3em);
 }

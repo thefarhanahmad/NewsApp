@@ -11,6 +11,7 @@ import {
   Switch,
   message,
 } from "antd";
+
 import axios from "axios";
 import React, { useState, useRef, useMemo, useContext, useEffect } from "react";
 import JoditEditor from "jodit-react";
@@ -18,6 +19,7 @@ import { OnEdit as onEditContext } from "../../../Context";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../../../../API";
 const { TextArea } = Input;
+const { Option } = Select;
 const Upload = () => {
   const [title, setTitle] = useState("");
   const [slug, setSlug] = useState(title);
@@ -27,9 +29,9 @@ const Upload = () => {
   const [publish, setpublish] = useState("");
   const [type, setType] = useState("img");
   // const [Language, setLanguage] = useState("English");
-  const [Language, setLanguage] = useState("HIndi");
+  const [Language, setLanguage] = useState("Hindi");
   const [newType, setNewType] = useState("topStories");
-  const [keyword, setkeyword] = useState([]);
+  const [keyword, setKeyword] = useState([]);
   const [isVerifyModalOpen, setIsVerifyModalOpen] = useState(false);
   const [img, setImg] = useState(null);
   const [dataImage, setdataImage] = useState(null);
@@ -49,24 +51,92 @@ const Upload = () => {
   const navigation = useNavigate();
   const [items, setItems] = useState(["jack", "lucy"]);
   const [name, setName] = useState("");
-  const inputRef = useRef(null);
-  const onNameChange = (event) => {
-    setName(event.target.value);
+  //  const inputRef = useRef();
+  const inputRef = useRef();
+  // const onNameChange = (event) => {
+  //   setName(event.target.value);
+  // };
+  // const addItem = (e) => {
+  //   e.preventDefault();
+  //   setOptions([...options, { value: name, label: name, key: name }]);
+  //   setName("");
+  //   setTimeout(() => {
+  //     inputRef.current?.focus();
+  //   }, 0);
+  // };
+  // Add new item to the tags
+
+  console.log("tag name : ", name);
+  // Handle input change for new tag
+  const onNameChange = (e) => {
+    setName(e.target.value);
   };
-  const addItem = (e) => {
-    e.preventDefault();
-    setOptions([...options, { value: name, label: name, key: name }]);
-    setName("");
-    setTimeout(() => {
-      inputRef.current?.focus();
-    }, 0);
+  const addItem = async () => {
+    // Check if the input is not empty
+    if (!name.trim()) {
+      message.warning("Please enter a tag.");
+      return;
+    }
+
+    try {
+      // Generate a unique 4-digit sequence
+      let uniqueSequence;
+      const existingSequences = options.map(
+        (option) => option.sequence || option.key
+      ); // Use sequence or key
+
+      // Function to generate a 4-digit random number
+      const generateUniqueSequence = () => {
+        return Math.floor(1000 + Math.random() * 9000); // Generates a number between 1000 and 9999
+      };
+
+      // Ensure the generated sequence is unique
+      do {
+        uniqueSequence = generateUniqueSequence();
+      } while (existingSequences.includes(uniqueSequence));
+
+      // Here you should call your API to save the new tag
+      const response = await axios.post(
+        `${API_URL}/content?id=${localStorage.getItem("id")}`,
+        {
+          type: "tag",
+          text: name,
+          sequence: uniqueSequence,
+        }
+      );
+
+      console.log("Tag added successfully:", response);
+
+      // Update the options with the new tag received from the API
+      const newTag = {
+        value: response.data.text, // Assuming API returns the created tag object
+        label: response.data.text,
+        key: response.data._id, // Assuming the API returns an ID for the tag
+        sequence: uniqueSequence, // Store the sequence for future reference
+      };
+
+      // Update local state with the new tag
+      setOptions((prevOptions) => [...prevOptions, newTag]);
+      setKeyword((prevKeywords) => [...prevKeywords, newTag.value]);
+
+      // Clear the input field
+      setName("");
+      inputRef.current.focus(); // Focus back on the input field
+
+      // Success message
+      message.success("Tag added successfully!");
+    } catch (error) {
+      console.error("Error adding tag:", error);
+      message.error("Failed to add tag.");
+    }
   };
+
   const categoryOptions = categoryData.map((items) => ({
     label: items.text,
     value: items.text,
   }));
   // console.log(categoryOptions);
-
+  console.log("options : ", options);
   const userCategoryOptions = usercategoryData.map((item) => ({
     label: item,
     value: item,
@@ -76,7 +146,7 @@ const Upload = () => {
   //   setTitle("");
   //   setTopic("");
   //   setdesc("");
-  //   setkeyword([]);
+  //   setKeyword([]);
   //   setImg(null);
   //   setLanguage("");
   //   // setpublish("");
@@ -101,7 +171,7 @@ const Upload = () => {
         setTitle(data.title);
         setTopic(data.topic);
         setdesc(data.discription);
-        setkeyword(data.keyWord);
+        setKeyword(data.keyWord);
         setImg(data.image);
         setSubCategory(data.subCategory);
         setSlug(data.slug);
@@ -119,7 +189,7 @@ const Upload = () => {
       // setTitle("");
       // setTopic("");
       // setdesc("");
-      // setkeyword([]);
+      // setKeyword([]);
       // setImg(null);
       // setLanguage("");
       // setOnEdit(false);
@@ -132,23 +202,39 @@ const Upload = () => {
       // setComment(false);
       // setPriority(false);
     }
-    axios
-      .get(`${API_URL}/content?type=tag`)
-      .then((content) => {
-        let arr = [];
-        for (let i = 0; i < content.data.length; i++) {
-          const element = content.data[i];
-          arr.push({
-            key: element._id,
-            value: element.text,
-            label: element.text,
-          });
-        }
+    // axios
+    //   .get(`${API_URL}/content?type=tag`)
+    //   .then((content) => {
+    //     console.log("tag res api : ", content);
+    //     let arr = [];
+    //     for (let i = 0; i < content.data.length; i++) {
+    //       const element = content.data[i];
+    //       arr.push({
+    //         key: element._id,
+    //         value: element.text,
+    //         label: element.text,
+    //       });
+    //     }
+    //     setOptions(arr);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    const fetchTags = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/content?type=tag`);
+        const arr = response.data.map((element) => ({
+          key: element._id,
+          value: element.text,
+          label: element.text,
+        }));
         setOptions(arr);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      } catch (err) {
+        console.error("Error fetching tags: ", err);
+      }
+    };
+
+    fetchTags();
     axios
       .get(`${API_URL}/content?type=category`)
       .then((content) => {
@@ -209,6 +295,7 @@ const Upload = () => {
   }
 
   const showVerifyModal = () => {
+    // Check if all required fields are filled
     if (
       img &&
       title &&
@@ -222,12 +309,22 @@ const Upload = () => {
       type &&
       slug
     ) {
-      setIsVerifyModalOpen(true);
-      document.getElementById("perview").innerHTML = desc;
+      setIsVerifyModalOpen(true); // Set modal visibility
+
+      // Wait until the modal is rendered and then update the content
+      setTimeout(() => {
+        const previewElement = document.getElementById("perview");
+        if (previewElement) {
+          previewElement.innerHTML = desc; // Safely set innerHTML
+        } else {
+          console.error('Element with ID "perview" not found.');
+        }
+      }, 0); // Delay to ensure the modal and element are rendered
     } else {
-      message.warning("Fill all the fields first!");
+      message.warning("Fill all the fields first!"); // Warn the user if any field is missing
     }
   };
+
   const handleVerifyCancel = () => {
     setIsVerifyModalOpen(false);
   };
@@ -265,7 +362,7 @@ const Upload = () => {
           slider: slider,
         })
         .then((data) => {
-          console.log(data.data);
+          console.log("upload top story res : ", data);
           console.log(
             {
               title: title,
@@ -285,10 +382,11 @@ const Upload = () => {
             "dddata"
           );
           message.success("Your article was successfully Uploaded");
+          // message.success(data?.data?.message);
           setTitle("");
           setTopic("");
           setdesc("");
-          setkeyword([]);
+          setKeyword([]);
           setImg(null);
           setLanguage("");
           // setpublish("");
@@ -303,7 +401,11 @@ const Upload = () => {
           setSlider(false);
           setIsVerifyModalOpen(false);
         })
-        .catch(() => {
+        .catch((err) => {
+          console.log("upload top story error : ", err);
+          if (err?.message) {
+            message.error(err?.message);
+          }
           message.error("Your article was not successfully Uploaded");
           setLoading(false);
         });
@@ -348,7 +450,7 @@ const Upload = () => {
             setTitle("");
             setTopic("");
             setdesc("");
-            setkeyword([]);
+            setKeyword([]);
             setImg(null);
             setLanguage("");
             setType("img");
@@ -395,7 +497,7 @@ const Upload = () => {
           setTitle("");
           setTopic("");
           setdesc("");
-          setkeyword([]);
+          setKeyword([]);
           setImg(null);
           setLanguage("");
           // setpublish("");
@@ -720,29 +822,21 @@ const Upload = () => {
                   mode="multiple"
                   placeholder="Tags"
                   value={keyword}
-                  onChange={(e) => setkeyword(e)}
+                  onChange={(e) => setKeyword(e)}
                   style={{
                     width: "100%",
                   }}
                   dropdownRender={(menu) => (
                     <>
                       {menu}
-                      <Divider
-                        style={{
-                          margin: "8px 0",
-                        }}
-                      />
-                      <Space
-                        style={{
-                          padding: "0 8px 4px",
-                        }}
-                      >
+                      <Divider style={{ margin: "8px 0" }} />
+                      <Space style={{ padding: "0 8px 4px" }}>
                         <Input
                           placeholder="Please enter item"
                           ref={inputRef}
                           value={name}
                           onChange={onNameChange}
-                          onKeyDown={(e) => e.stopPropagation()}
+                          onKeyDown={(e) => e.stopPropagation()} // Prevent closing the dropdown on key press
                         />
                         <Button type="primary" onClick={addItem}>
                           Add item
@@ -750,9 +844,13 @@ const Upload = () => {
                       </Space>
                     </>
                   )}
-                  // dropdownRender={}
-                  options={options}
-                />
+                >
+                  {options.map((option) => (
+                    <Option key={option.key} value={option.value}>
+                      {option.label}
+                    </Option>
+                  ))}
+                </Select>
                 <div style={{ marginBottom: "20px" }}></div>
               </Col>
 
@@ -939,7 +1037,7 @@ export default Upload;
 //   const [type, setType] = useState("img");
 //   const [Language, setLanguage] = useState("English");
 //   const [newType, setNewType] = useState("topStories");
-//   const [keyword, setkeyword] = useState([]);
+//   const [keyword, setKeyword] = useState([]);
 //   const [isVerifyModalOpen, setIsVerifyModalOpen] = useState(false);
 //   const [img, setImg] = useState(null);
 //   const [dataImage, setdataImage] = useState(null);
@@ -991,7 +1089,7 @@ export default Upload;
 //         setTitle(data.title);
 //         setTopic(data.topic);
 //         setdesc(data.discription);
-//         setkeyword(data.keyWord);
+//         setKeyword(data.keyWord);
 //         setImg(data.image)
 //         setComment(data.comment)
 //         // setdataImage(data.image);
@@ -1140,7 +1238,7 @@ export default Upload;
 //           setTitle("");
 //           setTopic("");
 //           setdesc("");
-//           setkeyword([]);
+//           setKeyword([]);
 //           setImg(null);
 //           setLanguage("");
 //           // setpublish("");
@@ -1195,7 +1293,7 @@ export default Upload;
 //             setTitle("");
 //             setTopic("");
 //             setdesc("");
-//             setkeyword([]);
+//             setKeyword([]);
 //             setImg(null);
 //             setLanguage("");
 //             // setpublish("");
@@ -1238,7 +1336,7 @@ export default Upload;
 //           setTitle("");
 //             setTopic("");
 //             setdesc("");
-//             setkeyword([]);
+//             setKeyword([]);
 //             setImg(null);
 //             setLanguage("");
 //             // setpublish("");
@@ -1537,7 +1635,7 @@ export default Upload;
 //                   mode="multiple"
 //                   placeholder="Tags"
 //                   value={keyword}
-//                   onChange={(e) => setkeyword(e)}
+//                   onChange={(e) => setKeyword(e)}
 //                   style={{
 //                     width: "100%",
 //                   }}
@@ -1720,7 +1818,7 @@ export default Upload;
 //   const [publish, setpublish] = useState("");
 //   const [Language, setLanguage] = useState("English");
 //   const [newType, setNewType] = useState("topStories");
-//   const [keyword, setkeyword] = useState([]);
+//   const [keyword, setKeyword] = useState([]);
 //   const [isVerifyModalOpen, setIsVerifyModalOpen] = useState(false);
 //   const [img, setImg] = useState(null);
 //   const [dataImage, setdataImage] = useState(null);
@@ -1741,7 +1839,7 @@ export default Upload;
 //         setTitle(data.title);
 //         setTopic(data.topic);
 //         setdesc(data.discription);
-//         setkeyword(data.keyWord);
+//         setKeyword(data.keyWord);
 //         // setdataImage(data.image);
 //         setImg(data.image)
 //         setLanguage(data?.language);
@@ -1814,7 +1912,7 @@ export default Upload;
 //           setTitle("");
 //           setTopic("");
 //           setdesc("");
-//           setkeyword([]);
+//           setKeyword([]);
 //           setImg(null);
 //           setLanguage("");
 //           setpublish("");
@@ -1855,7 +1953,7 @@ export default Upload;
 //             setTitle("");
 //             setTopic("");
 //             setdesc("");
-//             setkeyword([]);
+//             setKeyword([]);
 //             setImg(null);
 //             setLanguage("");
 //             setpublish("");
@@ -1892,7 +1990,7 @@ export default Upload;
 //           setTitle("");
 //           setTopic("");
 //           setdesc("");
-//           setkeyword([]);
+//           setKeyword([]);
 //           setImg(null);
 //           setOnEdit(false);
 //           navigation("/dashboard/dashboard");
@@ -2048,7 +2146,7 @@ export default Upload;
 //                     mode="multiple"
 //                     placeholder="Tags"
 //                     value={keyword}
-//                     onChange={(e) => setkeyword(e)}
+//                     onChange={(e) => setKeyword(e)}
 //                     style={{
 //                       width: "100%",
 //                     }}

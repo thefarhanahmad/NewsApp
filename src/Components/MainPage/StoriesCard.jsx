@@ -11,9 +11,8 @@ const StoriesCard = ({ text, image, OnPress }) => {
       >
         <img src={image ? image : img} alt="" />
         <div className="stories-card-text">
-          {text.slice(0, 55) ||
+          {text ||
             '"India Have Better...": Sri Lanka Captain Honest World Cup Admission'}
-          ...
         </div>
       </div>
     </>
