@@ -369,45 +369,49 @@ const MainPage = () => {
     fetchVideos();
   }, []);
 
+  // useEffect(() => {
+  //   axios
+  //     .get(`${API_URL}/photo`)
+  //     .then((response) => {
+  //       console.log("data response f photo : ", response.data);
+
+  //       // Filter images with status true
+  //       const filteredPhotos = response.data.filter(
+  //         (item) => item.status === true
+  //       );
+
+  //       setPhoto(filteredPhotos);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching photos:", error);
+  //     });
+  // }, []);
+
   useEffect(() => {
     axios
       .get(`${API_URL}/photo`)
       .then((response) => {
-        console.log("data response f photo : ", response.data);
-
-        // Filter images with status true
-        const filteredPhotos = response.data.filter(
-          (item) => item.status === true
-        );
-
-        setPhoto(filteredPhotos);
+        // Filter and sort photos
+        const filteredPhotos = response.data
+          .filter((item) => item.status === true) // Only photos with status: true
+          .sort((a, b) => {
+            // Sort by periority (true first), then by createdAt (newest first)
+            if (a.periority === b.periority) {
+              return new Date(b.createdAt) - new Date(a.createdAt); // Newest first
+            }
+            // Higher priority (true) first
+            return (
+              (b.periority === true ? 1 : 0) - (a.periority === true ? 1 : 0)
+            );
+          });
+        console.log("filtered photos : ", filteredPhotos);
+        setPhoto(filteredPhotos); // Update state with filtered and sorted photos
       })
       .catch((error) => {
         console.error("Error fetching photos:", error);
       });
   }, []);
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`${API_URL}/photo`)
-  //     .then((response) => {
-  //       // Filter and sort photos
-  //       const filteredPhotos = response.data
-  //         .filter((item) => item.status === true) // Only photos with status: true
-  //         .sort((a, b) => {
-  //           // Sort by periority, higher first, then by createdAt
-  //           if (a.periority === b.periority) {
-  //             return new Date(b.createdAt) - new Date(a.createdAt); // Newest first
-  //           }
-  //           return b.periority - a.periority; // Higher periority first
-  //         });
-  //       console.log("filtered photos : ", filteredPhotos);
-  //       setPhoto(filteredPhotos); // Update state with filtered and sorted photos
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching photos:", error);
-  //     });
-  // }, []);
   console.log("photo in gallery on home page : ", photo);
   useEffect(() => {
     axios

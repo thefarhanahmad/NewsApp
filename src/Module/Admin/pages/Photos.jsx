@@ -124,22 +124,20 @@ const Photos = () => {
       //   image: imageResponse.data.image,
       // });
       // Step 2: Create Story
+      console.log("title,priotity : ", title, priority);
       const storyResponse = await axios.post(`${API_URL}/photo`, {
         title,
         image: images, // Store array of image URLs
         imageTexts: imgTexts,
         url: imgUrl,
-        // priority:priority
+        periority: priority,
       });
-      // Additional logic if needed after successful upload
-      // message.success("Your Photo was successfully uploaded");
-      // setTitle("");
-      // setLoading(false);
-      // setImg(null);
-      // Additional logic if needed after successful upload
+
+      console.log("story upload res : ", storyResponse);
       message.success("Your Photo was successfully uploaded");
       setIsVerifyModalOpen(false);
       fetchAllPhotos();
+      setPriority(false);
       setTitle("");
       setLoading(false);
       setImgs([]);
