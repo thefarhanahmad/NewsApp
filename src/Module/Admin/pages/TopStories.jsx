@@ -247,53 +247,76 @@ const Upload = () => {
       .replace(/-+$/, ""); // Remove trailing dashes
   }
 
-  const showVerifyModal = () => {
-    // Log each field and its status
-    console.log("img:", img, "is valid:", !!img);
-    console.log("title:", title, "is valid:", !!title);
-    console.log("desc:", desc, "is valid:", !!desc);
-    console.log("Topic:", Topic, "is valid:", !!Topic);
-    console.log(
-      "keyword:",
-      keyword,
-      "is valid:",
-      Array.isArray(keyword) && keyword.length > 0
-    );
-    console.log("Language:", Language, "is valid:", !!Language);
-    console.log("reported:", reported, "is valid:", !!reported);
-    console.log("publish:", publish, "is valid:", !!publish);
-    console.log("newType:", newType, "is valid:", !!newType);
-    console.log("type:", type, "is valid:", !!type);
-    console.log("slug:", slug, "is valid:", !!slug);
+  // const showVerifyModal = () => {
 
-    // Check if all required fields are filled
-    if (
-      img &&
-      title &&
-      desc &&
-      Topic &&
-      (Array.isArray(keyword) ? keyword.length > 0 : keyword) &&
-      Language &&
-      reported &&
-      publish &&
-      newType &&
-      type &&
-      slug
-    ) {
-      setIsVerifyModalOpen(true); // Set modal visibility
+  //   // Check if all required fields are filled
+  //   if (
+  //     img &&
+  //     title &&
+  //     desc &&
+  //     Topic &&
+  //     (Array.isArray(keyword) ? keyword.length > 0 : keyword) &&
+  //     Language &&
+  //     reported &&
+  //     publish &&
+  //     newType &&
+  //     type &&
+  //     slug
+  //   ) {
+  //     setIsVerifyModalOpen(true); // Set modal visibility
+
+  //     // Wait until the modal is rendered and then update the content
+  //     setTimeout(() => {
+  //       const previewElement = document.getElementById("perview");
+  //       if (previewElement) {
+  //         previewElement.innerHTML = desc; // Safely set innerHTML
+  //       } else {
+  //         console.error('Element with ID "perview" not found.');
+  //       }
+  //     }, 0); // Delay to ensure the modal and element are rendered
+  //   } else {
+  //     console.log("Error in opening modal. Missing required fields.");
+  //     message.warning("Fill all the fields first!"); // Warn the user if any field is missing
+  //   }
+  // };
+
+  const showVerifyModal = () => {
+    // Check if all required fields are filled and provide specific warnings for missing fields
+    if (!img) {
+      message.warning("Please upload an image.");
+    } else if (!title.trim()) {
+      message.warning("Please enter a title.");
+    } else if (!desc.trim()) {
+      message.warning("Please enter a description.");
+    } else if (!Topic) {
+      message.warning("Please select a category.");
+    } else if (!Array.isArray(keyword) || keyword.length === 0) {
+      message.warning("Please enter at least one tag.");
+    } else if (!Language) {
+      message.warning("Please select a language.");
+    } else if (!reported) {
+      message.warning("Please enter the reported by field.");
+    } else if (!publish) {
+      message.warning("Please enter the publish by field.");
+    } else if (!newType) {
+      message.warning("Please select the news type.");
+    } else if (!type) {
+      message.warning("Please select the content type (e.g., image or video).");
+    } else if (!slug.trim()) {
+      message.warning("Please generate a slug.");
+    } else {
+      // If all fields are valid, open the modal and set the preview content
+      setIsVerifyModalOpen(true);
 
       // Wait until the modal is rendered and then update the content
       setTimeout(() => {
         const previewElement = document.getElementById("perview");
         if (previewElement) {
-          previewElement.innerHTML = desc; // Safely set innerHTML
+          previewElement.innerHTML = desc;
         } else {
           console.error('Element with ID "perview" not found.');
         }
-      }, 0); // Delay to ensure the modal and element are rendered
-    } else {
-      console.log("Error in opening modal. Missing required fields.");
-      message.warning("Fill all the fields first!"); // Warn the user if any field is missing
+      }, 0);
     }
   };
 
@@ -374,10 +397,10 @@ const Upload = () => {
           setIsVerifyModalOpen(false);
         })
         .catch((err) => {
-          console.log("upload top story error : ", err);
-          if (err?.message) {
-            message.error(err?.message);
-          }
+          // console.log("upload top story error : ", err);
+          // if (err?.message) {
+          //   message.error(err?.message);
+          // }
           message.error("Your article was not successfully Uploaded");
           setLoading(false);
         });

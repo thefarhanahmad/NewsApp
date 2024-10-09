@@ -274,33 +274,72 @@ const Upload = () => {
       .replace(/-+$/, ""); // Remove trailing dashes
   }
 
+  // const showVerifyModal = () => {
+  //   if (
+  //     img &&
+  //     title &&
+  //     desc &&
+  //     Topic &&
+  //     keyword &&
+  //     Language &&
+  //     reported &&
+  //     publish &&
+  //     newType &&
+  //     type &&
+  //     slug
+  //   ) {
+  //     setIsVerifyModalOpen(true); // Opens the modal
+
+  //     // Delay accessing the DOM until the modal is rendered
+  //     setTimeout(() => {
+  //       const previewElement = document.getElementById("perview");
+  //       if (previewElement) {
+  //         previewElement.innerHTML = desc; // Set innerHTML safely
+  //       } else {
+  //         console.error('Element with ID "perview" not found.');
+  //       }
+  //     }, 0); // Timeout ensures the modal is rendered before accessing the DOM
+  //   } else {
+  //     message.warning("Fill all the fields first!"); // Warn the user if any field is missing
+  //   }
+  // };
   const showVerifyModal = () => {
-    if (
-      img &&
-      title &&
-      desc &&
-      Topic &&
-      keyword &&
-      Language &&
-      reported &&
-      publish &&
-      newType &&
-      type &&
-      slug
-    ) {
-      setIsVerifyModalOpen(true); // Opens the modal
+    // Check if all required fields are filled and provide specific warnings for missing fields
+    if (!img) {
+      message.warning("Please upload an image.");
+    } else if (!title.trim()) {
+      message.warning("Please enter a title.");
+    } else if (!desc.trim()) {
+      message.warning("Please enter a description.");
+    } else if (!Topic) {
+      message.warning("Please select a category.");
+    } else if (!keyword || (Array.isArray(keyword) && keyword.length === 0)) {
+      message.warning("Please enter at least one tag.");
+    } else if (!Language) {
+      message.warning("Please select a language.");
+    } else if (!reported) {
+      message.warning("Please enter the reporter's name.");
+    } else if (!publish) {
+      message.warning("Please enter the publisher's name.");
+    } else if (!newType) {
+      message.warning("Please select the news type.");
+    } else if (!type) {
+      message.warning("Please select the content type.");
+    } else if (!slug.trim()) {
+      message.warning("Please generate a slug.");
+    } else {
+      // If all fields are valid, open the modal
+      setIsVerifyModalOpen(true);
 
       // Delay accessing the DOM until the modal is rendered
       setTimeout(() => {
         const previewElement = document.getElementById("perview");
         if (previewElement) {
-          previewElement.innerHTML = desc; // Set innerHTML safely
+          previewElement.innerHTML = desc; // Safely set innerHTML
         } else {
           console.error('Element with ID "perview" not found.');
         }
       }, 0); // Timeout ensures the modal is rendered before accessing the DOM
-    } else {
-      message.warning("Fill all the fields first!"); // Warn the user if any field is missing
     }
   };
 
@@ -397,9 +436,9 @@ const Upload = () => {
           setIsVerifyModalOpen(false);
         })
         .catch((err) => {
-          if (err?.message) {
-            message.error(err?.message);
-          }
+          // if (err?.message) {
+          //   message.error(err?.message);
+          // }
           message.error("Your article was not successfully Uploaded");
           setLoading(false);
         });

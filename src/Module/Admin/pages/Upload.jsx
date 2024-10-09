@@ -266,26 +266,64 @@ const Upload = () => {
       .replace(/-+$/, ""); // Remove trailing dashes
   }
 
+  // const showVerifyModal = () => {
+  //   if (
+  //     img &&
+  //     title &&
+  //     desc &&
+  //     Topic &&
+  //     keyword &&
+  //     Language &&
+  //     reported &&
+  //     publish &&
+  //     newType &&
+  //     type &&
+  //     slug
+  //   ) {
+  //     setIsVerifyModalOpen(true);
+  //     document.getElementById("perview").innerHTML = desc;
+  //   } else {
+  //     message.warning("Fill all the fields first!");
+  //   }
+  // };
+
   const showVerifyModal = () => {
-    if (
-      img &&
-      title &&
-      desc &&
-      Topic &&
-      keyword &&
-      Language &&
-      reported &&
-      publish &&
-      newType &&
-      type &&
-      slug
-    ) {
-      setIsVerifyModalOpen(true);
-      document.getElementById("perview").innerHTML = desc;
+    if (!img) {
+      message.warning("Please upload an image.");
+    } else if (!title.trim()) {
+      message.warning("Please enter a title.");
+    } else if (!desc.trim()) {
+      message.warning("Please enter a description.");
+    } else if (!Topic) {
+      message.warning("Please select a category.");
+    } else if (!keyword || keyword.length === 0) {
+      message.warning("Please enter at least one tag.");
+    } else if (!Language) {
+      message.warning("Please select a language.");
+    } else if (!reported) {
+      message.warning("Please enter the reported by field.");
+    } else if (!publish) {
+      message.warning("Please enter the publish by field.");
+    } else if (!newType) {
+      message.warning("Please select the news type.");
+    } else if (!type) {
+      message.warning("Please select the content type (e.g., image or video).");
+    } else if (!slug.trim()) {
+      message.warning("Please generate a slug.");
     } else {
-      message.warning("Fill all the fields first!");
+      // If all fields are valid, open the modal and set the preview content
+      setIsVerifyModalOpen(true);
+      setTimeout(() => {
+        const previewElement = document.getElementById("perview");
+        if (previewElement) {
+          previewElement.innerHTML = desc;
+        } else {
+          console.error('Element with ID "perview" not found.');
+        }
+      }, 0);
     }
   };
+
   const handleVerifyCancel = () => {
     setIsVerifyModalOpen(false);
   };
