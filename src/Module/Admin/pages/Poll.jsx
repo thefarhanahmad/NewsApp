@@ -30,7 +30,7 @@ const Poll = () => {
     try {
       const res = await axios.delete(`${API_URL}/delete_pool/${id}`);
       console.log("polls delete api response : ", res);
-      if (res.data.data.status === 200) {
+      if (res.data.status === 200) {
         message.success(res.data.message);
       } else {
         message.error(res.data.message);

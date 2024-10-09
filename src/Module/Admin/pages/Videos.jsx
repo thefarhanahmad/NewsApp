@@ -189,6 +189,7 @@ const Video = () => {
         setCurrentPhoto("");
         setIsModalDeleteOpen(false);
         setIsVerifyModalOpen(false);
+        fetchAllPhotos();
       })
       .catch((err) => {
         console.log(err);
@@ -402,6 +403,7 @@ const Video = () => {
       .then(() => {
         // Handle success
         message.success(`Status  Changed `);
+        fetchAllPhotos();
         // Refresh the article data
       })
       .catch((error) => {

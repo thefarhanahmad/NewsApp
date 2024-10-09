@@ -105,22 +105,52 @@ const VideoPage2 = () => {
   const [vdoData, setVideoData] = useState("");
   const navigation = useNavigate();
   console.log("data in videos page : ", data);
-  const formatDatetime = (datetimeStr) => {
-    if (!datetimeStr) return "12|08|2023 12:15"; // Default date if no datetime string is provided
+  // const formatDatetime = (datetimeStr) => {
+  //   if (!datetimeStr) return "12|08|2023 12:15"; // Default date if no datetime string is provided
 
-    const dateObj = new Date(datetimeStr);
+  //   const dateObj = new Date(datetimeStr);
 
-    const formattedDatetimeStr = `
-      ${String(dateObj.getDate()).padStart(2, "0")}|
-      ${String(dateObj.getMonth() + 1).padStart(2, "0")}|
-      ${dateObj.getFullYear()} 
-      ${String(dateObj.getHours()).padStart(2, "0")}:
-      ${String(dateObj.getMinutes()).padStart(2, "0")}
-    `
-      .replace(/\s+/g, " ")
-      .trim(); // Replace multiple spaces with a single space and trim
+  //   const formattedDatetimeStr = `
+  //     ${String(dateObj.getDate()).padStart(2, "0")}|
+  //     ${String(dateObj.getMonth() + 1).padStart(2, "0")}|
+  //     ${dateObj.getFullYear()}
+  //     ${String(dateObj.getHours()).padStart(2, "0")}:
+  //     ${String(dateObj.getMinutes()).padStart(2, "0")}
+  //   `
+  //     .replace(/\s+/g, " ")
+  //     .trim(); // Replace multiple spaces with a single space and trim
 
-    return formattedDatetimeStr;
+  //   return formattedDatetimeStr;
+  // };
+  // Function to format the date as required
+  const formatDatetime = (dateString) => {
+    const date = new Date(dateString);
+
+    // Define options for formatting
+    const optionsDate = {
+      weekday: "long", // Full weekday name (e.g., 'मंगलवार')
+      year: "numeric",
+      month: "long", // Full month name (e.g., 'अक्तूबर')
+      day: "numeric", // Day of the month
+    };
+
+    const optionsTime = {
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
+      hour12: true, // 12-hour format
+    };
+
+    // Create a formatter for Hindi locale
+    const formatterDate = new Intl.DateTimeFormat("hi-IN", optionsDate);
+    const formatterTime = new Intl.DateTimeFormat("hi-IN", optionsTime);
+
+    // Format the date and time
+    const formattedDate = formatterDate.format(date);
+    const formattedTime = formatterTime.format(date);
+
+    // Combine them in the desired format
+    return `${formattedDate}, ${formattedTime}`;
   };
   const [topStories, settopStories] = useState();
 
@@ -266,7 +296,7 @@ const VideoPage2 = () => {
           <div className="details-page-top-item2">
             <AiOutlineCalendar size={22} style={{ marginRight: "10px" }} />
             {/* {data ? formatDatetime(data.updatedAt) : "12|08|2023 12:15"} */}
-            {vdoData ? formatDatetime(vdoData?.updatedAt) : "12|08|2023 12:15"}
+            {vdoData ? formatDatetime(vdoData?.createdAt) : "12|08|2023 12:15"}
             {/* { data?data.updatedAt:"12|05|2024"} */}
           </div>
         </div>
@@ -477,11 +507,12 @@ const VideoPage2 = () => {
               {vdoData?.reportedBy}
               {console.log(data?.reportedBy)}
             </div> */}
+            {/* {start data} */}
             <div className="details-page-top-item2">
               <AiOutlineCalendar size={22} style={{ marginRight: "10px" }} />
-              {data ? newFormatDate(data.createdAt) : "12|08|2023 12:15"}
+              {/* {data ? newFormatDate(data.createdAt) : "12|08|2023 12:15"} */}
               {vdoData
-                ? formatDatetime(vdoData?.updatedAt)
+                ? formatDatetime(vdoData?.createdAt)
                 : "12|08|2023 12:15"}
               {/* { data?data.updatedAt:"12|05|2024"} */}
             </div>

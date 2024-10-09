@@ -62,7 +62,7 @@ const MainPage = () => {
   const [currentPoll, setCurrentPoll] = useState(null);
   const [pollOptions, setPollOptions] = useState([]);
   const [selectedOption, setSelectedOption] = useState(null);
-  const [stories, setStories] = useState(null);
+  const [stories, setStories] = useState([]);
   const [allCategoriesData, setAllCategoriesData] = useState(null);
   const [DisplayImageCrousal, setDisplayImageCrousal] = useState(false);
 
@@ -139,7 +139,20 @@ const MainPage = () => {
     const fetchStories = async () => {
       try {
         const response = await axios.get(`${API_URL}/story`);
-        setStories(response.data);
+
+        // Log the response data for debugging
+        console.log("Raw stories response:", response.data);
+
+        // Filter stories where status is true
+        const filteredStories = response.data.filter(
+          (story) => story.status === true
+        );
+
+        // Log the filtered stories for debugging
+        console.log("Filtered stories:", filteredStories);
+
+        // Set the filtered stories in the state
+        setStories(filteredStories);
       } catch (error) {
         console.error("Error fetching stories:", error);
       }
@@ -147,7 +160,7 @@ const MainPage = () => {
 
     fetchStories();
   }, []);
-
+  console.log("vs stories:", stories);
   useEffect(() => {
     axios
       // .get(
@@ -331,15 +344,30 @@ const MainPage = () => {
       .catch(() => {});
   }, []);
   useEffect(() => {
-    axios
-      .get(`${API_URL}/video`)
-      .then((data) => {
-        setVideo(data.data);
-      })
-      .catch(() => {});
-  }, []);
+    const fetchVideos = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/video`);
 
-  console.log("photo in gallery on home page : ", photo);
+        // Log the raw response data for debugging
+        console.log("Raw videos response:", response.data);
+
+        // Filter videos where status is true
+        const filteredVideos = response.data.filter(
+          (video) => video.status === true
+        );
+
+        // Log the filtered videos for debugging
+        console.log("Filtered videos:", filteredVideos);
+
+        // Set the filtered videos in the state
+        setVideo(filteredVideos);
+      } catch (error) {
+        console.error("Error fetching videos:", error);
+      }
+    };
+
+    fetchVideos();
+  }, []);
 
   useEffect(() => {
     axios
@@ -359,6 +387,28 @@ const MainPage = () => {
       });
   }, []);
 
+  // useEffect(() => {
+  //   axios
+  //     .get(`${API_URL}/photo`)
+  //     .then((response) => {
+  //       // Filter and sort photos
+  //       const filteredPhotos = response.data
+  //         .filter((item) => item.status === true) // Only photos with status: true
+  //         .sort((a, b) => {
+  //           // Sort by periority, higher first, then by createdAt
+  //           if (a.periority === b.periority) {
+  //             return new Date(b.createdAt) - new Date(a.createdAt); // Newest first
+  //           }
+  //           return b.periority - a.periority; // Higher periority first
+  //         });
+  //       console.log("filtered photos : ", filteredPhotos);
+  //       setPhoto(filteredPhotos); // Update state with filtered and sorted photos
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching photos:", error);
+  //     });
+  // }, []);
+  console.log("photo in gallery on home page : ", photo);
   useEffect(() => {
     axios
       .get(`${API_URL}/article?id=6524337309c3cf5a3cca172a`)
@@ -813,10 +863,10 @@ const MainPage = () => {
                       <a href={`/photos/${img?._id}`} target="_blank">
                         <div
                           className="photoGallery-card"
-                          key={img._id}
-                          // img.title
+                          key={img?._id}
+                          // img?.title
                         >
-                          <img src={img.images[0].img} alt="" />
+                          <img src={img?.images[0].img} alt="" />
                         </div>
                       </a>
                       <div
@@ -1837,10 +1887,10 @@ const MainPage = () => {
                     <a href={`/photos/${img?._id}`} target="_blank">
                       <div
                         className="photoGallery-card"
-                        key={img._id}
-                        // img.title
+                        key={img?._id}
+                        // img?.title
                       >
-                        <img src={img.images[0].img} alt="" />
+                        <img src={img?.images[0].img} alt="" />
                       </div>
                     </a>
                     <div

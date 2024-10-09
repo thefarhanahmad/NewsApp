@@ -35,6 +35,7 @@ const ItemPage = () => {
     const fetchStories = async () => {
       try {
         const response = await axios.get(`${API_URL}/story`);
+        console.log("api response for visual stories : ", response);
         setStories(response.data);
       } catch (error) {
         console.error("Error fetching stories:", error);
