@@ -42,12 +42,14 @@ const Photos = () => {
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [imgTexts, setImgTexts] = useState({});
   const [imgUrl, setImgUrl] = useState({});
+  const [thumbnail, setThumbnail] = useState({});
   const [loading, setLoading] = useState(false);
   // const [img, setImg] = useState([]);
   const [imgs, setImgs] = useState([]);
   const [editImgs, setEditImgs] = useState([]);
+  const [editPeriority, setEditPeriority] = useState(false);
   const [newImgs, setNewImgs] = useState([]);
-
+  console.log("editImgs : ", editImgs);
   useEffect(() => {
     // setSlug(createSlug(title));
     console.log(id, "id");
@@ -62,6 +64,7 @@ const Photos = () => {
         console.log("dataedit", data);
         setTitle(data.title);
         setEditImgs(data?.images);
+        setEditPeriority(data?.periority);
       });
     }
   }, [onEdit]);
@@ -97,7 +100,7 @@ const Photos = () => {
   const handleVerifyCancel = () => {
     setIsVerifyModalOpen(false);
   };
-
+  console.log("imgUrl,imgTexts,thumbnail : ", imgUrl, imgTexts, thumbnail);
   const onUpload = async () => {
     try {
       setLoading(true);
@@ -130,6 +133,7 @@ const Photos = () => {
         image: images, // Store array of image URLs
         imageTexts: imgTexts,
         url: imgUrl,
+        albumPeriority: thumbnail,
         periority: priority,
       });
 
@@ -210,6 +214,7 @@ const Photos = () => {
       // Send the update request with the new images and capture the response
       const res = await axios.put(`${API_URL}/photo/${id}`, {
         title: title,
+        periority: editPeriority,
         images: [...editImgs, ...imgWithText], // Merge existing and new images
       });
 
@@ -629,6 +634,32 @@ const Photos = () => {
                         }))
                       }
                     />
+                    <div
+                      style={{
+                        height: "40px",
+                        width: "150px",
+                        color: "black",
+                        display: "flex",
+                        // gap: "5px",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <label htmlFor="thumbnail">Thumbnail </label>
+                      <Input
+                        style={{ width: "40px" }}
+                        type="radio"
+                        name="thumbnail"
+                        value={thumbnail[index]}
+                        onChange={(e) => {
+                          setThumbnail({});
+                          setThumbnail((old) => ({
+                            ...old,
+                            [index]: true,
+                          }));
+                        }}
+                      />
+                    </div>
                   </div>
                 ))}
               {console.log("edit images in photos : ", editImgs)}
@@ -705,29 +736,56 @@ const Photos = () => {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
-            <div
-              style={{
-                marginTop: "5%",
-                display: "flex",
-                // background: "red",
-                color: "black",
-                gap: "5px",
-                justifyContent: "start",
-                alignItems: "center",
-              }}
-            >
-              <span>priority</span>
-              <Switch
-                size="small"
-                style={{ marginLeft: 5 }}
-                // value={priority}
-                checked={priority}
-                defaultChecked={priority}
-                onChange={(e) => {
-                  setPriority(e);
+            {edit ? (
+              <div
+                style={{
+                  marginTop: "5%",
+                  display: "flex",
+                  // background: "red",
+                  color: "black",
+                  gap: "5px",
+                  justifyContent: "start",
+                  alignItems: "center",
                 }}
-              />
-            </div>
+              >
+                <span>priority</span>
+                <Switch
+                  size="small"
+                  style={{ marginLeft: 5 }}
+                  // value={priority}
+                  checked={editPeriority}
+                  defaultChecked={editPeriority}
+                  onChange={(e) => {
+                    setEditPeriority(e);
+                  }}
+                />
+              </div>
+            ) : (
+              <div
+                style={{
+                  marginTop: "5%",
+                  display: "flex",
+                  // background: "red",
+                  color: "black",
+                  gap: "5px",
+                  justifyContent: "start",
+                  alignItems: "center",
+                }}
+              >
+                <span>priority</span>
+                <Switch
+                  size="small"
+                  style={{ marginLeft: 5 }}
+                  // value={priority}
+                  checked={priority}
+                  defaultChecked={priority}
+                  onChange={(e) => {
+                    setPriority(e);
+                  }}
+                />
+              </div>
+            )}
+
             <div style={{ marginTop: "5%", display: "flex" }}>
               <Button onClick={showVerifyModal} type="primary">
                 Preview

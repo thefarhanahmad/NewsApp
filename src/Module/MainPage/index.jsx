@@ -828,25 +828,47 @@ const MainPage = () => {
 
               <div className="main-page-visual-story-Ad-container ">
                 <div className="main-page-visual-story-container">
-                  {stories?.map((story) => {
+                  {stories.map((story) => {
+                    console.log("story: ", story);
+
+                    // Find the image with albumPeriority: true
+                    const prioritizedImage = story.images.find(
+                      (image) => image.albumPeriority === true
+                    );
+                    console.log("prioritized: ", prioritizedImage);
+
+                    // If prioritizedImage is found, use it; otherwise, fallback to the 0th image
+                    const displayImage = prioritizedImage
+                      ? prioritizedImage.img
+                      : story.images[0]?.img;
+                    const displayText = prioritizedImage
+                      ? prioritizedImage.text
+                      : story.images[0]?.text;
+
                     return (
-                      <div key={story._id} className="visual-story-card">
-                        <ImageCard
-                          style={{
-                            fontSize: "15px",
-                            fontWeight: 400,
-                            height: "80px",
-                            borderRadius: 0,
-                          }}
-                          height="300px"
-                          width="100"
-                          img={story.images[0]?.img}
-                          id={story._id}
-                          title={story.title}
-                          text={story.title}
-                          fromVStrories={true}
-                        />
-                      </div>
+                      <a
+                        href={`/stories?id=${story._id}`}
+                        target="_blank"
+                        key={story._id}
+                      >
+                        <div className="visual-story-card">
+                          <ImageCard
+                            style={{
+                              fontSize: "15px",
+                              fontWeight: 400,
+                              height: "80px",
+                              borderRadius: 0,
+                            }}
+                            height="300px"
+                            width="100"
+                            img={displayImage}
+                            id={story._id}
+                            title={story.title}
+                            text={displayText}
+                            fromVStrories={true}
+                          />
+                        </div>
+                      </a>
                     );
                   })}
                 </div>
@@ -862,15 +884,27 @@ const MainPage = () => {
             <div className="main-page-photoGallery-container">
               {photo &&
                 photo.map((img) => {
+                  console.log("img to show in thumbnail : ", img);
+
+                  // Find the image with albumPeriority: true
+                  const prioritizedImage = img?.images.find(
+                    (image) => image.albumPeriority === true
+                  );
+                  console.log("prioritized: ", prioritizedImage);
+
+                  // If prioritizedImage is found, use it; otherwise, fallback to the 0th image
+                  const displayImage = prioritizedImage
+                    ? prioritizedImage.img
+                    : img?.images[0]?.img;
+
+                  const displayText = prioritizedImage
+                    ? prioritizedImage.text
+                    : img?.images[0]?.text;
                   return (
                     <div>
                       <a href={`/photos/${img?._id}`} target="_blank">
-                        <div
-                          className="photoGallery-card"
-                          key={img?._id}
-                          // img?.title
-                        >
-                          <img src={img?.images[0].img} alt="" />
+                        <div className="photoGallery-card">
+                          <img src={displayImage} alt={displayText} />
                         </div>
                       </a>
                       <div
@@ -1801,9 +1835,29 @@ const MainPage = () => {
             <div className="main-page-visual-story-Ad-container">
               <div className="main-page-visual-story-container">
                 {stories.map((story) => {
+                  console.log("story: ", story);
+
+                  // Find the image with albumPeriority: true
+                  const prioritizedImage = story.images.find(
+                    (image) => image.albumPeriority === true
+                  );
+                  console.log("prioritized: ", prioritizedImage);
+
+                  // If prioritizedImage is found, use it; otherwise, fallback to the 0th image
+                  const displayImage = prioritizedImage
+                    ? prioritizedImage.img
+                    : story.images[0]?.img;
+                  const displayText = prioritizedImage
+                    ? prioritizedImage.text
+                    : story.images[0]?.text;
+
                   return (
-                    <a href={`/stories?id=${story._id}`} target="_blank">
-                      <div key={story._id} className="visual-story-card">
+                    <a
+                      href={`/stories?id=${story._id}`}
+                      target="_blank"
+                      key={story._id}
+                    >
+                      <div className="visual-story-card">
                         <ImageCard
                           style={{
                             fontSize: "15px",
@@ -1813,10 +1867,10 @@ const MainPage = () => {
                           }}
                           height="300px"
                           width="100"
-                          img={story.images[0]?.img}
+                          img={displayImage}
                           id={story._id}
                           title={story.title}
-                          text={story.title}
+                          text={displayText}
                           fromVStrories={true}
                         />
                       </div>
@@ -1886,15 +1940,28 @@ const MainPage = () => {
           <div className="main-page-photoGallery-container">
             {photo &&
               photo.map((img) => {
+                console.log("img to show in thumbnail : ", img);
+
+                // Find the image with albumPeriority: true
+                const prioritizedImage = img?.images.find(
+                  (image) => image.albumPeriority === true
+                );
+                console.log("prioritized: ", prioritizedImage);
+
+                // If prioritizedImage is found, use it; otherwise, fallback to the 0th image
+                const displayImage = prioritizedImage
+                  ? prioritizedImage.img
+                  : img?.images[0]?.img;
+
+                const displayText = prioritizedImage
+                  ? prioritizedImage.text
+                  : img?.images[0]?.text;
+
                 return (
                   <div>
                     <a href={`/photos/${img?._id}`} target="_blank">
-                      <div
-                        className="photoGallery-card"
-                        key={img?._id}
-                        // img?.title
-                      >
-                        <img src={img?.images[0].img} alt="" />
+                      <div className="photoGallery-card">
+                        <img src={displayImage} alt={displayText} />
                       </div>
                     </a>
                     <div
