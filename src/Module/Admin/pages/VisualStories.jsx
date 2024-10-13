@@ -96,6 +96,7 @@ const VisualStories = () => {
   };
 
   const handleVerifyCancel = () => {
+    setIsVerifyModalOpen(false);
     setOnEdit(false); // Reset onEdit when modal is closed
     setId(null); // Reset ID when modal is closed
   };
