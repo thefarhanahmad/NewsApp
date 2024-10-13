@@ -863,8 +863,8 @@ const MainPage = () => {
                             width="100"
                             img={displayImage}
                             id={story._id}
-                            title={story.title}
-                            text={displayText}
+                            title={displayText}
+                            text={story?.title}
                             fromVStrories={true}
                           />
                         </div>
@@ -1869,8 +1869,8 @@ const MainPage = () => {
                           width="100"
                           img={displayImage}
                           id={story._id}
-                          title={story.title}
-                          text={displayText}
+                          text={story.title}
+                          title={displayText}
                           fromVStrories={true}
                         />
                       </div>

@@ -15,7 +15,7 @@ const ImageCard = ({
   dis,
 }) => {
   const navigate = useNavigate();
-  console.log("dis value in imgcard : ", dis);
+  console.log("text value in imgcard : ", text);
   return (
     <div
       className="image-box"

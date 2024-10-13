@@ -30,12 +30,12 @@ const VisualStories = () => {
 
   const [title, setTitle] = useState("");
   const [photo, setPhoto] = useState("");
-  const [thumbnail, setThumbnail] = useState({});
+
   const [isVerifyModalOpen, setIsVerifyModalOpen] = useState(false);
 
   const [filterItem, setfilterItem] = useState("id");
   const [filterItemResponse, setfilterItemResponse] = useState("");
-
+  const [editPeriority, setEditPeriority] = useState(false);
   const [allPhotos, setAllPhoto] = useState([]);
   const [currentPhoto, setCurrentPhoto] = useState({});
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
@@ -60,6 +60,9 @@ const VisualStories = () => {
         console.log("dataedit", data);
         setTitle(data.title);
         setEditImgs(data.images);
+        setEditPeriority(
+          data?.images.findIndex((img) => img.albumPeriority) // Find the index of the image with albumPeriority true
+        );
       });
     }
   }, [onEdit]);
@@ -95,6 +98,42 @@ const VisualStories = () => {
   const handleVerifyCancel = () => {
     setOnEdit(false); // Reset onEdit when modal is closed
     setId(null); // Reset ID when modal is closed
+  };
+
+  const [thumbnail, setThumbnail] = useState({});
+  console.log("imgTexts,thumbnail : ", imgTexts, thumbnail);
+
+  // Set initial state based on data length
+  useEffect(() => {
+    const initialState = imgs.reduce((acc, _, index) => {
+      acc[index] = false;
+      return acc;
+    }, {});
+    setThumbnail(initialState);
+  }, [imgs]);
+
+  const handleThumbnailChange = (index) => {
+    setThumbnail((prev) => ({
+      ...Object.keys(prev).reduce((acc, key) => {
+        acc[key] = false; // Set all to false
+        return acc;
+      }, {}),
+      [index]: true, // Set the selected index to true
+    }));
+  };
+
+  const handleEditChange = (index) => {
+    setEditPeriority(index); // Set the selected index
+    // Update the albumPeriority for each image
+    setEditImgs((prev) =>
+      prev.map((item, i) => ({
+        ...item,
+        albumPeriority: i === index, // Set true for the selected index, false for others
+      }))
+    );
+  };
+  const RemoveImage = (imgUrl) => {
+    setEditImgs((prev) => prev.filter((img) => img.img !== imgUrl));
   };
 
   const onUpload = async () => {
@@ -198,9 +237,9 @@ const VisualStories = () => {
     setLoading(false);
   };
 
-  const RemoveImage = (item) => {
-    setEditImgs(editImgs.filter((img) => img.img !== item));
-  };
+  // const RemoveImage = (item) => {
+  //   setEditImgs(editImgs.filter((img) => img.img !== item));
+  // };
 
   async function fetchAllPhotos() {
     try {
@@ -507,29 +546,24 @@ const VisualStories = () => {
                     />
                     <div
                       style={{
-                        height: "40px",
-                        width: "150px",
                         color: "black",
                         display: "flex",
-                        // gap: "5px",
-                        justifyContent: "center",
+                        marginTop: "5px",
                         alignItems: "center",
+                        justifyContent: "start",
                       }}
                     >
-                      <label htmlFor="thumbnail">Thumbnail </label>
-                      <Input
-                        style={{ width: "40px" }}
-                        type="radio"
-                        name="thumbnail"
-                        value={thumbnail[index]}
-                        onChange={(e) => {
-                          setThumbnail({});
-                          setThumbnail((old) => ({
-                            ...old,
-                            [index]: true,
-                          }));
-                        }}
-                      />
+                      <label>
+                        <Input
+                          type="radio"
+                          name="thumbnail"
+                          value={index}
+                          checked={!!thumbnail[index]}
+                          onChange={() => handleThumbnailChange(index)}
+                          style={{ width: "30px" }}
+                        />
+                        Thumbnail{" "}
+                      </label>
                     </div>
                   </div>
                 ))}
@@ -575,6 +609,26 @@ const VisualStories = () => {
                         )
                       }
                     />
+                    <div
+                      style={{
+                        color: "black",
+                        display: "flex",
+                        marginTop: "5px",
+                        alignItems: "center",
+                        justifyContent: "start",
+                      }}
+                    >
+                      <label>
+                        <input
+                          type="radio"
+                          name="thumbnail"
+                          checked={editPeriority === index}
+                          onChange={() => handleEditChange(index)}
+                          style={{ marginRight: "5px" }}
+                        />
+                        Thumbnail
+                      </label>
+                    </div>
                   </div>
                 ))}
             </div>
