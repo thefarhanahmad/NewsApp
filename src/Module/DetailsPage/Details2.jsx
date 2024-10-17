@@ -35,7 +35,6 @@ import { API_URL } from "../../../API";
 import { Loading } from "../../Context";
 import RelatedNewsSection from "../../Components/SharedComponents/RelatedNewSection";
 import LatesetNewsSection from "../../Components/SharedComponents/LatestNewsSection";
-import { Helmet } from "react-helmet-async";
 
 // Instagram share button (custom implementation)
 const InstagramShareButton = ({ url }) => {
@@ -105,8 +104,9 @@ const DetailsPage2 = () => {
   const [topStories, settopStories] = useState();
 
   useEffect(() => {
+    const href=window.location.href
     axios
-      .get(`${API_URL}/article?id=${storyId}`)
+      .get(`${API_URL}/article?id=${storyId}&url=${href}`)
       .then(async (article) => {
         setArticle(article);
         // let title = article.data[0].title.split(" ").join("-");
@@ -228,37 +228,24 @@ const DetailsPage2 = () => {
     return formattedDateTime;
   };
 
-  // Share URL is the current page URL
-  const shareUrl = window.location.href;
-  const title = data?.title || "News App"; // Fallback title if data is not available
-  const imgUrl =
-    data?.image ||
-    "https://news-app-frontend-main.vercel.app/default-image.png"; // Fallback image if not available
-  const description = data?.discription;
+  // title share url
+  const shareurl = article?.data[0].shareUrl;
+  const title = "News App";
+  // const imgUrl = data?.image;
 
   useEffect(() => {
-    // Set document title dynamically
-    document.title = title;
-  }, [title]);
+    axios
+      .get(
+        `${API_URL}/article?pagenation=true&limit=7&type=img&newsType=topStories&status=online`
+      )
+      .then((data) => {
+        settopStories(data.data);
+      })
+      .catch(() => {});
+  }, []);
 
   return (
     <>
-      {/* Helmet for Open Graph and Twitter meta tags */}
-      <Helmet>
-        <meta property="og:url" content={shareUrl} />
-        <meta property="og:type" content="article" />{" "}
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-        <meta property="og:image" content={imgUrl} />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        {/* Twitter Meta Tags */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:url" content={shareUrl} />
-        <meta name="twitter:title" content={title} />
-        <meta name="twitter:description" content={description} />
-        <meta name="twitter:image" content={imgUrl} />
-      </Helmet>
       {/* mobile version  */}
       <div className="mobileDetailsPage">
         <div className="mobileDetailsMainImage">
@@ -327,23 +314,24 @@ const DetailsPage2 = () => {
                 }}
               >
                 <FacebookShareButton
-                  url={shareUrl}
+                  url={shareurl}
                   quote={title}
                   hashtag="#news"
                 >
                   <FacebookIcon size={32} round />
                 </FacebookShareButton>
                 <TwitterShareButton
-                  url={shareUrl}
+                  url={shareurl}
                   title={title}
                   className="Demo__some-network__share-button"
                 >
                   <TwitterIcon size={32} round />
                 </TwitterShareButton>
                 <EmailShareButton
-                  url={shareUrl}
+                  url={shareurl}
                   subject={title}
-                  body={`Check this out: ${title} \n ${shareUrl} \n ${imgUrl}`}
+                  body="body"
+                  className="Demo__some-network__share-button"
                 >
                   <EmailIcon size={32} round />
                 </EmailShareButton>
@@ -351,9 +339,8 @@ const DetailsPage2 = () => {
               </div>
             </div>
             <WhatsappShareButton
-              url={shareUrl}
-              title={title}
-              separator=" - "
+              url={shareurl}
+
               className="Demo__some-network__share-button"
             >
               <WhatsappIcon size={32} round />
@@ -482,7 +469,7 @@ const DetailsPage2 = () => {
             </div>
             <div className="details-page-top-item2">
               <AiOutlineCalendar size={22} style={{ marginRight: "10px" }} />
-              {data ? newFormatDate(data.createdAt) : "12|08|2023 12:15"}
+              {data ? newFormatDate(data.updatedAt) : "12|08|2023 12:15"}
             </div>
             <div className="details-page-top-item3">
               {isFav ? (
@@ -532,23 +519,23 @@ const DetailsPage2 = () => {
                   }}
                 >
                   <FacebookShareButton
-                    url={shareUrl}
+                    url={shareurl}
                     quote={title}
                     hashtag="#news"
                   >
                     <FacebookIcon size={32} round />
                   </FacebookShareButton>
                   <TwitterShareButton
-                    url={shareUrl}
+                    url={shareurl}
                     title={title}
                     className="Demo__some-network__share-button"
                   >
                     <TwitterIcon size={32} round />
                   </TwitterShareButton>
                   <EmailShareButton
-                    url={shareUrl}
+                    url={shareurl}
                     subject={title}
-                    body={`Check this out: ${title} \n ${shareUrl} \n ${imgUrl}`}
+                    body="body"
                     className="Demo__some-network__share-button"
                   >
                     <EmailIcon size={32} round />
@@ -558,9 +545,9 @@ const DetailsPage2 = () => {
                 </div>
               </div>
               <WhatsappShareButton
-                url={shareUrl}
+                url={shareurl}
                 title={title}
-                separator="- "
+                separator=":: "
                 className="Demo__some-network__share-button"
               >
                 <WhatsappIcon size={32} round />
