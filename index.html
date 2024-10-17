@@ -5,20 +5,28 @@
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Open Graph Meta Tags -->
+    <!-- Meta tags start -->
+    <!-- Open Graph Meta Tags for Home Page -->
     <meta property="og:title" content="News Web" />
+
+    <meta property="og:type" content="article" />
+
     <meta
       property="og:description"
       content="Stay updated with the latest news from around the world."
     />
     <meta
       property="og:image"
-      content="https://news-app-ten-taupe.vercel.app/logo.png"
+      content="https://news-app-frontend-main.vercel.app/logo.png"
     />
-    <meta property="og:url" content="https://news-app-ten-taupe.vercel.app/" />
+    <meta
+      property="og:url"
+      content="https://news-app-frontend-main.vercel.app"
+    />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
 
+    <!-- Twitter Card Meta Tags for Home Page  -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@newsapp" />
     <meta name="twitter:title" content="News Web" />
@@ -28,23 +36,10 @@
     />
     <meta
       name="twitter:image"
-      content="https://news-app-ten-taupe.vercel.app/"
+      content="https://news-app-frontend-main.vercel.app/logo.png"
     />
 
-    <!-- Open Graph Meta Tags (Facebook and WhatsApp) -->
-    <meta property="og:url" content="{shareUrl}" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="{title}" />
-    <meta property="og:description" content="News App" />
-    <meta property="og:image" content="{imgUrl}" />
-
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="{shareUrl}" />
-    <meta name="twitter:title" content="{title}" />
-    <meta name="twitter:description" content="News App" />
-
-    <meta name="twitter:image" content="{imgUrl}" />
+    <!-- Meta tags ends here -->
 
     <script
       async
@@ -62,6 +57,5 @@
   <body>
     <div id="root" style="position: relative"></div>
     <script type="module" src="/src/main.jsx"></script>
-     
   </body>
 </html>
