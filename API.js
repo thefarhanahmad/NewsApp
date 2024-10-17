@@ -9,4 +9,5 @@
 // export const API_URL = "https://new-app-server-chi.vercel.app/api"
 
 // export const API_URL = "https://news-app-server-six.vercel.app/api";
-export const API_URL = "https://newsappdeploy.vercel.app/api";
+// export const API_URL = "https://newsappdeploy.vercel.app/api";
+export const API_URL = "https://news-app-server-five.vercel.app/api";
