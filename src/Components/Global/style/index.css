@@ -1,15 +1,33 @@
 /* mobile version navbar */
 
+.subtitle {
+  text-decoration: none;
+  list-style: none;
+  font-size: 20px;
+  color: white;
+}
+
+.subtitle{
+  padding-bottom: 8px;
+}
+.subtitle:hover{
+  color:blue;
+}
 .mobileNavBarContainer {
   display: none;
   /* position: relative; */
 }
 .mobilevisibleNavItems {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   background-color: blue;
   padding: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 100;
 }
 
 .mobile-visible-containerr {
@@ -72,16 +90,20 @@
 .mobileNavAbsoluteContainer {
   z-index: 999;
   min-width: 90%;
-  top: 76px;
+  top: 70px;
   bottom: 0;
   background-color: white;
-  position: absolute;
+  position: fixed;
   display: flex;
   translate: -100%;
   transition: all 0.5s;
 }
 .mobileNavAbsoluteContainer ul {
   width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
   list-style: none;
   text-transform: capitalize;
   font-family: Poppins;
@@ -94,9 +116,10 @@
 .mobileNavAbsoluteContainer li {
   /* width: 100%; */
   display: flex;
-  padding-left: 20px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  margin-left: 20px;
+}
+.mobileNavAbsoluteContainer li:first-child{
+  margin-top: 15px;
 }
 .mobileNavAbsoluteContainer li:hover {
   cursor: pointer;
@@ -338,6 +361,7 @@
 
 .footer-area-main-accordin {
   display: none;
+
 }
 
 .accordin-main-container-area {
@@ -448,5 +472,7 @@
 
   .footer-area-main-accordin {
     display: block;
+    margin-left: 11px;
+    
   }
 }

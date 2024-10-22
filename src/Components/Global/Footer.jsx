@@ -1,13 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { message } from "antd";
+import axios from "axios";
+
 import "./style/index.css";
 import logo from "../../assets/footer.svg";
-import Accordin from "./Accordin";
-import { useTranslation } from "react-i18next";
-import axios from "axios";
 import { API_URL } from "../../../API";
+import { AccordinRegistry } from "../../assets/registry/accordinRegistry";
+
 import { Loading } from "../../Context";
-import { useNavigate } from "react-router-dom";
-import { message } from "antd";
+import AccordinList from "./AccordinList";
 
 const Footer = () => {
   const { t } = useTranslation();
@@ -123,54 +126,11 @@ const Footer = () => {
   return (
     !loading && (
       <div className="footer-main-container ">
-        <div className="footer-area-main-accordin">
-          <Accordin
-            title="technology"
-            items={[
-              "something new",
-              "gadget",
-              "artificial intelligent",
-              "future tech",
-              "upcoming tech",
-            ]}
-          />
-          <Accordin
-            title="business"
-            items={["start-up", "employees", "success", "videos", "videos"]}
-          />
-          <Accordin
-            title="travel"
-            items={["culture", "hotel", "food & stay", "stay", "videos"]}
-          />
-          <Accordin
-            title="sports"
-            items={["gadget", "gadget", "gadget", "gadget", "gadget"]}
-          />
-          <Accordin
-            title="states"
-            items={["gadget", "gadget", "gadget", "gadget", "gadget"]}
-          />
-          <Accordin
-            title="entertainment"
-            items={["gadget", "gadget", "gadget", "gadget", "gadget"]}
-          />
-          <Accordin
-            title="special"
-            items={["gadget", "gadget", "gadget", "gadget", "gadget"]}
-          />
-          <Accordin
-            title="whether"
-            items={["gadget", "gadget", "gadget", "gadget", "gadget"]}
-          />
-          <Accordin
-            title="extra"
-            items={["gadget", "gadget", "gadget", "gadget", "gadget"]}
-          />
-          <Accordin
-            title="foreign"
-            items={["gadget", "gadget", "gadget", "gadget", "gadget"]}
-          />
-        </div>
+       <div className="footer-area-main-accordin">
+      {AccordinRegistry.map((AccItem, index) => (
+        <AccordinList key={index} {...AccItem} />
+      ))}
+    </div>
         <div className="footer-checkup-main-conatiner">
           {/* <div className="footer-main" style={{ backgroundColor: "red" }}>
             {Object.entries(mainObject).map(
@@ -224,46 +184,48 @@ const Footer = () => {
               ([categoryName, subcategories], index) => {
                 // if (index >= 4 && index <= 7) {
                 return (
-                  <div
-                    className="footer-item-box"
-                    style={{
-                      // backgroundColor: "yellow",
-                      width: "10%",
-                    }}
-                  >
+                  <>
                     <div
-                      className="footer-heading"
-                      style={{ cursor: "pointer" }}
-                      onClick={() => {
-                        Navigation(`/itempage?item=${categoryName}`);
-                        setEffect(!effect);
+                      className="footer-item-box"
+                      style={{
+                        // backgroundColor: "yellow",
+                        width: "10%",
                       }}
                     >
-                      {categoryName}
-                    </div>
-                    <div
-                      className="footer-items"
-                      style={
-                        {
-                          //  backgroundColor: "blue"
-                          // marginBottom: "5px",
+                      <div
+                        className="footer-heading"
+                        style={{ cursor: "pointer" }}
+                        onClick={() => {
+                          Navigation(`/itempage?item=${categoryName}`);
+                          setEffect(!effect);
+                        }}
+                      >
+                        {categoryName}
+                      </div>
+                      <div
+                        className="footer-items"
+                        style={
+                          {
+                            //  backgroundColor: "blue"
+                            // marginBottom: "5px",
+                          }
                         }
-                      }
-                    >
-                      {subcategories.map((item) => (
-                        <div
-                          className="sub-items-f"
-                          onClick={() => {
-                            Navigation(
-                              `/itempage?item=${categoryName}&sub=${item.text}`
-                            );
-                          }}
-                        >
-                          {item.text}
-                        </div>
-                      ))}
+                      >
+                        {subcategories.map((item) => (
+                          <div
+                            className="sub-items-f"
+                            onClick={() => {
+                              Navigation(
+                                `/itempage?item=${categoryName}&sub=${item.text}`
+                              );
+                            }}
+                          >
+                            {item.text}
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                  </>
                 );
                 // }
               }

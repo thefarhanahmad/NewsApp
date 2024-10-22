@@ -42,7 +42,7 @@ const MainPage = () => {
   const [flashnews, setflashnews] = useState([]);
   const [Article, setArticle] = useState([]);
   const [video, setVideo] = useState([]);
-  console.log("videos on home page : ", video);
+
   const [photo, setPhoto] = useState([]);
   const [latestNews, setLatestNews] = useState([]);
   const [ArticleTop, setArticleTop] = useState(null);

@@ -53,6 +53,7 @@ const Header = () => {
           arr.push(element);
         }
         setItsItem(arr);
+
         let arr3 = [];
         if (newData.length > 8) {
           for (let i = 8; i < newData.length; i++) {
@@ -72,6 +73,21 @@ const Header = () => {
               ),
             });
           }
+
+          arr3.push({
+            key: "s5da54115a15",
+            label: (
+              <a
+                target="_blank"
+                onClick={() => {
+                  Navigation(`/itempage?item=sports&sub=Crick`);
+                  setEffect(!effect);
+                }}
+              >
+                {"Crick"}
+              </a>
+            ),
+          });
         }
         setAllcatgeoryData(arr3);
 
@@ -86,7 +102,7 @@ const Header = () => {
 
         setLoading(false);
       })
-      .catch((err) => {
+      .catch(() => {
         setLoading(false);
       });
     axios.get(`${API_URL}/ads?active=true&side=top`).then((data) => {
@@ -114,24 +130,22 @@ const Header = () => {
   }
   return (
     <>
-      <MobileHeader />
-      {loading ? (
-        <></>
-      ) : (
+      <MobileHeader listitem={AllcatgeoryData} />
+
+      {loading ? null : (
         <div className="header-main-area">
           <div>
             <a
-              // style={{ backgroundColor: "red", padding: "10px",objectFit:"contain",width:"30%" }}
               href={topAd?.link}
               target="_blank"
               onClick={() => {
                 onClickAd(topAd._id);
               }}
+              rel="noreferrer"
             >
               <img
                 style={{
                   cursor: "pointer",
-                  // objectFit: "contain",
                   padding: "2px",
                 }}
                 className="top-header-img"

@@ -31,22 +31,31 @@ function findStoryIdFromUrl(pathname) {
   }
 }
 
-const MobileHeader = ({ data }) => {
+const MobileHeader = ({ listitem }) => {
   const [isHamBurgClicked, setHambergClicked] = useState(false);
   const [itsItem, setItsItem] = useState([]);
   const [itsItem2, setItsItem2] = useState([]);
-  const { loading, setLoading, setEffect, effect } = useContext(Loading);
+  const { setLoading, setEffect, effect } = useContext(Loading);
   const [search, setSearch] = useState(false);
   const { search: searchQueryId, pathname } = useLocation();
   const isVideoPresent = pathname.includes("/video");
   const isDetailsPresent = pathname.includes("/details");
   const isLivePage = pathname.includes("/live");
 
-  const navigate = useNavigate();
   const goToPreviousPage = () => {
     window.history.back();
   };
 
+  // dropdown
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleOpenChange = (open) => {
+    setHambergClicked(!open); // Toggle based on the open state
+  };
   const storyId = findStoryIdFromUrl(searchQueryId);
   const [articleType, setArticleType] = useState("");
 
@@ -61,7 +70,6 @@ const MobileHeader = ({ data }) => {
         console.log(err);
       });
   }, []);
-  // console.log(pathname,isDetailsPresent,isVideoPresent)
 
   useEffect(() => {
     setLoading(true);
@@ -85,8 +93,12 @@ const MobileHeader = ({ data }) => {
 
         for (let index = 0; index < data.data.length; index++) {
           const element = data.data[index];
-
           arr2.push({ value: element.text });
+
+          arr2.push({ value: "Cricket" });
+          if (index == data.data.length) {
+            console.log("arr2");
+          }
         }
         setItsItem2(arr2);
 
@@ -97,7 +109,7 @@ const MobileHeader = ({ data }) => {
       });
   }, []);
   return (
-    <div className="mobileNavBarContainer">
+    <div className="mobileNavBarContainer ">
       <div className="mobilevisibleNavItems">
         <div>
           {pathname !== "/" ? (
@@ -192,7 +204,7 @@ const MobileHeader = ({ data }) => {
       <div
         className={`mobileNavAbsoluteContainer ${
           isHamBurgClicked ? "mobileNavAbsoluteContainerCLicked" : ""
-        }`}
+        } `}
       >
         <ul>
           {itsItem.length > 0 &&
@@ -231,19 +243,70 @@ const MobileHeader = ({ data }) => {
                 //   placement="bottom"
                 //   arrow
                 // >
-                <li
-                  onClick={() => {
-                    setHambergClicked(false);
-                    Navigation(`/itempage?item=${data.text}`);
-                    setEffect(!effect);
-                  }}
-                >
-                  {data.text}
-                  {/* {data.text} <MdArrowDropDown size={20} /> */}
-                </li>
+                <>
+                  <li
+                    onClick={() => {
+                      setHambergClicked(false);
+                      Navigation(`/itempage?item=${data.text}`);
+                      setEffect(!effect);
+                    }}
+                  >
+                    {data.text}
+
+                    {/* {data.text} <MdArrowDropDown size={20} /> */}
+                  </li>
+                </>
+
                 // </Dropdown>
               );
             })}
+
+          {
+            <>
+              {listitem.length > 0 && (
+                <li className="">
+                  <select
+                    name="Display More"
+                    className="block outline-none shadow-none w-full border-none bg-white"
+                    onChange={(e) => {
+                      setHambergClicked(false);
+                      const selectedItem = listitem.find(
+                        (i) => i.label.props.children === e.target.value
+                      );
+                      if (selectedItem && selectedItem.label.props.onClick) {
+                        selectedItem.label.props.onClick();
+                      }
+                    }}
+                    defaultValue="display-more"
+                  >
+                    <option value="display-more" className="p-4 ml-4" disabled>
+                      Display More
+                    </option>
+                    {listitem.map((i) => (
+                      <option key={i.key} value={i.label.props.children}>
+                        {i.label.props.children}
+                      </option>
+                    ))}
+                  </select>
+                </li>
+
+                // <Dropdown
+                //   menu={{
+                //     items: listitem,
+                //   }}
+                //   placement="topLeft"
+                //   arrow
+                //   trigger={["click"]}
+                // >
+                //   <li>
+                //     Display More <MdArrowDropDown size={20} />
+                //   </li>
+                // </Dropdown>
+              )}
+            </>
+          }
+
+          <li></li>
         </ul>
       </div>
 
