@@ -73,19 +73,46 @@ const Header = () => {
               ),
             });
           }
-
+          arr3.pop();
           arr3.push({
-            key: "s5da54115a15",
+            key: "sports",
             label: (
-              <a
-                target="_blank"
-                onClick={() => {
-                  Navigation(`/itempage?item=sports&sub=Crick`);
-                  setEffect(!effect);
+              <Dropdown
+                menu={{
+                  items: [
+                    {
+                      key: "Crick",
+                      label: (
+                        <div className="w-[70px]">
+                          <a
+                            target="_blank"
+                            onClick={() => {
+                              Navigation(`/itempage?item=sports&sub=Crick`);
+                              setEffect(!effect);
+                            }}
+                          >
+                            Crick
+                          </a>
+                        </div>
+                      ),
+                    },
+                  ],
                 }}
+                placement="bottomLeft"
+                arrow
               >
-                {"Crick"}
-              </a>
+                <a
+                  target="_blank"
+                  onClick={() => {
+                    Navigation(`/itempage?item=sports`);
+                    setEffect(!effect);
+                  }}
+                  className="flex items-center"
+                >
+                  Sports
+                  <MdArrowDropDown size={20} className="ml-1" />
+                </a>
+              </Dropdown>
             ),
           });
         }
@@ -315,7 +342,7 @@ const Header = () => {
             backgroundColor: "rgba(0,0,0,0.2)",
 
             position: "absolute",
-            zIndex: 10,
+            zIndex: 9999,
             top: 0,
             justifyContent: "center",
             alignItems: "center",

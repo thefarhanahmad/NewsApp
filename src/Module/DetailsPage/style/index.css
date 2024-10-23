@@ -235,6 +235,7 @@
   }
   .mobileDetailsPage {
     display: block;
+    margin-top: 85px;
   }
   .details-page-top-items {
     display: grid;

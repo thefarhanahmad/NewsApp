@@ -650,7 +650,6 @@
   }
   .stories-card-text {
     width: 40%;
-   
   }
   .main-news-area {
     flex-direction: column;
@@ -743,9 +742,11 @@
   /* mobile view  */
   .mobileMainPageAnchorSlider {
     display: flex;
+    margin-top: 30px;
   }
   .mobileMainPageContainer {
     display: block;
+    margin-top: 30px;
   }
 
   .webMainPagecomponent {

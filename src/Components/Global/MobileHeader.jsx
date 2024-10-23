@@ -1,15 +1,16 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { RxCross1 } from "react-icons/rx";
 import { BiSolidSearch } from "react-icons/bi";
 import { Loading } from "../../Context";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { API_URL } from "../../../API";
-import { AutoComplete, Dropdown, Input } from "antd";
+import { AutoComplete, Input } from "antd";
 import logo from "../../assets/logo.svg";
-import { MdArrowDropDown } from "react-icons/md";
 import { ArrowLeftOutlined, PlayCircleOutlined } from "@ant-design/icons";
+import { IoIosCloseCircle } from "react-icons/io";
+import NewSearchModel from "../../models/newSearchModel";
 
 function findStoryIdFromUrl(pathname) {
   // Regular expression to find the 'id' parameter and its value
@@ -36,7 +37,8 @@ const MobileHeader = ({ listitem }) => {
   const [itsItem, setItsItem] = useState([]);
   const [itsItem2, setItsItem2] = useState([]);
   const { setLoading, setEffect, effect } = useContext(Loading);
-  const [search, setSearch] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
   const { search: searchQueryId, pathname } = useLocation();
   const isVideoPresent = pathname.includes("/video");
   const isDetailsPresent = pathname.includes("/details");
@@ -46,16 +48,6 @@ const MobileHeader = ({ listitem }) => {
     window.history.back();
   };
 
-  // dropdown
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const handleOpenChange = (open) => {
-    setHambergClicked(!open); // Toggle based on the open state
-  };
   const storyId = findStoryIdFromUrl(searchQueryId);
   const [articleType, setArticleType] = useState("");
 
@@ -84,7 +76,6 @@ const MobileHeader = ({ listitem }) => {
           index++
         ) {
           const element = data.data[index];
-
           arr.push(element);
         }
         setItsItem(arr);
@@ -183,11 +174,13 @@ const MobileHeader = ({ listitem }) => {
             </li>
           ) : null}
 
-          <li>
+          <li
+            data-modal-target="default-modal"
+            data-modal-toggle="default-modal"
+          >
             <BiSolidSearch
               onClick={() => {
-                setSearch((prevState) => !prevState);
-
+                setIsOpen((prevState) => !prevState);
                 setHambergClicked(false);
               }}
               size={25}
@@ -235,14 +228,6 @@ const MobileHeader = ({ listitem }) => {
                   }
                 });
               return (
-                // <Dropdown
-                //   key={data._id}
-                //   menu={{
-                //     items: arr,
-                //   }}
-                //   placement="bottom"
-                //   arrow
-                // >
                 <>
                   <li
                     onClick={() => {
@@ -252,12 +237,8 @@ const MobileHeader = ({ listitem }) => {
                     }}
                   >
                     {data.text}
-
-                    {/* {data.text} <MdArrowDropDown size={20} /> */}
                   </li>
                 </>
-
-                // </Dropdown>
               );
             })}
 
@@ -289,19 +270,6 @@ const MobileHeader = ({ listitem }) => {
                     ))}
                   </select>
                 </li>
-
-                // <Dropdown
-                //   menu={{
-                //     items: listitem,
-                //   }}
-                //   placement="topLeft"
-                //   arrow
-                //   trigger={["click"]}
-                // >
-                //   <li>
-                //     Display More <MdArrowDropDown size={20} />
-                //   </li>
-                // </Dropdown>
               )}
             </>
           }
@@ -310,39 +278,11 @@ const MobileHeader = ({ listitem }) => {
         </ul>
       </div>
 
-      {search && (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: "10px",
-          }}
-        >
-          <AutoComplete
-            style={{
-              width: "90%",
-              height: "100%",
-            }}
-            options={itsItem2}
-            // placeholder="try to type `b`"
-            filterOption={(inputValue, option) =>
-              option.value?.toUpperCase().indexOf(inputValue.toUpperCase()) !==
-              -1
-            }
-          >
-            <Input.Search
-              autoFocus
-              size="large"
-              placeholder="Search"
-              enterButton
-              onSearch={(e) => {
-                Navigation(`itempage?item=${e}`);
-                setSearch(false);
-              }}
-            />
-          </AutoComplete>
-        </div>
+      {isOpen && (
+        <NewSearchModel
+          closeModel={() => setIsOpen(false)}
+          autoList={itsItem2}
+        />
       )}
     </div>
   );
