@@ -281,10 +281,10 @@ const DetailsPage = () => {
             {data?.title}
           </h1>
           <p>
-            <span>Reported By</span>:{data?.reportedBy}
+            <span className="font-bold mr-2">Reported By :</span>{data?.reportedBy}
           </p>
           <p>
-            <span>Date & Time</span>:{data?.date}
+            <span className="font-bold mr-2">Date & Time :</span>{data?.date}
           </p>
         </div>
         <div

@@ -534,7 +534,7 @@ const MainPage = () => {
             );
           })}
 
-          <div className="container3 ">
+          <div className="container3">
             <div className="main-page-flash-news container">
               <div className="flash-news-1 ">{t("fn")}</div>
               <div className="flash-news-2">
@@ -564,6 +564,7 @@ const MainPage = () => {
               flexDirection: "row",
               justifyContent: "space-between",
               marginTop: "3%",
+              padding:"0 9px"
             }}
           >
             <div className="main-page-slider-setting">
@@ -686,11 +687,13 @@ const MainPage = () => {
           </div>
           {/* third */}
           <div className="main-conatiner container container3 ">
-            <div className="main-page-slider-setting" style={{ width: "100%" }}>
-              {sliderArticles?.map((data, index) => {
-                if (index == sliderItem) {
-                  return (
+            <div className="main-page-slider-setting" style={{ width: "100%",marginBottom:"20px" }}>
+              {sliderArticles
+                ?.slice(0, 10)
+                .map((data, index) =>
+                  index === sliderItem ? (
                     <ImageCard
+                      key={data._id}
                       img={data.image}
                       text={data.title}
                       title={data.title}
@@ -699,38 +702,25 @@ const MainPage = () => {
                       height="35vh"
                       width="100%"
                     />
-                  );
-                } else {
-                  <ImageCard
-                    img={sliderItems[sliderItem]}
-                    text={data.title}
-                    title={data.title}
-                    slug={data.slug}
-                    id={data._id}
-                    height="35vh"
-                    width="100%"
-                  />;
-                }
-              })}
+                  ) : null
+                )}
 
               <div className="main-page-slider-items">
-                {sliderArticles
-                  .map((_, i) => i)
-                  .map((item, index) => (
-                    <div
-                      key={item}
-                      className={`slider-item ${
-                        sliderItem === item ? "slider-item-active" : ""
-                      }`}
-                      onClick={() => {
-                        setShowItem(false);
-                        setTimeout(() => {
-                          setShowItem(true);
-                          setSliderItem(item);
-                        }, 1000);
-                      }}
-                    ></div>
-                  ))}
+                {Array.from({ length: 10 }).map((_, index) => (
+                  <div
+                    key={index}
+                    className={`slider-item ${
+                      sliderItem === index ? "slider-item-active" : ""
+                    }`}
+                    onClick={() => {
+                      setShowItem(false);
+                      setTimeout(() => {
+                        setShowItem(true);
+                        setSliderItem(index);
+                      }, 1000);
+                    }}
+                  ></div>
+                ))}
               </div>
             </div>
 
