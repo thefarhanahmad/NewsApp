@@ -95,9 +95,6 @@ const Footer = () => {
       });
   }, []);
 
-  console.log("categories and subcategories : ", mainObject);
-
-  // console.log("main obj",mainObject)
   async function subscribeToNewsLetter() {
     try {
       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -108,18 +105,18 @@ const Footer = () => {
 
       // Send a POST request to the backend
       const response = await axios.post(`${API_URL}/newsletter`, { email });
-      console.log("newsletter api response : ", response);
+   
 
       if (response.status === 201) {
         message.success("Subcribed to News Letter");
         // alert(response.data.message);
       } else {
-        console.log("newsletter api response : ", response);
+      
         throw new Error(response.data.message);
       }
     } catch (error) {
       console.error("Error subscribing to newsletter:", error.message);
-      message.error("unable to subscribe to newsletter");
+   
     }
   }
 

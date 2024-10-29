@@ -24,16 +24,16 @@ const Comments = ({ isAdmin }) => {
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
 
   const onFilter = () =>{
-    console.log(filterItem,filterItemResponse)
+  
     axios.get(
         `${API_URL}/comment?${filterItem}=${filterItemResponse}`
       )
       .then((poll) => {
         setComments(poll.data);
-        console.log(poll.data)
+     
       })
       .catch((err) => {
-        console.log(err);
+       
         message.error("Error in Filtering");
       });
   }

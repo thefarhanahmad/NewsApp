@@ -26,7 +26,7 @@ function WebStory() {
     fetchStories();
   }, []);
 
-  console.log("STOR", stories);
+  
   const displayStories =
     stories && stories.length > 0
       ? stories[0].images.map((image, index) => {

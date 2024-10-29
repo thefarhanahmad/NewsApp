@@ -60,13 +60,10 @@ const Dashboard = () => {
   const [subCategoryOptions, setSubCategoryOptions] = useState();
   const [allPublishedBy, setAllPublishedBy] = useState([]);
 
-  console.log("filterItemdd response : ", filterItemResponse);
-
   useEffect(() => {
     axios
       .get(`${API_URL}/user?id=${localStorage.getItem("id")}`)
       .then((user) => {
-        console.log(user.data, "d");
         if (user.data[0].role === "admin") {
           setIsAdmin(true);
         }
@@ -97,8 +94,6 @@ const Dashboard = () => {
       });
   }, []);
 
-  console.log("category in article edit section : ", categoryOptions);
-
   useEffect(() => {
     axios
       .get(`${API_URL}/subcategory?category=${filterItemResponse.category}`)
@@ -121,7 +116,6 @@ const Dashboard = () => {
 
   const getAllArticles = () => {
     axios.get(`${API_URL}/article`).then((article) => {
-      console.log("article response df : ", article);
       setArticleData(article.data);
 
       // Extract 'publishedBy' and filter out duplicates
@@ -130,17 +124,12 @@ const Dashboard = () => {
 
       // Update the state
       setAllPublishedBy(uniquePublishedBy);
-
-      console.log(article);
     });
   };
 
   useEffect(() => {
     getAllArticles();
   }, [axios]);
-
-  console.log("filterItemdd response : ", filterItemResponse);
-  console.log("publishedby response : ", allPublishedBy);
 
   const stripHtmlTags = (html) => {
     const doc = new DOMParser().parseFromString(html, "text/html");
@@ -192,7 +181,6 @@ const Dashboard = () => {
     setCurrentUser({});
   };
   const ShowDeleteModal = (user) => {
-    console.log(user);
     setCurrentUser(user);
     setIsModalDeleteOpen(true);
   };
@@ -201,10 +189,8 @@ const Dashboard = () => {
     setCurrentUser({});
   };
   const ShowReportedModal = (user) => {
-    console.log(user);
     setCurrentUser(user);
     setIsModalReportedOpen(true);
-    console.log(user, "user");
   };
   // const onFilter = () => {
   //   let filter = "";
@@ -229,7 +215,6 @@ const Dashboard = () => {
     setfilterItemResponse(defaultFilterObject);
     axios.get(`${API_URL}/article`).then((article) => {
       setArticleData(article.data);
-      console.log(article);
     });
   };
 
@@ -259,7 +244,7 @@ const Dashboard = () => {
       .get(`${API_URL}/article?${filter}`)
       .then((article) => {
         setArticleData(article?.data);
-        console.log(article);
+
         // setfilterItemResponse(defaultFilterObject);
       })
       .catch((err) => {
@@ -291,11 +276,11 @@ const Dashboard = () => {
         articleId: currentUser._id,
         question: qusetion,
       })
-      .then((res) => {
+      .then(() => {
         message.success("Article Was Successfully Reported");
         setCurrentUser("");
         setIsModalReportedOpen(false);
-        console.log(res.data);
+
         setQuestion("");
       })
       .catch((err) => {

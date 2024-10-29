@@ -1,12 +1,13 @@
 import React from "react";
 import img from "../../assets/img-1.png";
 
-const StoriesCard = ({ text, image, OnPress }) => {
+const StoriesCard = ({ text, image, OnPress,id }) => {
   return (
     <>
       <div
         onClick={OnPress}
         className="stories-card mobileMainPageStroyCard"
+       id={id}
         style={{ cursor: "pointer" }}
       >
         <img src={image ? image : img} alt="" />

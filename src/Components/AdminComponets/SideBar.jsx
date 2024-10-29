@@ -84,7 +84,7 @@ const SideBar = () => {
     axios
       .get(`${API_URL}/user?id=${localStorage.getItem("id")}`)
       .then((user) => {
-        // console.log(user.data, "d");
+       
         setRole(user.data[0].role);
         setAccess(user?.data[0]?.acsses);
         if (user.data[0].role === "admin") {

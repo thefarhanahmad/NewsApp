@@ -17,18 +17,18 @@ const contentStyle = {
 function ImageCrousel() {
   const [photo, setPhoto] = useState([]);
   const { id } = useParams();
-  console.log("id in params corousel  : ", id);
+
   useEffect(() => {
     axios
       .get(`${API_URL}/photo/${id}`)
 
       .then((data) => {
-        console.log("img api res in corousel : ", data);
+     
         setPhoto(data.data.images);
       })
       .catch(() => {});
   }, []);
-  console.log("photo corousel : ", photo);
+
 
   return (
     <>
@@ -79,7 +79,7 @@ function ImageCrousel() {
             })} */}
           {photo &&
             photo.map((img) => {
-              console.log("IMG", img);
+            
               const handleImageClick = () => {
                 // URL validation regex
                 const urlPattern = new RegExp(

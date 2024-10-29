@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./style/index.css";
 import { IoMdArrowDropleft, IoMdArrowDropright } from "react-icons/io";
-import { FaRegCirclePlay, FaGreaterThan } from "react-icons/fa6";
-import Slider from "react-slick";
+import { FaGreaterThan } from "react-icons/fa6";
+
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import VideoCard from "../../Components/MainPage/VideoCard";
@@ -14,23 +14,16 @@ import axios from "axios";
 import { IoCameraSharp } from "react-icons/io5";
 import { Col, Modal, Progress, Radio, Row } from "antd";
 import { API_URL } from "../../../API";
-import { Link, redirect, useNavigate } from "react-router-dom";
-import { Card } from "antd";
-const { Meta } = Card;
+import { useNavigate } from "react-router-dom";
 
 import img1 from "../../assets/img-main1.png";
 import img2 from "../../assets/img-main-2.png";
 import img3 from "../../assets/Rectangle 33.png";
 import img4 from "../../assets/Rectangle 28.png";
 import img5 from "../../assets/img-5.png";
-import img6 from "../../assets/Group 50.png";
-import img7 from "../../assets/Rectangle 67.png";
-import img8 from "../../assets/Rectangle 50.png";
 import slider from "../../assets/slider (2).png";
 import AllSectionArticle from "../../Components/MainPage/SectionArticle";
 import { PlayCircleOutlined } from "@ant-design/icons";
-import ImageCrousel from "../../Components/MainPage/ImageCrousel";
-import WebStory from "../../Components/MainPage/WebStory";
 import VdoThumb from "../../Components/common/VdoThumb";
 
 const MainPage = () => {
@@ -458,10 +451,11 @@ const MainPage = () => {
   };
   useEffect(() => {
     const intervalId = setInterval(() => {
+      setSliderItem((prevItem) => (prevItem + 1) % sliderArticles.length);
       if (flashnews.length) {
         handleNextClick();
       }
-    }, 4000);
+    }, 7000);
     return () => {
       clearInterval(intervalId);
     };
@@ -492,9 +486,8 @@ const MainPage = () => {
             <a href="#Photos">Photos</a>
           </li>
         </ul>
-        {/* main mobile */}
+
         <div className="mobileMainPageContainer">
-          {/* single video */}
           {video?.map((item, index) => {
             let title = item.title
               .replace(/[/\%.?]/g, "")
@@ -507,6 +500,7 @@ const MainPage = () => {
 
             return (
               <div
+                key={index}
                 onClick={() => {
                   navigation(`/videos2/${title}?id=${item?._id}`, {
                     state: item,
@@ -539,18 +533,161 @@ const MainPage = () => {
               </div>
             );
           })}
-          {/* main mobile */}
 
+          <div className="container3 ">
+            <div className="main-page-flash-news container">
+              <div className="flash-news-1 ">{t("fn")}</div>
+              <div className="flash-news-2">
+                <div className="flash-news-slider">
+                  <div className="flash-news-2-text">
+                    {flashnews.length > 0 && (
+                      <a
+                        href={flashnews[currentIndex].link}
+                        style={{ textDecoration: "none", color: "black" }}
+                      >
+                        {flashnews[currentIndex].slugName.substring(0, 45)}
+                      </a>
+                    )}
+                  </div>
+                  <div className="flash-news-2-icons">
+                    <IoMdArrowDropleft size={25} onClick={handlePrevClick} />
+                    <IoMdArrowDropright size={25} onClick={handleNextClick} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* second */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              marginTop: "3%",
+            }}
+          >
+            <div className="main-page-slider-setting">
+              {sliderItem % 2 === 0 ? (
+                <>
+                  {sliderArticles?.map((data, index) => {
+                    if (index == sliderItem) {
+                      return (
+                        <ImageCard
+                          key={index}
+                          img={data.image}
+                          text={data.title}
+                          slug={data.slug}
+                          title={data.title}
+                          id={data._id}
+                          height="50vh"
+                          width="100%"
+                        />
+                      );
+                    } else {
+                      <ImageCard
+                        img={sliderItems[sliderItem]}
+                        text={data.title}
+                        slug={data.slug}
+                        title={data.title}
+                        id={data._id}
+                        height="50vh"
+                        width="100%"
+                      />;
+                    }
+                  })}
+                </>
+              ) : (
+                <></>
+              )}
+
+              <div className="main-page-slider-items">
+                {sliderArticles
+                  .map((_, i) => i)
+                  .filter((i) => i % 2 === 0)
+                  .map((item, index) => (
+                    <div
+                      key={item}
+                      className={`slider-item ${
+                        sliderItem === item ? "slider-item-active" : ""
+                      }`}
+                      onClick={() => {
+                        setShowItem(false);
+                        setTimeout(() => {
+                          setShowItem(true);
+                          setSliderItem(item);
+                        }, 1000);
+                      }}
+                    ></div>
+                  ))}
+              </div>
+            </div>
+            <div className="main-page-slider-setting">
+              {sliderItem2 % 2 !== 0 ? (
+                <>
+                  {sliderArticles?.map((data, index) => {
+                    // let title = data?.title
+                    //   ?.replace(/[/\%.?]/g, "")
+                    //   .split(" ")
+                    //   .join("-");
+                    // if (data.slug) {
+                    //   title = data.slug;
+                    // }
+                    if (index == sliderItem2) {
+                      return (
+                        <ImageCard
+                          key={index}
+                          img={data.image}
+                          text={data.title}
+                          slug={data.slug}
+                          title={data.title}
+                          id={data._id}
+                          height="50vh"
+                          width="100%"
+                        />
+                      );
+                    } else {
+                      <ImageCard
+                        img={sliderItems[sliderItem2]}
+                        text={data.title}
+                        slug={data.slug}
+                        title={data.title}
+                        id={data._id}
+                        height="50vh"
+                        width="100%"
+                      />;
+                    }
+                  })}
+                </>
+              ) : (
+                <></>
+              )}
+
+              <div className="main-page-slider-items">
+                {sliderArticles
+                  .map((_, i) => i)
+                  .filter((i) => i % 2 !== 0)
+                  .map((item) => (
+                    <div
+                      key={item}
+                      className={`slider-item ${
+                        sliderItem2 === item ? "slider-item-active" : ""
+                      }`}
+                      onClick={() => {
+                        setShowItem(false);
+                        setTimeout(() => {
+                          setShowItem(true);
+                          setSliderItem2(item);
+                        }, 1000);
+                      }}
+                    ></div>
+                  ))}
+              </div>
+            </div>
+          </div>
+          {/* third */}
           <div className="main-conatiner container container3 ">
             <div className="main-page-slider-setting" style={{ width: "100%" }}>
               {sliderArticles?.map((data, index) => {
-                // let title = data?.title;
-                // ?.replace(/[/\%.?]/g, "")
-                // .split(" ")
-                // .join("-");
-                // if (data.slug) {
-                //   title = data.title;
-                // }
                 if (index == sliderItem) {
                   return (
                     <ImageCard
@@ -573,14 +710,8 @@ const MainPage = () => {
                     height="35vh"
                     width="100%"
                   />;
-                  // <img
-                  //   src={sliderItems[sliderItem]}
-                  //   alt=""
-                  //   className={`slider-img ${showItem ? "show" : ""}`}
-                  // />;
                 }
               })}
-              {/* item 0 */}
 
               <div className="main-page-slider-items">
                 {sliderArticles
@@ -602,6 +733,7 @@ const MainPage = () => {
                   ))}
               </div>
             </div>
+
             <div id="LatestNews" className="main-left-side">
               <div className="mobileMainPageHeading">
                 <div>{t("ln")}</div>
@@ -634,12 +766,12 @@ const MainPage = () => {
                 })}
               </div>
             </div>
-
+            {/* jcbjhdbchdbhddndj */}
             <div id="TopStories" className="main-left-side">
               <div className="mobileMainPageHeading">
                 <div>{t("ts")}</div>
               </div>
-              <div className="mobile-main-page-videos-container">
+              <div className="mobile-main-page-videos-container flex-col">
                 {topStories?.map((item, index) => {
                   let title = item.title
                     .replace(/[/\%.?]/g, "")
@@ -651,39 +783,39 @@ const MainPage = () => {
 
                   if (title && index < 6) {
                     return (
-                      <div
-                        onClick={() => {
-                          navigation(`/details/${title}?id=${item?._id}`, {
-                            state: item,
-                          });
-                        }}
-                        className="mobileTopStoryCard"
-                      >
-                        <img
-                          style={{
-                            width: "100%",
-                            height: "50%",
-                            objectFit: "cover",
-                          }}
-                          src={item.image}
-                        />
+                      <>
                         <div
-                          className="mobileTopStoryCardText"
-                          style={{ height: "50%", fontSize: "9px" }}
+                          onClick={() => {
+                            navigation(`/details/${title}?id=${item?._id}`, {
+                              state: item,
+                            });
+                          }}
+                          className="mobileTopStoryCard flex-row-reverse"
                         >
-                          {item.title}
+                          <img
+                            style={{
+                              width: "150px",
+                              height: "118px",
+                              objectFit: "cover",
+                              objectPosition: "center",
+                            }}
+                            src={item.image}
+                          />
+                          <div
+                            className=""
+                            style={{
+                              height: "50%",
+                              width: "100%",
+                              fontSize: "13px",
+                              padding: "10px",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            {item.title}
+                          </div>
                         </div>
-                      </div>
+                      </>
                     );
-                    // <StoriesCard
-                    //   data={data}
-                    //   key={index}
-                    //   OnPress={() =>
-                    //     navigation(`/details/${title}?id=${data?._id}`)
-                    //   }
-                    //   image={data?.image}
-                    //   text={data?.title.substring(0,45)+"..."}
-                    // />
                   } else {
                     return null;
                   }
@@ -692,12 +824,23 @@ const MainPage = () => {
             </div>
           </div>
 
-          <div className="main-conatiner container container3 ">
-            <div id="BigNews" className="main-left-side">
-              <div className="mobileMainPageHeading">
+          {/* forth */}
+          <div className="main-conatiner container container3 overflow-scroll">
+            <div id="BigNews" className="main-left-side"  style={{flexDirection:"column"}}>
+              <div className="mobileMainPageHeading" >
                 <div>{t("bn")}</div>
               </div>
-              <div className="top-stories-all-cards">
+              <div className="top-stories-all-cards "
+               style={{
+                display: "grid",
+                gridAutoFlow: "column",
+                gridAutoColumns: "160px",
+                overflowX: "auto",
+                gridTemplateColumns:"auto",
+                columnGapgap: "20px",
+                whiteSpace: "nowrap",
+              }}
+              >
                 {topStories &&
                   topStories.length > 3 &&
                   topStories.map((data, index) => {
@@ -711,15 +854,20 @@ const MainPage = () => {
 
                     if (title && index < 10 && index >= 5) {
                       return (
-                        <StoriesCard
-                          data={data}
-                          key={index}
-                          OnPress={() =>
-                            navigation(`/details/${title}?id=${data?._id}`)
-                          }
-                          image={data?.image}
-                          text={data?.title}
-                        />
+                        <>
+                          
+                            <StoriesCard
+                              data={data}
+                              key={index}
+                              OnPress={() =>
+                                navigation(`/details/${title}?id=${data?._id}`)
+                              }
+                              image={data?.image}
+                              text={data?.title}
+                              id="columnReverse"
+                            />
+                          
+                        </>
                       );
                     } else {
                       return null;
@@ -729,6 +877,7 @@ const MainPage = () => {
             </div>
           </div>
 
+          {/* fifth */}
           <div
             // id="Videos"
             style={{
@@ -761,61 +910,41 @@ const MainPage = () => {
                 if (index < 1) return;
 
                 return (
-                  <div
-                    onClick={() => {
-                      navigation(`/videos2/${title}?id=${item?._id}`, {
-                        state: item,
-                      });
-                    }}
-                    className="mobile-main-page-videos-items"
-                  >
-                    {item.image ? (
-                      <video
-                        style={{
-                          width: "100%",
-                          height: "120px",
-                          objectFit: "cover",
-                        }}
-                        src={item.image}
-                      />
-                    ) : (
-                      <iframe
-                        className="video video-card-img"
-                        title="Youtube player"
-                        sandbox="allow-same-origin allow-forms allow-popups allow-scripts allow-presentation"
-                        src={item.link}
-                        // width={"300px"}
-                        // height={"200px"}
-                      ></iframe>
-                    )}
-                  </div>
+                  <>
+                    <div
+                      onClick={() => {
+                        navigation(`/videos2/${title}?id=${item?._id}`, {
+                          state: item,
+                        });
+                      }}
+                      className="mobile-main-page-videos-items"
+                    >
+                      {item.image ? (
+                        <video
+                          style={{
+                            width: "100%",
+                            height: "120px",
+                            objectFit: "cover",
+                          }}
+                          src={item.image}
+                        />
+                      ) : (
+                        <iframe
+                          className="video video-card-img"
+                          title="Youtube player"
+                          sandbox="allow-same-origin allow-forms allow-popups allow-scripts allow-presentation"
+                          src={item.link}
+                          // width={"300px"}
+                          // height={"200px"}
+                        ></iframe>
+                      )}
+                    </div>
+                  </>
                 );
               })}
             </div>
           </div>
-          <div className="container3 ">
-            <div className="main-page-flash-news container">
-              <div className="flash-news-1 ">{t("fn")}</div>
-              <div className="flash-news-2">
-                <div className="flash-news-slider">
-                  <div className="flash-news-2-text">
-                    {flashnews.length > 0 && (
-                      <a
-                        href={flashnews[currentIndex].link}
-                        style={{ textDecoration: "none", color: "black" }}
-                      >
-                        {flashnews[currentIndex].slugName.substring(0, 45)}
-                      </a>
-                    )}
-                  </div>
-                  <div className="flash-news-2-icons">
-                    <IoMdArrowDropleft size={25} onClick={handlePrevClick} />
-                    <IoMdArrowDropright size={25} onClick={handleNextClick} />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+
           <AllSectionArticle data={allCategoriesData} />
 
           <div className="main-conatiner container  ">
@@ -850,6 +979,7 @@ const MainPage = () => {
                         href={`/stories?id=${story._id}`}
                         target="_blank"
                         key={story._id}
+                        rel="noreferrer"
                       >
                         <div className="visual-story-card">
                           <ImageCard
@@ -883,7 +1013,7 @@ const MainPage = () => {
             <div className="main-page-video-heading2">{t("ph")}</div>
             <div className="main-page-photoGallery-container">
               {photo &&
-                photo.map((img) => {
+                photo.map((img, index) => {
                   console.log("img to show in thumbnail : ", img);
 
                   // Find the image with albumPeriority: true
@@ -901,8 +1031,12 @@ const MainPage = () => {
                     ? prioritizedImage.text
                     : img?.images[0]?.text;
                   return (
-                    <div>
-                      <a href={`/photos/${img?._id}`} target="_blank">
+                    <div key={index}>
+                      <a
+                        href={`/photos/${img?._id}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
                         <div className="photoGallery-card">
                           <img src={displayImage} alt={displayText} />
                         </div>
@@ -1051,147 +1185,6 @@ const MainPage = () => {
             </div> */}
 
             <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                marginTop: "3%",
-              }}
-            >
-              <div className="main-page-slider-setting">
-                {sliderItem % 2 === 0 ? (
-                  <>
-                    {sliderArticles?.map((data, index) => {
-                      // let title = data?.title
-                      //   ?.replace(/[/\%.?]/g, "")
-                      //   .split(" ")
-                      //   .join("-");
-                      // if (data.slug) {
-                      //   title = data.slug;
-                      // }
-                      if (index == sliderItem) {
-                        return (
-                          <ImageCard
-                            img={data.image}
-                            text={data.title}
-                            slug={data.slug}
-                            title={data.title}
-                            id={data._id}
-                            height="50vh"
-                            width="100%"
-                          />
-                        );
-                      } else {
-                        <ImageCard
-                          img={sliderItems[sliderItem]}
-                          text={data.title}
-                          slug={data.slug}
-                          title={data.title}
-                          id={data._id}
-                          height="50vh"
-                          width="100%"
-                        />;
-                        // <img
-                        //   src={sliderItems[sliderItem]}
-                        //   alt=""
-                        //   className={`slider-img ${showItem ? "show" : ""}`}
-                        // />;
-                      }
-                    })}
-                  </>
-                ) : (
-                  <></>
-                )}
-
-                <div className="main-page-slider-items">
-                  {sliderArticles
-                    .map((_, i) => i)
-                    .filter((i) => i % 2 === 0)
-                    .map((item, index) => (
-                      <div
-                        key={item}
-                        className={`slider-item ${
-                          sliderItem === item ? "slider-item-active" : ""
-                        }`}
-                        onClick={() => {
-                          setShowItem(false);
-                          setTimeout(() => {
-                            setShowItem(true);
-                            setSliderItem(item);
-                          }, 1000);
-                        }}
-                      ></div>
-                    ))}
-                </div>
-              </div>
-              <div className="main-page-slider-setting">
-                {sliderItem2 % 2 !== 0 ? (
-                  <>
-                    {sliderArticles?.map((data, index) => {
-                      // let title = data?.title
-                      //   ?.replace(/[/\%.?]/g, "")
-                      //   .split(" ")
-                      //   .join("-");
-                      // if (data.slug) {
-                      //   title = data.slug;
-                      // }
-                      if (index == sliderItem2) {
-                        return (
-                          <ImageCard
-                            img={data.image}
-                            text={data.title}
-                            slug={data.slug}
-                            title={data.title}
-                            id={data._id}
-                            height="50vh"
-                            width="100%"
-                          />
-                        );
-                      } else {
-                        <ImageCard
-                          img={sliderItems[sliderItem2]}
-                          text={data.title}
-                          slug={data.slug}
-                          title={data.title}
-                          id={data._id}
-                          height="50vh"
-                          width="100%"
-                        />;
-                        // <img
-                        //   src={sliderItems[sliderItem]}
-                        //   alt=""
-                        //   className={`slider-img ${showItem ? "show" : ""}`}
-                        // />;
-                      }
-                    })}
-                  </>
-                ) : (
-                  <></>
-                )}
-
-                <div className="main-page-slider-items">
-                  {sliderArticles
-                    .map((_, i) => i)
-                    .filter((i) => i % 2 !== 0)
-                    .map((item, index) => (
-                      <div
-                        key={item}
-                        className={`slider-item ${
-                          sliderItem2 === item ? "slider-item-active" : ""
-                        }`}
-                        onClick={() => {
-                          setShowItem(false);
-                          setTimeout(() => {
-                            setShowItem(true);
-                            setSliderItem2(item);
-                          }, 1000);
-                        }}
-                      ></div>
-                    ))}
-                </div>
-              </div>
-            </div>
-            <div
               className="more-text"
               onClick={() => {
                 navigation(`/itempage2?newsType=topStories`);
@@ -1248,7 +1241,7 @@ const MainPage = () => {
           >
             <div className="main-news-heading">{t("ln")}</div>
             <div className="news-cards-area container3 ">
-              {latestNews.map((data, index) => {
+              {latestNews.map((data) => {
                 let title = data?.title
                   ?.replace(/[/\%.?]/g, "")
                   .split(" ")
@@ -1273,26 +1266,9 @@ const MainPage = () => {
                   );
                 } else {
                   // Handle the case where title is undefined or null
-                  console.error("Title is undefined or null for data:", data);
                   return null; // or handle it in a way that makes sense for your application
                 }
               })}
-
-              {/* <div className="news-card-items-area">
-                <NewsCard />
-              </div>
-              <div className="news-card-items-area">
-                <NewsCard />
-              </div>
-              <div className="news-card-items-area">
-                <NewsCard />
-              </div>
-              <div className="news-card-items-area">
-                <NewsCard />
-              </div>
-              <div className="news-card-items-area">
-                <NewsCard />
-              </div> */}
             </div>
             <div
               className="more-text"
@@ -1433,6 +1409,7 @@ const MainPage = () => {
                         onClick={() => {
                           onClickAd(midAd._id);
                         }}
+                        rel="noreferrer"
                       >
                         <img
                           src={midAd.imgLink}
@@ -1578,20 +1555,20 @@ const MainPage = () => {
           </h1>
           <div className="video-containerr">
             <div className="left-columnn">
-              {video.slice(0, 2).map((vdo, i) => {
-                return <VdoThumb data={vdo} />;
+              {video.slice(0, 2).map((vdo, index) => {
+                return <VdoThumb key={index} data={vdo} />;
               })}
             </div>
             <div className="middle-columnn">
-              <VdoThumb data={video[2]} />;
+              <VdoThumb data={video[2]} />
             </div>
             <div className="right-columnn">
-              {video.slice(3, 5).map((vdo, i) => {
-                return <VdoThumb data={vdo} />;
+              {video.slice(3, 5).map((vdo, index) => {
+                return <VdoThumb key={index} data={vdo} />;
               })}
             </div>
           </div>
-          ;{/* see more btn */}
+          {/* see more btn */}
           <div
             className="more-text"
             onClick={() => navigate("/itempage2?newsType=videos")}
@@ -1722,7 +1699,13 @@ const MainPage = () => {
                       fontSize: "15px",
                       fontWeight: 400,
                       height: "40px",
-                      borderRadius: 0,
+                      borderRadius: "0px",
+                      display: "-webkit-box",
+                      WebkitLineClamp: 1,
+                      WebkitBoxOrient: "vertical",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      whiteSpace: "nowrap",
                     }}
                     height="200px"
                     width="100%"
@@ -1760,7 +1743,7 @@ const MainPage = () => {
                 >
                   <StoriesCard
                     height="120px"
-                    width="80%"
+                    width="100%"
                     color="transparent"
                     image={img5}
                     text={
@@ -1856,6 +1839,7 @@ const MainPage = () => {
                       href={`/stories?id=${story._id}`}
                       target="_blank"
                       key={story._id}
+                      rel="noreferrer"
                     >
                       <div className="visual-story-card">
                         <ImageCard
@@ -1886,6 +1870,7 @@ const MainPage = () => {
                     onClick={() => {
                       onClickAd(bottomAd._id);
                     }}
+                    rel="noreferrer"
                   >
                     <img
                       src={bottomAd.imgLink}
@@ -1939,14 +1924,11 @@ const MainPage = () => {
           <div className="main-page-video-heading2">{t("ph")}</div>
           <div className="main-page-photoGallery-container">
             {photo &&
-              photo.map((img) => {
-                console.log("img to show in thumbnail : ", img);
-
+              photo.map((img, index) => {
                 // Find the image with albumPeriority: true
                 const prioritizedImage = img?.images.find(
                   (image) => image.albumPeriority === true
                 );
-                console.log("prioritized: ", prioritizedImage);
 
                 // If prioritizedImage is found, use it; otherwise, fallback to the 0th image
                 const displayImage = prioritizedImage
@@ -1958,8 +1940,12 @@ const MainPage = () => {
                   : img?.images[0]?.text;
 
                 return (
-                  <div>
-                    <a href={`/photos/${img?._id}`} target="_blank">
+                  <div key={index}>
+                    <a
+                      href={`/photos/${img?._id}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
                       <div className="photoGallery-card">
                         <img src={displayImage} alt={displayText} />
                       </div>

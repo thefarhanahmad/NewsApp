@@ -46,17 +46,17 @@ const Ads = () => {
     setImpression((prevImpression) => prevImpression + 1);
   }, []);
 
-  console.log("user data in ad : ", userData);
+
 
   const fetchAds = () => {
-    console.log("h");
+  
     axios
       .get(`${API_URL}/ads`)
       .then((users) => {
-        console.log("userdata ad section : ", users);
+     
         setUserData(users.data.reverse());
         setNoOfImpression(users.data[0].noOfImpression);
-        console.log(users.data[0].noOfImpression);
+        
       })
       .catch((err) => {
         console.log("err=>>>", err);
@@ -66,16 +66,16 @@ const Ads = () => {
     fetchAds();
   }, []);
 
-  // console.log("formdata in ads: ", link,slug);
+ 
 
   const onUpload = () => {
     setLoading(true);
     let formdata = new FormData();
     formdata.append("file", img, img.name);
-    console.log("formdata in ads: ", formdata);
+   
 
     axios.post(`${API_URL}/image`, formdata).then(async (image) => {
-      console.log(image);
+     
       await axios
         .post(`${API_URL}/ads?id=${localStorage.getItem("id")}`, {
           imgLink: image.data.image,
@@ -88,7 +88,7 @@ const Ads = () => {
           side,
         })
         .then((data) => {
-          console.log("api res ad post : ", data);
+         
           message.success("Your Ad was successfully Uploaded");
           setImg(null);
           setLink("");
@@ -111,7 +111,7 @@ const Ads = () => {
   const handleDeleteAd = async (id) => {
     try {
       const res = await axios.delete(`${API_URL}/ads_delete/${id}`);
-      console.log("ads delete api response : ", res);
+     
       if (res.data.data.status === 200) {
         message.success(res.data.message);
       } else {
@@ -119,7 +119,7 @@ const Ads = () => {
       }
       fetchAds();
     } catch (error) {
-      console.log("error is delete ads : ", error);
+    
       message.error(error.response.data.message);
     }
     fetchAds();
@@ -139,7 +139,7 @@ const Ads = () => {
       })
       .catch((error) => {
         // Handle error
-        console.error("Error updating status", error);
+        
         message.error("Failed to update  status");
       });
     fetchAds();
@@ -239,7 +239,7 @@ const Ads = () => {
       key: "status",
       dataIndex: "status",
       render: (_, ad) => {
-        console.log("ad", ad);
+       
         return (
           <>
             <Tag color={ad.active ? "cyan" : "red"}>
@@ -300,7 +300,7 @@ const Ads = () => {
               id="file-name"
               onChange={(e) => {
                 setImg(e.target.files[0]);
-                console.log(e.target.files[0]);
+               
               }}
               style={{ display: "none" }}
               hidden={true}
@@ -373,7 +373,7 @@ const Ads = () => {
               onChange={(e) => {
                 setDate(JSON.stringify(e));
                 let d = JSON.stringify(e);
-                console.log();
+              
               }}
             />
           </Col>

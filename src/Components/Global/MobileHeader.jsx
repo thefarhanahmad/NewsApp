@@ -11,7 +11,10 @@ import logo from "../../assets/logo.svg";
 import { ArrowLeftOutlined, PlayCircleOutlined } from "@ant-design/icons";
 import { IoIosCloseCircle } from "react-icons/io";
 import NewSearchModel from "../../models/newSearchModel";
-
+import { FaNewspaper } from "react-icons/fa6";
+import { MdAutoStories } from "react-icons/md";
+import { TfiGallery } from "react-icons/tfi";
+import { FaPhotoVideo } from "react-icons/fa";
 function findStoryIdFromUrl(pathname) {
   // Regular expression to find the 'id' parameter and its value
   const idRegex = /id=([^&]+)/;
@@ -87,9 +90,9 @@ const MobileHeader = ({ listitem }) => {
           arr2.push({ value: element.text });
 
           arr2.push({ value: "Cricket" });
-          if (index == data.data.length) {
-            console.log("arr2");
-          }
+          // if (index == data.data.length) {
+          //   console.log("arr2");
+          // }
         }
         setItsItem2(arr2);
 
@@ -100,191 +103,199 @@ const MobileHeader = ({ listitem }) => {
       });
   }, []);
   return (
-    <div className="mobileNavBarContainer ">
-      <div className="mobilevisibleNavItems">
-        <div>
-          {pathname !== "/" ? (
-            <div
-              style={{
-                color: "white",
-                fontFamily: "sans-serif",
-                cursor: "pointer",
-                textDecoration: "none",
-              }}
-              onClick={goToPreviousPage}
-            >
-              <ArrowLeftOutlined color="white" />
-              {isVideoPresent && "Video"}
-              {isLivePage && "Live"}
-              {isDetailsPresent &&
-                (articleType === "breakingNews"
-                  ? "Breaking News"
-                  : "Top Stories")}
-            </div>
-          ) : isHamBurgClicked ? (
-            <RxCross1
-              size={25}
-              color="white"
-              onClick={() => setHambergClicked(false)}
-              className="ham-burger-area-cross-child"
-            />
-          ) : (
-            <GiHamburgerMenu
-              className="ham-burger"
-              size={25}
-              color="white"
-              onClick={() => {
-                setHambergClicked((prevState) => !prevState);
-              }}
-            />
-          )}
-        </div>
-        <div className="mobile-visible-containerr">
-          <span
-            onClick={() => {
-              Navigation("/");
-              setHambergClicked(false);
-            }}
-            className="mobilevisibleNavItemsUlChild"
-          >
-            Home
-          </span>
-          <div
-            onClick={() => {
-              Navigation("/");
-              setHambergClicked(false);
-            }}
-            className="header-logo-boxx"
-            style={{ width: "9rem", marginLeft: "1rem" }}
-          >
-            <img src={logo} alt="" />
-          </div>
-        </div>
-
-        <ul className="mobilevisibleNavItemsUlChild">
-          {!isLivePage ? (
-            <li
-              style={{ cursor: "pointer" }}
-              onClick={() => {
-                Navigation("/live");
-                setHambergClicked(false);
-              }}
-            >
-              <PlayCircleOutlined style={{ marginRight: "5px" }} /> live
-            </li>
-          ) : null}
-
-          <li
-            data-modal-target="default-modal"
-            data-modal-toggle="default-modal"
-          >
-            <BiSolidSearch
-              onClick={() => {
-                setIsOpen((prevState) => !prevState);
-                setHambergClicked(false);
-              }}
-              size={25}
-              color="white"
-              style={{
-                marginLeft: "10px",
-                cursor: "pointer",
-              }}
-            />
-          </li>
-        </ul>
-      </div>
-
-      <div
-        className={`mobileNavAbsoluteContainer ${
-          isHamBurgClicked ? "mobileNavAbsoluteContainerCLicked" : ""
-        } `}
-      >
-        <ul>
-          {itsItem.length > 0 &&
-            itsItem.map((data) => {
-              let arr = [];
-              // let item = [];
-              axios
-                .get(`${API_URL}/subcategory?category=${data.text}`)
-                .then((data) => {
-                  for (let i = 0; i < data.data.length; i++) {
-                    const element = data.data[i];
-                    arr.push({
-                      key: element._id,
-                      label: (
-                        <a
-                          target="_blank"
-                          onClick={() => {
-                            Navigation(
-                              `/itempage?item=${element.category}&sub=${element.text}`
-                            );
-                            setEffect(!effect);
-                          }}
-                        >
-                          {element.text}
-                        </a>
-                      ),
-                    });
-                  }
-                });
-              return (
-                <>
-                  <li
-                    onClick={() => {
-                      setHambergClicked(false);
-                      Navigation(`/itempage?item=${data.text}`);
-                      setEffect(!effect);
-                    }}
-                  >
-                    {data.text}
-                  </li>
-                </>
-              );
-            })}
-
-          {
-            <>
-              {listitem.length > 0 && (
-                <li className="">
-                  <select
-                    name="Display More"
-                    className="block outline-none shadow-none w-full border-none bg-white"
-                    onChange={(e) => {
-                      setHambergClicked(false);
-                      const selectedItem = listitem.find(
-                        (i) => i.label.props.children === e.target.value
-                      );
-                      if (selectedItem && selectedItem.label.props.onClick) {
-                        selectedItem.label.props.onClick();
-                      }
-                    }}
-                    defaultValue="display-more"
-                  >
-                    <option value="display-more" className="p-4 ml-4" disabled>
-                      Display More
-                    </option>
-                    {listitem.map((i) => (
-                      <option key={i.key} value={i.label.props.children}>
-                        {i.label.props.children}
-                      </option>
-                    ))}
-                  </select>
-                </li>
-              )}
-            </>
-          }
-
-          <li></li>
-        </ul>
-      </div>
-
+    <>
       {isOpen && (
         <NewSearchModel
           closeModel={() => setIsOpen(false)}
           autoList={itsItem2}
         />
       )}
-    </div>
+
+      <div className="mobileNavBarContainer">
+        <div className="mobilevisibleNavItems h-[72px]">
+          <div>
+            {pathname !== "/" ? (
+              <div
+                style={{
+                  color: "white",
+                  fontFamily: "sans-serif",
+                  cursor: "pointer",
+                  textDecoration: "none",
+                }}
+                onClick={goToPreviousPage}
+              >
+                <ArrowLeftOutlined color="white" />
+                
+              </div>
+            ) : isHamBurgClicked ? (
+              <RxCross1
+                size={25}
+                color="white"
+                onClick={() => setHambergClicked(false)}
+                className="ham-burger-area-cross-child"
+              />
+            ) : (
+              <GiHamburgerMenu
+                className="ham-burger"
+                size={25}
+                color="white"
+                onClick={() => {
+                  setHambergClicked((prevState) => !prevState);
+                }}
+              />
+            )}
+          </div>
+          <div className="mobile-visible-containerr">
+           
+            <span
+              onClick={() => {
+                Navigation("/");
+                setHambergClicked(false);
+              }}
+              className="mobilevisibleNavItemsUlChild"
+            >
+              <FaNewspaper size={25}/>
+            </span>
+            <div
+              onClick={() => {
+                Navigation("/");
+                setHambergClicked(false);
+              }}
+              className="header-logo-boxx"
+              style={{ width: "9rem", height: "53px" }}
+            >
+              <img src={logo} alt="" />
+            </div>
+          </div>
+
+          <ul className="mobilevisibleNavItemsUlChild">
+            {!isLivePage ? (
+              <li
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  Navigation("/live");
+                  setHambergClicked(false);
+                }}
+              >
+                <PlayCircleOutlined style={{ marginLeft: "10px", fontSize:"18px"}} /> 
+              </li>
+            ) : null}
+
+            <li>
+              <MdAutoStories size={18}/>
+            </li>
+            <li>
+              <TfiGallery size={18}/>
+            </li>
+            <li>
+              <FaPhotoVideo size={18}/>
+            </li>
+            <li
+              data-modal-target="default-modal"
+              data-modal-toggle="default-modal"
+            >
+              <BiSolidSearch
+                onClick={() => {
+                  setIsOpen((prevState) => !prevState);
+                  setHambergClicked(false);
+                }}
+                size={25}
+                color="white"
+                style={{
+                  cursor: "pointer",
+                }}
+              />
+            </li>
+          </ul>
+        </div>
+
+        <div
+          className={`mobileNavAbsoluteContainer ${
+            isHamBurgClicked ? "mobileNavAbsoluteContainerCLicked" : ""
+          } `}
+        >
+          <ul>
+            {itsItem.length > 0 &&
+              itsItem.map((data) => {
+                let arr = [];
+                // let item = [];
+                axios
+                  .get(`${API_URL}/subcategory?category=${data.text}`)
+                  .then((data) => {
+                    for (let i = 0; i < data.data.length; i++) {
+                      const element = data.data[i];
+                      arr.push({
+                        key: element._id,
+                        label: (
+                          <a
+                            target="_blank"
+                            onClick={() => {
+                              Navigation(
+                                `/itempage?item=${element.category}&sub=${element.text}`
+                              );
+                              setEffect(!effect);
+                            }}
+                          >
+                            {element.text}
+                          </a>
+                        ),
+                      });
+                    }
+                  });
+                return (
+                  <>
+                    <li
+                      onClick={() => {
+                        setHambergClicked(false);
+                        Navigation(`/itempage?item=${data.text}`);
+                        setEffect(!effect);
+                      }}
+                    >
+                      {data.text}
+                    </li>
+                  </>
+                );
+              })}
+
+            {
+              <>
+                {listitem.length > 0 && (
+                  <li className="">
+                    <select
+                      name="Display More"
+                      className="block outline-none shadow-none w-full border-none bg-white"
+                      onChange={(e) => {
+                        setHambergClicked(false);
+                        const selectedItem = listitem.find(
+                          (i) => i.label.props.children === e.target.value
+                        );
+                        if (selectedItem && selectedItem.label.props.onClick) {
+                          selectedItem.label.props.onClick();
+                        }
+                      }}
+                      defaultValue="display-more"
+                    >
+                      <option
+                        value="display-more"
+                        className="p-4 ml-4"
+                        disabled
+                      >
+                        Display More
+                      </option>
+                      {listitem.map((i) => (
+                        <option key={i.key} value={i.label.props.children}>
+                          {i.label.props.children}
+                        </option>
+                      ))}
+                    </select>
+                  </li>
+                )}
+              </>
+            }
+          </ul>
+        </div>
+      </div>
+    </>
   );
 };
 export default MobileHeader;

@@ -35,7 +35,7 @@ const Header = () => {
       .get(`${API_URL}/content?type=category`)
       .then((data) => {
         let arr = [];
-        console.log("ARR", data);
+       
 
         const newData = data?.data?.sort((a, b) => {
           const seqA = a.sequence !== undefined ? a.sequence : Number.MAX_VALUE;
@@ -133,23 +133,22 @@ const Header = () => {
         setLoading(false);
       });
     axios.get(`${API_URL}/ads?active=true&side=top`).then((data) => {
-      console.log("top ad in header res : ", data);
+    
       setTopAd(data.data.reverse()[0]);
     });
   }, []);
-  console.log("top ad in header page : ", topAd);
+
   useEffect(() => {
     if (topAd && topAd._id) {
-      // console.log("mid ad impressioning")
+   
       axios.get(`${API_URL}/ads/click?id=${topAd._id}`).then(() => {
-        // console.log("ad mid data")
+        
       });
     }
   }, [topAd]);
   async function onClickAd(id) {
     try {
       const response = await axios.post(`${API_URL}/ads/click`, { id });
-      console.log("updated Ad", response);
       // this function works for all ads so handle it respectivly
     } catch (error) {
       console.error("Error updating ads:", error);

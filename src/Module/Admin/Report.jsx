@@ -9,7 +9,7 @@ const Report = ({ isAdmin }) => {
   const [data, setData] = useState([]);
   useEffect(() => {
     axios.get(`${API_URL}/report`).then((res) => {
-      console.log(res.data);
+ 
       setData(res.data);
     });
   }, []);

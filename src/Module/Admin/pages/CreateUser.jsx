@@ -42,7 +42,7 @@ const CreateUser = () => {
       message.error("Input Fields Can't be empty");
     }
   };
-  console.log(acsses);
+
   const options = [
     {
       label: "Top Stories",

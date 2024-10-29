@@ -246,25 +246,24 @@ const DetailsPage2 = () => {
 
   return (
     <>
-      {/* mobile version  */}
+      {/* mobile version nnnn */}
       <div className="mobileDetailsPage">
-        <div className="mobileDetailsMainImage">
-          <img
-            src={data ? data?.image : DetailImg}
-            alt=""
-            className="details-page-main-img"
-          />
-        </div>
-        <div className="container3">
+      <div className="p-2">
           <h1
-            style={{ fontSize: "20px" }}
+            style={{ fontSize: "20px", fontWeight: "bold" }}
             className="details-page-main-heading"
           >
             {data?.title}
           </h1>
-          <div className="deatils-main-para-area" id="mob_parar"></div>
-          <div
-            style={{ margin: " 15px 0px" }}
+          <p>
+            <span>Reported By</span>:{data?.reportedBy}
+          </p>
+          <p>
+            <span>Date & Time</span>:{data?.date}
+          </p>
+        </div>
+        <div
+            style={{ margin: " 15px 0px" ,padding:"0 10px"}}
             className="details-page-top-item3"
           >
             {isFav ? (
@@ -346,6 +345,17 @@ const DetailsPage2 = () => {
               <WhatsappIcon size={32} round />
             </WhatsappShareButton>
           </div>
+        <div className="mobileDetailsMainImage px-2">
+          <img
+            src={data ? data?.image : DetailImg}
+            alt=""
+            className="details-page-main-img"
+          />
+        </div>
+        <div className="container3">
+         
+          <div className="deatils-main-para-area" id="mob_parar"></div>
+          
 
           <div
             className="container-detail-page-rigth-side"
@@ -406,6 +416,7 @@ const DetailsPage2 = () => {
           )}
           {data2.map(({ name, message }) => {
             return (
+              <>
               <div style={{ display: "flex", marginTop: "10px" }}>
                 <div>
                   <div
@@ -453,6 +464,7 @@ const DetailsPage2 = () => {
                   </div>
                 </div>
               </div>
+              </>
             );
           })}
         </div>

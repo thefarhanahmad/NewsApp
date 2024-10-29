@@ -110,8 +110,9 @@
 .mobileTopStoryCard {
   display: flex;
   flex-direction: column;
-  height: 110px;
-  min-width: 100px;
+  height: fit-content;
+  padding-bottom: 10px;
+  min-width: 170px;
   background-color: rgb(235, 235, 235);
   border-radius: 5px;
   overflow: hidden;
@@ -128,7 +129,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   word-wrap: break-word;
-  max-height: 3.2em;
+  max-height: 3.3em;
 }
 
 /* mobile */

@@ -101,7 +101,7 @@ const DetailsPage = () => {
   const [topStories, settopStories] = useState();
 
   useEffect(() => {
-    const href=window.location.href
+    const href = window.location.href;
     axios
       .get(`${API_URL}/article?id=${storyId}&url=${href}`)
       .then(async (article) => {
@@ -244,12 +244,13 @@ const DetailsPage = () => {
     return formattedDateTime;
   };
 
-  console.log("this is coming from the new article",article)   
+  console.log("this is coming from the new article", article);
 
   const shareurl = article?.data[0].shareUrl;
   const title = "News App";
   const imgUrl = data?.image;
   const description = data?.discription;
+  console.log("nk", data);
 
   return (
     <>
@@ -272,6 +273,101 @@ const DetailsPage = () => {
 
       {/* mobile version  */}
       <div className="mobileDetailsPage">
+        <div className="p-2">
+          <h1
+            style={{ fontSize: "20px", fontWeight: "bold" }}
+            className="details-page-main-heading"
+          >
+            {data?.title}
+          </h1>
+          <p>
+            <span>Reported By</span>:{data?.reportedBy}
+          </p>
+          <p>
+            <span>Date & Time</span>:{data?.date}
+          </p>
+        </div>
+        <div
+          style={{ margin: " 15px 0px" }}
+          className="details-page-top-item3 bg-red-500 p-2"
+        >
+          {isFav ? (
+            <>
+              <AiFillHeart
+                style={{ marginRight: "18px" }}
+                color="red"
+                onClick={() => setIsFav(!isFav)}
+              />
+            </>
+          ) : (
+            <TiHeartOutline
+              style={{ marginRight: "18px" }}
+              onClick={() => setIsFav(!isFav)}
+            />
+          )}
+          {data ? (
+            data.comment ? (
+              <RiMessage2Fill
+                style={{ marginRight: "18px" }}
+                onClick={() => {
+                  showModal();
+                }}
+              />
+            ) : null
+          ) : null}
+          <div style={{ position: "relative" }}>
+            <GrShareOption
+              style={{ marginRight: "18px", cursor: "pointer" }}
+              onClick={() => setIsOpen(!isOpen)}
+            />
+            <div
+              style={{
+                position: "absolute",
+                height: "30px",
+                width: "150px",
+                backgroundColor: "#5a5a5a",
+                borderRadius: 100,
+                bottom: -40,
+                left: -20,
+                alignItems: "center",
+                justifyContent: "space-around",
+                display: isOpen ? "flex" : "none",
+                paddingTop: 10,
+                paddingLeft: 5,
+                paddingRight: 5,
+              }}
+            >
+              <FacebookShareButton url={shareurl} quote={title} hashtag="#news">
+                <FacebookIcon size={32} round />
+              </FacebookShareButton>
+              <TwitterShareButton
+                url={shareurl}
+                title={title}
+                className="Demo__some-network__share-button"
+              >
+                <TwitterIcon size={32} round />
+              </TwitterShareButton>
+              <EmailShareButton
+                url={shareurl}
+                subject={title}
+                body={`Check this out: ${title} \n ${shareurl} \n ${imgUrl}`}
+                className="Demo__some-network__share-button"
+              >
+                <EmailIcon size={32} round />
+              </EmailShareButton>
+              <InstagramShareButton url={window.location.href} />
+            </div>
+          </div>
+          {/* whatsapp share */}
+          <div>
+            <WhatsappShareButton
+              url={shareurl}
+              className="Demo__some-network__share-button"
+            >
+              <WhatsappIcon size={32} round />
+            </WhatsappShareButton>
+          </div>
+        </div>
         <div className="mobileDetailsMainImage">
           <img
             src={data ? data?.image : DetailImg}
@@ -280,99 +376,9 @@ const DetailsPage = () => {
           />
         </div>
         <div className="container3">
-          <h1
-            style={{ fontSize: "20px" }}
-            className="details-page-main-heading"
-          >
-            {data?.title}
-          </h1>
-          <div className="deatils-main-para-area" id="mob_parar"></div>
-          <div
-            style={{ margin: " 15px 0px" }}
-            className="details-page-top-item3 bg-red-500 p-2"
-          >
-            {isFav ? (
-              <>
-                <AiFillHeart
-                  style={{ marginRight: "18px" }}
-                  color="red"
-                  onClick={() => setIsFav(!isFav)}
-                />
-              </>
-            ) : (
-              <TiHeartOutline
-                style={{ marginRight: "18px" }}
-                onClick={() => setIsFav(!isFav)}
-              />
-            )}
-            {data ? (
-              data.comment ? (
-                <RiMessage2Fill
-                  style={{ marginRight: "18px" }}
-                  onClick={() => {
-                    showModal();
-                  }}
-                />
-              ) : null
-            ) : null}
-            <div style={{ position: "relative" }}>
-              <GrShareOption
-                style={{ marginRight: "18px", cursor: "pointer" }}
-                onClick={() => setIsOpen(!isOpen)}
-              />
-              <div
-                style={{
-                  position: "absolute",
-                  height: "30px",
-                  width: "150px",
-                  backgroundColor: "#5a5a5a",
-                  borderRadius: 100,
-                  bottom: -40,
-                  left: -20,
-                  alignItems: "center",
-                  justifyContent: "space-around",
-                  display: isOpen ? "flex" : "none",
-                  paddingTop: 10,
-                  paddingLeft: 5,
-                  paddingRight: 5,
-                }}
-              >
-                <FacebookShareButton
-                  url={shareurl}
-                  quote={title}
-                  hashtag="#news"
-                >
-                  <FacebookIcon size={32} round />
-                </FacebookShareButton>
-                <TwitterShareButton
-                  url={shareurl}
-                  title={title}
-                  className="Demo__some-network__share-button"
-                >
-                  <TwitterIcon size={32} round />
-                </TwitterShareButton>
-                <EmailShareButton
-                  url={shareurl}
-                  subject={title}
-                  body={`Check this out: ${title} \n ${shareurl} \n ${imgUrl}`}
-                  className="Demo__some-network__share-button"
-                >
-                  <EmailIcon size={32} round />
-                </EmailShareButton>
-                <InstagramShareButton url={window.location.href} />
-              </div>
-            </div>
-            {/* whatsapp share */}
-            <div>
-              <WhatsappShareButton
-                url={shareurl}
-                className="Demo__some-network__share-button"
-              >
-                <WhatsappIcon size={32} round />
-              </WhatsappShareButton>
-            </div>
-          </div>
-          <div className="container-detail-page-rigth-side">
+          <div className="deatils-main-para-area " id="mob_parar"></div>
+
+          <div className="container-detail-page-rigth-side mt-3">
             {topStories && (
               <div className="details-page-related-news">
                 <div className="details-page-related-news-heading">
