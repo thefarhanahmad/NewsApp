@@ -826,20 +826,25 @@ const MainPage = () => {
 
           {/* forth */}
           <div className="main-conatiner container container3 overflow-scroll">
-            <div id="BigNews" className="main-left-side"  style={{flexDirection:"column"}}>
-              <div className="mobileMainPageHeading" >
+            <div
+              id="BigNews"
+              className="main-left-side"
+              style={{ flexDirection: "column" }}
+            >
+              <div className="mobileMainPageHeading">
                 <div>{t("bn")}</div>
               </div>
-              <div className="top-stories-all-cards "
-               style={{
-                display: "grid",
-                gridAutoFlow: "column",
-                gridAutoColumns: "160px",
-                overflowX: "auto",
-                gridTemplateColumns:"auto",
-                columnGapgap: "20px",
-                whiteSpace: "nowrap",
-              }}
+              <div
+                className="top-stories-all-cards "
+                style={{
+                  display: "grid",
+                  gridAutoFlow: "column",
+                  gridAutoColumns: "160px",
+                  overflowX: "auto",
+                  gridTemplateColumns: "auto",
+                  columnGapgap: "20px",
+                  whiteSpace: "nowrap",
+                }}
               >
                 {topStories &&
                   topStories.length > 3 &&
@@ -855,18 +860,16 @@ const MainPage = () => {
                     if (title && index < 10 && index >= 5) {
                       return (
                         <>
-                          
-                            <StoriesCard
-                              data={data}
-                              key={index}
-                              OnPress={() =>
-                                navigation(`/details/${title}?id=${data?._id}`)
-                              }
-                              image={data?.image}
-                              text={data?.title}
-                              id="columnReverse"
-                            />
-                          
+                          <StoriesCard
+                            data={data}
+                            key={index}
+                            OnPress={() =>
+                              navigation(`/details/${title}?id=${data?._id}`)
+                            }
+                            image={data?.image}
+                            text={data?.title}
+                            id="columnReverse"
+                          />
                         </>
                       );
                     } else {
@@ -1112,8 +1115,12 @@ const MainPage = () => {
             </div>
           </div>
         </div>
-        <div className="main-conatiner container container3 webMainPagecomponent">
-          <div className="main-rigth-side">
+        {/*  */}
+        <div
+          className="webMainPagecomponent main-component-group flex gap-7"
+          style={{ padding: "20px 30px", width: "100%" }}
+        >
+          <div className="main-component-group-left" style={{ width: "70%" }}>
             <div className="image-conatiner">
               <div className="main-conatiner-image-1">
                 <ImageCard
@@ -1150,7 +1157,7 @@ const MainPage = () => {
               </div>
             </div>
 
-            {/* <div className="image-conatiner" style={{ marginTop: "5%" }}>
+            <div className="image-conatiner" style={{ marginTop: "5%" }}>
               <div className="main-conatiner-image-1">
                 <ImageCard
                   height="100%"
@@ -1182,7 +1189,7 @@ const MainPage = () => {
                   width="100%"
                 />
               </div>
-            </div> */}
+            </div>
 
             <div
               className="more-text"
@@ -1198,7 +1205,11 @@ const MainPage = () => {
               />
             </div>
           </div>
-          <div id="TopStories" className="main-left-side">
+          <div
+            id="TopStories"
+            className="main-component-group-right"
+            style={{ width: "30%" }}
+          >
             <div className="main-left-side-top">
               <div>{t("ts")}</div>
             </div>
@@ -1233,6 +1244,7 @@ const MainPage = () => {
             </div>
           </div>
         </div>
+        {/*  */}
         <div className="main-news-area webMainPagecomponent">
           <div
             id="LatestNews"
@@ -1676,7 +1688,7 @@ const MainPage = () => {
             </div>
           </div>
         </div>*/}
-        <div className="webMainPagecomponent">
+        <div className="webMainPagecomponent all-category-data">
           <AllSectionArticle data={allCategoriesData} />
         </div>
 

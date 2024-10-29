@@ -7,6 +7,9 @@
   justify-content: center;
   align-items: center;
 }
+.main-component-group-right {
+  width: 30%;
+}
 .webStoryBlurredImage {
   /* Add the blur effect */
   filter: blur(16px);
@@ -308,7 +311,59 @@
     height: 75px !important;
   }
 }
+@media (max-width: 1095px) {
+  .main-component-group {
+    flex-direction: column;
+    width: 100%;
+  }
+  .main-component-group-left {
+    width: 100% !important;
+  }
+  .main-component-group-right {
+    width: 100% !important;
+  }
+}
+@media (max-width:1157px) {
+  .all-category-data {
+    display: flex !important ;
+    flex-wrap: wrap;
+    
+  }
+  .main-page-technology-area > div{
+    display: block !important;
+  }
+  .all-category-data .main-page-technology-container {
+    width: 50% !important;
+  }
 
+}
+
+@media (max-width: 665px) {
+  .main-component-group {
+    padding: 20px 0 20px 17px;
+  }
+  .webMainPagecomponent .main-page-flash-news {
+    margin: 0 15px !important;
+  }
+}
+@media (max-width: 685px) {
+  .webMainPagecomponent .main-page-flash-news {
+    margin: 10px 10px 0px 0px !important;
+    width: 100%;
+    gap: 12px;
+  }
+  .webMainPagecomponent .main-page-flash-news .flash-news-2 {
+    /* padding:0; */
+    width: auto !important;
+    background-color: red;
+  }
+  .flash-news-2-text {
+    max-width: 250px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+  }
+}
 @media (min-width: 1024px) and (max-width: 1439px) {
   .stories-card-text {
     font-size: 16px;

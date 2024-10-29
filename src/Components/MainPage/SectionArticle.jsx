@@ -7,8 +7,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useNavigate } from "react-router-dom";
 import { memo } from "react";
-import 'react-slideshow-image/dist/styles.css';
-import { Slide } from 'react-slideshow-image';
+import "react-slideshow-image/dist/styles.css";
+import { Slide } from "react-slideshow-image";
 
 const AllSectionArticle = ({ data }) => {
   return (
@@ -30,16 +30,15 @@ const AllSectionArticle = ({ data }) => {
 const SingleArticle = ({ category, imgData, vidData }) => {
   const navigation = useNavigate();
 
-
-  const isLifestyleOrSports = imgData.some(
-    (element) => ["sports", "Business", "Lifestyle"].includes(element.topic)
+  const isLifestyleOrSports = imgData.some((element) =>
+    ["sports", "Business", "Lifestyle"].includes(element.topic)
   );
 
   return (
-    <div className="main-page-technology-container container2 container3">
+    <div className="main-page-technology-container container2 container3 ">
       <div className="main-page-technology-heading">{category}</div>
       <div className="main-page-technology-area">
-        <div style={{ width: "100%" }}>
+        <div className="all-technology-cards" style={{ width: "100%" }}>
           {/* Left Portion */}
           {imgData && imgData.length > 0 && (
             <div className="main-page-technology-first-column">
@@ -57,7 +56,11 @@ const SingleArticle = ({ category, imgData, vidData }) => {
                       }
 
                       return (
-                        <div key={element._id} style={{ marginTop: "10px" }} className="cat-list">
+                        <div
+                          key={element._id}
+                          style={{ marginTop: "10px" }}
+                          className="cat-list"
+                        >
                           <ImageCard
                             style={{
                               fontSize: "15px",
