@@ -940,7 +940,7 @@ const MainPage = () => {
 
           <AllSectionArticle data={allCategoriesData} />
 
-          <div className="main-conatiner container  ">
+          <div className="main-conatiner container stories-list">
             <div
               id="VisualStories"
               style={{ padding: "0px 10px" }}

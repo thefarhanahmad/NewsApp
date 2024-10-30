@@ -777,6 +777,7 @@
     flex-direction: column;
     width: 100%;
     margin: 0 !important;
+    padding: 0 4px !important;
   }
   .flash-news-1 {
     width: 100%;
@@ -925,8 +926,11 @@
     margin-top: 20px;
   }
   .visual-story-card {
-    width: 100px;
+    width: 115px;
     height: 200px;
+  }
+  .visual-story-card .image-box{
+    width: 100% !important;
   }
   .visual-story-card img {
     width: 100px;

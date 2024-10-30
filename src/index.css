@@ -37,4 +37,17 @@ body {
   .container2 {
     padding: 0;
   }
+  .main-component-group {
+    padding: 20px 7px !important;
+  }
+  .all-category-data .main-page-technology-container {
+    width: 100% !important;
+  }
+  #VisualStories {
+    padding: 0 !important;
+    width: 100%;
+  }
+  .stories-list {
+    padding: 9px !important;
+  }
 }
