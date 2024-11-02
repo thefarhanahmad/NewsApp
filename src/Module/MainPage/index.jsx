@@ -685,7 +685,7 @@ const MainPage = () => {
               </div>
             </div>
           </div> */}
-          <div
+         {/* <div
             style={{
               display: "flex",
               flexDirection: "row",
@@ -729,10 +729,10 @@ const MainPage = () => {
                 ))}
               </div>
             </div>
-          </div>
+          </div>  */}
 
           {/* third */}
-          <div className="main-conatiner container container3 !mt-[33px]">
+          <div className="main-conatiner container container3">
             <div
               className="main-page-slider-setting"
               style={{ width: "100%", marginBottom: "20px" }}
