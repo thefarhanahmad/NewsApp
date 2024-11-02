@@ -9,12 +9,12 @@ import { API_URL } from "../../../API";
 import { AutoComplete, Input } from "antd";
 import logo from "../../assets/logo.svg";
 import { ArrowLeftOutlined, PlayCircleOutlined } from "@ant-design/icons";
-import { MdLiveTv } from "react-icons/md";
+import { IoIosCloseCircle } from "react-icons/io";
 import NewSearchModel from "../../models/newSearchModel";
 import { FaNewspaper } from "react-icons/fa6";
 import { MdAutoStories } from "react-icons/md";
 import { TfiGallery } from "react-icons/tfi";
-import { FaVideo } from "react-icons/fa";
+import { FaPhotoVideo } from "react-icons/fa";
 function findStoryIdFromUrl(pathname) {
   // Regular expression to find the 'id' parameter and its value
   const idRegex = /id=([^&]+)/;
@@ -177,7 +177,7 @@ const MobileHeader = ({ listitem }) => {
                   setHambergClicked(false);
                 }}
               >
-                <MdLiveTv style={{ marginLeft: "10px", fontSize:"18px"}} /> 
+                <PlayCircleOutlined style={{ marginLeft: "10px", fontSize:"18px"}} /> 
               </li>
             ) : null}
 
@@ -188,7 +188,7 @@ const MobileHeader = ({ listitem }) => {
               <TfiGallery size={18}/>
             </li>
             <li>
-              <FaVideo size={18}/>
+              <FaPhotoVideo size={18}/>
             </li>
             <li
               data-modal-target="default-modal"

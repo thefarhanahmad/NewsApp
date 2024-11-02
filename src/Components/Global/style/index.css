@@ -6,9 +6,9 @@
   font-size: 20px;
   color: white;
 }
-.default-nav{
+/* .default-nav{
   display: none !important;
-}
+} */
 .subtitle {
   padding-bottom: 8px;
 }
@@ -78,7 +78,7 @@
   text-transform: capitalize;
   font-family: Poppins;
   font-size: 14px;
-  gap: 11px;
+  gap: 9px;
   font-weight: 400;
   line-height: 23px;
   letter-spacing: 0em;

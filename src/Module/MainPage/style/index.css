@@ -349,8 +349,8 @@
 .main-page-technology-heading {
   text-transform: capitalize;
   font-family: Poppins;
-  font-size: 28px;
-  font-weight: 600;
+  font-size: 30px;
+  font-weight: 700;
   line-height: 48px;
   letter-spacing: 0em;
   text-align: left;
@@ -692,7 +692,6 @@
   .news-main-rigth-part2 {
     height: fit-content;
     /* background-color: red; */
-
     position: static;
     /* top: -34.5rem;
     left: -2.5rem; */
@@ -716,7 +715,6 @@
     border: none;
     padding: 0;
   }
-
   .video-cards {
     flex-direction: column;
     justify-content: center;
@@ -768,7 +766,6 @@
   .webMainPagecomponent {
     display: none;
   }
-
   .video-text-box > div {
     height: 20%;
     font-size: 18px;
@@ -777,11 +774,23 @@
     flex-direction: column;
     width: 100%;
     margin: 0 !important;
-    padding: 0 4px !important;
   }
   .flash-news-1 {
     width: 100%;
     border-radius: 6px;
+    background-color: transparent;
+    color: black;
+    font-size: 25px;
+    font-weight: bolder;
+  }
+  .react-slideshow-container+ul.indicators .each-slideshow-indicator:before{
+    width: 11px !important;
+    height: 11px !important;
+  }
+
+  
+  .indicators{
+    gap: 8px;
   }
   .flash-news-2 {
     flex-direction: column;
@@ -926,11 +935,8 @@
     margin-top: 20px;
   }
   .visual-story-card {
-    width: 115px;
+    width: 100px;
     height: 200px;
-  }
-  .visual-story-card .image-box{
-    width: 100% !important;
   }
   .visual-story-card img {
     width: 100px;

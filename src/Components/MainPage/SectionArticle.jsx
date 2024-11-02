@@ -44,10 +44,9 @@ const SingleArticle = ({ category, imgData, vidData }) => {
             <div className="main-page-technology-first-column">
               <div className="slide-container">
                 {isLifestyleOrSports ? (
-                  <Slide>
+                  <Slide indicators={true}>
                     {imgData.map((element) => {
                       let title = element.title
-
                         ?.replace(/[%.?]/g, "")
                         .split(" ")
                         .join("-");

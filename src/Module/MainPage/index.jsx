@@ -558,13 +558,13 @@ const MainPage = () => {
             </div>
           </div>
           {/* second */}
-          <div
+          {/* <div
             style={{
               display: "flex",
               flexDirection: "row",
               justifyContent: "space-between",
               marginTop: "3%",
-              padding:"0 9px"
+              padding: "0 9px",
             }}
           >
             <div className="main-page-slider-setting">
@@ -684,10 +684,59 @@ const MainPage = () => {
                   ))}
               </div>
             </div>
+          </div> */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              marginTop: "3%",
+              padding: "0 9px",
+            }}
+          >
+            <div className="main-page-slider-setting">
+              {sliderArticles
+                ?.filter((_, index) => index === sliderItem)
+                .map((data, index) => (
+                  <ImageCard
+                    key={index}
+                    img={data.image}
+                    text={data.title}
+                    slug={data.slug}
+                    title={data.title}
+                    id={data._id}
+                    height="50vh"
+                    width="100%"
+                  />
+                ))}
+              <div className="main-page-slider-items">
+                {sliderArticles.map((_, i) => (
+                  <div
+                    key={i}
+                    className={`slider-item ${
+                      sliderItem === i ? "slider-item-active" : ""
+                    }`}
+                    onClick={() => {
+                      setShowItem(false);
+                      setTimeout(() => {
+                        setShowItem(true);
+                        setSliderItem(
+                          (prev) => (prev + 1) % sliderArticles.length
+                        );
+                      }, 1000);
+                    }}
+                  ></div>
+                ))}
+              </div>
+            </div>
           </div>
+
           {/* third */}
-          <div className="main-conatiner container container3 ">
-            <div className="main-page-slider-setting" style={{ width: "100%",marginBottom:"20px" }}>
+          <div className="main-conatiner container container3 !mt-[33px]">
+            <div
+              className="main-page-slider-setting"
+              style={{ width: "100%", marginBottom: "20px" }}
+            >
               {sliderArticles
                 ?.slice(0, 10)
                 .map((data, index) =>
@@ -940,7 +989,7 @@ const MainPage = () => {
 
           <AllSectionArticle data={allCategoriesData} />
 
-          <div className="main-conatiner container stories-list">
+          <div className="main-conatiner container  ">
             <div
               id="VisualStories"
               style={{ padding: "0px 10px" }}
