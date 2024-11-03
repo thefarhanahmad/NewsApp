@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import "./style/index.css";
 import { IoMdArrowDropleft, IoMdArrowDropright } from "react-icons/io";
 import { FaGreaterThan } from "react-icons/fa6";
-
+import "react-slideshow-image/dist/styles.css";
+import { Slide } from "react-slideshow-image";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import VideoCard from "../../Components/MainPage/VideoCard";
@@ -536,7 +537,7 @@ const MainPage = () => {
 
           <div className="container3">
             <div className="main-page-flash-news container">
-              <div className="flash-news-1 ">{t("fn")}</div>
+              
               <div className="flash-news-2">
                 <div className="flash-news-slider">
                   <div className="flash-news-2-text">
@@ -685,7 +686,7 @@ const MainPage = () => {
               </div>
             </div>
           </div> */}
-         {/* <div
+          {/* <div
             style={{
               display: "flex",
               flexDirection: "row",
@@ -732,17 +733,32 @@ const MainPage = () => {
           </div>  */}
 
           {/* third */}
+
           <div className="main-conatiner container container3">
             <div
               className="main-page-slider-setting"
               style={{ width: "100%", marginBottom: "20px" }}
             >
-              {sliderArticles
-                ?.slice(0, 10)
-                .map((data, index) =>
-                  index === sliderItem ? (
+              <Slide
+                easing="ease"
+                duration={2000}
+                indicators={(index) => (
+                  <div
+                    style={{
+                      display: "inline-block",
+                      width: "8px",
+                      height: "8px",
+                      margin: "0 4px",
+                      backgroundColor:
+                        currentIndex === index ? "black" : "gray",
+                      borderRadius: "50%",
+                    }}
+                  ></div>
+                )}
+              >
+                {sliderArticles?.slice(0, 10).map((data, index) => (
+                  <div key={data._id} className="each-slide">
                     <ImageCard
-                      key={data._id}
                       img={data.image}
                       text={data.title}
                       title={data.title}
@@ -751,28 +767,12 @@ const MainPage = () => {
                       height="35vh"
                       width="100%"
                     />
-                  ) : null
-                )}
-
-              <div className="main-page-slider-items">
-                {Array.from({ length: 10 }).map((_, index) => (
-                  <div
-                    key={index}
-                    className={`slider-item ${
-                      sliderItem === index ? "slider-item-active" : ""
-                    }`}
-                    onClick={() => {
-                      setShowItem(false);
-                      setTimeout(() => {
-                        setShowItem(true);
-                        setSliderItem(index);
-                      }, 1000);
-                    }}
-                  ></div>
+                  </div>
                 ))}
-              </div>
+              </Slide>
             </div>
 
+            {/* Breaking news section */}
             <div id="LatestNews" className="main-left-side">
               <div className="mobileMainPageHeading">
                 <div>{t("ln")}</div>
@@ -786,8 +786,7 @@ const MainPage = () => {
                   if (data.slug) {
                     title = data.slug;
                   }
-                  if (index <= 3) return;
-                  if (title) {
+                  if (index > 3) {
                     return (
                       <StoriesCard
                         data={data}
@@ -805,7 +804,8 @@ const MainPage = () => {
                 })}
               </div>
             </div>
-            {/* jcbjhdbchdbhddndj */}
+
+            {/* Top stories section */}
             <div id="TopStories" className="main-left-side">
               <div className="mobileMainPageHeading">
                 <div>{t("ts")}</div>
@@ -822,38 +822,36 @@ const MainPage = () => {
 
                   if (title && index < 6) {
                     return (
-                      <>
-                        <div
-                          onClick={() => {
-                            navigation(`/details/${title}?id=${item?._id}`, {
-                              state: item,
-                            });
+                      <div
+                        key={index}
+                        onClick={() =>
+                          navigation(`/details/${title}?id=${item?._id}`, {
+                            state: item,
+                          })
+                        }
+                        className="mobileTopStoryCard flex-row-reverse"
+                      >
+                        <img
+                          style={{
+                            width: "150px",
+                            height: "118px",
+                            objectFit: "cover",
+                            objectPosition: "center",
                           }}
-                          className="mobileTopStoryCard flex-row-reverse"
+                          src={item.image}
+                        />
+                        <div
+                          style={{
+                            height: "50%",
+                            width: "100%",
+                            fontSize: "13px",
+                            padding: "10px",
+                            fontWeight: "bold",
+                          }}
                         >
-                          <img
-                            style={{
-                              width: "150px",
-                              height: "118px",
-                              objectFit: "cover",
-                              objectPosition: "center",
-                            }}
-                            src={item.image}
-                          />
-                          <div
-                            className=""
-                            style={{
-                              height: "50%",
-                              width: "100%",
-                              fontSize: "13px",
-                              padding: "10px",
-                              fontWeight: "bold",
-                            }}
-                          >
-                            {item.title}
-                          </div>
+                          {item.title}
                         </div>
-                      </>
+                      </div>
                     );
                   } else {
                     return null;
