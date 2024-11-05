@@ -228,6 +228,8 @@
 @media screen and (min-width: 500px) {
   .mobileDetailsPage {
     display: none;
+   
+
   }
 }
 @media screen and (max-width: 500px) {
@@ -236,7 +238,7 @@
   }
   .mobileDetailsPage {
     display: block;
-    margin-top: 85px;
+    margin-top: 85px !important;
   }
   .details-page-top-items {
     display: grid;

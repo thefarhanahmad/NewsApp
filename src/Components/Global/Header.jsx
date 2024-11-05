@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import TopHeaderImg from "../../assets/TopHeader-img.svg";
 import "./style/index.css";
 import logo from "../../assets/logo.svg";

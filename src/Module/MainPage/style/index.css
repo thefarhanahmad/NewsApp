@@ -39,9 +39,8 @@
   background-color: red;
   display: none;
 }
-.mobileMainPageContainer{
+.mobileMainPageContainer {
   overflow-x: scroll;
- 
 }
 .mobileMainPageContainer #columnReverse {
   border-radius: 0 !important;
@@ -50,16 +49,16 @@
   border: 1px solid gray;
   padding-bottom: 5px;
 }
-.mobileMainPageContainer #columnReverse img{
+.mobileMainPageContainer #columnReverse img {
   width: 100% !important;
   height: 130px;
   object-fit: cover;
   object-position: top center;
 }
-#columnReverse .stories-card-text{
+#columnReverse .stories-card-text {
   width: 100% !important;
 }
-#columnReverse{
+#columnReverse {
   height: 175px !important;
   width: 190px;
 }
@@ -350,7 +349,7 @@
   text-transform: capitalize;
   font-family: Poppins;
   font-size: 30px;
-  font-weight: 700;
+  font-weight: bold;
   line-height: 48px;
   letter-spacing: 0em;
   text-align: left;
@@ -783,13 +782,12 @@
     font-size: 25px;
     font-weight: bolder;
   }
-  .react-slideshow-container+ul.indicators .each-slideshow-indicator:before{
+  .react-slideshow-container + ul.indicators .each-slideshow-indicator:before {
     width: 11px !important;
     height: 11px !important;
   }
 
-  
-  .indicators{
+  .indicators {
     gap: 8px;
   }
   .flash-news-2 {

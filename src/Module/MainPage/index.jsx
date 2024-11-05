@@ -6,14 +6,14 @@ import "react-slideshow-image/dist/styles.css";
 import { Slide } from "react-slideshow-image";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import VideoCard from "../../Components/MainPage/VideoCard";
+// import VideoCard from "../../Components/MainPage/VideoCard";
 import ImageCard from "../../Components/MainPage/ImageCard";
 import StoriesCard from "../../Components/MainPage/StoriesCard";
 import NewsCard from "../../Components/MainPage/NewsCard";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 import { IoCameraSharp } from "react-icons/io5";
-import { Col, Modal, Progress, Radio, Row } from "antd";
+import { Col, Progress, Radio, Row } from "antd";
 import { API_URL } from "../../../API";
 import { useNavigate } from "react-router-dom";
 
@@ -167,7 +167,7 @@ const MainPage = () => {
         `${API_URL}/article?pagenation=true&limit=8&type=img&status=online&slider=true`
       )
       .then((sliderData) => {
-        console.log("slider articles", sliderData.data);
+        console.log("slider articles nk", sliderData.data);
 
         // Filter to ensure only articles with status 'online'
         const onlineArticles = sliderData?.data.filter(
@@ -534,10 +534,8 @@ const MainPage = () => {
               </div>
             );
           })}
-
           <div className="container3">
             <div className="main-page-flash-news container">
-              
               <div className="flash-news-2">
                 <div className="flash-news-slider">
                   <div className="flash-news-2-text">
@@ -686,7 +684,7 @@ const MainPage = () => {
               </div>
             </div>
           </div> */}
-          {/* <div
+          <div
             style={{
               display: "flex",
               flexDirection: "row",
@@ -696,84 +694,101 @@ const MainPage = () => {
             }}
           >
             <div className="main-page-slider-setting">
-              {sliderArticles
-                ?.filter((_, index) => index === sliderItem)
-                .map((data, index) => (
-                  <ImageCard
-                    key={index}
-                    img={data.image}
-                    text={data.title}
-                    slug={data.slug}
-                    title={data.title}
-                    id={data._id}
-                    height="50vh"
-                    width="100%"
-                  />
-                ))}
-              <div className="main-page-slider-items">
-                {sliderArticles.map((_, i) => (
-                  <div
-                    key={i}
-                    className={`slider-item ${
-                      sliderItem === i ? "slider-item-active" : ""
-                    }`}
-                    onClick={() => {
-                      setShowItem(false);
-                      setTimeout(() => {
-                        setShowItem(true);
-                        setSliderItem(
-                          (prev) => (prev + 1) % sliderArticles.length
-                        );
-                      }, 1000);
-                    }}
-                  ></div>
-                ))}
-              </div>
+              {sliderArticles?.length > 0 ? (
+                <Slide
+                  easing="ease"
+                  duration={3000}
+                  indicators={true}
+                  prevArrow={
+                    <div
+                      style={{
+                        fontSize: "30px",
+                        cursor: "pointer",
+                        color: "blue",
+                      }}
+                    >
+                      {" "}
+                      &#9664;{" "}
+                    </div>
+                  }
+                  nextArrow={
+                    <div
+                      style={{
+                        fontSize: "30px",
+                        cursor: "pointer",
+                        color: "blue",
+                      }}
+                    >
+                      {" "}
+                      &#9654;{" "}
+                    </div>
+                  }
+                >
+                  {sliderArticles.map((data) => (
+                    <div key={data._id} className="each-slide">
+                      <ImageCard
+                        img={data?.image}
+                        text={data.title}
+                        slug={data.slug}
+                        title={data.title}
+                        id={data._id}
+                        height="40vh"
+                        width="100%"
+                      />
+                    </div>
+                  ))}
+                </Slide>
+              ) : (
+                <div className="text-center">Loading...</div>
+              )}
             </div>
-          </div>  */}
+          </div>
 
           {/* third */}
-
-          <div className="main-conatiner container container3">
+          {/* <div className="main-conatiner container container3">
             <div
               className="main-page-slider-setting"
               style={{ width: "100%", marginBottom: "20px" }}
             >
-              <Slide
-                easing="ease"
-                duration={2000}
-                indicators={(index) => (
-                  <div
-                    style={{
-                      display: "inline-block",
-                      width: "8px",
-                      height: "8px",
-                      margin: "0 4px",
-                      backgroundColor:
-                        currentIndex === index ? "black" : "gray",
-                      borderRadius: "50%",
-                    }}
-                  ></div>
-                )}
-              >
-                {sliderArticles?.slice(0, 10).map((data, index) => (
-                  <div key={data._id} className="each-slide">
-                    <ImageCard
-                      img={data.image}
-                      text={data.title}
-                      title={data.title}
-                      slug={data.slug}
-                      id={data._id}
-                      height="35vh"
-                      width="100%"
-                    />
-                  </div>
-                ))}
-              </Slide>
-            </div>
+              {sliderArticles?.length > 0 ? (
+                <Slide
+                  easing="ease"
+                  duration={2000}
+                  indicators={(index) => (
+                    <div
+                      style={{
+                        display: "inline-block",
+                        width: "8px",
+                        height: "8px",
+                        margin: "0 4px",
+                        backgroundColor:
+                          currentIndex === index ? "black" : "gray",
+                        borderRadius: "50%",
+                      }}
+                    ></div>
+                  )}
+                >
+                  {sliderArticles?.slice(0, 10).map((data) => (
+                    <div key={data._id} className="each-slide">
+                      <ImageCard
+                        img={data?.image}
+                        text={data.title}
+                        title={data.title}
+                        slug={data.slug}
+                        id={data._id}
+                        height="35vh"
+                        width="100%"
+                      />
+                    </div>
+                  ))}
+                </Slide>
+              ) : (
+                <div>Loading...</div>
+              )}
+            </div> */}
 
-            {/* Breaking news section */}
-            <div id="LatestNews" className="main-left-side">
+          {/* Breaking news section */}
+          {/* <div id="LatestNews" className="main-left-side">
               <div className="mobileMainPageHeading">
                 <div>{t("ln")}</div>
               </div>
@@ -806,7 +821,7 @@ const MainPage = () => {
             </div>
 
             {/* Top stories section */}
-            <div id="TopStories" className="main-left-side">
+          {/* <div id="TopStories" className="main-left-side">
               <div className="mobileMainPageHeading">
                 <div>{t("ts")}</div>
               </div>
@@ -859,8 +874,7 @@ const MainPage = () => {
                 })}
               </div>
             </div>
-          </div>
-
+          </div>  */}
           {/* forth */}
           <div className="main-conatiner container container3 overflow-scroll">
             <div
@@ -916,7 +930,6 @@ const MainPage = () => {
               </div>
             </div>
           </div>
-
           {/* fifth */}
           <div
             // id="Videos"
@@ -984,9 +997,7 @@ const MainPage = () => {
               })}
             </div>
           </div>
-
           <AllSectionArticle data={allCategoriesData} />
-
           <div className="main-conatiner container  ">
             <div
               id="VisualStories"
@@ -1045,7 +1056,6 @@ const MainPage = () => {
               </div>
             </div>
           </div>
-
           <div
             id="Photos"
             className="main-video-gallery-main-container container2 container3"

@@ -3,7 +3,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { RxCross1 } from "react-icons/rx";
 import { BiSolidSearch } from "react-icons/bi";
 import { Loading } from "../../Context";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { API_URL } from "../../../API";
 import { AutoComplete, Input } from "antd";
@@ -125,7 +125,6 @@ const MobileHeader = ({ listitem }) => {
                 onClick={goToPreviousPage}
               >
                 <ArrowLeftOutlined color="white" />
-                
               </div>
             ) : isHamBurgClicked ? (
               <RxCross1
@@ -146,7 +145,6 @@ const MobileHeader = ({ listitem }) => {
             )}
           </div>
           <div className="mobile-visible-containerr">
-           
             <span
               onClick={() => {
                 Navigation("/");
@@ -154,7 +152,7 @@ const MobileHeader = ({ listitem }) => {
               }}
               className="mobilevisibleNavItemsUlChild"
             >
-              <FaNewspaper size={25}/>
+              <FaNewspaper size={25} />
             </span>
             <div
               onClick={() => {
@@ -169,26 +167,36 @@ const MobileHeader = ({ listitem }) => {
           </div>
 
           <ul className="mobilevisibleNavItemsUlChild">
-            {!isLivePage ? (
+            
               <li
-                style={{ cursor: "pointer" }}
-                onClick={() => {
-                  Navigation("/live");
-                  setHambergClicked(false);
-                }}
+              // style={{ cursor: "pointer" }}
+              // onClick={() => {
+              //   Navigation("/live");
+              //   setHambergClicked(false);
+              // }}
               >
-                <PlayCircleOutlined style={{ marginLeft: "10px", fontSize:"18px"}} /> 
+                <Link to="/live">
+                  <PlayCircleOutlined
+                    style={{ marginLeft: "10px", fontSize: "18px" }}
+                  />
+                </Link>
               </li>
-            ) : null}
+            
 
             <li>
-              <MdAutoStories size={18}/>
+              <Link to="/itempage?item=Web%20Story">
+                <MdAutoStories size={18} />
+              </Link>
             </li>
             <li>
-              <TfiGallery size={18}/>
+              <Link to="/photos/:id">
+                <TfiGallery size={18} />
+              </Link>
             </li>
             <li>
-              <FaPhotoVideo size={18}/>
+              <Link to="/videos/:id">
+                <FaPhotoVideo size={18} />
+              </Link>
             </li>
             <li
               data-modal-target="default-modal"

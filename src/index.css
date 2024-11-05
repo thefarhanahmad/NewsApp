@@ -32,7 +32,11 @@ body {
   .main-page-slider-setting {
     width: 100% !important;
   }
-  
+  .ImageCarouselContainer{
+    position: static;
+    
+    background-color: transparent !important;
+  }
   .container3 {
     padding: 8px !important;
   }
