@@ -214,7 +214,7 @@
   width: 100%;
   font-family: Poppins;
   font-size: 21px;
-  font-weight: 500;
+  font-weight: bold !important;
   letter-spacing: 0em;
   padding: 10px;
   color: rgba(255, 255, 255, 1);

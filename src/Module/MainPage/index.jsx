@@ -695,35 +695,7 @@ const MainPage = () => {
           >
             <div className="main-page-slider-setting">
               {sliderArticles?.length > 0 ? (
-                <Slide
-                  easing="ease"
-                  duration={3000}
-                  indicators={true}
-                  prevArrow={
-                    <div
-                      style={{
-                        fontSize: "30px",
-                        cursor: "pointer",
-                        color: "blue",
-                      }}
-                    >
-                      {" "}
-                      &#9664;{" "}
-                    </div>
-                  }
-                  nextArrow={
-                    <div
-                      style={{
-                        fontSize: "30px",
-                        cursor: "pointer",
-                        color: "blue",
-                      }}
-                    >
-                      {" "}
-                      &#9654;{" "}
-                    </div>
-                  }
-                >
+                <Slide easing="ease" duration={3000} indicators={true}>
                   {sliderArticles.map((data) => (
                     <div key={data._id} className="each-slide">
                       <ImageCard
