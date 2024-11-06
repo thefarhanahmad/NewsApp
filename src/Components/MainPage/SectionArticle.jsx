@@ -11,6 +11,8 @@ import "react-slideshow-image/dist/styles.css";
 import { Slide } from "react-slideshow-image";
 
 const AllSectionArticle = ({ data }) => {
+
+  console.log("nidhi",data)
   return (
     <>
       {data
@@ -31,7 +33,7 @@ const SingleArticle = ({ category, imgData, vidData }) => {
   const navigation = useNavigate();
 
   const isLifestyleOrSports = imgData.some((element) =>
-    ["sports", "Business", "Lifestyle"].includes(element.topic)
+    ["sports", "Business", "Lifestyle","New4","NEW7",].includes(element.topic)
   );
 
   return (

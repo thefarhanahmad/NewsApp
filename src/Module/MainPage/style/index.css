@@ -281,7 +281,7 @@
 .more-text {
   margin-top: 25px;
   font-size: 16px;
-  color: red;
+  color: white;
   font-family: Poppins;
   text-transform: capitalize;
   display: flex;
@@ -760,7 +760,7 @@
     margin-top: 1px;
   }
   .stories-card > img {
-    width: 40% !important;
+    width: 60% !important;
   }
   .webMainPagecomponent {
     display: none;

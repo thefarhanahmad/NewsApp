@@ -145,15 +145,16 @@ const MobileHeader = ({ listitem }) => {
             )}
           </div>
           <div className="mobile-visible-containerr">
-            <span
-              onClick={() => {
-                Navigation("/");
-                setHambergClicked(false);
-              }}
+            <Link
+              // onClick={() => {
+              //   Navigation("/");
+              //   setHambergClicked(false);
+              // }}
+              to="http://epaper.loksatya.com"
               className="mobilevisibleNavItemsUlChild"
             >
               <FaNewspaper size={25} />
-            </span>
+            </Link>
             <div
               onClick={() => {
                 Navigation("/");
@@ -189,12 +190,12 @@ const MobileHeader = ({ listitem }) => {
               </Link>
             </li>
             <li>
-              <Link to="/photos/:id">
+              <Link to="/photos">
                 <TfiGallery size={18} />
               </Link>
             </li>
             <li>
-              <Link to="/videos/:id">
+              <Link to="http://localhost:5173/itempage2?newsType=videos">
                 <FaPhotoVideo size={18} />
               </Link>
             </li>

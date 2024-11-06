@@ -104,7 +104,10 @@ const ItemPage = () => {
           .catch(() => {
             setIsLoad(false);
           });
-      } else {
+      } 
+     
+      
+      else {
         axios
           // .get(`${API_URL}/article?newsType=${query.get("newsType")}`)
           // .then((data) => {

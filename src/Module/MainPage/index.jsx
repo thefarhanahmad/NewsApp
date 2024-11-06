@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./style/index.css";
 import { IoMdArrowDropleft, IoMdArrowDropright } from "react-icons/io";
 import { FaGreaterThan } from "react-icons/fa6";
@@ -12,7 +12,11 @@ import StoriesCard from "../../Components/MainPage/StoriesCard";
 import NewsCard from "../../Components/MainPage/NewsCard";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
-import { IoCameraSharp } from "react-icons/io5";
+import {
+  IoCameraSharp,
+  IoChevronBack,
+  IoChevronForward,
+} from "react-icons/io5";
 import { Col, Progress, Radio, Row } from "antd";
 import { API_URL } from "../../../API";
 import { useNavigate } from "react-router-dom";
@@ -59,6 +63,20 @@ const MainPage = () => {
   const [stories, setStories] = useState([]);
   const [allCategoriesData, setAllCategoriesData] = useState(null);
   const [DisplayImageCrousal, setDisplayImageCrousal] = useState(false);
+
+  const scrollContainerRef = useRef(null);
+
+  const scrollLeft = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: -190, behavior: "smooth" });
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: 190, behavior: "smooth" });
+    }
+  };
 
   useEffect(() => {
     axios
@@ -847,25 +865,201 @@ const MainPage = () => {
               </div>
             </div>
           </div>  */}
+
+          {/* sheersh aalekh */}
+          <div
+            className="webMainPagecomponent main-component-group flex gap-7 "
+            style={{ padding: "20px 30px", width: "100%" }}
+          >
+            <div className="main-component-group-left" style={{ width: "70%" }}>
+              <div className="image-conatiner">
+                <div
+                  className="main-conatiner-image-1"
+                  style={{ position: "relative" }}
+                >
+                  <ImageCard
+                    height="100%"
+                    width="100%"
+                    img={breakingNews?.[0]?.image}
+                    text={breakingNews?.[0]?.title}
+                    title={breakingNews?.[0]?.title
+                      .replace(/[/\%.?]/g, "")
+                      .split(" ")
+                      .join("-")}
+                    slug={breakingNews?.[0]?.slug}
+                    id={breakingNews?.[0]?._id}
+                  />
+                </div>
+                <div
+                  className="main-conatiner-image-2"
+                  style={{
+                    marginLeft: "10px",
+                  }}
+                >
+                  <ImageCard
+                    img={breakingNews?.[1]?.image}
+                    text={breakingNews?.[1]?.title}
+                    title={breakingNews?.[1]?.title
+                      .replace(/[/\%.?]/g, "")
+                      .split(" ")
+                      .join("-")}
+                    slug={breakingNews?.[1]?.slug}
+                    id={breakingNews?.[1]?._id}
+                    height="100%"
+                    width="100%"
+                  />
+                </div>
+              </div>
+
+              <div className="image-conatiner" style={{ marginTop: "5%" }}>
+                <div className="main-conatiner-image-1">
+                  <ImageCard
+                    height="100%"
+                    width="100%"
+                    img={sliderArticles?.[0]?.image}
+                    text={sliderArticles?.[0]?.title}
+                    title={sliderArticles?.[0]?.title
+                      .replace(/[/\%.?]/g, "")
+                      .split(" ")
+                      .join("-")}
+                    id={sliderArticles?.[0]?._id}
+                  />
+                </div>
+                <div
+                  className="main-conatiner-image-2"
+                  style={{
+                    marginLeft: "10px",
+                  }}
+                >
+                  <ImageCard
+                    img={sliderArticles?.[1]?.image}
+                    text={sliderArticles?.[1]?.title}
+                    title={sliderArticles?.[1]?.title
+                      .replace(/[/\%.?]/g, "")
+                      .split(" ")
+                      .join("-")}
+                    id={sliderArticles?.[1]?._id}
+                    height="100%"
+                    width="100%"
+                  />
+                </div>
+              </div>
+
+              <div
+                className="more-text"
+                onClick={() => {
+                  navigation(`/itempage2?newsType=topStories`);
+                }}
+              >
+                {"more"}{" "}
+                <FaGreaterThan
+                  style={{
+                    marginLeft: "6px",
+                  }}
+                />
+              </div>
+            </div>
+            <div
+              id="TopStories"
+              className="main-component-group-right"
+              style={{ width: "30%" }}
+            >
+              <div className="main-left-side-top">
+                <div>{t("ts")}</div>
+              </div>
+              <div className="top-stories-all-cards">
+                {topStories
+                  ?.sort(
+                    (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
+                  )
+                  .map((data, index) => {
+                    let title = data.title
+                      .replace(/[/\%.?]/g, "")
+                      .split(" ")
+                      .join("-");
+                    if (data.slug) {
+                      title = data.slug;
+                    }
+
+                    if (title && index < 3) {
+                      return (
+                        <StoriesCard
+                          data={data}
+                          key={index}
+                          OnPress={() =>
+                            navigation(`/details/${title}?id=${data?._id}`)
+                          }
+                          image={data?.image}
+                          text={data?.title}
+                        />
+                      );
+                    } else {
+                      return null;
+                    }
+                  })}
+              </div>
+            </div>
+          </div>
           {/* forth */}
-          <div className="main-conatiner container container3 overflow-scroll">
+          <div className="main-conatiner container container3">
             <div
               id="BigNews"
               className="main-left-side"
-              style={{ flexDirection: "column" }}
+              style={{ flexDirection: "column", position: "relative" }}
             >
               <div className="mobileMainPageHeading">
                 <div>{t("bn")}</div>
               </div>
+
+              {/* Slider control buttons */}
               <div
-                className="top-stories-all-cards "
                 style={{
-                  display: "grid",
-                  gridAutoFlow: "column",
-                  gridAutoColumns: "160px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  width: "100%",
+                  marginBottom: "10px",
+                  position: "absolute",
+                  bottom: "74px",
+                }}
+              >
+                <button
+                  onClick={scrollLeft}
+                  style={{
+                    background: "rgba(255, 255, 255, 0.6)",
+                    border: "none",
+                    cursor: "pointer",
+                    fontSize: "24px",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <IoChevronBack />
+                </button>
+                <button
+                  onClick={scrollRight}
+                  style={{
+                    background: "rgba(255, 255, 255, 0.6)",
+                    border: "none",
+                    cursor: "pointer",
+                    fontSize: "24px",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <IoChevronForward />
+                </button>
+              </div>
+
+              {/* Top stories container */}
+              <div
+                ref={scrollContainerRef}
+                className="top-stories-all-cards"
+                style={{
+                  display: "flex",
+
                   overflowX: "auto",
-                  gridTemplateColumns: "auto",
-                  columnGapgap: "20px",
+
+                  columnGap: "10px",
                   whiteSpace: "nowrap",
                 }}
               >
@@ -882,18 +1076,16 @@ const MainPage = () => {
 
                     if (title && index < 10 && index >= 5) {
                       return (
-                        <>
-                          <StoriesCard
-                            data={data}
-                            key={index}
-                            OnPress={() =>
-                              navigation(`/details/${title}?id=${data?._id}`)
-                            }
-                            image={data?.image}
-                            text={data?.title}
-                            id="columnReverse"
-                          />
-                        </>
+                        <StoriesCard
+                          data={data}
+                          key={index}
+                          OnPress={() =>
+                            navigation(`/details/${title}?id=${data?._id}`)
+                          }
+                          image={data?.image}
+                          text={data?.title}
+                          id="columnReverse"
+                        />
                       );
                     } else {
                       return null;
@@ -1028,7 +1220,7 @@ const MainPage = () => {
               </div>
             </div>
           </div>
-          <div
+          {/* <div
             id="Photos"
             className="main-video-gallery-main-container container2 container3"
           >
@@ -1106,6 +1298,130 @@ const MainPage = () => {
                   );
                 })}
             </div>
+          </div> */}
+
+          <div
+            id="Photos"
+            className="main-video-gallery-main-container container2 container3"
+            style={{ position: "relative" }}
+          >
+            <div className="main-page-video-heading2">{t("ph")}</div>
+
+            {/* Arrow buttons for scrolling */}
+            <div
+              style={{
+                width: "95%",
+                display: "flex",
+                justifyContent: "space-between",
+                marginBottom: "10px",
+                position: "absolute",
+                bottom: "186px",
+              }}
+            >
+              <button
+                onClick={scrollLeft}
+                style={{
+                  background: "rgba(255, 255, 255, 0.6)",
+                  border: "none",
+                  cursor: "pointer",
+                  fontSize: "24px",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <IoChevronBack />
+              </button>
+              <button
+                onClick={scrollRight}
+                style={{
+                  background: "rgba(255, 255, 255, 0.6)",
+                  border: "none",
+                  cursor: "pointer",
+                  fontSize: "24px",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                <IoChevronForward />
+              </button>
+            </div>
+
+            <div
+              ref={scrollContainerRef}
+              className="main-page-photoGallery-container"
+              style={{ display: "flex", overflowX: "auto", gap: "20px" }}
+            >
+              {photo &&
+                photo.map((img, index) => {
+                  console.log("img to show in thumbnail: ", img);
+
+                  // Find the image with albumPeriority: true
+                  const prioritizedImage = img?.images.find(
+                    (image) => image.albumPeriority === true
+                  );
+                  console.log("prioritized: ", prioritizedImage);
+
+                  // If prioritizedImage is found, use it; otherwise, fallback to the 0th image
+                  const displayImage = prioritizedImage
+                    ? prioritizedImage.img
+                    : img?.images[0]?.img;
+
+                  const displayText = prioritizedImage
+                    ? prioritizedImage.text
+                    : img?.images[0]?.text;
+
+                  return (
+                    <div key={index}>
+                      <a
+                        href={`/photos/${img?._id}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <div className="photoGallery-card">
+                          <img
+                            src={displayImage}
+                            alt={displayText}
+                            style={{ width: "100%" }}
+                          />
+                        </div>
+                      </a>
+                      <div
+                        style={{
+                          display: "flex",
+                          width: "100%",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                        }}
+                      >
+                        <span className="pgt">{img?.title.toUpperCase()}</span>
+                        <div
+                          className="pgt-r"
+                          style={{
+                            display: "flex",
+                            gap: "5px",
+                            alignItems: "center",
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              lineHeight: "1",
+                            }}
+                          >
+                            <IoCameraSharp />
+                          </span>
+                          <span style={{ lineHeight: "1" }}>
+                            {img?.images?.length < 10
+                              ? "0" + img?.images?.length
+                              : img?.images?.length}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
           </div>
         </div>
 
@@ -1135,134 +1451,7 @@ const MainPage = () => {
           </div>
         </div>
         {/*  */}
-        <div
-          className="webMainPagecomponent main-component-group flex gap-7"
-          style={{ padding: "20px 30px", width: "100%" }}
-        >
-          <div className="main-component-group-left" style={{ width: "70%" }}>
-            <div className="image-conatiner">
-              <div className="main-conatiner-image-1">
-                <ImageCard
-                  height="100%"
-                  width="100%"
-                  img={breakingNews?.[0]?.image}
-                  text={breakingNews?.[0]?.title}
-                  title={breakingNews?.[0]?.title
-                    .replace(/[/\%.?]/g, "")
-                    .split(" ")
-                    .join("-")}
-                  slug={breakingNews?.[0]?.slug}
-                  id={breakingNews?.[0]?._id}
-                />
-              </div>
-              <div
-                className="main-conatiner-image-2"
-                style={{
-                  marginLeft: "10px",
-                }}
-              >
-                <ImageCard
-                  img={breakingNews?.[1]?.image}
-                  text={breakingNews?.[1]?.title}
-                  title={breakingNews?.[1]?.title
-                    .replace(/[/\%.?]/g, "")
-                    .split(" ")
-                    .join("-")}
-                  slug={breakingNews?.[1]?.slug}
-                  id={breakingNews?.[1]?._id}
-                  height="100%"
-                  width="100%"
-                />
-              </div>
-            </div>
 
-            <div className="image-conatiner" style={{ marginTop: "5%" }}>
-              <div className="main-conatiner-image-1">
-                <ImageCard
-                  height="100%"
-                  width="100%"
-                  img={sliderArticles?.[0]?.image}
-                  text={sliderArticles?.[0]?.title}
-                  title={sliderArticles?.[0]?.title
-                    .replace(/[/\%.?]/g, "")
-                    .split(" ")
-                    .join("-")}
-                  id={sliderArticles?.[0]?._id}
-                />
-              </div>
-              <div
-                className="main-conatiner-image-2"
-                style={{
-                  marginLeft: "10px",
-                }}
-              >
-                <ImageCard
-                  img={sliderArticles?.[1]?.image}
-                  text={sliderArticles?.[1]?.title}
-                  title={sliderArticles?.[1]?.title
-                    .replace(/[/\%.?]/g, "")
-                    .split(" ")
-                    .join("-")}
-                  id={sliderArticles?.[1]?._id}
-                  height="100%"
-                  width="100%"
-                />
-              </div>
-            </div>
-
-            <div
-              className="more-text"
-              onClick={() => {
-                navigation(`/itempage2?newsType=topStories`);
-              }}
-            >
-              {"more"}{" "}
-              <FaGreaterThan
-                style={{
-                  marginLeft: "6px",
-                }}
-              />
-            </div>
-          </div>
-          <div
-            id="TopStories"
-            className="main-component-group-right"
-            style={{ width: "30%" }}
-          >
-            <div className="main-left-side-top">
-              <div>{t("ts")}</div>
-            </div>
-            <div className="top-stories-all-cards">
-              {topStories
-                ?.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
-                .map((data, index) => {
-                  let title = data.title
-                    .replace(/[/\%.?]/g, "")
-                    .split(" ")
-                    .join("-");
-                  if (data.slug) {
-                    title = data.slug;
-                  }
-
-                  if (title && index < 3) {
-                    return (
-                      <StoriesCard
-                        data={data}
-                        key={index}
-                        OnPress={() =>
-                          navigation(`/details/${title}?id=${data?._id}`)
-                        }
-                        image={data?.image}
-                        text={data?.title}
-                      />
-                    );
-                  } else {
-                    return null;
-                  }
-                })}
-            </div>
-          </div>
-        </div>
         {/*  */}
         <div className="main-news-area webMainPagecomponent">
           <div
@@ -1574,6 +1763,7 @@ const MainPage = () => {
         </div>
 
         <div
+        className="all-videos"
           style={{
             backgroundColor: "blue",
             padding: "1rem 2.5rem",

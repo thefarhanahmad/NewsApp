@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Carousel } from "antd";
 import axios from "axios";
 import { API_URL } from "../../../API";
@@ -6,33 +6,37 @@ import { useParams } from "react-router-dom";
 
 const ImageCrousel = () => {
   const [photo, setPhoto] = useState([]);
+  const [error, setError] = useState(null);
   const { id } = useParams();
 
   useEffect(() => {
     axios
       .get(`${API_URL}/photo/${id}`)
       .then((response) => {
-        console.log("API Response:", response.data); // Log API response for verification
-        setPhoto(response.data.images);
+        console.log("API Response:", response.data); 
+        setPhoto(response.data.images || []);
       })
       .catch((error) => {
-        console.error("Error fetching images:", error); // Log any errors
+        console.error(
+          "Error fetching images:",
+          error.response ? error.response.data : error.message
+        );
+        setError("There was an error fetching images. Please try again later.");
       });
   }, [id]);
 
   return (
     <div className="ImageCarouselContainer">
+      {error && <p style={{ color: "red", textAlign: "center" }}>{error}</p>}
       <Carousel className="ImageCarsouel" arrows infinite={false}>
         {photo.length > 0 ? (
           photo.map((img) => {
-            console.log("Image URL:", img.img); // Log each image URL for verification
+            console.log("Image URL:", img.img); // Log image URL for debugging
 
             const handleImageClick = () => {
-              // URL validation regex
               const urlPattern = new RegExp(
                 "^(https?:\\/\\/)?(www\\.)?([a-zA-Z0-9]+\\.[a-zA-Z]{2,})([\\/\\w\\.-]*)*\\/?$"
               );
-              // Check if the URL is valid
               const isValidUrl = urlPattern.test(img?.url);
               const redirectUrl = isValidUrl ? img.url : img.img;
 
@@ -64,7 +68,7 @@ const ImageCrousel = () => {
                   onClick={handleImageClick}
                 >
                   <img
-                    src={img.img || "path/to/default-image.jpg"}
+                    src={img.img || "https://via.placeholder.com/150"}
                     alt={img.text || "Image"}
                     style={{ width: "100%", height: "auto" }}
                   />

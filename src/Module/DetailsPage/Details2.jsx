@@ -261,6 +261,10 @@ const DetailsPage2 = () => {
           <p>
             <span className="font-bold mr-2">Date & Time :</span>{data?.date}
           </p>
+          <p>
+            <span className="font-bold mr-2">Time :</span>
+            {data ? newFormatDate(data.updatedAt) : "12|08|2023 12:15"}
+          </p>
         </div>
         <div
             style={{ margin: " 15px 0px" ,padding:"0 10px"}}
@@ -341,8 +345,9 @@ const DetailsPage2 = () => {
               url={shareurl}
 
               className="Demo__some-network__share-button"
+              
             >
-              <WhatsappIcon size={32} round />
+              <WhatsappIcon size={32} round style={{marginTop:"10px"}}/>
             </WhatsappShareButton>
           </div>
         <div className="mobileDetailsMainImage px-2">
