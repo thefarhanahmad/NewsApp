@@ -51,7 +51,6 @@ const AdminLayout = () => {
   const [access, setAccess] = useState([]);
   const [loading, setLoading] = useState(true);
 
-
   useEffect(() => {
     axios
       .get(`${API_URL}/user?id=${localStorage.getItem("id")}`)
@@ -78,16 +77,15 @@ const AdminLayout = () => {
       });
   }, [location]);
 
-
   return (
     <Layout>
-      <Sider style={siderStyle}>
+      <Sider style={{ ...siderStyle, minWidth: "300px" }}>
         <SideBar />
       </Sider>
+
       <Sider style={siderStyle2}></Sider>
       <Content style={contentStyle}>
         <Routes>
-          
           {access.map((path) => {
             switch (path) {
               case "users":

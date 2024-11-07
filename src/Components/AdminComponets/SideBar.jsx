@@ -14,62 +14,38 @@ import { AiOutlineComment } from "react-icons/ai";
 import { CgPoll } from "react-icons/cg";
 import { MdUploadFile, MdOutlineCreateNewFolder } from "react-icons/md";
 import { FaRegNewspaper } from "react-icons/fa6";
-import { RiLiveLine } from "react-icons/ri";
-
+import { RiLiveLine, RiArticleFill, RiAdvertisementFill } from "react-icons/ri";
+import { MdAutoStories, MdDashboard, MdCloudUpload } from "react-icons/md";
+import { IoMdPhotos, IoMdVideocam } from "react-icons/io";
+import { BiSolidReport, BiSolidCategoryAlt } from "react-icons/bi";
+import { FaUsers, FaUserPlus } from "react-icons/fa";
+import { GiNewspaper } from "react-icons/gi";
 // Placeholder components for each route
-const YourDashboardIconComponent = () => (
-  <>
-    <MdOutlineArticle size={25} style={{ margin: "5px" }} />
-  </>
-);
-const YourUsersIconComponent = () => (
-  <>
-    <MdOutlineCreateNewFolder size={25} style={{ margin: "5px" }} />
-  </>
-);
+
 const YourTopStoriesIconComponent = () => (
   <>
-    <FaRegWindowRestore size={20} style={{ margin: "5px" }} />
+    <FaRegWindowRestore size={20} />
   </>
 );
 const YourBreakingNewsIconComponent = () => (
   <>
-    <FaRegNewspaper size={20} style={{ margin: "5px" }} />
+    <FaRegNewspaper size={20} />
   </>
 );
-const YourUploadIconComponent = () => (
-  <>
-    <MdUploadFile size={25} style={{ margin: "5px" }} />
-  </>
-);
-const YourCreateUserIconComponent = () => (
-  <>
-    <MdOutlineCreateNewFolder size={25} style={{ margin: "5px" }} />
-  </>
-);
-const YourContentIconComponent = () => (
-  <>
-    <MdOutlineCreateNewFolder size={25} style={{ margin: "5px" }} />
-  </>
-);
-const YourAdsIconComponent = () => (
-  <>
-    <LiaAdSolid size={25} style={{ margin: "5px" }} />
-  </>
-);
+
 const YourCommentIconComponent = () => (
   <>
-    <AiOutlineComment size={25} style={{ margin: "5px" }} />
+    <AiOutlineComment size={25} />
   </>
 );
 const YourLiveIconComponent = () => (
   <>
-    <RiLiveLine size={25} style={{ margin: "5px" }} />
+    <RiLiveLine size={25} />
   </>
 );
 const YourPollIconComponent = () => (
   <>
-    <CgPoll size={25} style={{ margin: "5px" }} />
+    <CgPoll size={25} />
   </>
 );
 
@@ -84,7 +60,6 @@ const SideBar = () => {
     axios
       .get(`${API_URL}/user?id=${localStorage.getItem("id")}`)
       .then((user) => {
-       
         setRole(user.data[0].role);
         setAccess(user?.data[0]?.acsses);
         if (user.data[0].role === "admin") {
@@ -97,7 +72,7 @@ const SideBar = () => {
   }, [location]);
 
   const routeLabels = {
-    dashboard:"Dashboard",
+    dashboard: "Dashboard",
     articles: "Articles",
     users: "Users",
     topstories: "Top Stories",
@@ -111,9 +86,9 @@ const SideBar = () => {
     poll: "Poll",
     flashnews: "Flash News",
     stories: "Visual Stories",
-    photos:"Photos",
-    videos:"Videos",
-    report:"Report"
+    photos: "Photos",
+    videos: "Videos",
+    report: "Report",
   };
 
   const desiredOrder = [
@@ -133,22 +108,31 @@ const SideBar = () => {
     "stories",
     "photos",
     "videos",
-    "report"
+    "report",
   ];
 
   // const sortedAccess = access.filter((route) => desiredOrder.includes(route));
   const sortedAccess = access.sort((a, b) => {
     return desiredOrder.indexOf(a) - desiredOrder.indexOf(b);
-});
+  });
   const renderMenuItem = (key, route, to, icon) => {
     return (
-      <Menu.Item key={key} icon={icon}>
+      <Menu.Item
+        key={key}
+        icon={icon}
+        style={{
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
         <Link
           style={{
             textTransform: "uppercase",
             fontSize: 14,
             fontWeight: "600",
             fontFamily: "Poppins",
+            textAlign: "center",
+            marginTop: "5px",
           }}
           to={to}
         >
@@ -159,15 +143,15 @@ const SideBar = () => {
   };
 
   return (
-    <Menu theme="dark" mode="inline">
+    <Menu theme="dark" mode="inline" style={{ padding: "20px 0" }}>
       {sortedAccess.map((route, index) => {
         let icon;
         switch (route) {
           case "dashboard":
-            icon = <YourDashboardIconComponent />;
+            icon = <MdDashboard size={25} />;
             break;
           case "users":
-            icon = <YourUsersIconComponent />;
+            icon = <FaUsers size={20} />;
             break;
           case "topstories":
             icon = <YourTopStoriesIconComponent />;
@@ -176,19 +160,19 @@ const SideBar = () => {
             icon = <YourBreakingNewsIconComponent />;
             break;
           case "upload":
-            icon = <YourUploadIconComponent />;
+            icon = <MdCloudUpload size={25} />;
             break;
           case "creatuser":
-            icon = <YourCreateUserIconComponent />;
+            icon = <FaUserPlus size={20} />;
             break;
           case "flashnews":
-            icon = <YourCreateUserIconComponent />;
+            icon = <GiNewspaper size={25} />;
             break;
           case "content":
-            icon = <YourContentIconComponent />;
+            icon = <BiSolidCategoryAlt size={25} />;
             break;
           case "ads":
-            icon = <YourAdsIconComponent />;
+            icon = <RiAdvertisementFill size={25} />;
             break;
           case "comment":
             icon = <YourCommentIconComponent />;
@@ -199,8 +183,25 @@ const SideBar = () => {
           case "poll":
             icon = <YourPollIconComponent />;
             break;
+          case "Articles":
+            icon = <RiArticleFill />;
+            break;
+          case "stories":
+            icon = <MdAutoStories size={25} />;
+            break;
+          case "photos":
+            icon = <IoMdPhotos size={25} />;
+            break;
+
+          case "videos":
+            icon = <IoMdVideocam size={25} />;
+            break;
+
+          case "report":
+            icon = <BiSolidReport size={25} />;
+            break;
           default:
-            icon = <BiRadioCircleMarked size={25} />;
+            icon = <BiSolidReport size={25} />;
             break;
         }
 
