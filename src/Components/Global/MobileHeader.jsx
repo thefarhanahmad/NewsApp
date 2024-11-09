@@ -195,7 +195,7 @@ const MobileHeader = ({ listitem }) => {
               </Link>
             </li>
             <li>
-              <Link to="http://localhost:5173/itempage2?newsType=videos">
+              <Link to="/itempage2?newsType=videos">
                 <FaPhotoVideo size={18} />
               </Link>
             </li>
