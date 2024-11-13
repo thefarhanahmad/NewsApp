@@ -868,8 +868,8 @@ const MainPage = () => {
 
           {/* sheersh aalekh */}
           <div
-            className="webMainPagecomponent main-component-group flex gap-7 "
-            style={{ padding: "20px 30px", width: "100%" }}
+            className="webMainPagecomponent main-component-group flex gap-7"
+            style={{ padding: "20px 30px", width: "100%", display: "flex" }}
           >
             <div className="main-component-group-left" style={{ width: "70%" }}>
               <div className="image-conatiner">
@@ -981,7 +981,7 @@ const MainPage = () => {
                       title = data.slug;
                     }
 
-                    if (title && index < 3) {
+                    if (title && index < 5) {
                       return (
                         <StoriesCard
                           data={data}
@@ -1451,7 +1451,134 @@ const MainPage = () => {
           </div>
         </div>
         {/*  */}
+        <div
+          className="webMainPagecomponent main-component-group flex gap-7"
+          style={{ padding: "20px 30px", width: "100%" }}
+        >
+          <div className="main-component-group-left" style={{ width: "70%" }}>
+            <div className="image-conatiner">
+              <div className="main-conatiner-image-1">
+                <ImageCard
+                  height="100%"
+                  width="100%"
+                  img={breakingNews?.[0]?.image}
+                  text={breakingNews?.[0]?.title}
+                  title={breakingNews?.[0]?.title
+                    .replace(/[/\%.?]/g, "")
+                    .split(" ")
+                    .join("-")}
+                  slug={breakingNews?.[0]?.slug}
+                  id={breakingNews?.[0]?._id}
+                />
+              </div>
+              <div
+                className="main-conatiner-image-2"
+                style={{
+                  marginLeft: "10px",
+                }}
+              >
+                <ImageCard
+                  img={breakingNews?.[1]?.image}
+                  text={breakingNews?.[1]?.title}
+                  title={breakingNews?.[1]?.title
+                    .replace(/[/\%.?]/g, "")
+                    .split(" ")
+                    .join("-")}
+                  slug={breakingNews?.[1]?.slug}
+                  id={breakingNews?.[1]?._id}
+                  height="100%"
+                  width="100%"
+                />
+              </div>
+            </div>
 
+            <div className="image-conatiner" style={{ marginTop: "5%" }}>
+              <div className="main-conatiner-image-1">
+                <ImageCard
+                  height="100%"
+                  width="100%"
+                  img={sliderArticles?.[0]?.image}
+                  text={sliderArticles?.[0]?.title}
+                  title={sliderArticles?.[0]?.title
+                    .replace(/[/\%.?]/g, "")
+                    .split(" ")
+                    .join("-")}
+                  id={sliderArticles?.[0]?._id}
+                />
+              </div>
+              <div
+                className="main-conatiner-image-2"
+                style={{
+                  marginLeft: "10px",
+                }}
+              >
+                <ImageCard
+                  img={sliderArticles?.[1]?.image}
+                  text={sliderArticles?.[1]?.title}
+                  title={sliderArticles?.[1]?.title
+                    .replace(/[/\%.?]/g, "")
+                    .split(" ")
+                    .join("-")}
+                  id={sliderArticles?.[1]?._id}
+                  height="100%"
+                  width="100%"
+                />
+              </div>
+            </div>
+
+            <div
+              className="more-text"
+              onClick={() => {
+                navigation(`/itempage2?newsType=topStories`);
+              }}
+            >
+              {"more"}{" "}
+              <FaGreaterThan
+                style={{
+                  marginLeft: "6px",
+                }}
+              />
+            </div>
+          </div>
+          <div
+            id="TopStories"
+            className="main-component-group-right"
+            style={{ width: "30%" }}
+          >
+            <div className="main-left-side-top">
+              <div>{t("ts")}</div>
+            </div>
+            <div className="top-stories-all-cards">
+              {topStories
+                ?.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
+                .map((data, index) => {
+                  let title = data.title
+                    .replace(/[/\%.?]/g, "")
+                    .split(" ")
+                    .join("-");
+                  if (data.slug) {
+                    title = data.slug;
+                  }
+
+                  if (title && index < 3) {
+                    return (
+                      <StoriesCard
+                        data={data}
+                        key={index}
+                        OnPress={() =>
+                          navigation(`/details/${title}?id=${data?._id}`)
+                        }
+                        image={data?.image}
+                        text={data?.title}
+                      />
+                    );
+                  } else {
+                    return null;
+                  }
+                })}
+            </div>
+          </div>
+        </div>
         {/*  */}
         <div className="main-news-area webMainPagecomponent">
           <div
@@ -1763,7 +1890,7 @@ const MainPage = () => {
         </div>
 
         <div
-        className="all-videos"
+          className="all-videos"
           style={{
             backgroundColor: "blue",
             padding: "1rem 2.5rem",

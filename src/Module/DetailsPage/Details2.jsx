@@ -104,7 +104,7 @@ const DetailsPage2 = () => {
   const [topStories, settopStories] = useState();
 
   useEffect(() => {
-    const href=window.location.href
+    const href = window.location.href;
     axios
       .get(`${API_URL}/article?id=${storyId}&url=${href}`)
       .then(async (article) => {
@@ -248,7 +248,7 @@ const DetailsPage2 = () => {
     <>
       {/* mobile version nnnn */}
       <div className="mobileDetailsPage">
-      <div className="p-2">
+        <div className="p-2">
           <h1
             style={{ fontSize: "20px", fontWeight: "bold" }}
             className="details-page-main-heading"
@@ -256,100 +256,93 @@ const DetailsPage2 = () => {
             {data?.title}
           </h1>
           <p>
-            <span className="font-bold mr-2">Reported By :</span>{data?.reportedBy}
+            <span className="font-bold">Reported By: </span>
+            {data?.reportedBy}
           </p>
           <p>
-            <span className="font-bold mr-2">Date & Time :</span>{data?.date}
+            <span className="font-bold">Date & Time: </span>
+            {data?.date}
           </p>
           <p>
-            <span className="font-bold mr-2">Time :</span>
+            <span className="font-bold ">Time: </span>
             {data ? newFormatDate(data.updatedAt) : "12|08|2023 12:15"}
           </p>
         </div>
-        <div
-            style={{ margin: " 15px 0px" ,padding:"0 10px"}}
-            className="details-page-top-item3"
-          >
-            {isFav ? (
-              <>
-                <AiFillHeart
-                  style={{ marginRight: "18px" }}
-                  color="red"
-                  onClick={() => setIsFav(!isFav)}
-                />
-              </>
-            ) : (
-              <TiHeartOutline
+        <div className="details-page-top-item3">
+          {isFav ? (
+            <>
+              <AiFillHeart
                 style={{ marginRight: "18px" }}
+                color="red"
                 onClick={() => setIsFav(!isFav)}
               />
-            )}
-            {data ? (
-              data.comment ? (
-                <RiMessage2Fill
-                  style={{ marginRight: "18px" }}
-                  onClick={() => {
-                    showModal();
-                  }}
-                />
-              ) : null
-            ) : null}
-            <div style={{ position: "relative" }}>
-              <GrShareOption
-                style={{ marginRight: "18px", cursor: "pointer" }}
-                onClick={() => setIsOpen(!isOpen)}
-              />
-              <div
-                style={{
-                  position: "absolute",
-                  height: "30px",
-                  width: "150px",
-                  backgroundColor: "#5a5a5a",
-                  borderRadius: 100,
-                  bottom: -40,
-                  left: -20,
-                  alignItems: "center",
-                  justifyContent: "space-around",
-                  display: isOpen ? "flex" : "none",
-                  paddingTop: 10,
-                  paddingLeft: 5,
-                  paddingRight: 5,
+            </>
+          ) : (
+            <TiHeartOutline
+              style={{ marginRight: "18px" }}
+              onClick={() => setIsFav(!isFav)}
+            />
+          )}
+          {data ? (
+            data.comment ? (
+              <RiMessage2Fill
+                style={{ marginRight: "18px" }}
+                onClick={() => {
+                  showModal();
                 }}
-              >
-                <FacebookShareButton
-                  url={shareurl}
-                  quote={title}
-                  hashtag="#news"
-                >
-                  <FacebookIcon size={32} round />
-                </FacebookShareButton>
-                <TwitterShareButton
-                  url={shareurl}
-                  title={title}
-                  className="Demo__some-network__share-button"
-                >
-                  <TwitterIcon size={32} round />
-                </TwitterShareButton>
-                <EmailShareButton
-                  url={shareurl}
-                  subject={title}
-                  body="body"
-                  className="Demo__some-network__share-button"
-                >
-                  <EmailIcon size={32} round />
-                </EmailShareButton>
-                <InstagramShareButton url={window.location.href} />
-              </div>
-            </div>
-            <WhatsappShareButton
-              url={shareurl}
-
-              className="Demo__some-network__share-button"
-              
+              />
+            ) : null
+          ) : null}
+          <div style={{ position: "relative" }}>
+            <GrShareOption
+              style={{ marginRight: "18px", cursor: "pointer" }}
+              onClick={() => setIsOpen(!isOpen)}
+            />
+            <div
+              style={{
+                position: "absolute",
+                height: "30px",
+                width: "150px",
+                backgroundColor: "#5a5a5a",
+                borderRadius: 100,
+                bottom: -40,
+                left: -20,
+                alignItems: "center",
+                justifyContent: "space-around",
+                display: isOpen ? "flex" : "none",
+                paddingTop: 10,
+                paddingLeft: 5,
+                paddingRight: 5,
+              }}
             >
-              <WhatsappIcon size={32} round style={{marginTop:"10px"}}/>
-            </WhatsappShareButton>
+              <FacebookShareButton url={shareurl} quote={title} hashtag="#news">
+                <FacebookIcon size={32} round />
+              </FacebookShareButton>
+              <TwitterShareButton
+                url={shareurl}
+                title={title}
+                className="Demo__some-network__share-button"
+              >
+                <TwitterIcon size={32} round />
+              </TwitterShareButton>
+              <EmailShareButton
+                url={shareurl}
+                subject={title}
+                body="body"
+                className="Demo__some-network__share-button"
+              >
+                <EmailIcon size={32} round />
+              </EmailShareButton>
+              <InstagramShareButton url={window.location.href} />
+            </div>
           </div>
+          <WhatsappShareButton
+            url={shareurl}
+            className="Demo__some-network__share-button"
+          >
+            <WhatsappIcon size={32} round style={{ marginTop: "10px" }} />
+          </WhatsappShareButton>
+        </div>
         <div className="mobileDetailsMainImage px-2">
           <img
             src={data ? data?.image : DetailImg}
@@ -358,9 +351,7 @@ const DetailsPage2 = () => {
           />
         </div>
         <div className="container3">
-         
           <div className="deatils-main-para-area" id="mob_parar"></div>
-          
 
           <div
             className="container-detail-page-rigth-side"
@@ -422,53 +413,53 @@ const DetailsPage2 = () => {
           {data2.map(({ name, message }) => {
             return (
               <>
-              <div style={{ display: "flex", marginTop: "10px" }}>
-                <div>
-                  <div
-                    style={{
-                      fontSize: "25px",
-                      fontFamily: "Poppins",
-                      backgroundColor: "rgba(0,0,0,0.1)",
-                      padding: "10px 20px",
-                      display: "flex",
-                      height: 30,
-                    }}
-                  >
-                    {data2 && name[0].toUpperCase()}
-                  </div>
-                </div>
-                <div
-                  style={{
-                    fontSize: "16px",
-                    fontFamily: "Poppins",
-                    backgroundColor: "rgba(0,0,0,0.1)",
-                    padding: "5px 10px",
-                    width: "200px",
-                    display: "flex",
-                    marginLeft: 10,
-                  }}
-                >
+                <div style={{ display: "flex", marginTop: "10px" }}>
                   <div>
                     <div
                       style={{
-                        fontSize: "16px",
+                        fontSize: "25px",
                         fontFamily: "Poppins",
-                        fontWeight: "600",
+                        backgroundColor: "rgba(0,0,0,0.1)",
+                        padding: "10px 20px",
+                        display: "flex",
+                        height: 30,
                       }}
                     >
-                      {data2 && name.toUpperCase()}
+                      {data2 && name[0].toUpperCase()}
                     </div>
-                    <div
-                      style={{
-                        fontSize: "16px",
-                        fontFamily: "Poppins",
-                      }}
-                    >
-                      {data2 && message}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: "16px",
+                      fontFamily: "Poppins",
+                      backgroundColor: "rgba(0,0,0,0.1)",
+                      padding: "5px 10px",
+                      width: "200px",
+                      display: "flex",
+                      marginLeft: 10,
+                    }}
+                  >
+                    <div>
+                      <div
+                        style={{
+                          fontSize: "16px",
+                          fontFamily: "Poppins",
+                          fontWeight: "600",
+                        }}
+                      >
+                        {data2 && name.toUpperCase()}
+                      </div>
+                      <div
+                        style={{
+                          fontSize: "16px",
+                          fontFamily: "Poppins",
+                        }}
+                      >
+                        {data2 && message}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
               </>
             );
           })}

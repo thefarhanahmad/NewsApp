@@ -28,13 +28,20 @@ body {
   }
   .flash-news-2 {
     margin-top: 0 !important;
+    padding: 0 !important;
+  }
+  .main-left-side-top {
+    height: 40px !important;
+  }
+  .main-left-side-top > div {
+    margin-top: 4px;
   }
   .main-page-slider-setting {
     width: 100% !important;
   }
-  .ImageCarouselContainer{
+  .ImageCarouselContainer {
     position: static;
-    
+
     background-color: transparent !important;
   }
   .container3 {
@@ -47,8 +54,8 @@ body {
     padding: 20px 8px !important;
     flex-direction: column-reverse !important;
   }
-  
-  .all-videos{
+
+  .all-videos {
     padding: 1rem 0.6rem !important;
   }
 }

@@ -24,7 +24,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  background-color: blue;
+  background-color: rgba(255, 0, 0, 1);
   padding: 10px;
   display: flex;
   justify-content: space-between;
@@ -78,7 +78,7 @@
   text-transform: capitalize;
   font-family: Poppins;
   font-size: 14px;
-  gap: 9px;
+  gap: 6px;
   font-weight: 400;
   line-height: 23px;
   letter-spacing: 0em;

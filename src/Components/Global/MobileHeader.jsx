@@ -168,21 +168,17 @@ const MobileHeader = ({ listitem }) => {
           </div>
 
           <ul className="mobilevisibleNavItemsUlChild">
-            
-              <li
-              // style={{ cursor: "pointer" }}
-              // onClick={() => {
-              //   Navigation("/live");
-              //   setHambergClicked(false);
-              // }}
-              >
-                <Link to="/live">
-                  <PlayCircleOutlined
-                    style={{ marginLeft: "10px", fontSize: "18px" }}
-                  />
-                </Link>
-              </li>
-            
+            <li
+            // style={{ cursor: "pointer" }}
+            // onClick={() => {
+            //   Navigation("/live");
+            //   setHambergClicked(false);
+            // }}
+            >
+              <Link to="/live">
+                <PlayCircleOutlined style={{ fontSize: "18px" }} />
+              </Link>
+            </li>
 
             <li>
               <Link to="/itempage?item=Web%20Story">

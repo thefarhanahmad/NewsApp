@@ -281,22 +281,19 @@ const DetailsPage = () => {
             {data?.title}
           </h1>
           <p>
-            <span className="font-bold mr-2">Reported By :</span>
+            <span className="font-bold">Reported By: </span>
             {data?.reportedBy}
           </p>
           <p>
-            <span className="font-bold mr-2">Date :</span>
+            <span className="font-bold">Date: </span>
             {data?.date}
           </p>
           <p>
-            <span className="font-bold mr-2">Time :</span>
+            <span className="font-bold">Time: </span>
             {data ? newFormatDate(data.updatedAt) : "12|08|2023 12:15"}
           </p>
         </div>
-        <div
-          style={{ margin: " 15px 0px" }}
-          className="details-page-top-item3 bg-red-500 p-2"
-        >
+        <div className="details-page-top-item3 p-2">
           {isFav ? (
             <>
               <AiFillHeart
@@ -370,7 +367,7 @@ const DetailsPage = () => {
               url={shareurl}
               className="Demo__some-network__share-button"
             >
-              <WhatsappIcon size={32} round style={{marginTop:"10px"}}/>
+              <WhatsappIcon size={32} round style={{ marginTop: "10px" }} />
             </WhatsappShareButton>
           </div>
         </div>

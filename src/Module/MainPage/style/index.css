@@ -759,8 +759,12 @@
     display: block;
     margin-top: 1px;
   }
+  .stories-card {
+    height: fit-content !important;
+  }
   .stories-card > img {
-    width: 60% !important;
+    height: 80% !important;
+    width: 40% !important;
   }
   .webMainPagecomponent {
     display: none;
