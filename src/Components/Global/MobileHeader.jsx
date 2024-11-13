@@ -181,7 +181,7 @@ const MobileHeader = ({ listitem }) => {
             </li>
 
             <li>
-              <Link to="/itempage?item=Web%20Story">
+              <Link to="/story">
                 <MdAutoStories size={18} />
               </Link>
             </li>

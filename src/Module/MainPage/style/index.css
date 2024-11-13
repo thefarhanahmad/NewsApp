@@ -520,6 +520,7 @@
 }
 
 .main-page-visual-story-container {
+  width: 100%;
   gap: 10px;
   display: flex;
   overflow-y: hidden;

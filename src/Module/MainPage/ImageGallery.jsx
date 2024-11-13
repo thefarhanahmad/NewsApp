@@ -16,7 +16,7 @@ const ImageGallery = () => {
   axios
     .get(`${API_URL}/photo`)
     .then((data) => {
-      console.log("data nk: ", data);
+    
       setData(data.data);
       // setIsLoad(false);
     })

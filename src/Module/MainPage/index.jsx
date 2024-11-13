@@ -172,7 +172,7 @@ const MainPage = () => {
 
     fetchStories();
   }, []);
-  console.log("vs stories:", stories);
+  
   useEffect(() => {
     axios
       // .get(

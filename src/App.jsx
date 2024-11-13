@@ -27,6 +27,7 @@ import WebStory from "./Components/MainPage/WebStory";
 import ImageCrousel from "./Components/MainPage/ImageCrousel";
 import ItemPageCatSub from "./Module/ItemPage/itemPageCatSubCat";
 import Gallerypage from "./Module/MainPage/Gallerypage";
+import VisualStoryPage from "./Module/MainPage/visualstorypage";
 const App = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [lang, setLang] = useState("ur");
@@ -140,6 +141,7 @@ const App = () => {
               <Route path="/videos/:id" element={<VideoPage2 />} />
               <Route path="/videos3" element={<VideoPage3 />} />
               <Route path="/photos" element={<Gallerypage/>} />
+              <Route path="/story" element={<VisualStoryPage/>} />
               <Route path="/live" element={<LivePage />} />
               <Route path="/forgot" element={<ForgotPassword />} />
               <Route path="/newPassword" element={<NewPassword />} />
