@@ -63,7 +63,7 @@ const MainPage = () => {
   const [stories, setStories] = useState([]);
   const [allCategoriesData, setAllCategoriesData] = useState(null);
   const [DisplayImageCrousal, setDisplayImageCrousal] = useState(false);
-
+  const [technology, setTechnology] = useState([]);
   const scrollContainerRef = useRef(null);
 
   const scrollLeft = () => {
@@ -94,6 +94,7 @@ const MainPage = () => {
           })[i];
           arr.push(element.text);
         }
+
 
         // Promise.all to wait for all axios requests to complete
         return Promise.all(
@@ -133,7 +134,7 @@ const MainPage = () => {
         console.log(err);
       });
   }, []);
-  console.log("photo in home page gallery : ", photo);
+
   // Video handlers
   // Function to convert YouTube link to embed URL
   const convertToEmbedUrl = (url) => {
@@ -172,6 +173,7 @@ const MainPage = () => {
 
     fetchStories();
   }, []);
+
 
   useEffect(() => {
     axios
@@ -2166,134 +2168,6 @@ const MainPage = () => {
           <AllSectionArticle data={allCategoriesData} />
         </div>
 
-        <div className="main-page-technology-container container2 container3">
-          <div className="main-page-technology-heading">{t("t")}</div>
-          <div className="main-page-technology-area">
-            <div>
-              <div
-                className="main-page-technology-first-column "
-                // style={{ backgroundColor: "red" }}
-              >
-                <div
-                  // onClick={() => console.log("btn clicked!")}
-                  style={{
-                    marginTop: "10px",
-                  }}
-                >
-                  <ImageCard
-                    style={{
-                      fontSize: "15px",
-                      fontWeight: 400,
-                      height: "40px",
-                      borderRadius: "0px",
-                      display: "-webkit-box",
-                      WebkitLineClamp: 1,
-                      WebkitBoxOrient: "vertical",
-                      overflow: "hidden",
-                      textOverflow: "ellipsis",
-                      whiteSpace: "nowrap",
-                    }}
-                    height="200px"
-                    width="100%"
-                    img={img4}
-                    dis={false}
-                    text="iPhone 15, iPhone 15 Plus, iPhone 15 Pro, iPhone 15 Pro Max Preorders Be..."
-                  />
-                </div>
-                <div
-                  // onClick={() => console.log("btn clicked!")}
-                  style={{
-                    marginTop: "10px",
-                  }}
-                >
-                  <ImageCard
-                    style={{
-                      fontSize: "15px",
-                      fontWeight: 400,
-                      height: "40px",
-                      borderRadius: 0,
-                    }}
-                    height="200px"
-                    width="100%"
-                    img={img3}
-                    dis={false}
-                    text="iPhone 15, iPhone 15 Plus, iPhone 15 Pro, iPhone 15 Pro Max Preorders Be..."
-                  />
-                </div>
-              </div>
-              <div className="main-page-technology-first-column">
-                <div
-                  style={{
-                    marginTop: "10px",
-                  }}
-                >
-                  <StoriesCard
-                    height="120px"
-                    width="100%"
-                    color="transparent"
-                    image={img5}
-                    text={
-                      "iPhone 15 price in India starts at Rs. 79,900 for the base model with 128GB of storage, while the iPhone 15 Plus with the same amount of storage starts at Rs. 89,900.."
-                    }
-                  />
-                </div>
-                {/* <div
-                  style={{
-                    marginTop: "10px",
-                  }}
-                >
-                  <StoriesCard
-                    height="120px"
-                    width="80%"
-                    color="transparent"
-                    image={img5}
-                    text={
-                      "iPhone 15 price in India starts at Rs. 79,900 for the base model with 128GB of storage, while the iPhone 15 Plus with the same amount of storage starts at Rs. 89,900.."
-                    }
-                  />
-                </div> */}
-                {/* <div
-                  style={{
-                    marginTop: "10px",
-                  }}
-                >
-                  <StoriesCard
-                    height="120px"
-                    width="80%"
-                    color="transparent"
-                    image={img5}
-                    text={
-                      "iPhone 15 price in India starts at Rs. 79,900 for the base model with 128GB of storage, while the iPhone 15 Plus with the same amount of storage starts at Rs. 89,900.."
-                    }
-                  />
-                </div> */}
-                {/* <div className="more-text">
-                  {"more"}{" "}
-                  <FaGreaterThan
-                    style={{
-                      marginLeft: "6px",
-                    }}
-                  />
-                </div> */}
-              </div>
-              <div
-                className="main-page-technology-third-column"
-                style={{ display: "block" }}
-              >
-                {/* <VideoCard color="black" width="100%" />
-                <VideoCard color="black" width="100%" />
-                <div className="more-text">
-                  {"more"}{" "}
-                  <FaGreaterThan
-                    style={{
-                      marginLeft: "6px",
-                    }}
-                  />
-                </div> */}
-              </div>
-            </div>
-          </div>
-        </div>
         {stories && stories.length > 0 && (
           <div
             id="VisualStories"

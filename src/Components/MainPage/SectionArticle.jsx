@@ -11,8 +11,7 @@ import "react-slideshow-image/dist/styles.css";
 import { Slide } from "react-slideshow-image";
 
 const AllSectionArticle = ({ data }) => {
-
-  console.log("nidhi",data)
+  console.log("nidhi", data);
   return (
     <>
       {data
@@ -33,13 +32,15 @@ const SingleArticle = ({ category, imgData, vidData }) => {
   const navigation = useNavigate();
 
   const isLifestyleOrSports = imgData.some((element) =>
-    ["sports", "Business", "Lifestyle","New4","NEW7",].includes(element.topic)
+    ["sports", "Business", "Lifestyle", "New4", "NEW7", "Technology"].includes(
+      element.topic
+    )
   );
 
   return (
     <div className="main-page-technology-container container2 container3 ">
       <div className="main-page-technology-heading">{category}</div>
-      <div className="main-page-technology-area">
+      <div className="main-page-technology-area mobile-page-category">
         <div className="all-technology-cards" style={{ width: "100%" }}>
           {/* Left Portion */}
           {imgData && imgData.length > 0 && (
@@ -66,7 +67,7 @@ const SingleArticle = ({ category, imgData, vidData }) => {
                             style={{
                               fontSize: "15px",
                               fontWeight: 400,
-                              height: "40px",
+
                               borderRadius: 0,
                             }}
                             height="200px"
@@ -101,6 +102,7 @@ const SingleArticle = ({ category, imgData, vidData }) => {
                             fontSize: "15px",
                             fontWeight: 400,
                             height: "40px",
+
                             borderRadius: "0px",
                             display: "-webkit-box",
                             WebkitLineClamp: 1,
@@ -120,6 +122,115 @@ const SingleArticle = ({ category, imgData, vidData }) => {
                     );
                   })
                 )}
+              </div>
+            </div>
+          )}
+
+          {/* Center and Right Portions */}
+          {imgData && imgData.length > 2 && (
+            <div className="main-page-technology-first-column">
+              {imgData.slice(2, 5).map((element) => {
+                let title = element.title
+                  ?.replace(/[%.?]/g, "")
+                  .split(" ")
+                  .join("-");
+                if (element.slug) {
+                  title = element.slug;
+                }
+
+                return (
+                  <div
+                    className="center-portion-cards"
+                    key={element._id}
+                    style={{ marginTop: "10px" }}
+                  >
+                    <StoriesCard
+                      OnPress={() =>
+                        navigation(`/details/${title}?id=${element._id}`)
+                      }
+                      height="120px"
+                      width="80%"
+                      color="transparent"
+                      title={title}
+                      image={element.image}
+                      text={element.title}
+                    />
+                  </div>
+                );
+              })}
+              <div className="more-text">
+                {"more"}{" "}
+                <FaGreaterThan
+                  style={{
+                    marginLeft: "6px",
+                  }}
+                />
+              </div>
+            </div>
+          )}
+
+          {/* Video Portion */}
+          {vidData && vidData.length > 0 && (
+            <div className="main-page-technology-third-column">
+              {vidData.slice(0, 2).map((element) => (
+                <VideoCard
+                  fromVideoGallery={false}
+                  key={element._id}
+                  data={element}
+                  color="black"
+                  width="100%"
+                />
+              ))}
+              <div className="more-text">
+                {"more"}{" "}
+                <FaGreaterThan
+                  style={{
+                    marginLeft: "6px",
+                  }}
+                />
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="main-page-technology-area desktok-page-category">
+        <div className="all-technology-cards" style={{ width: "100%" }}>
+          {/* Left Portion */}
+          {imgData && imgData.length > 0 && (
+            <div className="main-page-technology-first-column">
+              <div className="slide-container">
+                {imgData.map((element) => {
+                  let title = element.title
+                    ?.replace(/[%.?]/g, "")
+                    .split(" ")
+                    .join("-");
+                  if (element.slug) {
+                    title = element.slug;
+                  }
+
+                  return (
+                    <div
+                      key={element._id}
+                      style={{ marginTop: "10px" }}
+                      className="cat-list"
+                    >
+                      <ImageCard
+                        style={{
+                          fontSize: "15px",
+                          fontWeight: 400,
+                          height: "auto",
+                          borderRadius: 0,
+                        }}
+                        height="200px"
+                        width="100%"
+                        img={element.image}
+                        dis={false}
+                        text={element.title}
+                      />
+                    </div>
+                  );
+                })}
               </div>
             </div>
           )}
