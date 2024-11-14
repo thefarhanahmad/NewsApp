@@ -10,6 +10,14 @@
 .main-component-group-right {
   width: 30%;
 }
+.slide-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.cat-list {
+  width: 350px;
+}
 .mobile-page-category {
   display: none;
 }
@@ -303,6 +311,12 @@
   }
   .video-center-card-text {
     padding: 5px;
+  }
+  .slide-container {
+    display: block;
+  }
+  .cat-list {
+    width: auto;
   }
   .main-component-group-left {
     display: none !important;

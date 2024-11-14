@@ -366,7 +366,7 @@
 }
 .main-page-technology-area > div {
   display: grid;
-  grid-template-columns: 30% 40% 30%;
+  grid-template-columns: 60% 40%;
   gap: 10px;
 }
 .main-page-technology-third-column {

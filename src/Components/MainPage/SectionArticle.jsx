@@ -238,7 +238,7 @@ const SingleArticle = ({ category, imgData, vidData }) => {
           {/* Center and Right Portions */}
           {imgData && imgData.length > 2 && (
             <div className="main-page-technology-first-column">
-              {imgData.slice(2, 5).map((element) => {
+              {imgData.slice(0,4).map((element) => {
                 let title = element.title
                   ?.replace(/[%.?]/g, "")
                   .split(" ")
