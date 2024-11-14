@@ -1451,7 +1451,7 @@ const MainPage = () => {
           </div>
         </div>
         {/*  */}
-        <div className="main-conatiner container container3 webMainPagecomponent">
+        <div className="main-conatiner container container3 webMainPagecomponent mainwebSecond">
           <div className="main-rigth-side">
             <div className="image-conatiner">
               <div className="main-conatiner-image-1">
@@ -1544,17 +1544,17 @@ const MainPage = () => {
                       // }
                       if (index == sliderItem) {
                         return (
-                         <>
-                          <ImageCard
-                            img={data.image}
-                            text={data.title}
-                            slug={data.slug}
-                            title={data.title}
-                            id={data._id}
-                            height="50vh"
-                            width="100%"
-                          />
-                         </>
+                          <>
+                            <ImageCard
+                              img={data.image}
+                              text={data.title}
+                              slug={data.slug}
+                              title={data.title}
+                              id={data._id}
+                              height="50vh"
+                              width="100%"
+                            />
+                          </>
                         );
                       } else {
                         <ImageCard

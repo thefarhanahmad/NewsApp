@@ -450,6 +450,10 @@
   .main-conatiner-image-1 {
     display: none !important;
   }
+  .mainwebSecond,
+  .all-category-data {
+    display: none !important;
+  }
   .mobileNavBarContainer {
     display: block;
   }
