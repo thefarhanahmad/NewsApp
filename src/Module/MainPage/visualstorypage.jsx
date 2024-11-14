@@ -7,5 +7,4 @@ const VisualStoryPage = () => {
     </div>
   );
 };
-
 export default VisualStoryPage;

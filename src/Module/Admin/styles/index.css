@@ -13,6 +13,9 @@
   font-weight: bold;
   font-size: 20px;
 }
+.react-slideshow-container + ul.indicators {
+  display: none;
+}
 .dashToplineElements {
   display: flex;
   gap: 10px;
@@ -81,8 +84,11 @@
     width: 50px;
   }
 }
-:where(.css-dev-only-do-not-override-1ck3jst).ant-menu .ant-menu-item .ant-menu-item-icon +span{
-    margin-inline-start: 0;
+:where(.css-dev-only-do-not-override-1ck3jst).ant-menu
+  .ant-menu-item
+  .ant-menu-item-icon
+  + span {
+  margin-inline-start: 0;
 }
 .ant-layout-sider {
   min-width: 250px !important;

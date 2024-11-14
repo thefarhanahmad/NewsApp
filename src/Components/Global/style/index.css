@@ -444,7 +444,12 @@
   .header-main-area {
     display: none;
   }
-
+  .react-slideshow-container + ul.indicators {
+    display: flex !important;
+  }
+  .main-conatiner-image-1 {
+    display: none !important;
+  }
   .mobileNavBarContainer {
     display: block;
   }

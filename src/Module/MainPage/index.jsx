@@ -172,7 +172,7 @@ const MainPage = () => {
 
     fetchStories();
   }, []);
-  
+
   useEffect(() => {
     axios
       // .get(
@@ -1451,11 +1451,8 @@ const MainPage = () => {
           </div>
         </div>
         {/*  */}
-        <div
-          className="webMainPagecomponent main-component-group flex gap-7"
-          style={{ padding: "20px 30px", width: "100%" }}
-        >
-          <div className="main-component-group-left" style={{ width: "70%" }}>
+        <div className="main-conatiner container container3 webMainPagecomponent">
+          <div className="main-rigth-side">
             <div className="image-conatiner">
               <div className="main-conatiner-image-1">
                 <ImageCard
@@ -1492,7 +1489,7 @@ const MainPage = () => {
               </div>
             </div>
 
-            <div className="image-conatiner" style={{ marginTop: "5%" }}>
+            {/* <div className="image-conatiner" style={{ marginTop: "5%" }}>
               <div className="main-conatiner-image-1">
                 <ImageCard
                   height="100%"
@@ -1524,8 +1521,153 @@ const MainPage = () => {
                   width="100%"
                 />
               </div>
-            </div>
+            </div> */}
 
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                marginTop: "3%",
+              }}
+            >
+              <div className="main-page-slider-setting">
+                {sliderItem % 2 === 0 ? (
+                  <>
+                    {sliderArticles?.map((data, index) => {
+                      // let title = data?.title
+                      //   ?.replace(/[/\%.?]/g, "")
+                      //   .split(" ")
+                      //   .join("-");
+                      // if (data.slug) {
+                      //   title = data.slug;
+                      // }
+                      if (index == sliderItem) {
+                        return (
+                         <>
+                          <ImageCard
+                            img={data.image}
+                            text={data.title}
+                            slug={data.slug}
+                            title={data.title}
+                            id={data._id}
+                            height="50vh"
+                            width="100%"
+                          />
+                         </>
+                        );
+                      } else {
+                        <ImageCard
+                          img={sliderItems[sliderItem]}
+                          text={data.title}
+                          slug={data.slug}
+                          title={data.title}
+                          id={data._id}
+                          height="50vh"
+                          width="100%"
+                        />;
+                        // <img
+                        //   src={sliderItems[sliderItem]}
+                        //   alt=""
+                        //   className={`slider-img ${showItem ? "show" : ""}`}
+                        // />;
+                      }
+                    })}
+                  </>
+                ) : (
+                  <></>
+                )}
+
+                <div className="main-page-slider-items">
+                  {sliderArticles
+                    .map((_, i) => i)
+                    .filter((i) => i % 2 === 0)
+                    .map((item, index) => (
+                      <div
+                        key={item}
+                        className={`slider-item ${
+                          sliderItem === item ? "slider-item-active" : ""
+                        }`}
+                        onClick={() => {
+                          setShowItem(false);
+                          setTimeout(() => {
+                            setShowItem(true);
+                            setSliderItem(item);
+                          }, 1000);
+                        }}
+                      ></div>
+                    ))}
+                </div>
+              </div>
+              <div className="main-page-slider-setting">
+                {sliderItem2 % 2 !== 0 ? (
+                  <>
+                    {sliderArticles?.map((data, index) => {
+                      // let title = data?.title
+                      //   ?.replace(/[/\%.?]/g, "")
+                      //   .split(" ")
+                      //   .join("-");
+                      // if (data.slug) {
+                      //   title = data.slug;
+                      // }
+                      if (index == sliderItem2) {
+                        return (
+                          <>
+                            <ImageCard
+                              img={data.image}
+                              text={data.title}
+                              slug={data.slug}
+                              title={data.title}
+                              id={data._id}
+                              height="50vh"
+                              width="100%"
+                            />
+                          </>
+                        );
+                      } else {
+                        <ImageCard
+                          img={sliderItems[sliderItem2]}
+                          text={data.title}
+                          slug={data.slug}
+                          title={data.title}
+                          id={data._id}
+                          height="50vh"
+                          width="100%"
+                        />;
+                        // <img
+                        //   src={sliderItems[sliderItem]}
+                        //   alt=""
+                        //   className={`slider-img ${showItem ? "show" : ""}`}
+                        // />;
+                      }
+                    })}
+                  </>
+                ) : (
+                  <></>
+                )}
+
+                <div className="main-page-slider-items">
+                  {sliderArticles
+                    .map((_, i) => i)
+                    .filter((i) => i % 2 !== 0)
+                    .map((item, index) => (
+                      <div
+                        key={item}
+                        className={`slider-item ${
+                          sliderItem2 === item ? "slider-item-active" : ""
+                        }`}
+                        onClick={() => {
+                          setShowItem(false);
+                          setTimeout(() => {
+                            setShowItem(true);
+                            setSliderItem2(item);
+                          }, 1000);
+                        }}
+                      ></div>
+                    ))}
+                </div>
+              </div>
+            </div>
             <div
               className="more-text"
               onClick={() => {
@@ -1540,11 +1682,7 @@ const MainPage = () => {
               />
             </div>
           </div>
-          <div
-            id="TopStories"
-            className="main-component-group-right"
-            style={{ width: "30%" }}
-          >
+          <div id="TopStories" className="main-left-side">
             <div className="main-left-side-top">
               <div>{t("ts")}</div>
             </div>
@@ -1587,8 +1725,8 @@ const MainPage = () => {
             className="news-main-side-left"
           >
             <div className="main-news-heading">{t("ln")}</div>
-            <div className="news-cards-area container3 ">
-              {latestNews.map((data) => {
+            <div className="news-cards-area container3">
+              {latestNews.slice(0, 6).map((data) => {
                 let title = data?.title
                   ?.replace(/[/\%.?]/g, "")
                   .split(" ")
@@ -1636,13 +1774,13 @@ const MainPage = () => {
             <div id="BigNews" className="news-main-rigth-part1">
               <div className="main-news-heading">{t("bn")}</div>
               <div
-                className="news-cards-area  container3"
+                className="news-cards-area container3"
                 // style={{ backgroundColor: "yellow" }}
               >
                 {breakingNews &&
                   breakingNews.length > 2 &&
                   // breakingNews.map((data, index) => {
-                  breakingNews.slice(0, 7).map((data, index) => {
+                  breakingNews.slice(0, 3).map((data, index) => {
                     let title = data?.title
                       ?.replace(/[/\%.?]/g, "")
                       .split(" ")
