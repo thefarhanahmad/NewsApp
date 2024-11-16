@@ -293,7 +293,7 @@ const DetailsPage = () => {
             {data ? newFormatDate(data.updatedAt) : "12|08|2023 12:15"}
           </p>
         </div>
-        <div className="details-page-top-item3 p-2">
+        <div className="details-page-top-item3 -mt-2  px-2 pb-2">
           {isFav ? (
             <>
               <AiFillHeart
@@ -514,7 +514,7 @@ const DetailsPage = () => {
               <AiOutlineCalendar size={22} style={{ marginRight: "10px" }} />
               {data ? newFormatDate(data.updatedAt) : "12|08|2023 12:15"}
             </div>
-            <div className="details-page-top-item3">
+            <div className="details-page-top-item3 ">
               {isFav ? (
                 <>
                   <AiFillHeart
