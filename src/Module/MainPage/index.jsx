@@ -95,7 +95,6 @@ const MainPage = () => {
           arr.push(element.text);
         }
 
-
         // Promise.all to wait for all axios requests to complete
         return Promise.all(
           arr.map(async (element) => {
@@ -173,7 +172,6 @@ const MainPage = () => {
 
     fetchStories();
   }, []);
-
 
   useEffect(() => {
     axios
@@ -1700,7 +1698,7 @@ const MainPage = () => {
                     title = data.slug;
                   }
 
-                  if (title && index < 3) {
+                  if (title && index < 7) {
                     return (
                       <StoriesCard
                         data={data}
