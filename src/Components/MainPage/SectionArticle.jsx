@@ -5,7 +5,7 @@ import VideoCard from "./VideoCard";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { memo } from "react";
 import "react-slideshow-image/dist/styles.css";
 import { Slide } from "react-slideshow-image";
@@ -20,6 +20,7 @@ const AllSectionArticle = ({ data }) => {
               key={element.category}
               category={element.category}
               imgData={element.imgData}
+              id={element._id}
               vidData={element.vidData}
             />
           ))
@@ -38,8 +39,10 @@ const SingleArticle = ({ category, imgData, vidData }) => {
   );
 
   return (
-    <div className="main-page-technology-container container2 container3 ">
-      <div className="main-page-technology-heading">{category}</div>
+    <div className="main-page-technology-container container2 container3 border border-collapse sm:border-0 sm:m-0 m-1 border-gray-500">
+      <div className="main-page-technology-heading border-b border-gray-500 mb-4">
+        <Link to={`/itempage?item=${category}`}> {category}</Link>
+      </div>
       <div className="main-page-technology-area mobile-page-category">
         <div className="all-technology-cards" style={{ width: "100%" }}>
           {/* Left Portion */}
@@ -48,6 +51,7 @@ const SingleArticle = ({ category, imgData, vidData }) => {
               <div className="slide-container">
                 {isLifestyleOrSports ? (
                   <Slide indicators={true}>
+                    {console.log("img data in slider : ", imgData)}
                     {imgData.map((element) => {
                       let title = element.title
                         ?.replace(/[%.?]/g, "")
@@ -58,12 +62,17 @@ const SingleArticle = ({ category, imgData, vidData }) => {
                       }
 
                       return (
-                        <div
+                        <Link
                           key={element._id}
+                          to={`details/${title}?id=${element._id}`}
                           style={{ marginTop: "10px" }}
                           className="cat-list"
                         >
                           <ImageCard
+                            id={element._id}
+                            img={element.image}
+                            dis={false}
+                            text={element.title}
                             style={{
                               fontSize: "15px",
                               fontWeight: 400,
@@ -72,11 +81,8 @@ const SingleArticle = ({ category, imgData, vidData }) => {
                             }}
                             height="200px"
                             width="100%"
-                            img={element.image}
-                            dis={false}
-                            text={element.title}
                           />
-                        </div>
+                        </Link>
                       );
                     })}
                   </Slide>
@@ -127,7 +133,7 @@ const SingleArticle = ({ category, imgData, vidData }) => {
           )}
 
           {/* Center and Right Portions */}
-          {imgData && imgData.length > 2 && (
+          {/* {imgData && imgData.length > 2 && (
             <div className="main-page-technology-first-column">
               {imgData.slice(2, 5).map((element) => {
                 let title = element.title
@@ -167,7 +173,7 @@ const SingleArticle = ({ category, imgData, vidData }) => {
                 />
               </div>
             </div>
-          )}
+          )} */}
 
           {/* Video Portion */}
           {vidData && vidData.length > 0 && (
@@ -238,7 +244,7 @@ const SingleArticle = ({ category, imgData, vidData }) => {
           {/* Center and Right Portions */}
           {imgData && imgData.length > 2 && (
             <div className="main-page-technology-first-column">
-              {imgData.slice(0,4).map((element) => {
+              {imgData.slice(0, 4).map((element) => {
                 let title = element.title
                   ?.replace(/[%.?]/g, "")
                   .split(" ")

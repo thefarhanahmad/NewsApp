@@ -66,6 +66,8 @@ const MainPage = () => {
   const [technology, setTechnology] = useState([]);
   const scrollContainerRef = useRef(null);
 
+  console.log("mid ad in state : ", midAd);
+
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
       scrollContainerRef.current.scrollBy({ left: -190, behavior: "smooth" });
@@ -487,22 +489,22 @@ const MainPage = () => {
       <div className="main-page-conatiner">
         <ul className="mobileMainPageAnchorSlider">
           <li>
-            <a href="#TopStories">Top Stories</a>
+            <a href="/itempage2?newsType=Top-Stories">Top Stories</a>
           </li>
           <li>
-            <a href="#LatestNews">Latest News</a>
+            <a href="/itempage2?newsType=LatestNews">Latest News</a>
           </li>
           <li>
-            <a href="#BigNews">Big News</a>
+            <a href="/itempage2?newsType=BigNews">Big News</a>
           </li>
           <li>
-            <a href="#Videos">Videos</a>
+            <a href="/itempage2?newsType=videos">Videos</a>
           </li>
           <li>
-            <a href="#VisualStories">Visual Stories</a>
+            <a href="/story">Visual Stories</a>
           </li>
           <li>
-            <a href="#Photos">Photos</a>
+            <a href="/photos">Photos</a>
           </li>
         </ul>
 
@@ -722,8 +724,8 @@ const MainPage = () => {
                         slug={data.slug}
                         title={data.title}
                         id={data._id}
-                        height="40vh"
                         width="100%"
+                        height="32vh"
                       />
                     </div>
                   ))}
@@ -867,8 +869,38 @@ const MainPage = () => {
           </div>  */}
 
           {/* sheersh aalekh */}
+          <div>
+            <div className=" flex items-center justify-center my-2 mt-4">
+              {midAd?.map((data, i) => {
+                return (
+                  <>
+                    <div className=" w-full ">
+                      <a
+                        href={data?.link}
+                        target="_blank"
+                        onClick={() => {
+                          onClickAd(data?._id);
+                        }}
+                        rel="noreferrer"
+                      >
+                        <img
+                          style={{
+                            cursor: "pointer",
+                            padding: "2px",
+                          }}
+                          className="h-56 w-[80%] mx-auto"
+                          src={data?.imgLink}
+                          alt=""
+                        />
+                      </a>
+                    </div>
+                  </>
+                );
+              })}
+            </div>
+          </div>
           <div
-            className="webMainPagecomponent main-component-group flex gap-7"
+            className="webMainPagecomponent  main-component-group flex gap-7"
             style={{ padding: "20px 30px", width: "100%", display: "flex" }}
           >
             <div className="main-component-group-left" style={{ width: "70%" }}>

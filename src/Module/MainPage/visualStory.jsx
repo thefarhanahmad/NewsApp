@@ -25,11 +25,15 @@ const VisualStories = () => {
 
   return (
     <div className="main-conatiner container">
+
+      
       <div
         id="VisualStories"
         style={{ padding: "0px 10px" }}
         className="visual-stories-main-container container2 container3"
       >
+
+
         <div className="mobileMainPageHeading">{t("vs")}</div>
 
         <div className="main-page-visual-story-Ad-container ">

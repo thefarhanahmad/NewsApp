@@ -35,7 +35,6 @@ const Header = () => {
       .get(`${API_URL}/content?type=category`)
       .then((data) => {
         let arr = [];
-       
 
         const newData = data?.data?.sort((a, b) => {
           const seqA = a.sequence !== undefined ? a.sequence : Number.MAX_VALUE;
@@ -133,17 +132,13 @@ const Header = () => {
         setLoading(false);
       });
     axios.get(`${API_URL}/ads?active=true&side=top`).then((data) => {
-    
       setTopAd(data.data.reverse()[0]);
     });
   }, []);
 
   useEffect(() => {
     if (topAd && topAd._id) {
-   
-      axios.get(`${API_URL}/ads/click?id=${topAd._id}`).then(() => {
-        
-      });
+      axios.get(`${API_URL}/ads/click?id=${topAd._id}`).then(() => {});
     }
   }, [topAd]);
   async function onClickAd(id) {

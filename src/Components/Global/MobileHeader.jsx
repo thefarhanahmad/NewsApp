@@ -7,7 +7,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { API_URL } from "../../../API";
 import { AutoComplete, Input } from "antd";
-import logo from "../../assets/logo.svg";
+import logo from "../../assets/logo-small.png";
 import { ArrowLeftOutlined, PlayCircleOutlined } from "@ant-design/icons";
 import { IoIosCloseCircle } from "react-icons/io";
 import NewSearchModel from "../../models/newSearchModel";
@@ -104,6 +104,7 @@ const MobileHeader = ({ listitem }) => {
   }, []);
   return (
     <>
+    
       {isOpen && (
         <NewSearchModel
           closeModel={() => setIsOpen(false)}
@@ -111,8 +112,8 @@ const MobileHeader = ({ listitem }) => {
         />
       )}
 
-      <div className="mobileNavBarContainer">
-        <div className="mobilevisibleNavItems h-[72px]">
+      <div className="mobileNavBarContainer ">
+        <div className="mobilevisibleNavItems">
           <div>
             {pathname !== "/" ? (
               <div
@@ -151,9 +152,10 @@ const MobileHeader = ({ listitem }) => {
               //   setHambergClicked(false);
               // }}
               to="http://epaper.loksatya.com"
-              className="mobilevisibleNavItemsUlChild"
+              className="mobilevisibleNavItemsUlChild flex self-end  flex-col items-center justify-center"
             >
-              <FaNewspaper size={25} />
+              <FaNewspaper size={18} />
+              <span className="text-xs">ई-पेपर</span>
             </Link>
             <div
               onClick={() => {
