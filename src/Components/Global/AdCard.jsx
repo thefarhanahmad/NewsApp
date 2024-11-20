@@ -7,14 +7,9 @@ import { API_URL } from "../../../API";
 const AdCard = ({ type }) => {
   const [data, setData] = useState();
 
-
-
   useEffect(() => {
     if (data && data._id) {
-    
-      axios.get(`${API_URL}/ads/click?id=${data._id}`).then(() => {
-    
-      });
+      axios.get(`${API_URL}/ads/click?id=${data._id}`).then(() => {});
     }
   }, [data]);
 
@@ -32,7 +27,6 @@ const AdCard = ({ type }) => {
   async function onClickAd(id) {
     try {
       const response = await axios.post(`${API_URL}/ads/click`, { id });
-     
     } catch (error) {
       console.error("Error updating ads:", error);
     }

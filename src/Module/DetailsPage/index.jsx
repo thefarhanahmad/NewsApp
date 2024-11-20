@@ -34,6 +34,7 @@ import { API_URL } from "../../../API";
 import LatesetNewsSection from "../../Components/SharedComponents/LatestNewsSection";
 import RelatedNewsSection from "../../Components/SharedComponents/RelatedNewSection";
 import { InstagramFilled } from "@ant-design/icons";
+import AdCardPopup from "../../Components/DetailsPage/AdCardPopup";
 const { TextArea } = Input;
 
 // Instagram share button (custom implementation)
@@ -250,10 +251,30 @@ const DetailsPage = () => {
   const title = "News App";
   const imgUrl = data?.image;
   const description = data?.discription;
-  console.log("nk", data);
+  const [adPopup, setAdPopup] = useState(false);
+
+  useEffect(() => {
+    setAdPopup(true);
+  }, [data]);
 
   return (
-    <>
+    <div className=" relative">
+      <>
+        {/* Ad Popup */}
+        {adPopup && (
+          <div
+            className="absolute h-[50vh] z-50 cursor-pointer w-[90%] mx-auto left-[50%] -translate-x-[50%] bg-white rounded-lg"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <AdCardPopup
+              type={"mid"}
+              adPopup={adPopup}
+              setAdPopup={setAdPopup}
+            />
+          </div>
+        )}
+      </>
+
       <Helmet>
         <title>{title}</title>
         <meta name="description" content={description} />
@@ -772,7 +793,7 @@ const DetailsPage = () => {
           </Col>
         </Row>
       </Modal>
-    </>
+    </div>
   );
 };
 

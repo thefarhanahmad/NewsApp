@@ -35,6 +35,7 @@ import { API_URL } from "../../../API";
 import { Loading } from "../../Context";
 import RelatedNewsSection from "../../Components/SharedComponents/RelatedNewSection";
 import LatesetNewsSection from "../../Components/SharedComponents/LatestNewsSection";
+import AdCardPopup from "../../Components/DetailsPage/AdCardPopup";
 
 // Instagram share button (custom implementation)
 const InstagramShareButton = ({ url }) => {
@@ -244,8 +245,29 @@ const DetailsPage2 = () => {
       .catch(() => {});
   }, []);
 
+  const [adPopup, setAdPopup] = useState(false);
+
+  useEffect(() => {
+    setAdPopup(true);
+  }, [data]);
+
   return (
-    <>
+    <div className=" relative">
+      <>
+        {/* Ad Popup */}
+        {adPopup && (
+          <div
+            className="absolute cursor-pointer z-50 h-[50vh] w-[90%] mx-auto left-[50%] -translate-x-[50%] bg-white rounded-lg"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <AdCardPopup
+              type={"mid"}
+              adPopup={adPopup}
+              setAdPopup={setAdPopup}
+            />
+          </div>
+        )}
+      </>
       {/* mobile version nnnn */}
       <div className="mobileDetailsPage">
         <div className="p-2">
@@ -743,7 +765,7 @@ const DetailsPage2 = () => {
           </Col>
         </Row>
       </Modal>
-    </>
+    </div>
   );
 };
 

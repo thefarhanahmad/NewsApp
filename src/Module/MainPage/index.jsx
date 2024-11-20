@@ -19,7 +19,7 @@ import {
 } from "react-icons/io5";
 import { Col, Progress, Radio, Row } from "antd";
 import { API_URL } from "../../../API";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import img1 from "../../assets/img-main1.png";
 import img2 from "../../assets/img-main-2.png";
@@ -489,22 +489,22 @@ const MainPage = () => {
       <div className="main-page-conatiner">
         <ul className="mobileMainPageAnchorSlider">
           <li>
-            <a href="/itempage2?newsType=Top-Stories">Top Stories</a>
+            <Link to="/itempage2?newsType=topStories">Top Stories</Link>
           </li>
           <li>
-            <a href="/itempage2?newsType=LatestNews">Latest News</a>
+            <Link to="/itempage2?newsType=upload">Latest News</Link>
           </li>
           <li>
-            <a href="/itempage2?newsType=BigNews">Big News</a>
+            <Link to="/itempage2?newsType=breakingNews">Big News</Link>
           </li>
           <li>
-            <a href="/itempage2?newsType=videos">Videos</a>
+            <Link to="/itempage2?newsType=videos">Videos</Link>
           </li>
           <li>
-            <a href="/story">Visual Stories</a>
+            <Link to="/story">Visual Stories</Link>
           </li>
           <li>
-            <a href="/photos">Photos</a>
+            <Link to="/photos">Photos</Link>
           </li>
         </ul>
 

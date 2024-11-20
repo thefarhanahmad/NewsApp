@@ -102,18 +102,65 @@ const MobileHeader = ({ listitem }) => {
         setLoading(false);
       });
   }, []);
+
+  const [topAd, setTopAd] = useState({});
+  useEffect(() => {
+    axios.get(`${API_URL}/ads?active=true&side=top`).then((data) => {
+      setTopAd(data.data.reverse()[0]);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (topAd && topAd._id) {
+      axios.get(`${API_URL}/ads/click?id=${topAd._id}`).then(() => {});
+    }
+  }, [topAd]);
+  async function onClickAd(id) {
+    try {
+      const response = await axios.post(`${API_URL}/ads/click`, { id });
+      // this function works for all ads so handle it respectivly
+    } catch (error) {
+      console.error("Error updating ads:", error);
+    }
+  }
+  const location = useLocation();
   return (
     <>
-    
       {isOpen && (
         <NewSearchModel
           closeModel={() => setIsOpen(false)}
           autoList={itsItem2}
         />
       )}
+      {/* Top Ad */}
+      {location?.pathname === "/" && (
+        <div className="fixed top-0 left-0 mb-4 mob-ad z-50 overflow-hidden w-full h-[68px]">
+          <a
+            href={topAd?.link}
+            target="_blank"
+            onClick={() => {
+              onClickAd(topAd?._id);
+            }}
+            rel="noreferrer"
+          >
+            <img
+              style={{
+                cursor: "pointer",
+              }}
+              className="top-header-img object-fill w-full h-full"
+              src={topAd?.imgLink}
+              alt=""
+            />
+          </a>
+        </div>
+      )}
 
       <div className="mobileNavBarContainer ">
-        <div className="mobilevisibleNavItems">
+        <div
+          className={`mobilevisibleNavItems  ${
+            location?.pathname === "/" ? "top-[68px]" : "top-0"
+          }`}
+        >
           <div>
             {pathname !== "/" ? (
               <div

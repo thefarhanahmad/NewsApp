@@ -21,10 +21,16 @@
 body {
   background-color: #f3f3f3ff;
 }
+.mob-ad {
+  display: none;
+}
 @media screen and (max-width: 500px) {
   .container {
     margin: 0;
     gap: 0 !important;
+  }
+  .mob-ad {
+    display: block;
   }
   .flash-news-2 {
     margin-top: 0 !important;
