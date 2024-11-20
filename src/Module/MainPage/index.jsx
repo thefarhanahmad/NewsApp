@@ -888,7 +888,7 @@ const MainPage = () => {
                             cursor: "pointer",
                             padding: "2px",
                           }}
-                          className="h-56 w-[80%] mx-auto"
+                          className="h-56 w-full mx-auto"
                           src={data?.imgLink}
                           alt=""
                         />
