@@ -22,6 +22,10 @@ const AdCardPopup = ({ type, adPopup, setAdPopup }) => {
       axios.get(`${API_URL}/ads?active=true&side=bottom`).then((data) => {
         setData(data.data.reverse()[0]);
       });
+    } else if (type === "top") {
+      axios.get(`${API_URL}/ads?active=true&side=top`).then((data) => {
+        setData(data.data.reverse()[0]);
+      });
     }
   }, []);
 
@@ -34,9 +38,12 @@ const AdCardPopup = ({ type, adPopup, setAdPopup }) => {
   }
 
   return (
-    <div className="w-full h-full overflow-hidden">
+    <div className="w-full h-[80vh] md:h-[60vh] overflow-hidden">
       {adPopup && (
         <div className="h-full">
+          <div className=" w-full flex justify-center items-center text-xs text-gray-600">
+            Advertisement
+          </div>
           {/* Close Ad */}
           <button
             onClick={() => setAdPopup(false)}

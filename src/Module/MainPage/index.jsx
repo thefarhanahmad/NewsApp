@@ -48,6 +48,9 @@ const MainPage = () => {
   const [breakingNews, setbreakingNews] = useState([]);
   const [sliderArticles, setSliderArticles] = useState([]);
   console.log("Slider articles f: ", sliderArticles);
+  console.log("breaking news f: ", breakingNews);
+  const [combinedNews, setCombinedNews] = useState([]);
+  console.log("combined news f: ", combinedNews);
   const [val, setVal] = useState("");
   const sliderItems = [slider, img1, img2, img4];
   const { t } = useTranslation();
@@ -64,21 +67,65 @@ const MainPage = () => {
   const [allCategoriesData, setAllCategoriesData] = useState(null);
   const [DisplayImageCrousal, setDisplayImageCrousal] = useState(false);
   const [technology, setTechnology] = useState([]);
+
+  console.log("breaking news data: ", breakingNews);
+
   const scrollContainerRef = useRef(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
 
-  console.log("mid ad in state : ", midAd);
-
+  // Scroll Left
   const scrollLeft = () => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: -190, behavior: "smooth" });
+    console.log("left scrolled ");
+    const container = scrollContainerRef.current;
+    if (container) {
+      container.scrollBy({
+        left: -300, // Adjust scroll amount
+        behavior: "smooth",
+      });
     }
   };
 
+  // Scroll Right
   const scrollRight = () => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: 190, behavior: "smooth" });
+    console.log("right scrolled ");
+    const container = scrollContainerRef.current;
+    if (container) {
+      container.scrollBy({
+        left: 300, // Adjust scroll amount
+        behavior: "smooth",
+      });
     }
   };
+
+  // Update scroll button state
+  const updateScrollState = () => {
+    const container = scrollContainerRef.current;
+    if (container) {
+      setCanScrollLeft(container.scrollLeft > 0);
+      setCanScrollRight(
+        container.scrollLeft < container.scrollWidth - container.clientWidth
+      );
+    }
+  };
+
+  // Attach scroll event listener to update button state
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (container) {
+      container.addEventListener("scroll", updateScrollState);
+      updateScrollState(); // Initial state update
+      return () => container.removeEventListener("scroll", updateScrollState);
+    }
+  }, []);
+
+  useEffect(() => {
+    const combinedArray = [
+      ...breakingNews.slice(0, 2), // Take the first 2 items from breakingNews
+      ...sliderArticles.slice(0, 8), // Take the first 8 items from articles
+    ];
+    setCombinedNews(combinedArray);
+  }, [breakingNews, sliderArticles]);
 
   useEffect(() => {
     axios
@@ -177,12 +224,7 @@ const MainPage = () => {
 
   useEffect(() => {
     axios
-      // .get(
-      //   `${API_URL}/article?pagenation=true&limit=8&type=img&status=online&slider=true`
-      // )
-      // .then((sliderData) => {
-      //   console.log("slider articles", sliderData.data);
-      //   setSliderArticles(sliderData?.data);
+
       .get(
         `${API_URL}/article?pagenation=true&limit=8&type=img&status=online&slider=true`
       )
@@ -202,26 +244,8 @@ const MainPage = () => {
           )
           .then((breakingData) => {
             console.log("breaking news res : ", breakingData);
-            // Filter out articles that are already present in sliderArticles
-            // const uniqueBreakingNews = breakingData.data.filter(
-            //   (article) =>
-            //     !sliderData.data.some(
-            //       (sliderArticle) => sliderArticle._id === article._id
-            //     )
-            // );
 
-            // console.log("breaking New",breakingData,uniqueBreakingNews)
-            // setbreakingNews(uniqueBreakingNews);
             setbreakingNews(breakingData?.data);
-
-            // console.log("unique breaking news : ", uniqueBreakingNews);
-
-            // const sortedData = uniqueBreakingNews.sort(
-            //   (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
-            // );
-
-            // console.log("uniquebreaking news data after sorting: ", sortedData);
-            // setbreakingNews(uniqueBreakingNews);
           })
           .catch(() => {});
         axios
@@ -711,15 +735,16 @@ const MainPage = () => {
               justifyContent: "space-between",
               marginTop: "3%",
               padding: "0 9px",
+              overflow: "hidden", // Ensure overflow is managed
             }}
           >
-            <div className="main-page-slider-setting">
-              {sliderArticles?.length > 0 ? (
+            <div className="main-page-slider-setting" style={{ width: "100%" }}>
+              {combinedNews?.length > 0 ? (
                 <Slide easing="ease" duration={3000} indicators={true}>
-                  {sliderArticles.map((data) => (
+                  {combinedNews?.slice(0, 8)?.map((data) => (
                     <div key={data._id} className="each-slide">
                       <ImageCard
-                        img={data?.image}
+                        img={data.image}
                         text={data.title}
                         slug={data.slug}
                         title={data.title}
@@ -888,7 +913,7 @@ const MainPage = () => {
                             cursor: "pointer",
                             padding: "2px",
                           }}
-                          className="h-56 w-full mx-auto"
+                          className="h-56 w-[80%] mx-auto"
                           src={data?.imgLink}
                           alt=""
                         />
@@ -1056,10 +1081,13 @@ const MainPage = () => {
               >
                 <button
                   onClick={scrollLeft}
+                  disabled={!canScrollLeft} // Disable if can't scroll left
                   style={{
-                    background: "rgba(255, 255, 255, 0.6)",
+                    background: canScrollLeft
+                      ? "rgba(255, 255, 255, 0.6)"
+                      : "rgba(200, 200, 200, 0.6)", // Dim when disabled
                     border: "none",
-                    cursor: "pointer",
+                    cursor: canScrollLeft ? "pointer" : "not-allowed",
                     fontSize: "24px",
                     display: "flex",
                     alignItems: "center",
@@ -1069,10 +1097,13 @@ const MainPage = () => {
                 </button>
                 <button
                   onClick={scrollRight}
+                  disabled={!canScrollRight} // Disable if can't scroll right
                   style={{
-                    background: "rgba(255, 255, 255, 0.6)",
+                    background: canScrollRight
+                      ? "rgba(255, 255, 255, 0.6)"
+                      : "rgba(200, 200, 200, 0.6)", // Dim when disabled
                     border: "none",
-                    cursor: "pointer",
+                    cursor: canScrollRight ? "pointer" : "not-allowed",
                     fontSize: "24px",
                     display: "flex",
                     alignItems: "center",
@@ -1082,22 +1113,22 @@ const MainPage = () => {
                 </button>
               </div>
 
-              {/* Top stories container */}
+              {/* Big news container */}
               <div
                 ref={scrollContainerRef}
                 className="top-stories-all-cards"
                 style={{
                   display: "flex",
-
                   overflowX: "auto",
-
+                  // background: "red",
                   columnGap: "10px",
                   whiteSpace: "nowrap",
+                  scrollBehavior: "smooth", // Smooth scrolling for user interactions
                 }}
               >
-                {topStories &&
-                  topStories.length > 3 &&
-                  topStories.map((data, index) => {
+                {breakingNews &&
+                  breakingNews.length > 0 &&
+                  breakingNews.map((data, index) => {
                     let title = data.title
                       .replace(/[/\%.?]/g, "")
                       .split(" ")
@@ -1106,8 +1137,8 @@ const MainPage = () => {
                       title = data.slug;
                     }
 
-                    if (title && index < 10 && index >= 5) {
-                      return (
+                    return (
+                      <div>
                         <StoriesCard
                           data={data}
                           key={index}
@@ -1118,10 +1149,8 @@ const MainPage = () => {
                           text={data?.title}
                           id="columnReverse"
                         />
-                      );
-                    } else {
-                      return null;
-                    }
+                      </div>
+                    );
                   })}
               </div>
             </div>
@@ -1563,7 +1592,7 @@ const MainPage = () => {
                 marginTop: "3%",
               }}
             >
-              <div className="main-page-slider-setting">
+              <div className="main-page-slider-setting p-1">
                 {sliderItem % 2 === 0 ? (
                   <>
                     {sliderArticles?.map((data, index) => {
@@ -1610,7 +1639,7 @@ const MainPage = () => {
                   <></>
                 )}
 
-                <div className="main-page-slider-items">
+                <div className="main-page-slider-items ">
                   {sliderArticles
                     .map((_, i) => i)
                     .filter((i) => i % 2 === 0)
@@ -1631,7 +1660,7 @@ const MainPage = () => {
                     ))}
                 </div>
               </div>
-              <div className="main-page-slider-setting">
+              <div className="main-page-slider-setting ">
                 {sliderItem2 % 2 !== 0 ? (
                   <>
                     {sliderArticles?.map((data, index) => {

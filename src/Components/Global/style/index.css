@@ -157,7 +157,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 5px;
+  margin-top: -2px;
 }
 .header-row-box-items {
   display: flex;
@@ -327,7 +327,7 @@
   width: 80%;
   height: 220px;
   border-radius: 10px;
-  margin: 10px 10px;
+  margin: 10px 10px 0px 10px;
 }
 .ad-card-main-area > img {
   width: 100%;

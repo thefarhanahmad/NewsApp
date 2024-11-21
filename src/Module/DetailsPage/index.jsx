@@ -267,7 +267,7 @@ const DetailsPage = () => {
             onClick={(e) => e.stopPropagation()}
           >
             <AdCardPopup
-              type={"mid"}
+              type={"top"}
               adPopup={adPopup}
               setAdPopup={setAdPopup}
             />
@@ -305,14 +305,21 @@ const DetailsPage = () => {
             <span className="font-bold">Reported By: </span>
             {data?.reportedBy}
           </p>
-          <p>
+          {/* <p>
             <span className="font-bold">Date: </span>
             {data?.date}
-          </p>
+          </p> */}
           <p>
-            <span className="font-bold">Time: </span>
+            <span className="font-bold">Date & Time: </span>
             {data ? newFormatDate(data.updatedAt) : "12|08|2023 12:15"}
           </p>
+          {/* <p>
+            <span className="font-bold">Time: </span>
+            {data ? newFormatDate(data.updatedAt) : "12|08|2023 12:15"}
+          </p> */}
+        </div>
+        <div className="">
+          <AdCard type={"mid"} />
         </div>
         <div className="details-page-top-item3 -mt-2  px-2 pb-2">
           {isFav ? (
@@ -535,6 +542,7 @@ const DetailsPage = () => {
               <AiOutlineCalendar size={22} style={{ marginRight: "10px" }} />
               {data ? newFormatDate(data.updatedAt) : "12|08|2023 12:15"}
             </div>
+
             <div className="details-page-top-item3 ">
               {isFav ? (
                 <>

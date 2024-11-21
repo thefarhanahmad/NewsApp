@@ -124,6 +124,7 @@ const MobileHeader = ({ listitem }) => {
     }
   }
   const location = useLocation();
+
   return (
     <>
       {isOpen && (
@@ -133,7 +134,7 @@ const MobileHeader = ({ listitem }) => {
         />
       )}
       {/* Top Ad */}
-      {location?.pathname === "/" && (
+      {location?.pathname === "/" && topAd && (
         <div className="fixed top-0 left-0 mb-4 mob-ad z-50 overflow-hidden w-full h-[68px]">
           <a
             href={topAd?.link}
@@ -158,7 +159,7 @@ const MobileHeader = ({ listitem }) => {
       <div className="mobileNavBarContainer ">
         <div
           className={`mobilevisibleNavItems  ${
-            location?.pathname === "/" ? "top-[68px]" : "top-0"
+            location?.pathname === "/" && topAd ? "top-[68px]" : "top-0"
           }`}
         >
           <div>

@@ -8,7 +8,7 @@ const ItemPageCard1 = ({ title, discription, date, image, onPress, type }) => {
   const [desc, SetDesc] = useState(discription);
   useEffect(() => {
     let tt = "";
-    let times = desc?.length > 500 ? 500 : desc?.length;
+    let times = desc?.length > 100 ? 100 : desc?.length;
 
     for (let i = 0; i < times; i++) {
       tt += desc[i];
@@ -55,7 +55,7 @@ const ItemPageCard1 = ({ title, discription, date, image, onPress, type }) => {
             {/* 15 august 2023 */}
           </div>
           <div
-            className="text-item-page-card-main-conatiner-text"
+            className="text-item-page-card-main-conatiner-text bg-red-400"
             dangerouslySetInnerHTML={{ __html: desc }}
           >
             {/* {desc} */}

@@ -261,7 +261,7 @@ const DetailsPage2 = () => {
             onClick={(e) => e.stopPropagation()}
           >
             <AdCardPopup
-              type={"mid"}
+              type={"top"}
               adPopup={adPopup}
               setAdPopup={setAdPopup}
             />
@@ -281,16 +281,23 @@ const DetailsPage2 = () => {
             <span className="font-bold">Reported By: </span>
             {data?.reportedBy}
           </p>
-          <p>
+          {/* <p>
             <span className="font-bold">Date & Time: </span>
             {data?.date}
-          </p>
+          </p> */}
           <p>
-            <span className="font-bold ">Time: </span>
+            <span className="font-bold">Date & Time: </span>
             {data ? newFormatDate(data.updatedAt) : "12|08|2023 12:15"}
           </p>
+          {/* <p>
+            <span className="font-bold ">Time: </span>
+            {data ? newFormatDate(data.updatedAt) : "12|08|2023 12:15"}
+          </p> */}
         </div>
-        <div className="details-page-top-item3">
+        <div className="">
+          <AdCard type={"mid"} />
+        </div>
+        <div className="details-page-top-item3 mb-2">
           {isFav ? (
             <>
               <AiFillHeart

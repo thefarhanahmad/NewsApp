@@ -98,6 +98,7 @@
   color: rgba(0, 0, 0, 1);
   display: flex;
   align-items: center;
+  padding-left: 15px;
 }
 .details-main-text-area {
   width: 90%;
