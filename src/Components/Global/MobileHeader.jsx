@@ -124,7 +124,6 @@ const MobileHeader = ({ listitem }) => {
     }
   }
   const location = useLocation();
-
   return (
     <>
       {isOpen && (
@@ -193,7 +192,7 @@ const MobileHeader = ({ listitem }) => {
               />
             )}
           </div>
-          <div className="mobile-visible-containerr">
+          <div className="mobile-visible-containerr ">
             <Link
               // onClick={() => {
               //   Navigation("/");
@@ -266,8 +265,8 @@ const MobileHeader = ({ listitem }) => {
 
         <div
           className={`mobileNavAbsoluteContainer ${
-            isHamBurgClicked ? "mobileNavAbsoluteContainerCLicked" : ""
-          } `}
+            topAd ? "top-[138px]" : "top-[70px]"
+          }  ${isHamBurgClicked ? "mobileNavAbsoluteContainerCLicked" : ""} `}
         >
           <ul>
             {itsItem.length > 0 &&

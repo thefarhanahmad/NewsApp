@@ -95,7 +95,7 @@
 .mobileNavAbsoluteContainer {
   z-index: 999;
   min-width: 90%;
-  top: 138px;
+
   bottom: 0;
   background-color: white;
   position: fixed;

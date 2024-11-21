@@ -68,7 +68,7 @@ const MainPage = () => {
   const [DisplayImageCrousal, setDisplayImageCrousal] = useState(false);
   const [technology, setTechnology] = useState([]);
 
-  console.log("breaking news data: ", breakingNews);
+  console.log("top ad in index: ", topAd);
 
   const scrollContainerRef = useRef(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -511,7 +511,11 @@ const MainPage = () => {
   return (
     <>
       <div className="main-page-conatiner">
-        <ul className="mobileMainPageAnchorSlider">
+        <ul
+          className={`mobileMainPageAnchorSlider  ${
+            topAd ? "mt-[140px]" : "mt-0"
+          } `}
+        >
           <li>
             <Link to="/itempage2?newsType=topStories">Top Stories</Link>
           </li>
