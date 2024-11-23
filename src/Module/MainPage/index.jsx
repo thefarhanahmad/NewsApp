@@ -69,52 +69,57 @@ const MainPage = () => {
   const [technology, setTechnology] = useState([]);
 
   console.log("top ad in index: ", topAd);
-
-  const scrollContainerRef = useRef(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
-
-  // Scroll Left
-  const scrollLeft = () => {
-    console.log("left scrolled ");
-    const container = scrollContainerRef.current;
+  const breakingNewsRef = useRef(null);
+  const photosRef = useRef(null);
+  const scrollLeft = (ref) => {
+    const container = ref.current;
     if (container) {
       container.scrollBy({
-        left: -300, // Adjust scroll amount
+        left: -300,
         behavior: "smooth",
       });
     }
   };
 
-  // Scroll Right
-  const scrollRight = () => {
-    console.log("right scrolled ");
-    const container = scrollContainerRef.current;
+  const scrollRight = (ref) => {
+    const container = ref.current;
     if (container) {
       container.scrollBy({
-        left: 300, // Adjust scroll amount
+        left: 300,
         behavior: "smooth",
       });
     }
   };
 
-  // Update scroll button state
-  const updateScrollState = () => {
-    const container = scrollContainerRef.current;
+  const updateScrollState = (ref, setLeft, setRight) => {
+    const container = ref.current;
     if (container) {
-      setCanScrollLeft(container.scrollLeft > 0);
-      setCanScrollRight(
+      setLeft(container.scrollLeft > 0);
+      setRight(
         container.scrollLeft < container.scrollWidth - container.clientWidth
       );
     }
   };
-
-  // Attach scroll event listener to update button state
   useEffect(() => {
-    const container = scrollContainerRef.current;
+    const container = breakingNewsRef.current;
     if (container) {
-      container.addEventListener("scroll", updateScrollState);
-      updateScrollState(); // Initial state update
+      container.addEventListener("scroll", () =>
+        updateScrollState(breakingNewsRef, setCanScrollLeft, setCanScrollRight)
+      );
+      updateScrollState(breakingNewsRef, setCanScrollLeft, setCanScrollRight);
+      return () => container.removeEventListener("scroll", updateScrollState);
+    }
+  }, []);
+
+  useEffect(() => {
+    const container = photosRef.current;
+    if (container) {
+      container.addEventListener("scroll", () =>
+        updateScrollState(photosRef, setCanScrollLeft, setCanScrollRight)
+      );
+      updateScrollState(photosRef, setCanScrollLeft, setCanScrollRight);
       return () => container.removeEventListener("scroll", updateScrollState);
     }
   }, []);
@@ -739,7 +744,7 @@ const MainPage = () => {
               justifyContent: "space-between",
               marginTop: "3%",
               padding: "0 9px",
-              overflow: "hidden", // Ensure overflow is managed
+              overflow: "hidden",
             }}
           >
             <div className="main-page-slider-setting" style={{ width: "100%" }}>
@@ -1073,25 +1078,23 @@ const MainPage = () => {
               </div>
 
               {/* Slider control buttons */}
+
               <div
                 style={{
+                  width: "100%",
                   display: "flex",
                   justifyContent: "space-between",
-                  width: "100%",
                   marginBottom: "10px",
                   position: "absolute",
-                  bottom: "74px",
+                  bottom: "75px",
                 }}
               >
                 <button
-                  onClick={scrollLeft}
-                  disabled={!canScrollLeft} // Disable if can't scroll left
+                  onClick={() => scrollLeft(breakingNewsRef)}
                   style={{
-                    background: canScrollLeft
-                      ? "rgba(255, 255, 255, 0.6)"
-                      : "rgba(200, 200, 200, 0.6)", // Dim when disabled
+                    background: "rgba(255, 255, 255, 0.6)",
                     border: "none",
-                    cursor: canScrollLeft ? "pointer" : "not-allowed",
+                    cursor: "pointer",
                     fontSize: "24px",
                     display: "flex",
                     alignItems: "center",
@@ -1100,14 +1103,11 @@ const MainPage = () => {
                   <IoChevronBack />
                 </button>
                 <button
-                  onClick={scrollRight}
-                  disabled={!canScrollRight} // Disable if can't scroll right
+                  onClick={() => scrollRight(breakingNewsRef)}
                   style={{
-                    background: canScrollRight
-                      ? "rgba(255, 255, 255, 0.6)"
-                      : "rgba(200, 200, 200, 0.6)", // Dim when disabled
+                    background: "rgba(255, 255, 255, 0.6)",
                     border: "none",
-                    cursor: canScrollRight ? "pointer" : "not-allowed",
+                    cursor: "pointer",
                     fontSize: "24px",
                     display: "flex",
                     alignItems: "center",
@@ -1116,10 +1116,9 @@ const MainPage = () => {
                   <IoChevronForward />
                 </button>
               </div>
-
               {/* Big news container */}
               <div
-                ref={scrollContainerRef}
+                ref={breakingNewsRef}
                 className="top-stories-all-cards"
                 style={{
                   display: "flex",
@@ -1142,18 +1141,20 @@ const MainPage = () => {
                     }
 
                     return (
-                      <div>
-                        <StoriesCard
-                          data={data}
-                          key={index}
-                          OnPress={() =>
-                            navigation(`/details/${title}?id=${data?._id}`)
-                          }
-                          image={data?.image}
-                          text={data?.title}
-                          id="columnReverse"
-                        />
-                      </div>
+                      <>
+                        <div>
+                          <StoriesCard
+                            data={data}
+                            key={index}
+                            OnPress={() =>
+                              navigation(`/details/${title}?id=${data?._id}`)
+                            }
+                            image={data?.image}
+                            text={data?.title}
+                            id="columnReverse"
+                          />
+                        </div>
+                      </>
                     );
                   })}
               </div>
@@ -1384,7 +1385,7 @@ const MainPage = () => {
               }}
             >
               <button
-                onClick={scrollLeft}
+                onClick={() => scrollLeft(photosRef)}
                 style={{
                   background: "rgba(255, 255, 255, 0.6)",
                   border: "none",
@@ -1397,7 +1398,7 @@ const MainPage = () => {
                 <IoChevronBack />
               </button>
               <button
-                onClick={scrollRight}
+                onClick={() => scrollRight(photosRef)}
                 style={{
                   background: "rgba(255, 255, 255, 0.6)",
                   border: "none",
@@ -1412,7 +1413,7 @@ const MainPage = () => {
             </div>
 
             <div
-              ref={scrollContainerRef}
+              ref={photosRef}
               className="main-page-photoGallery-container"
               style={{ display: "flex", overflowX: "auto", gap: "20px" }}
             >

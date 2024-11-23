@@ -55,7 +55,7 @@ const ItemPageCard1 = ({ title, discription, date, image, onPress, type }) => {
             {/* 15 august 2023 */}
           </div>
           <div
-            className="text-item-page-card-main-conatiner-text bg-red-400"
+            className="text-item-page-card-main-conatiner-text "
             dangerouslySetInnerHTML={{ __html: desc }}
           >
             {/* {desc} */}
