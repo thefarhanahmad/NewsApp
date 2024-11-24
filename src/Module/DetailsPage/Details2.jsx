@@ -232,7 +232,12 @@ const DetailsPage2 = () => {
   // title share url
   const shareurl = article?.data[0].shareUrl;
   const title = "News App";
-  // const imgUrl = data?.image;
+  const cleanedUrl = shareurl?.replace(
+    "https://test-backend-news.vercel.app/api/shareUrl?relocation=",
+    ""
+  );
+
+  console.log(cleanedUrl);
 
   useEffect(() => {
     axios
@@ -344,18 +349,22 @@ const DetailsPage2 = () => {
                 paddingRight: 5,
               }}
             >
-              <FacebookShareButton url={shareurl} quote={title} hashtag="#news">
+              <FacebookShareButton
+                url={cleanedUrl}
+                quote={title}
+                hashtag="#news"
+              >
                 <FacebookIcon size={32} round />
               </FacebookShareButton>
               <TwitterShareButton
-                url={shareurl}
+                url={cleanedUrl}
                 title={title}
                 className="Demo__some-network__share-button"
               >
                 <TwitterIcon size={32} round />
               </TwitterShareButton>
               <EmailShareButton
-                url={shareurl}
+                url={cleanedUrl}
                 subject={title}
                 body="body"
                 className="Demo__some-network__share-button"
@@ -366,7 +375,7 @@ const DetailsPage2 = () => {
             </div>
           </div>
           <WhatsappShareButton
-            url={shareurl}
+            url={cleanedUrl}
             className="Demo__some-network__share-button"
           >
             <WhatsappIcon size={32} round style={{ marginTop: "10px" }} />
@@ -556,21 +565,21 @@ const DetailsPage2 = () => {
                   }}
                 >
                   <FacebookShareButton
-                    url={shareurl}
+                    url={cleanedUrl}
                     quote={title}
                     hashtag="#news"
                   >
                     <FacebookIcon size={32} round />
                   </FacebookShareButton>
                   <TwitterShareButton
-                    url={shareurl}
+                    url={cleanedUrl}
                     title={title}
                     className="Demo__some-network__share-button"
                   >
                     <TwitterIcon size={32} round />
                   </TwitterShareButton>
                   <EmailShareButton
-                    url={shareurl}
+                    url={cleanedUrl}
                     subject={title}
                     body="body"
                     className="Demo__some-network__share-button"
@@ -582,7 +591,7 @@ const DetailsPage2 = () => {
                 </div>
               </div>
               <WhatsappShareButton
-                url={shareurl}
+                url={cleanedUrl}
                 title={title}
                 separator=":: "
                 className="Demo__some-network__share-button"
