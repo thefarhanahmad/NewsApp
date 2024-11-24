@@ -252,6 +252,13 @@ const DetailsPage = () => {
   const imgUrl = data?.image;
   const description = data?.discription;
   const [adPopup, setAdPopup] = useState(false);
+  console.log("share url : ", shareurl);
+  const cleanedUrl = shareurl?.replace(
+    "https://test-backend-news.vercel.app/api/shareUrl?relocation=",
+    ""
+  );
+
+  console.log(cleanedUrl);
 
   useEffect(() => {
     setAdPopup(true);
@@ -279,7 +286,7 @@ const DetailsPage = () => {
         <title>{title}</title>
         <meta name="description" content={description} />
 
-        <meta name="url" content={shareurl} />
+        <meta name="url" content={cleanedUrl} />
         <meta name="description" content={description} />
         <meta property="og:type" content="article" />
         <meta property="og:title" content={title} />
@@ -368,20 +375,24 @@ const DetailsPage = () => {
                 paddingRight: 5,
               }}
             >
-              <FacebookShareButton url={shareurl} quote={title} hashtag="#news">
+              <FacebookShareButton
+                url={cleanedUrl}
+                quote={title}
+                hashtag="#news"
+              >
                 <FacebookIcon size={32} round />
               </FacebookShareButton>
               <TwitterShareButton
-                url={shareurl}
+                url={cleanedUrl}
                 title={title}
                 className="Demo__some-network__share-button"
               >
                 <TwitterIcon size={32} round />
               </TwitterShareButton>
               <EmailShareButton
-                url={shareurl}
+                url={cleanedUrl}
                 subject={title}
-                body={`Check this out: ${title} \n ${shareurl} \n ${imgUrl}`}
+                body={`Check this out: ${title} \n ${cleanedUrl} \n ${imgUrl}`}
                 className="Demo__some-network__share-button"
               >
                 <EmailIcon size={32} round />
@@ -392,7 +403,7 @@ const DetailsPage = () => {
           {/* whatsapp share */}
           <div>
             <WhatsappShareButton
-              url={shareurl}
+              url={cleanedUrl}
               className="Demo__some-network__share-button"
             >
               <WhatsappIcon size={32} round style={{ marginTop: "10px" }} />
@@ -591,23 +602,23 @@ const DetailsPage = () => {
                   }}
                 >
                   <FacebookShareButton
-                    url={shareurl}
+                    url={cleanedUrl}
                     quote={title}
                     hashtag="#news"
                   >
                     <FacebookIcon size={32} round />
                   </FacebookShareButton>
                   <TwitterShareButton
-                    url={shareurl}
+                    url={cleanedUrl}
                     title={title}
                     className="Demo__some-network__share-button"
                   >
                     <TwitterIcon size={32} round />
                   </TwitterShareButton>
                   <EmailShareButton
-                    url={shareurl}
+                    url={cleanedUrl}
                     subject={title}
-                    body={`Check this out: ${title} \n ${shareurl} \n ${imgUrl}`}
+                    body={`Check this out: ${title} \n ${cleanedUrl} \n ${imgUrl}`}
                     className="Demo__some-network__share-button"
                   >
                     <EmailIcon size={32} round />
@@ -619,7 +630,7 @@ const DetailsPage = () => {
               {/* whatsapp share */}
               <div>
                 <WhatsappShareButton
-                  url={shareurl}
+                  url={cleanedUrl}
                   className="Demo__some-network__share-button"
                 >
                   <WhatsappIcon size={32} round />
