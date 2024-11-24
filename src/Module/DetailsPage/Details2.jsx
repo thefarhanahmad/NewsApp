@@ -36,6 +36,7 @@ import { Loading } from "../../Context";
 import RelatedNewsSection from "../../Components/SharedComponents/RelatedNewSection";
 import LatesetNewsSection from "../../Components/SharedComponents/LatestNewsSection";
 import AdCardPopup from "../../Components/DetailsPage/AdCardPopup";
+import { Helmet } from "react-helmet-async";
 
 // Instagram share button (custom implementation)
 const InstagramShareButton = ({ url }) => {
@@ -232,6 +233,8 @@ const DetailsPage2 = () => {
   // title share url
   const shareurl = article?.data[0].shareUrl;
   const title = "News App";
+  const imgUrl = data?.image;
+  const description = data?.discription;
   // const imgUrl = data?.image;
 
   useEffect(() => {
@@ -268,6 +271,22 @@ const DetailsPage2 = () => {
           </div>
         )}
       </>
+      <Helmet>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+
+        <meta name="url" content={shareurl} />
+        <meta name="description" content={description} />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={imgUrl} />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={imgUrl} />
+      </Helmet>
       {/* mobile version nnnn */}
       <div className="mobileDetailsPage">
         <div className="p-2">
