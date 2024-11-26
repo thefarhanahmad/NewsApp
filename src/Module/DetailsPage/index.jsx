@@ -62,6 +62,7 @@ const InstagramShareButton = ({ url }) => {
     </button>
   );
 };
+
 function findStoryIdFromUrl(pathname) {
   // Regular expression to find the 'id' parameter and its value
   const idRegex = /id=([^&]+)/;
@@ -99,8 +100,11 @@ const DetailsPage = () => {
   const storyId = findStoryIdFromUrl(search);
   const query = new URLSearchParams(search);
 
-  const [topStories, settopStories] = useState();
+  const [topStories, settopStories] = useState([]);
+  const [breakingNews, setBreakingNews] = useState([]);
+  const [relatedNews, setRelatedNews] = useState([]);
 
+  console.log("data in details page : ", data);
   useEffect(() => {
     const href = window.location.href;
     axios
@@ -176,8 +180,56 @@ const DetailsPage = () => {
         settopStories(data.data);
       })
       .catch(() => {});
+    axios
+      .get(
+        `${API_URL}/article?pagenation=true&limit=7&type=img&newsType=breakingNews&status=online`
+      )
+      .then((data) => {
+        setBreakingNews(data.data);
+      })
+      .catch(() => {});
   }, []);
+  // Debugging outputs
+  console.log("data in details : ", data);
+  console.log("breakingg newww : ", breakingNews);
+  console.log("top storri  : ", topStories);
+  console.log("related news : ", relatedNews);
 
+  useEffect(() => {
+    if (!data || !Array.isArray(data.keyWord) || data.keyWord.length === 0) {
+      console.error("Invalid `data` or `keyWord` is missing or empty:", data);
+      setRelatedNews([]); // Clear related news if data is invalid
+      return;
+    }
+
+    // Combine breakingNews and topStories into one array
+    const combinedNews = [...breakingNews, ...topStories];
+    console.log("Combined news:", combinedNews);
+
+    // Step 1: Filter by keywords
+    let filteredNews = combinedNews.filter(
+      (newsItem) =>
+        newsItem.keyWord?.some((keyword) => data.keyWord.includes(keyword)) && // Matches any keyword
+        newsItem._id !== data._id // Exclude the current data
+    );
+
+    console.log("Filtered news by keywords:", filteredNews);
+
+    // Step 2: If no keyword matches, fallback to newsType
+    if (filteredNews.length < 1) {
+      console.warn("No news matched keywords. Falling back to newsType match.");
+      filteredNews = combinedNews.filter(
+        (newsItem) =>
+          newsItem.newsType === data.newsType && // Matches the news type
+          newsItem._id !== data._id // Exclude the current data
+      );
+    }
+
+    console.log("Final filtered news (after fallback):", filteredNews);
+
+    // Step 3: Update relatedNews state
+    setRelatedNews([...filteredNews]); // Ensure a new reference to trigger state updates
+  }, [data, breakingNews, topStories]);
   const formatDatetime = (datetimeStr) => {
     if (!datetimeStr) return "12|08|2023 12:15"; // Default date if no datetime string is provided
 
@@ -294,6 +346,9 @@ const DetailsPage = () => {
 
       {/* mobile version  */}
       <div className="mobileDetailsPage">
+        <div className="">
+          <AdCard type={"mid"} />
+        </div>
         <div className="p-2">
           <h1
             style={{ fontSize: "20px", fontWeight: "bold" }}
@@ -318,9 +373,7 @@ const DetailsPage = () => {
             {data ? newFormatDate(data.updatedAt) : "12|08|2023 12:15"}
           </p> */}
         </div>
-        <div className="">
-          <AdCard type={"mid"} />
-        </div>
+
         <div className="details-page-top-item3 -mt-2  px-2 pb-2">
           {isFav ? (
             <>
@@ -399,7 +452,7 @@ const DetailsPage = () => {
             </WhatsappShareButton>
           </div>
         </div>
-        <div className="mobileDetailsMainImage">
+        <div className="mobileDetailsMainImage ">
           <img
             src={data ? data?.image : DetailImg}
             alt=""
@@ -410,7 +463,7 @@ const DetailsPage = () => {
           <div className="deatils-main-para-area " id="mob_parar"></div>
 
           <div className="container-detail-page-rigth-side mt-3">
-            {topStories && (
+            {relatedNews && (
               <div className="details-page-related-news">
                 <div className="details-page-related-news-heading">
                   {t("rn")}
@@ -418,7 +471,7 @@ const DetailsPage = () => {
               </div>
             )}
             <div className="detail-page-relate-new-cards">
-              {topStories?.map((data, index) => {
+              {relatedNews?.slice(0, 5)?.map((data, index) => {
                 let title = data.title
                   .replace(/[/\%.?]/g, "")
                   .split(" ")

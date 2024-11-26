@@ -103,7 +103,9 @@ const DetailsPage2 = () => {
   const storyId = findStoryIdFromUrl(search);
   const query = new URLSearchParams(search);
 
-  const [topStories, settopStories] = useState();
+  const [topStories, settopStories] = useState([]);
+  const [breakingNews, setBreakingNews] = useState([]);
+  const [relatedNews, setRelatedNews] = useState([]);
 
   useEffect(() => {
     const href = window.location.href;
@@ -246,7 +248,57 @@ const DetailsPage2 = () => {
         settopStories(data.data);
       })
       .catch(() => {});
+    axios
+      .get(
+        `${API_URL}/article?pagenation=true&limit=7&type=img&newsType=breakingNews&status=online`
+      )
+      .then((data) => {
+        setBreakingNews(data.data);
+      })
+      .catch(() => {});
   }, []);
+
+  // Debugging outputs
+  console.log("data in details : ", data);
+  console.log("breakingg newww : ", breakingNews);
+  console.log("top storri  : ", topStories);
+  console.log("related news : ", relatedNews);
+
+  useEffect(() => {
+    if (!data || !Array.isArray(data.keyWord) || data.keyWord.length === 0) {
+      console.error("Invalid `data` or `keyWord` is missing or empty:", data);
+      setRelatedNews([]); // Clear related news if data is invalid
+      return;
+    }
+
+    // Combine breakingNews and topStories into one array
+    const combinedNews = [...breakingNews, ...topStories];
+    console.log("Combined news:", combinedNews);
+
+    // Step 1: Filter by keywords
+    let filteredNews = combinedNews.filter(
+      (newsItem) =>
+        newsItem.keyWord?.some((keyword) => data.keyWord.includes(keyword)) && // Matches any keyword
+        newsItem._id !== data._id // Exclude the current data
+    );
+
+    console.log("Filtered news by keywords:", filteredNews);
+
+    // Step 2: If no keyword matches, fallback to newsType
+    if (filteredNews.length < 1) {
+      console.warn("No news matched keywords. Falling back to newsType match.");
+      filteredNews = combinedNews.filter(
+        (newsItem) =>
+          newsItem.newsType === data.newsType && // Matches the news type
+          newsItem._id !== data._id // Exclude the current data
+      );
+    }
+
+    console.log("Final filtered news (after fallback):", filteredNews);
+
+    // Step 3: Update relatedNews state
+    setRelatedNews([...filteredNews]); // Ensure a new reference to trigger state updates
+  }, [data, breakingNews, topStories]);
 
   const [adPopup, setAdPopup] = useState(false);
 
@@ -289,6 +341,9 @@ const DetailsPage2 = () => {
       </Helmet>
       {/* mobile version nnnn */}
       <div className="mobileDetailsPage">
+        <div className="">
+          <AdCard type={"mid"} />
+        </div>
         <div className="p-2">
           <h1
             style={{ fontSize: "20px", fontWeight: "bold" }}
@@ -313,10 +368,8 @@ const DetailsPage2 = () => {
             {data ? newFormatDate(data.updatedAt) : "12|08|2023 12:15"}
           </p> */}
         </div>
-        <div className="">
-          <AdCard type={"mid"} />
-        </div>
-        <div className="details-page-top-item3 mb-2">
+
+        <div className="details-page-top-item3 mb-2 ">
           {isFav ? (
             <>
               <AiFillHeart
@@ -391,7 +444,7 @@ const DetailsPage2 = () => {
             <WhatsappIcon size={32} round style={{ marginTop: "10px" }} />
           </WhatsappShareButton>
         </div>
-        <div className="mobileDetailsMainImage px-2">
+        <div className="mobileDetailsMainImage">
           <img
             src={data ? data?.image : DetailImg}
             alt=""
@@ -405,18 +458,19 @@ const DetailsPage2 = () => {
             className="container-detail-page-rigth-side"
             style={{ marginTop: "40px" }}
           >
-            {topStories && (
-              <div className="details-page-related-news">
+            {relatedNews && (
+              <div className="details-page-related-news ">
                 <div className="details-page-related-news-heading">
                   {t("rn")}
                 </div>
               </div>
             )}
             <div
-              className="item-page-main-area-2-news-cards"
+              className="item-page-main-area-2-news-cards "
               style={{ width: "100%", marginTop: 10 }}
             >
-              {topStories?.map((data, index) => {
+              {relatedNews?.slice(0, 5)?.map((data, index) => {
+                console.log("data in related news  :", data);
                 let title = data.title
                   .replace(/[/\%.?]/g, "")
                   .split(" ")
@@ -695,12 +749,12 @@ const DetailsPage2 = () => {
           style={{ marginTop: "40px" }}
         >
           {topStories && (
-            <div className="details-page-related-news">
+            <div className="details-page-related-news ">
               <div className="details-page-related-news-heading">{t("rn")}</div>
             </div>
           )}
           <div
-            className="item-page-main-area-2-news-cards"
+            className="item-page-main-area-2-news-cards "
             style={{ width: "100%", marginTop: 10 }}
           >
             {topStories?.map((data, index) => {

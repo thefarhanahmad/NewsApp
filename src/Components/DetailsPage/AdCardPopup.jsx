@@ -47,9 +47,9 @@ const AdCardPopup = ({ type, adPopup, setAdPopup }) => {
           {/* Close Ad */}
           <button
             onClick={() => setAdPopup(false)}
-            className="absolute top-0 right-0 bg-red-100 rounded-full"
+            className="absolute top-0 right-0  rounded-full"
           >
-            <IoCloseCircleOutline className="text-6xl" />
+            <IoCloseCircleOutline className="text-3xl md:text-6xl" />
           </button>
           {data ? (
             <a href={data?.link} className="h-full">

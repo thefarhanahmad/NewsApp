@@ -13,7 +13,7 @@ const ImageCrousel = () => {
     axios
       .get(`${API_URL}/photo/${id}`)
       .then((response) => {
-        console.log("API Response:", response.data); 
+        console.log("API Response:", response.data);
         setPhoto(response.data.images || []);
       })
       .catch((error) => {
@@ -28,70 +28,72 @@ const ImageCrousel = () => {
   return (
     <div className="ImageCarouselContainer">
       {error && <p style={{ color: "red", textAlign: "center" }}>{error}</p>}
-      <Carousel className="ImageCarsouel" arrows infinite={false}>
-        {photo.length > 0 ? (
-          photo.map((img) => {
-            console.log("Image URL:", img.img); // Log image URL for debugging
+      <div className="w-full bg-gray-600 h-full p-4">
+        <Carousel className="ImageCarsouel h-full" arrows infinite={false}>
+          {photo.length > 0 ? (
+            photo.map((img) => {
+              console.log("Image URL:", img.img); // Log image URL for debugging
 
-            const handleImageClick = () => {
-              const urlPattern = new RegExp(
-                "^(https?:\\/\\/)?(www\\.)?([a-zA-Z0-9]+\\.[a-zA-Z]{2,})([\\/\\w\\.-]*)*\\/?$"
-              );
-              const isValidUrl = urlPattern.test(img?.url);
-              const redirectUrl = isValidUrl ? img.url : img.img;
+              const handleImageClick = () => {
+                const urlPattern = new RegExp(
+                  "^(https?:\\/\\/)?(www\\.)?([a-zA-Z0-9]+\\.[a-zA-Z]{2,})([\\/\\w\\.-]*)*\\/?$"
+                );
+                const isValidUrl = urlPattern.test(img?.url);
+                const redirectUrl = isValidUrl ? img.url : img.img;
 
-              window.open(redirectUrl, "_blank");
-            };
+                window.open(redirectUrl, "_blank");
+              };
 
-            return (
-              <div key={img._id}>
-                <h3
-                  className="main-page-video-heading2"
-                  style={{
-                    padding: "6px",
-                    fontSize: "2rem",
-                    color: "white",
-                    borderRadius: "10px",
-                    overflow: "hidden",
-                    marginBottom: "5px",
-                  }}
-                >
-                  {img?.text}
-                </h3>
-                <div
-                  style={{
-                    cursor: "pointer",
-                    position: "relative",
-                    width: "100%",
-                  }}
-                  className="photoGallery-card"
-                  onClick={handleImageClick}
-                >
-                  <img
-                    src={img.img || "https://via.placeholder.com/150"}
-                    alt={img.text || "Image"}
-                    style={{ width: "100%", height: "auto" }}
-                  />
+              return (
+                <div key={img._id}>
+                  <h3
+                    className="main-page-video-heading2"
+                    style={{
+                      padding: "6px",
+                      fontSize: "1.5rem",
+                      color: "black",
+                      borderRadius: "10px",
+                      overflow: "hidden",
+                      marginBottom: "2px",
+                    }}
+                  >
+                    {img?.text}
+                  </h3>
+                  <div
+                    style={{
+                      cursor: "pointer",
+                      position: "relative",
+                      width: "100%",
+                    }}
+                    className="photoGallery-card"
+                    onClick={handleImageClick}
+                  >
+                    <img
+                      src={img.img || "https://via.placeholder.com/150"}
+                      alt={img.text || "Image"}
+                      style={{ width: "100%", height: "100%" }}
+                    />
+                  </div>
                 </div>
-              </div>
-            );
-          })
-        ) : (
-          <div>
-            <h3
-              style={{
-                color: "black",
-                textAlign: "center",
-                fontSize: "25px",
-                fontWeight: "bold",
-                margin: "30px 0",
-              }}
-            >
-              No images available
-            </h3>
-          </div>
-        )}
-      </Carousel>
+              );
+            })
+          ) : (
+            <div>
+              <h3
+                style={{
+                  color: "black",
+                  textAlign: "center",
+                  fontSize: "25px",
+                  fontWeight: "bold",
+                  margin: "30px 0",
+                }}
+              >
+                No images available
+              </h3>
+            </div>
+          )}
+        </Carousel>
+      </div>
     </div>
   );
 };

@@ -141,39 +141,75 @@ const VisualStories = () => {
     try {
       setLoading(true);
 
+      console.log("Images to upload:", imgs);
+
+      // Upload images
       const imageUploadPromises = imgs.map(async (img) => {
         let formData = new FormData();
         formData.append("file", img, img.name);
-        const imageResponse = await axios.post(`${API_URL}/image`, formData);
+
+        console.log("Uploading image:", img.name);
+
+        const imageResponse = await axios.post(`${API_URL}/image`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+
+        console.log("Image upload response:", imageResponse.data);
         return imageResponse.data.image;
       });
 
       const images = await Promise.all(imageUploadPromises);
-      console.log("uploaded images", images);
+      console.log("Uploaded images:", images);
 
-      const storyResponse = await axios.post(`${API_URL}/story`, {
+      // Create story
+      const storyPayload = {
         title,
         image: images,
         albumPeriority: thumbnail,
         imageTexts: imgTexts,
-      });
+      };
+
+      console.log("Creating story with payload:", storyPayload);
+
+      const storyResponse = await axios.post(`${API_URL}/story`, storyPayload);
+      console.log("Story creation response:", storyResponse.data);
 
       message.success("Your Photo was successfully uploaded");
       setTitle("");
       fetchAllPhotos();
-      setLoading(false);
       setImgs([]);
       setIsVerifyModalOpen(false);
       setOnEdit(false);
       setId(null);
     } catch (error) {
-      message.error("Your Photo was not successfully uploaded");
-      setTitle("");
-      setLoading(false);
-      setIsVerifyModalOpen(false);
+      console.error("Error in upload process:", error);
+
+      // Handle different error cases
+      if (error.response) {
+        console.error(
+          "Error response:",
+          error.response.status,
+          error.response.data
+        );
+        message.error(
+          `Upload failed: ${error.response.data.message || "Server error"}`
+        );
+      } else if (error.request) {
+        console.error("No response received:", error.request);
+        message.error("Upload failed: No response from server");
+      } else {
+        console.error("Unexpected error:", error.message);
+        message.error("Upload failed: An unexpected error occurred");
+      }
+
       setImgs([]);
+      setTitle("");
+      setIsVerifyModalOpen(false);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const onUpdate = async () => {

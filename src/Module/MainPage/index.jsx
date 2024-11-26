@@ -30,6 +30,7 @@ import slider from "../../assets/slider (2).png";
 import AllSectionArticle from "../../Components/MainPage/SectionArticle";
 import { PlayCircleOutlined } from "@ant-design/icons";
 import VdoThumb from "../../Components/common/VdoThumb";
+import { useAd } from "../../Context/TopAdContext";
 
 const MainPage = () => {
   const [sliderItem, setSliderItem] = useState(0);
@@ -68,7 +69,7 @@ const MainPage = () => {
   const [DisplayImageCrousal, setDisplayImageCrousal] = useState(false);
   const [technology, setTechnology] = useState([]);
 
-  console.log("top ad in index: ", topAd);
+  console.log("topstriies in index: ", topStories);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
   const breakingNewsRef = useRef(null);
@@ -266,7 +267,7 @@ const MainPage = () => {
                 )
             );
 
-            // console.log("topStories",StoryData,uniqueTopStories)
+            console.log("topStories : ", StoryData, uniqueTopStories);
             settopStories(uniqueTopStories);
           });
         axios
@@ -513,12 +514,14 @@ const MainPage = () => {
 
   console.log("sliderArticles", sliderArticles);
 
+  const { showAd } = useAd();
+  console.log("showtopad : ", showAd);
   return (
     <>
       <div className="main-page-conatiner">
         <ul
           className={`mobileMainPageAnchorSlider  ${
-            topAd ? "mt-[140px]" : "mt-0"
+            showAd && topAd ? "mt-[132px] " : "mt-[65px] "
           } `}
         >
           <li>
@@ -1066,8 +1069,9 @@ const MainPage = () => {
               </div>
             </div>
           </div>
+
           {/* forth */}
-          <div className="main-conatiner container container3">
+          <div className="main-conatiner container container3 border-t-2 border-gray-300">
             <div
               id="BigNews"
               className="main-left-side"
@@ -1748,7 +1752,7 @@ const MainPage = () => {
               />
             </div>
           </div>
-          <div id="TopStories" className="main-left-side">
+          <div id="TopStories" className="main-left-side ">
             <div className="main-left-side-top">
               <div>{t("ts")}</div>
             </div>

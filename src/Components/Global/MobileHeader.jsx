@@ -15,6 +15,8 @@ import { FaNewspaper } from "react-icons/fa6";
 import { MdAutoStories } from "react-icons/md";
 import { TfiGallery } from "react-icons/tfi";
 import { FaPhotoVideo } from "react-icons/fa";
+import { IoCloseCircleOutline } from "react-icons/io5";
+import { useAd } from "../../Context/TopAdContext";
 function findStoryIdFromUrl(pathname) {
   // Regular expression to find the 'id' parameter and its value
   const idRegex = /id=([^&]+)/;
@@ -124,6 +126,9 @@ const MobileHeader = ({ listitem }) => {
     }
   }
   const location = useLocation();
+
+  const { showAd, closeAd } = useAd();
+  console.log("showAd : ", showAd);
   return (
     <>
       {isOpen && (
@@ -133,8 +138,12 @@ const MobileHeader = ({ listitem }) => {
         />
       )}
       {/* Top Ad */}
-      {location?.pathname === "/" && topAd && (
+      {location?.pathname === "/" && topAd && showAd && (
         <div className="fixed top-0 left-0 mb-4 mob-ad z-50 overflow-hidden w-full h-[68px]">
+          <IoCloseCircleOutline
+            onClick={closeAd}
+            className="text-3xl cursor-pointer md:text-5xl top-0 right-0 bg-gray-800 text-white rounded-full absolute"
+          />
           <a
             href={topAd?.link}
             target="_blank"
@@ -157,8 +166,10 @@ const MobileHeader = ({ listitem }) => {
 
       <div className="mobileNavBarContainer ">
         <div
-          className={`mobilevisibleNavItems  ${
-            location?.pathname === "/" && topAd ? "top-[68px]" : "top-0"
+          className={`mobilevisibleNavItems ${
+            location?.pathname === "/" && topAd && showAd
+              ? "top-[68px]"
+              : "top-0"
           }`}
         >
           <div>
@@ -265,7 +276,7 @@ const MobileHeader = ({ listitem }) => {
 
         <div
           className={`mobileNavAbsoluteContainer ${
-            topAd ? "top-[138px]" : "top-[70px]"
+            topAd && showAd ? "top-[130px]" : "top-[62px]"
           }  ${isHamBurgClicked ? "mobileNavAbsoluteContainerCLicked" : ""} `}
         >
           <ul>

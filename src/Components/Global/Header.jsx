@@ -16,7 +16,7 @@ import { AutoComplete, Dropdown, Input, Select } from "antd";
 import { IoIosCloseCircle } from "react-icons/io";
 import MobileHeader from "./MobileHeader";
 import { Option } from "antd/es/mentions";
-
+import { IoCloseCircleOutline } from "react-icons/io5";
 const Header = () => {
   const [isHamBurger, setIsHamBurger] = useState(false);
   const [itsItem, setItsItem] = useState([]);
@@ -149,46 +149,56 @@ const Header = () => {
       console.error("Error updating ads:", error);
     }
   }
+
+  // const [showAd, setShowAd] = useState(true);
+
   return (
     <>
       <MobileHeader listitem={AllcatgeoryData} />
 
       {loading ? null : (
         <div className="header-main-area">
-          <div>
-            <a
-              href={topAd?.link}
-              target="_blank"
-              onClick={() => {
-                onClickAd(topAd._id);
-              }}
-              rel="noreferrer"
-            >
-              <img
-                style={{
-                  cursor: "pointer",
-                  padding: "2px",
+          {topAd && (
+            <div className="">
+              {/* <IoCloseCircleOutline
+                onClick={() => setShowAd(false)}
+                className="text-3xl md:text-5xl top-0 right-0 bg-gray-800 text-white rounded-full absolute"
+              /> */}
+              <a
+                href={topAd?.link}
+                target="_blank"
+                onClick={() => {
+                  onClickAd(topAd._id);
                 }}
-                className="top-header-img"
-                src={topAd?.imgLink}
-                alt=""
-              />
-              {/* top ad will show here */}
-            </a>
-            {/* <img src={TopHeaderImg} alt="" " /> */}
-            {/* <select
-              name="language"
-              id=""
-              style={{ width: 100, position: "absolute", right: 10, top: 10 }}
-              onChange={(e) => {
-                i18n.changeLanguage(e.target.value);
-              }}
-            >
-              <option value="hi">Hindi</option>
-              <option value="en">English</option>
-              <option value="ur">Urdu</option>
-            </select> */}
-          </div>
+                rel="noreferrer"
+              >
+                <img
+                  style={{
+                    cursor: "pointer",
+                    padding: "2px",
+                  }}
+                  className="top-header-img"
+                  src={topAd?.imgLink}
+                  alt=""
+                />
+                {/* top ad will show here */}
+              </a>
+              {/* <img src={TopHeaderImg} alt="" " /> */}
+              {/* <select
+                name="language"
+                id=""
+                style={{ width: 100, position: "absolute", right: 10, top: 10 }}
+                onChange={(e) => {
+                  i18n.changeLanguage(e.target.value);
+                }}
+              >
+                <option value="hi">Hindi</option>
+                <option value="en">English</option>
+                <option value="ur">Urdu</option>
+              </select> */}
+            </div>
+          )}
+
           <div className="header-contianer">
             <div
               onClick={() => Navigation("/")}

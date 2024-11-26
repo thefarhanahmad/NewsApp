@@ -130,96 +130,81 @@ const LivePage = () => {
     <>
       {/* mobile version  */}
       <div className="mobileDetailsPage">
-        <div className="mobileDetailsMainImage">
-          <YouTube
-            videoId={videoId}
-            opts={{
-              height: "200px",
-              width: "100%",
-              playerVars: {
-                // https://developers.google.com/youtube/player_parameters
-                autoplay: 0,
-              },
+        <h1
+          style={{ fontSize: "16px" }}
+          className="details-page-main-heading  px-2"
+        >
+          {Data?.title
+            ? Data?.title
+            : "100 Hours On, Forces Locked In Jungle Warfare With Terrorists InKashmir"}
+        </h1>
+        <div className="details-page-top-items px-2">
+          <div
+            style={{
+              margin: " 0px 0px",
+              padding: "5px 0",
+              // borderTop: "1px solid grey",
+              // borderBottom: "1px solid grey",
             }}
-          />
-        </div>
-
-        <div className="container3">
-          <h1
-            style={{ fontSize: "16px" }}
-            className="details-page-main-heading"
+            className="details-page-top-item3"
           >
-            {Data?.title
-              ? Data?.title
-              : "100 Hours On, Forces Locked In Jungle Warfare With Terrorists InKashmir"}
-          </h1>
-          <div className="details-page-top-items">
-            <div
-              style={{
-                margin: " 15px 0px",
-                padding: "5px 0",
-                borderTop: "1px solid grey",
-                borderBottom: "1px solid grey",
-              }}
-              className="details-page-top-item3"
-            >
-              {isFav ? (
-                <>
-                  <AiFillHeart
-                    style={{ marginRight: "18px" }}
-                    color="red"
-                    onClick={() => setIsFav(!isFav)}
-                  />
-                </>
-              ) : (
-                <TiHeartOutline
+            {isFav ? (
+              <>
+                <AiFillHeart
                   style={{ marginRight: "18px" }}
+                  color="red"
                   onClick={() => setIsFav(!isFav)}
                 />
-              )}
-              {/* {data?(data.comment)?<RiMessage2Fill style={{ marginRight: "18px" }} onClick={()=>{
+              </>
+            ) : (
+              <TiHeartOutline
+                style={{ marginRight: "18px" }}
+                onClick={() => setIsFav(!isFav)}
+              />
+            )}
+            {/* {data?(data.comment)?<RiMessage2Fill style={{ marginRight: "18px" }} onClick={()=>{
                 showModal()
               }} />:null:null} */}
-              <div style={{ position: "relative" }}>
-                <GrShareOption
-                  style={{ marginRight: "18px", cursor: "pointer" }}
-                  onClick={() => setIsOpen(!isOpen)}
-                />
-                <div
-                  style={{
-                    position: "absolute",
-                    height: "30px",
-                    width: "150px",
-                    backgroundColor: "#5a5a5a",
-                    borderRadius: 100,
-                    bottom: -40,
-                    left: -20,
-                    alignItems: "center",
-                    justifyContent: "space-around",
-                    display: isOpen ? "flex" : "none",
-                    paddingTop: 10,
-                    paddingLeft: 5,
-                    paddingRight: 5,
-                  }}
-                >
-                  <FacebookMessengerShareButton url={window.location.href}>
-                    <FacebookIcon size={25} />
-                  </FacebookMessengerShareButton>
-                  <EmailShareButton url={window.location.href}>
-                    <EmailIcon size={25} />
-                  </EmailShareButton>
-                  <InstagramShareButton url={window.location.href} />
-                  <TwitterShareButton url={window.location.href}>
-                    <TwitterIcon size={25} />
-                  </TwitterShareButton>
-                </div>
+            <div style={{ position: "relative" }}>
+              <GrShareOption
+                style={{ marginRight: "18px", cursor: "pointer" }}
+                onClick={() => setIsOpen(!isOpen)}
+              />
+              <div
+                style={{
+                  position: "absolute",
+                  height: "30px",
+                  width: "150px",
+                  backgroundColor: "#5a5a5a",
+                  borderRadius: 100,
+                  bottom: -40,
+                  left: -20,
+                  alignItems: "center",
+                  justifyContent: "space-around",
+                  display: isOpen ? "flex" : "none",
+                  paddingTop: 10,
+                  paddingLeft: 5,
+                  paddingRight: 5,
+                }}
+              >
+                <FacebookMessengerShareButton url={window.location.href}>
+                  <FacebookIcon size={25} />
+                </FacebookMessengerShareButton>
+                <EmailShareButton url={window.location.href}>
+                  <EmailIcon size={25} />
+                </EmailShareButton>
+                <InstagramShareButton url={window.location.href} />
+                <TwitterShareButton url={window.location.href}>
+                  <TwitterIcon size={25} />
+                </TwitterShareButton>
               </div>
-              <WhatsappShareButton url={window.location.href}>
-                <BsWhatsapp style={{ marginRight: "18px" }} />
-              </WhatsappShareButton>
             </div>
+            <WhatsappShareButton url={window.location.href}>
+              <BsWhatsapp style={{ marginRight: "18px" }} />
+            </WhatsappShareButton>
+          </div>
 
-            {/* <div style={{margin:" 15px 0px"}} className="details-page-top-item3">
+          {/* <div style={{margin:" 15px 0px"}} className="details-page-top-item3">
                 {isFav ? (
                   <>
                     <AiFillHeart
@@ -268,7 +253,7 @@ const LivePage = () => {
                   <BsWhatsapp style={{ marginRight: "18px" }} />
                 </WhatsappShareButton>
         </div> */}
-            {/* <div className="details-page-top-item3">
+          {/* <div className="details-page-top-item3">
             <TiHeartOutline style={{ marginRight: "18px" }} />
             <RiMessage2Fill style={{ marginRight: "18px" }} />
             <GrShareOption style={{ marginRight: "18px" }} />
@@ -276,8 +261,22 @@ const LivePage = () => {
               <BsWhatsapp style={{ marginRight: "18px" }} />
             </WhatsappShareButton>
           </div> */}
-          </div>
+        </div>
+        <div className="mobileDetailsMainImage  mb-7">
+          <YouTube
+            videoId={videoId}
+            opts={{
+              height: "200px",
+              width: "100%",
+              playerVars: {
+                // https://developers.google.com/youtube/player_parameters
+                autoplay: 0,
+              },
+            }}
+          />
+        </div>
 
+        <div className="container3">
           <div className="container-detail-page-rigth-side">
             {topStories && (
               <div className="details-page-related-news">

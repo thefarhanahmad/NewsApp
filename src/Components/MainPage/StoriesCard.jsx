@@ -6,12 +6,18 @@ const StoriesCard = ({ text, image, OnPress, id }) => {
     <>
       <div
         onClick={OnPress}
-        className="stories-card mobileMainPageStroyCard"
+        className="stories-card mobileMainPageStroyCard  flex w-full"
         id={id}
         style={{ cursor: "pointer" }}
       >
-        <img src={image ? image : img} alt="" />
-        <div className="stories-card-text">
+        <div className=" w-[45%] overflow-hidden">
+          <img
+            src={image ? image : img}
+            alt=""
+            className="w-full h-full object-fill"
+          />
+        </div>
+        <div className="stories-card-text  w-[55%]">
           {text ||
             '"India Have Better...": Sri Lanka Captain Honest World Cup Admission'}
         </div>
