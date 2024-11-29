@@ -31,7 +31,7 @@ const AllSectionArticle = ({ data }) => {
 
 const SingleArticle = ({ category, imgData, vidData }) => {
   const navigation = useNavigate();
-  
+
   return (
     <div className="main-page-technology-container container2 container3 border border-collapse sm:border-0 sm:m-0 m-1 border-gray-500">
       <div className="main-page-technology-heading border-b sm:border-0 sm:mb-0 border-gray-500 mb-4">
@@ -180,7 +180,6 @@ const SingleArticle = ({ category, imgData, vidData }) => {
                           borderRadius: 0,
                         }}
                         height="200px"
-                        width="100%"
                         img={element.image}
                         dis={false}
                         text={element.title}
@@ -215,7 +214,7 @@ const SingleArticle = ({ category, imgData, vidData }) => {
                         navigation(`/details/${title}?id=${element._id}`)
                       }
                       height="120px"
-                      width="80%"
+                      wid="w-[45%]"
                       color="transparent"
                       title={title}
                       image={element.image}

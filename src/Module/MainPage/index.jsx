@@ -1784,6 +1784,7 @@ const MainPage = () => {
                           navigation(`/details/${title}?id=${data?._id}`)
                         }
                         image={data?.image}
+                        wid="w-[45%]"
                         text={data?.title}
                       />
                     );

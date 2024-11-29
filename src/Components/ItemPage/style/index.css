@@ -27,6 +27,12 @@
   font-family: Poppins;
   font-size: 17px;
   font-weight: 600;
+  margin-top: 5px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .item-page-card-main-conatiner-text {
   width: 70%;
