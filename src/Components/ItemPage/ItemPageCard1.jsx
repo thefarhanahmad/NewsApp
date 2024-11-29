@@ -16,21 +16,30 @@ const ItemPageCard1 = ({ title, discription, date, image, onPress, type }) => {
     SetDesc(tt + "...");
   }, []);
   return (
-    <div style={{ padding: "10px" }} className=" h-fit">
+    <div style={{ padding: "3px" }} className=" h-fit">
       <div className="line"></div>
       <div
         className="item-page-card-main-conatiner"
+        style={{ height: "120px" }}
         onClick={onPress ? onPress : () => {}}
       >
-        <div className="item-page-card-main-conatiner-img">
+        <div
+          className="item-page-card-main-conatiner-img"
+          
+        >
           <img
-            style={{ width: "90%", height: "100%", objectFit: "cover" }}
+            style={{ width: "100%", maxHeight:"300px", height: "100%", objectFit: "cover" }}
             src={image}
             alt=""
             className="hidden md:block"
           />
           <img
-            style={{ width: "90%", height: "70%", objectFit: "cover" }}
+            style={{
+              width: "100%",
+              height: "100%",
+              maxHeight: "200px",
+              objectFit: "cover",
+            }}
             src={image}
             alt=""
             className="md:hidden"
@@ -51,7 +60,10 @@ const ItemPageCard1 = ({ title, discription, date, image, onPress, type }) => {
           )}
         </div> */}
 
-        <div className="item-page-card-main-conatiner-text">
+        <div
+          className="item-page-card-main-conatiner-text"
+          style={{ width: "55%" }}
+        >
           <div className="heading-item-page-card-main-conatiner-text">
             {title}
             {/* New Health Campaign, ‘Ayushman Bhava’ To Reach Out 7 Crore Families:

@@ -28,6 +28,7 @@ import ImageCrousel from "./Components/MainPage/ImageCrousel";
 import ItemPageCatSub from "./Module/ItemPage/itemPageCatSubCat";
 import Gallerypage from "./Module/MainPage/Gallerypage";
 import VisualStoryPage from "./Module/MainPage/visualstorypage";
+import ProtectedRoute from "./Protected Routes";
 const App = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [lang, setLang] = useState("ur");
@@ -150,11 +151,13 @@ const App = () => {
                 // element={<ProtectedRoute isAdmin={isAdmin} />}
                 element={<ProtectedRoute />}
               /> */}
+              <Route element={<ProtectedRoute/>}>
               <Route
                 path="/dashboard/*"
-                // element={<ProtectedRoute isAdmin={isAdmin} />}
                 element={<AdminLayout />}
               />
+              </Route>
+             
               <Route path="*" element={<>Not found</>} />
             </Routes>
             {location.pathname.split("/")[1] == "dashboard" ||

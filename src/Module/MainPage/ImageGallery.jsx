@@ -16,7 +16,6 @@ const ImageGallery = () => {
   axios
     .get(`${API_URL}/photo`)
     .then((data) => {
-    
       setData(data.data);
       // setIsLoad(false);
     })
@@ -47,13 +46,14 @@ const ImageGallery = () => {
       {/* Arrow buttons for scrolling */}
       <div
         style={{
-          width: "95%",
+          width: "92%",
           display: "flex",
           justifyContent: "space-between",
           marginBottom: "10px",
           position: "absolute",
-          bottom: "186px",
+          top: "320px",
         }}
+        className="scrollinggallery"
       >
         <button
           onClick={scrollLeft}

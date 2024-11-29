@@ -72,8 +72,9 @@
 }
 
 .ImageCarouselContainer {
-  position: absolute;
+  /* position: absolute; */
   width: 100%;
+  height: fit-content;
   inset: 0;
   background-color: rgb(61, 61, 61);
   /* height: 100vh; */
@@ -82,7 +83,7 @@
   align-items: center; */
 }
 .ImageCarsouel {
-  padding-top: 70px;
+  /* padding-top: 70px; */
   margin: auto;
   width: 70%;
   /* height: 500px; */

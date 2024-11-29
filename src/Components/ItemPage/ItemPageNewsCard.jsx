@@ -6,7 +6,7 @@ const ItemPageNewsCard = ({ data, OnPress, text, image }) => {
   return (
     <>
       <div className="ItemPageNewsCard-main" onClick={OnPress}>
-        <div>
+        <div className="w-[45%]">
           <img src={image ? image : img} alt="" />
         </div>
         <div className="ttxxtt">

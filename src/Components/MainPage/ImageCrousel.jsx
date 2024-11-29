@@ -51,7 +51,7 @@ const ImageCrousel = () => {
                     style={{
                       padding: "6px",
                       fontSize: "1.5rem",
-                      color: "black",
+
                       borderRadius: "10px",
                       overflow: "hidden",
                       marginBottom: "2px",

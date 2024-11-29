@@ -602,6 +602,7 @@
 
 .photoGallery-card img {
   object-fit: cover;
+  object-position: top center;
   height: 100%;
   width: 100%;
 }
@@ -940,17 +941,14 @@
     margin-top: 20px;
   }
   .visual-story-card {
-    width: 100px;
+    width: 160px;
     height: 200px;
   }
   .visual-story-card img {
     width: 100px;
     height: 200px !important;
   }
-  .visual-story-card .image-box {
-    width: 100px;
-    height: 200px !important;
-  }
+ 
   .photoGallery-card {
     flex-shrink: 0;
     overflow: hidden;

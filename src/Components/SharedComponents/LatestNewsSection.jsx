@@ -81,6 +81,7 @@ function LatesetNewsSection({ currentVideoId }) {
                       OnPress={() =>
                         navigation(`/details/${title}?id=${data?._id}`)
                       }
+                       wid="w-[45%] h-[110px]"
                       image={data?.image}
                       text={data?.title}
                     />

@@ -22,11 +22,11 @@ function WebStory() {
         console.error("Error fetching stories:", error);
       }
     };
-
     fetchStories();
   }, []);
 
-  
+ 
+
   const displayStories =
     stories && stories.length > 0
       ? stories[0].images.map((image, index) => {

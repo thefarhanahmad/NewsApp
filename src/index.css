@@ -29,8 +29,28 @@ body {
     margin: 0;
     gap: 0 !important;
   }
+  .related-news-card {
+    padding: 5px 2px;
+    justify-content: start;
+  }
+  #Photos {
+    padding: 12px !important;
+  }
+  .pgt {
+    max-height: 175px;
+    overflow: hidden;
+    margin-top: 10px;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
   .mob-ad {
     display: block;
+  }
+  .item-page-card-main-conatiner-img {
+    width: 45%;
   }
   .flash-news-2 {
     margin-top: 0 !important;
@@ -47,7 +67,6 @@ body {
   }
   .ImageCarouselContainer {
     position: static;
-
     background-color: transparent !important;
   }
   .container3 {

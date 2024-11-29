@@ -1052,15 +1052,20 @@ const MainPage = () => {
 
                     if (title && index < 5) {
                       return (
-                        <StoriesCard
-                          data={data}
-                          key={index}
-                          OnPress={() =>
-                            navigation(`/details/${title}?id=${data?._id}`)
-                          }
-                          image={data?.image}
-                          text={data?.title}
-                        />
+                        <>
+                          <div className="w-full">
+                            <StoriesCard
+                              data={data}
+                              key={index}
+                              OnPress={() =>
+                                navigation(`/details/${title}?id=${data?._id}`)
+                              }
+                              image={data?.image}
+                              wid="w-[45%]"
+                              text={data?.title}
+                            />
+                          </div>
+                        </>
                       );
                     } else {
                       return null;
@@ -1128,9 +1133,10 @@ const MainPage = () => {
                   display: "flex",
                   overflowX: "auto",
                   // background: "red",
+                  width: "100%",
                   columnGap: "10px",
                   whiteSpace: "nowrap",
-                  scrollBehavior: "smooth", // Smooth scrolling for user interactions
+                  scrollBehavior: "smooth",
                 }}
               >
                 {breakingNews &&
@@ -1146,7 +1152,7 @@ const MainPage = () => {
 
                     return (
                       <>
-                        <div>
+                        <div style={{ width: "100%" }}>
                           <StoriesCard
                             data={data}
                             key={index}
@@ -1155,6 +1161,7 @@ const MainPage = () => {
                             }
                             image={data?.image}
                             text={data?.title}
+                            style={{ with: "100%" }}
                             id="columnReverse"
                           />
                         </div>

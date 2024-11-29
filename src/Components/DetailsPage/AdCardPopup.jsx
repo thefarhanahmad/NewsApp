@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import "./style/index.css";
@@ -38,16 +38,16 @@ const AdCardPopup = ({ type, adPopup, setAdPopup }) => {
   }
 
   return (
-    <div className="w-full h-[80vh] md:h-[60vh] overflow-hidden">
+    <div className="relative w-full h-[70vh]  lg:h-[500px]  lg:w-[800px] overflow-hidden bg-white rounded-md">
       {adPopup && (
         <div className="h-full">
-          <div className=" w-full flex justify-center items-center text-xs text-gray-600">
+          <div className=" w-full flex mt-2 font-semibold  justify-center items-center text-lg text-black">
             Advertisement
           </div>
           {/* Close Ad */}
           <button
             onClick={() => setAdPopup(false)}
-            className="absolute top-0 right-0  rounded-full"
+            className="absolute top-2 right-0  rounded-full"
           >
             <IoCloseCircleOutline className="text-3xl md:text-6xl" />
           </button>

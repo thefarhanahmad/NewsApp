@@ -451,6 +451,10 @@
   .main-conatiner-image-1 {
     display: none !important;
   }
+  .scrollinggallery {
+    top: 215px !important;
+    width: 95% !important;
+  }
   .mainwebSecond,
   .all-category-data {
     display: none !important;

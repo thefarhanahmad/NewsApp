@@ -309,25 +309,27 @@ const ItemPage = () => {
             <div className="main-page-visual-story-container">
               {stories.map((story) => {
                 return (
-                  <a href={`/stories?id=${story._id}`} target="_blank">
-                    <div key={story._id} className="visual-story-card">
-                      <ImageCard
-                        style={{
-                          fontSize: "15px",
-                          fontWeight: 400,
-                          height: "80px",
-                          borderRadius: 0,
-                        }}
-                        fromVStrories={true}
-                        height="300px"
-                        width="100"
-                        img={story.images[0]?.img}
-                        id={story._id}
-                        title={story.title}
-                        text={story.title}
-                      />
-                    </div>
-                  </a>
+                  <>
+                    <a href={`/stories?id=${story._id}`} target="_blank">
+                      <div key={story._id} className="visual-story-card">
+                        <ImageCard
+                          style={{
+                            fontSize: "15px",
+                            fontWeight: 400,
+                            height: "80px",
+                            borderRadius: 0,
+                          }}
+                          fromVStrories={true}
+                          height="300px"
+                          width="100"
+                          img={story.images[0]?.img}
+                          id={story._id}
+                          title={story.title}
+                          text={story.title}
+                        />
+                      </div>
+                    </a>
+                  </>
                 );
               })}
             </div>

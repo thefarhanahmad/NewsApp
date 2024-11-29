@@ -312,7 +312,7 @@ const DetailsPage2 = () => {
         {/* Ad Popup */}
         {adPopup && (
           <div
-            className="absolute cursor-pointer z-50 h-[50vh] w-[90%] mx-auto left-[50%] -translate-x-[50%] bg-white rounded-lg"
+            className="fixed px-2 lg:px-0 top-0 left-0 w-full h-full flex items-center justify-center z-50 inset-0 bg-black bg-opacity-40 backdrop-blur-sm "
             onClick={(e) => e.stopPropagation()}
           >
             <AdCardPopup
@@ -369,7 +369,7 @@ const DetailsPage2 = () => {
           </p> */}
         </div>
 
-        <div className="details-page-top-item3 mb-2 ">
+        <div className=" mb-2 ">
           {isFav ? (
             <>
               <AiFillHeart

@@ -31,13 +31,7 @@ const AllSectionArticle = ({ data }) => {
 
 const SingleArticle = ({ category, imgData, vidData }) => {
   const navigation = useNavigate();
-
-  const isLifestyleOrSports = imgData.some((element) =>
-    ["sports", "Business", "Lifestyle", "New4", "NEW7", "Technology"].includes(
-      element.topic
-    )
-  );
-
+  
   return (
     <div className="main-page-technology-container container2 container3 border border-collapse sm:border-0 sm:m-0 m-1 border-gray-500">
       <div className="main-page-technology-heading border-b sm:border-0 sm:mb-0 border-gray-500 mb-4">
@@ -49,45 +43,9 @@ const SingleArticle = ({ category, imgData, vidData }) => {
           {imgData && imgData.length > 0 && (
             <div className="main-page-technology-first-column">
               <div className="slide-container">
-                {isLifestyleOrSports ? (
-                  <Slide indicators={true}>
-                    {console.log("img data in slider : ", imgData)}
-                    {imgData.map((element) => {
-                      let title = element.title
-                        ?.replace(/[%.?]/g, "")
-                        .split(" ")
-                        .join("-");
-                      if (element.slug) {
-                        title = element.slug;
-                      }
-
-                      return (
-                        <Link
-                          key={element._id}
-                          to={`details/${title}?id=${element._id}`}
-                          style={{ marginTop: "10px" }}
-                          className="cat-list"
-                        >
-                          <ImageCard
-                            id={element._id}
-                            img={element.image}
-                            dis={false}
-                            text={element.title}
-                            style={{
-                              fontSize: "15px",
-                              fontWeight: 400,
-
-                              borderRadius: 0,
-                            }}
-                            height="200px"
-                            width="100%"
-                          />
-                        </Link>
-                      );
-                    })}
-                  </Slide>
-                ) : (
-                  imgData.map((element) => {
+                <Slide indicators={true}>
+                  {console.log("img data in slider : ", imgData)}
+                  {imgData.map((element) => {
                     let title = element.title
                       ?.replace(/[%.?]/g, "")
                       .split(" ")
@@ -97,37 +55,30 @@ const SingleArticle = ({ category, imgData, vidData }) => {
                     }
 
                     return (
-                      <div
+                      <Link
                         key={element._id}
-                        style={{
-                          marginTop: "10px",
-                        }}
+                        to={`details/${title}?id=${element._id}`}
+                        style={{ marginTop: "10px" }}
+                        className="cat-list"
                       >
                         <ImageCard
+                          id={element._id}
+                          img={element.image}
+                          dis={false}
+                          text={element.title}
                           style={{
                             fontSize: "15px",
                             fontWeight: 400,
-                            height: "40px",
 
-                            borderRadius: "0px",
-                            display: "-webkit-box",
-                            WebkitLineClamp: 1,
-                            WebkitBoxOrient: "vertical",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            whiteSpace: "nowrap",
+                            borderRadius: 0,
                           }}
                           height="200px"
                           width="100%"
-                          img={element.image}
-                          id={element._id}
-                          text={element.title}
-                          title={title}
                         />
-                      </div>
+                      </Link>
                     );
-                  })
-                )}
+                  })}
+                </Slide>
               </div>
             </div>
           )}

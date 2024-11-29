@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import img from "../../assets/Rectangle 73.png";
+import  { useEffect, useState } from "react";
+// import img from "../../assets/Rectangle 73.png";
 import "./style/index.css";
 import axios from "axios";
 import { API_URL } from "../../../API";

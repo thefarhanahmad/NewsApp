@@ -1,7 +1,7 @@
 import React from "react";
 import img from "../../assets/img-1.png";
 
-const StoriesCard = ({ text, image, OnPress, id }) => {
+const StoriesCard = ({ text, image, OnPress, id ,wid}) => {
   return (
     <>
       <div
@@ -10,7 +10,7 @@ const StoriesCard = ({ text, image, OnPress, id }) => {
         id={id}
         style={{ cursor: "pointer" }}
       >
-        <div className=" w-[45%] overflow-hidden">
+        <div className={`${wid} overflow-hidden`}>
           <img
             src={image ? image : img}
             alt=""

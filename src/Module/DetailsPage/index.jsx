@@ -315,7 +315,7 @@ const DetailsPage = () => {
         {/* Ad Popup */}
         {adPopup && (
           <div
-            className="absolute h-[50vh] z-50 cursor-pointer w-[90%] mx-auto left-[50%] -translate-x-[50%] bg-white rounded-lg"
+            className="fixed top-0 px-2 lg:px-0 left-0 w-full h-full flex items-center justify-center z-50 inset-0 bg-black bg-opacity-40 backdrop-blur-sm "
             onClick={(e) => e.stopPropagation()}
           >
             <AdCardPopup
@@ -785,6 +785,7 @@ const DetailsPage = () => {
                     navigation(`/details2/${title}?id=${data?._id}`)
                   }
                   image={data?.image}
+                 
                   text={data?.title.substring(0, 82) + "..."}
                 />
               );

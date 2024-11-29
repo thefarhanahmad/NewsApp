@@ -1,11 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Outlet } from "react-router-dom";
 import AdminLayout from "../Module/Admin/LayOut";
 import { API_URL } from "../../API";
+import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = () => {
   const [isAdmin, setIsAdmin] = useState(false);
+
   useEffect(() => {
     axios
       .get(`${API_URL}/user?id=${localStorage.getItem("id")}`)
@@ -18,15 +19,7 @@ const ProtectedRoute = () => {
   }, []);
   return (
     <>
-      {/* {isAdmin ? (
-        <AdminLayout />
-      ) : (
-        <div
-          style={{ fontSize: "30px", textAlign: "center", margin: "20px 0" }}
-        >
-          Not Found
-        </div>
-      )} */}
+      {isAdmin ? <AdminLayout /> : <Navigate to="/login" />}
       <AdminLayout />
     </>
   );
