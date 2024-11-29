@@ -289,7 +289,7 @@ const DetailsPage2 = () => {
       console.warn("No news matched keywords. Falling back to newsType match.");
       filteredNews = combinedNews.filter(
         (newsItem) =>
-          newsItem.newsType === data.newsType && // Matches the news type
+          newsItem.topic === data.topic && // Matches the news type
           newsItem._id !== data._id // Exclude the current data
       );
     }
@@ -369,7 +369,7 @@ const DetailsPage2 = () => {
           </p> */}
         </div>
 
-        <div className=" mb-2 ">
+        <div className="details-page-top-item3 -mt-2  px-2 pb-2">
           {isFav ? (
             <>
               <AiFillHeart
@@ -452,7 +452,7 @@ const DetailsPage2 = () => {
           />
         </div>
         <div className="container3">
-          <div className="deatils-main-para-area" id="mob_parar"></div>
+          <div className="deatils-main-para-area " id="mob_parar"></div>
 
           <div
             className="container-detail-page-rigth-side"

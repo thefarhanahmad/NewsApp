@@ -141,8 +141,8 @@ const App = () => {
               <Route path="/videos2/:id" element={<VideoPage />} />
               <Route path="/videos/:id" element={<VideoPage2 />} />
               <Route path="/videos3" element={<VideoPage3 />} />
-              <Route path="/photos" element={<Gallerypage/>} />
-              <Route path="/story" element={<VisualStoryPage/>} />
+              <Route path="/photos" element={<Gallerypage />} />
+              <Route path="/story" element={<VisualStoryPage />} />
               <Route path="/live" element={<LivePage />} />
               <Route path="/forgot" element={<ForgotPassword />} />
               <Route path="/newPassword" element={<NewPassword />} />
@@ -151,13 +151,18 @@ const App = () => {
                 // element={<ProtectedRoute isAdmin={isAdmin} />}
                 element={<ProtectedRoute />}
               /> */}
-              <Route element={<ProtectedRoute/>}>
+              {/* <Route element={<ProtectedRoute/>}>
+              <Route path="/dashboard/*" element={<AdminLayout />} />
+              </Route> */}
               <Route
                 path="/dashboard/*"
-                element={<AdminLayout />}
-              />
-              </Route>
-             
+                element={
+                  <ProtectedRoute isAdmin={isAdmin}>
+                    <AdminLayout />
+                  </ProtectedRoute>
+                }
+              />{" "}
+              
               <Route path="*" element={<>Not found</>} />
             </Routes>
             {location.pathname.split("/")[1] == "dashboard" ||

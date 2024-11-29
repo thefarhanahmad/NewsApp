@@ -759,6 +759,9 @@
     display: flex;
     margin-top: 70px;
   }
+  iframe {
+    width: 100%;
+  }
   .mobileMainPageContainer {
     display: block;
     margin-top: 1px;
@@ -948,7 +951,7 @@
     width: 100px;
     height: 200px !important;
   }
- 
+
   .photoGallery-card {
     flex-shrink: 0;
     overflow: hidden;

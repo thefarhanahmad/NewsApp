@@ -1,27 +1,45 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom"; 
 import AdminLayout from "../Module/Admin/LayOut";
 import { API_URL } from "../../API";
-import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = () => {
   const [isAdmin, setIsAdmin] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    const userId = localStorage.getItem("id");
+    if (!userId) {
+      // If no user ID is found, redirect to the login page
+      navigate("/login");
+      return;
+    }
+
     axios
-      .get(`${API_URL}/user?id=${localStorage.getItem("id")}`)
-      .then((user) => {
-        console.log(user.data);
-        if (user.data[0].role != "user") {
+      .get(`${API_URL}/user?id=${userId}`)
+      .then((response) => {
+        const user = response.data[0];
+        if (user?.role !== "user") {
           setIsAdmin(true);
+        } else {
+          navigate("/login"); // Redirect if not an admin
         }
+      })
+      .catch((error) => {
+        console.error("Error fetching user data:", error);
+        navigate("/login"); // Redirect on error
       });
-  }, []);
-  return (
-    <>
-      {isAdmin ? <AdminLayout /> : <Navigate to="/login" />}
-      <AdminLayout />
-    </>
+  }, [navigate]);
+
+  return isAdmin ? (
+    <AdminLayout />
+  ) : (
+    <div
+      style={{ fontSize: "30px", textAlign: "center", margin: "20px 0" }}
+    >
+      Not Found
+    </div>
   );
 };
 

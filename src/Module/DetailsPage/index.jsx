@@ -220,7 +220,7 @@ const DetailsPage = () => {
       console.warn("No news matched keywords. Falling back to newsType match.");
       filteredNews = combinedNews.filter(
         (newsItem) =>
-          newsItem.newsType === data.newsType && // Matches the news type
+          newsItem.topic === data.topic && // Matches the news type
           newsItem._id !== data._id // Exclude the current data
       );
     }
@@ -785,7 +785,6 @@ const DetailsPage = () => {
                     navigation(`/details2/${title}?id=${data?._id}`)
                   }
                   image={data?.image}
-                 
                   text={data?.title.substring(0, 82) + "..."}
                 />
               );

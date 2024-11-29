@@ -21,6 +21,7 @@ import VisualStories from "../pages/VisualStories";
 import Photos from "../pages/Photos";
 import Video from "../pages/Videos";
 import MainDashBoard from "../pages/MainDashBoard";
+import ProtectedRoute from "../../../Protected Routes";
 
 const { Sider, Content } = Layout;
 
@@ -85,7 +86,7 @@ const AdminLayout = () => {
 
       <Sider style={siderStyle2}></Sider>
       <Content style={contentStyle}>
-        <Routes>
+        <Routes element={<ProtectedRoute/>}>
           {access.map((path) => {
             switch (path) {
               case "users":
