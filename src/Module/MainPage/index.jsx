@@ -908,32 +908,32 @@ const MainPage = () => {
           {/* sheersh aalekh */}
           <div>
             <div className=" flex items-center justify-center my-2 mt-4">
-              {midAd?.map((data, i) => {
-                return (
-                  <>
-                    <div className=" w-full ">
-                      <a
-                        href={data?.link}
-                        target="_blank"
-                        onClick={() => {
-                          onClickAd(data?._id);
-                        }}
-                        rel="noreferrer"
-                      >
-                        <img
-                          style={{
-                            cursor: "pointer",
-                            padding: "2px",
-                          }}
-                          className="h-56 w-[80%] mx-auto"
-                          src={data?.imgLink}
-                          alt=""
-                        />
-                      </a>
-                    </div>
-                  </>
-                );
-              })}
+              {/* {midAd?.map((data, i) => { */}
+              {/* return ( */}
+              <>
+                <div className=" w-full ">
+                  <a
+                    href={midAd[0]?.link}
+                    target="_blank"
+                    onClick={() => {
+                      onClickAd(midAd[0]?._id);
+                    }}
+                    rel="noreferrer"
+                  >
+                    <img
+                      style={{
+                        cursor: "pointer",
+                        padding: "2px",
+                      }}
+                      className="h-56 w-[80%] mx-auto"
+                      src={midAd[0]?.imgLink}
+                      alt=""
+                    />
+                  </a>
+                </div>
+              </>
+              {/* ); */}
+              {/* })} */}
             </div>
           </div>
           <div

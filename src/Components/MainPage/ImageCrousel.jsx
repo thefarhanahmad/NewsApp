@@ -47,11 +47,10 @@ const ImageCrousel = () => {
               return (
                 <div key={img._id}>
                   <h3
-                    className="main-page-video-heading2"
+                    className="main-page-video-heading2 mt-12 sm:mt-0"
                     style={{
                       padding: "6px",
                       fontSize: "1.5rem",
-
                       borderRadius: "10px",
                       overflow: "hidden",
                       marginBottom: "2px",
@@ -64,6 +63,8 @@ const ImageCrousel = () => {
                       cursor: "pointer",
                       position: "relative",
                       width: "100%",
+                      // background: "red",
+                      // padding: "10px",
                     }}
                     className="photoGallery-card"
                     onClick={handleImageClick}

@@ -25,11 +25,9 @@ function WebStory() {
     fetchStories();
   }, []);
 
- 
-
   const displayStories =
-    stories && stories.length > 0
-      ? stories[0].images.map((image, index) => {
+    stories && stories?.length > 0
+      ? stories[0].images?.map((image, index) => {
           return {
             content: ({ action, isPaused }) => {
               const [active, setActive] = useState(false);
@@ -61,8 +59,8 @@ function WebStory() {
         })
       : null;
   const blurImgStoriesStyle =
-    stories && stories.length > 0
-      ? stories[0].images.map((image) => {
+    stories && stories?.length > 0
+      ? stories[0].images?.map((image) => {
           return {
             backgroundImage: `url(${image})`,
             backgroundSize: "cover", // Optional: Adjust as needed
@@ -71,8 +69,8 @@ function WebStory() {
         })
       : null;
   function Increment() {
-    if (stories.length < 0 || !stories[0].images) return;
-    if (currentIndex < stories[0].images.length - 1) {
+    if (stories?.length < 0 || !stories[0].images) return;
+    if (currentIndex < stories[0].images?.length - 1) {
       setCurrentIndex((prevState) => prevState + 1);
     }
   }
@@ -92,7 +90,7 @@ function WebStory() {
 
       <div className="webStoryContainer">
         <LeftOutlined className="webStoryControlIcon" onClick={Decrement} />
-        {stories.length > 0 && (
+        {stories?.length > 0 && (
           <Stories
             // isPaused={true}
             loop={true}

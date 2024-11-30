@@ -278,14 +278,17 @@ const LivePage = () => {
 
         <div className="container3">
           <div className="container-detail-page-rigth-side">
-            {topStories && (
+            <div className="details-main-ad-cards">
+              <AdCard type={"mid"} />
+            </div>
+            {/* {topStories && (
               <div className="details-page-related-news">
                 <div className="details-page-related-news-heading">
                   {t("rn")}
                 </div>
               </div>
-            )}
-            <div className="detail-page-relate-new-cards">
+            )} */}
+            {/* <div className="detail-page-relate-new-cards">
               {topStories?.map((data, index) => {
                 let title = data?.title
                   .replace(/[/\%.?]/g, "")
@@ -322,11 +325,8 @@ const LivePage = () => {
                   </div>
                 );
               })}
-            </div>
+            </div> */}
             <LatesetNewsSection />
-            <div className="details-main-ad-cards">
-              <AdCard type={"mid"} />
-            </div>
           </div>
         </div>
       </div>

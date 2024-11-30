@@ -20,15 +20,19 @@ const ItemPageCard1 = ({ title, discription, date, image, onPress, type }) => {
       <div className="line"></div>
       <div
         className="item-page-card-main-conatiner"
-        style={{ height: "120px" , padding:"5px"}}
+        style={{ height: "120px", padding: "5px" }}
         onClick={onPress ? onPress : () => {}}
       >
-        <div
-          className="item-page-card-main-conatiner-img"
-          
-        >
+        <div className="item-page-card-main-conatiner-img">
           <img
-            style={{ width: "100%", maxHeight:"200px", height: "100%", objectFit: "cover", objectPosition:"top center" }}
+            style={{
+              width: "100%",
+              maxHeight: "200px",
+           
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "top center",
+            }}
             src={image}
             alt=""
             className="hidden md:block"
@@ -39,7 +43,7 @@ const ItemPageCard1 = ({ title, discription, date, image, onPress, type }) => {
               height: "100%",
               maxHeight: "200px",
               objectFit: "cover",
-              objectPosition:"top center"
+              objectPosition: "top center",
             }}
             src={image}
             alt=""
