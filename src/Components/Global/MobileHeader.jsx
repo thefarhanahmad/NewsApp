@@ -106,8 +106,13 @@ const MobileHeader = ({ listitem }) => {
   }, []);
 
   const [topAd, setTopAd] = useState({});
+  console.log("top ad  : ", topAd);
   useEffect(() => {
     axios.get(`${API_URL}/ads?active=true&side=top`).then((data) => {
+      // console.log("data res :  ", data.data.reverse()[0]);
+      // if (data.data.reverse()[0].device === "mobile") {
+      //   setTopAd(data.data.reverse()[0]);
+      // }
       setTopAd(data.data.reverse()[0]);
     });
   }, []);

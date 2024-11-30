@@ -38,6 +38,8 @@ const Ads = () => {
   const [visible, setVisible] = useState("");
   const [date, setDate] = useState("");
   const [side, setSide] = useState("");
+  const [device, setDevice] = useState("both");
+
   const [noOfImpression, setNoOfImpression] = useState("");
   const [Impression, setImpression] = useState(0);
 
@@ -46,17 +48,12 @@ const Ads = () => {
     setImpression((prevImpression) => prevImpression + 1);
   }, []);
 
-
-
   const fetchAds = () => {
-  
     axios
       .get(`${API_URL}/ads`)
       .then((users) => {
-     
         setUserData(users.data.reverse());
         setNoOfImpression(users.data[0].noOfImpression);
-        
       })
       .catch((err) => {
         console.log("err=>>>", err);
@@ -66,29 +63,27 @@ const Ads = () => {
     fetchAds();
   }, []);
 
- 
+  console.log("userData means ad : ", userData);
 
   const onUpload = () => {
     setLoading(true);
     let formdata = new FormData();
     formdata.append("file", img, img.name);
-   
 
     axios.post(`${API_URL}/image`, formdata).then(async (image) => {
-     
       await axios
         .post(`${API_URL}/ads?id=${localStorage.getItem("id")}`, {
           imgLink: image.data.image,
           link: link,
           slugName: title,
           // Price: price,
+          device: device,
           noOfImpression: Impression,
           StartAt: JSON.parse(date)[0].split("T")[0],
           EndAt: JSON.parse(date)[1].split("T")[0],
           side,
         })
         .then((data) => {
-         
           message.success("Your Ad was successfully Uploaded");
           setImg(null);
           setLink("");
@@ -107,11 +102,11 @@ const Ads = () => {
     });
     fetchAds();
   };
-
+  console.log("device : ", device);
   const handleDeleteAd = async (id) => {
     try {
       const res = await axios.delete(`${API_URL}/ads_delete/${id}`);
-     
+
       if (res.data.data.status === 200) {
         message.success(res.data.message);
       } else {
@@ -119,7 +114,6 @@ const Ads = () => {
       }
       fetchAds();
     } catch (error) {
-    
       message.error(error.response.data.message);
     }
     fetchAds();
@@ -139,7 +133,7 @@ const Ads = () => {
       })
       .catch((error) => {
         // Handle error
-        
+
         message.error("Failed to update  status");
       });
     fetchAds();
@@ -239,7 +233,6 @@ const Ads = () => {
       key: "status",
       dataIndex: "status",
       render: (_, ad) => {
-       
         return (
           <>
             <Tag color={ad.active ? "cyan" : "red"}>
@@ -300,7 +293,6 @@ const Ads = () => {
               id="file-name"
               onChange={(e) => {
                 setImg(e.target.files[0]);
-               
               }}
               style={{ display: "none" }}
               hidden={true}
@@ -361,11 +353,18 @@ const Ads = () => {
             />
           </Col>
           <Col span={6}>
-            {/* <Input
-              placeholder="Enter Price"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-            /> */}
+            <Select
+              placeholder="Select Device"
+              value={device}
+              defaultValue="both"
+              style={{ width: "100%" }}
+              onChange={(e) => setDevice(e)}
+              options={[
+                { label: "Both", value: "both" },
+                { label: "Mobile", value: "mobile" },
+                { label: "Laptop", value: "laptop" },
+              ]}
+            />
           </Col>
           <Col span={6}></Col>
           <Col span={6} style={{ marginTop: 10 }}>
@@ -373,7 +372,6 @@ const Ads = () => {
               onChange={(e) => {
                 setDate(JSON.stringify(e));
                 let d = JSON.stringify(e);
-              
               }}
             />
           </Col>
@@ -396,6 +394,10 @@ const Ads = () => {
                 {
                   label: "Bottom",
                   value: "bottom",
+                },
+                {
+                  label: "Popup",
+                  value: "popup",
                 },
               ]}
             />
