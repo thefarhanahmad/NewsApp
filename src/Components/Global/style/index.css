@@ -21,11 +21,10 @@
 }
 .mobilevisibleNavItems {
   position: fixed;
-
   left: 0;
   width: 100%;
   background-color: rgba(255, 0, 0, 1);
-  padding: 0px 10px;
+  /* padding: 0px 10px; */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -75,9 +74,13 @@
 
 .mobilevisibleNavItemsUlChild {
   display: flex;
+  /* background-color: green; */
+  justify-content: space-between;
+  align-items: center;
   list-style: none;
   text-transform: capitalize;
   font-family: Poppins;
+  padding: 0px 8px;
   font-size: 14px;
   gap: 6px;
   font-weight: 400;
@@ -91,7 +94,9 @@
   cursor: pointer;
   align-items: center;
 }
-
+.adCardPopup {
+  z-index: 999 !important;
+}
 .mobileNavAbsoluteContainer {
   z-index: 999;
   min-width: 90%;
@@ -214,7 +219,7 @@
 .footer-heading {
   font-family: Poppins;
   font-size: 24px;
-  font-weight: 500;
+  /* font-weight: 500; */
   line-height: 36px;
   letter-spacing: 0em;
   color: rgba(255, 255, 255, 1);
@@ -228,6 +233,7 @@
   font-family: Poppins;
   font-size: 15px;
   font-weight: 300;
+
   line-height: 24px;
   letter-spacing: 0em;
 
@@ -462,6 +468,7 @@
   .mobileNavBarContainer {
     display: block;
   }
+
   .footer-main {
     flex-direction: column;
   }

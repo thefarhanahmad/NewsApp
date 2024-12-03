@@ -31,6 +31,7 @@ import AllSectionArticle from "../../Components/MainPage/SectionArticle";
 import { PlayCircleOutlined } from "@ant-design/icons";
 import VdoThumb from "../../Components/common/VdoThumb";
 import { useAd } from "../../Context/TopAdContext";
+import AdCardPopup from "../../Components/DetailsPage/AdCardPopup";
 
 const MainPage = () => {
   const [sliderItem, setSliderItem] = useState(0);
@@ -516,8 +517,27 @@ const MainPage = () => {
 
   const { showAd } = useAd();
   console.log("showtopad : ", showAd);
+  const [adPopup, setAdPopup] = useState(false);
+  useEffect(() => {
+    setAdPopup(true);
+  }, []);
   return (
-    <>
+    <div className="relative">
+      <div>
+        {/* Ad Popup */}
+        {adPopup && (
+          <div
+            className="fixed px-2 lg:px-0 top-0 left-0 w-full h-full flex items-center justify-center z-50 inset-0 bg-black bg-opacity-40 backdrop-blur-sm "
+            onClick={(e) => e.stopPropagation()}
+          >
+            <AdCardPopup
+              type={"top"}
+              adPopup={adPopup}
+              setAdPopup={setAdPopup}
+            />
+          </div>
+        )}
+      </div>
       <div className="main-page-conatiner">
         <ul
           className={`mobileMainPageAnchorSlider  ${
@@ -1033,8 +1053,11 @@ const MainPage = () => {
               className="main-component-group-right"
               style={{ width: "30%" }}
             >
-              <div className="main-left-side-top">
-                <div>{t("ts")}</div>
+              <div className="main-left-side-top ">
+                <div className=" flex w-full pr-4 justify-between items-center">
+                  <div className="w-[40%]">{t("ts")}</div>
+                  <span className="bg-red-600 h-0.5 w-[60%]"> </span>
+                </div>
               </div>
               <div className="top-stories-all-cards">
                 {topStories
@@ -1076,10 +1099,10 @@ const MainPage = () => {
           </div>
 
           {/* forth */}
-          <div className="main-conatiner container container3 border-t-2 border-gray-300">
+          <div className="main-conatiner container container3  border-t-2   border-gray-300">
             <div
               id="BigNews"
-              className="main-left-side"
+              className="main-left-side "
               style={{ flexDirection: "column", position: "relative" }}
             >
               <div className="mobileMainPageHeading">
@@ -2478,7 +2501,7 @@ const MainPage = () => {
         </Radio.Group>
       </Modal> */}
       </div>
-    </>
+    </div>
   );
 };
 

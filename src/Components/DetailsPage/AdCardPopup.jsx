@@ -3,6 +3,7 @@ import axios from "axios";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import "./style/index.css";
 import { API_URL } from "../../../API";
+import { useLocation } from "react-router-dom";
 
 const AdCardPopup = ({ type, adPopup, setAdPopup }) => {
   const [mobileData, setMobileData] = useState();
@@ -51,11 +52,11 @@ const AdCardPopup = ({ type, adPopup, setAdPopup }) => {
       console.error("Error updating ads:", error);
     }
   }
-
+  const location = useLocation();
   return (
-    <>
+    <div className={`adCardPopup ${location.pathname === "/" ? "mt-20" : ""}`}>
       {/* Display only mobile ad */}
-      <div className="relative w-full h-[70vh] flex md:hidden  lg:h-[500px]   lg:w-[800px] overflow-hidden bg-white rounded-md">
+      <div className="relative w-full  h-[70vh] flex md:hidden  lg:h-[500px]   lg:w-[800px] overflow-hidden bg-white rounded-md">
         {adPopup && (
           <div className="h-full w-full">
             <div className=" w-full flex mt-2 font-semibold  justify-center items-center text-lg text-black">
@@ -117,7 +118,7 @@ const AdCardPopup = ({ type, adPopup, setAdPopup }) => {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 };
 

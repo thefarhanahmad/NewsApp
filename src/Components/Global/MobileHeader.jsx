@@ -8,7 +8,12 @@ import axios from "axios";
 import { API_URL } from "../../../API";
 import { AutoComplete, Input } from "antd";
 import logo from "../../assets/logo-small.png";
-import { ArrowLeftOutlined, PlayCircleOutlined } from "@ant-design/icons";
+import {
+  ArrowLeftOutlined,
+  HomeFilled,
+  HomeOutlined,
+  PlayCircleOutlined,
+} from "@ant-design/icons";
 import { IoIosCloseCircle } from "react-icons/io";
 import NewSearchModel from "../../models/newSearchModel";
 import { FaNewspaper } from "react-icons/fa6";
@@ -169,7 +174,7 @@ const MobileHeader = ({ listitem }) => {
         </div>
       )}
 
-      <div className="mobileNavBarContainer ">
+      <div className="mobileNavBarContainer">
         <div
           className={`mobilevisibleNavItems ${
             location?.pathname === "/" && topAd && showAd
@@ -177,7 +182,7 @@ const MobileHeader = ({ listitem }) => {
               : "top-0"
           }`}
         >
-          <div>
+          <div className=" pl-1 flex justify-center items-center w-[10%]">
             {pathname !== "/" ? (
               <div
                 style={{
@@ -208,38 +213,40 @@ const MobileHeader = ({ listitem }) => {
               />
             )}
           </div>
-          <div className="mobile-visible-containerr ">
-            <Link
-              // onClick={() => {
-              //   Navigation("/");
-              //   setHambergClicked(false);
-              // }}
-              to="http://epaper.loksatya.com"
-              className="mobilevisibleNavItemsUlChild flex self-end  flex-col items-center justify-center"
-            >
-              <FaNewspaper size={18} />
-              <span className="text-xs">ई-पेपर</span>
-            </Link>
-            <div
-              onClick={() => {
-                Navigation("/");
-                setHambergClicked(false);
-              }}
-              className="header-logo-boxx"
-              style={{ width: "9rem", height: "53px" }}
-            >
-              <img src={logo} alt="" />
-            </div>
-          </div>
+          {/* <div className="mobile-visible-containerr"></div> */}
 
-          <ul className="mobilevisibleNavItemsUlChild">
-            <li
-            // style={{ cursor: "pointer" }}
-            // onClick={() => {
-            //   Navigation("/live");
-            //   setHambergClicked(false);
-            // }}
-            >
+          <ul className="mobilevisibleNavItemsUlChild w-[90%]">
+            <li>
+              <Link
+                to="http://epaper.loksatya.com"
+                className=" flex  flex-col gap-1 items-center justify-center"
+              >
+                <FaNewspaper size={18} />
+                <span className="text-xs">ई-पेपर</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/"
+                className=" flex  flex-col items-center justify-center"
+              >
+                <HomeOutlined className="text-lg" />
+                {/* <span className="text-xs">Home</span> */}
+              </Link>
+            </li>
+            <li>
+              <div
+                onClick={() => {
+                  Navigation("/");
+                  setHambergClicked(false);
+                }}
+                className="header-logo-boxx  h-fit items-center justify-center flex "
+                style={{ width: "7rem" }}
+              >
+                <img src={logo} alt="" />
+              </div>
+            </li>
+            <li>
               <Link to="/live">
                 <PlayCircleOutlined style={{ fontSize: "18px" }} />
               </Link>

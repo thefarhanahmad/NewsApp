@@ -16,22 +16,20 @@ const ItemPageCard1 = ({ title, discription, date, image, onPress, type }) => {
     SetDesc(tt + "...");
   }, []);
   return (
-    <div style={{ padding: "3px" }} className=" h-fit">
+    <div style={{ padding: "3px" }} className="">
       <div className="line"></div>
       <div
-        className="item-page-card-main-conatiner"
-        style={{ height: "120px", padding: "5px" }}
+        className="item-page-card-main-conatiner  h-fit sm:h-[200px]"
+        // style={{ height: "100%" }}
         onClick={onPress ? onPress : () => {}}
       >
         <div className="item-page-card-main-conatiner-img">
           <img
             style={{
               width: "100%",
-              maxHeight: "200px",
-           
               height: "100%",
               objectFit: "cover",
-              objectPosition: "top center",
+              objectPosition: "center",
             }}
             src={image}
             alt=""
@@ -40,30 +38,15 @@ const ItemPageCard1 = ({ title, discription, date, image, onPress, type }) => {
           <img
             style={{
               width: "100%",
-              height: "100%",
-              maxHeight: "200px",
-              objectFit: "cover",
-              objectPosition: "top center",
+              height: "80%",
+              objectFit: "cover", // Ensures the image fills the container without distortion
+              objectPosition: "center", // Centers the image
             }}
             src={image}
             alt=""
             className="md:hidden"
           />
         </div>
-        {/* <div className="item-page-card-main-conatiner-img">
-          {type === "img" ? (
-            <img
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
-              src={image}
-              alt=""
-            />
-          ) : (
-            <video
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
-              src={image}
-            />
-          )}
-        </div> */}
 
         <div
           className="item-page-card-main-conatiner-text"

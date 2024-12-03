@@ -19,11 +19,12 @@
 .item-page-card-main-conatiner {
   display: flex;
   margin-top: 10px;
-  height: 100% !important;
+  /* height: 100% !important; */
   gap: 10px;
 }
 .heading-item-page-card-main-conatiner-text {
   color: black;
+
   font-family: Poppins;
   font-size: 17px;
   font-weight: 600;
