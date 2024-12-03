@@ -28,7 +28,7 @@ const ImageCrousel = () => {
   return (
     <div className="ImageCarouselContainer">
       {error && <p style={{ color: "red", textAlign: "center" }}>{error}</p>}
-      <div className="w-full bg-gray-600 h-full p-4">
+      <div className="w-full bg-gray-600 h-full py-4 px-[1.2rem]">
         <Carousel className="ImageCarsouel h-full" arrows infinite={false}>
           {photo.length > 0 ? (
             photo.map((img) => {
@@ -50,7 +50,7 @@ const ImageCrousel = () => {
                     className="main-page-video-heading2 mt-12 sm:mt-0"
                     style={{
                       padding: "6px",
-                      fontSize: "1.5rem",
+                      fontSize: "16px",
                       borderRadius: "10px",
                       overflow: "hidden",
                       marginBottom: "2px",

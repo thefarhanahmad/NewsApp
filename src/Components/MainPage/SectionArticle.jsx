@@ -167,10 +167,11 @@ const SingleArticle = ({ category, imgData, vidData }) => {
                   }
 
                   return (
-                    <div
+                    <Link
                       key={element._id}
                       style={{ marginTop: "10px" }}
                       className="cat-list"
+                      to={`details/${title}?id=${element._id}`}
                     >
                       <ImageCard
                         style={{
@@ -184,7 +185,7 @@ const SingleArticle = ({ category, imgData, vidData }) => {
                         dis={false}
                         text={element.title}
                       />
-                    </div>
+                    </Link>
                   );
                 })}
               </div>
@@ -204,13 +205,14 @@ const SingleArticle = ({ category, imgData, vidData }) => {
                 }
 
                 return (
-                  <div
+                  <Link
                     className="center-portion-cards"
                     key={element._id}
                     style={{ marginTop: "10px" }}
+                    to={`details/${title}?id=${element._id}`}
                   >
                     <StoriesCard
-                      OnPress={() =>
+                      OnClick={() =>
                         navigation(`/details/${title}?id=${element._id}`)
                       }
                       height="120px"
@@ -220,7 +222,7 @@ const SingleArticle = ({ category, imgData, vidData }) => {
                       image={element.image}
                       text={element.title}
                     />
-                  </div>
+                  </Link>
                 );
               })}
               <div className="more-text">

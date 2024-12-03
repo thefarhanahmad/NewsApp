@@ -1,11 +1,14 @@
 .webStoryContainer {
   inset: 0;
   margin: auto;
-  position: absolute;
+  /* position: absolute; */
   display: flex;
   gap: 20px;
   justify-content: center;
   align-items: center;
+}
+.webStoryControlIcon {
+  position: static;
 }
 .main-component-group-right {
   width: 30%;
@@ -15,11 +18,17 @@
   flex-wrap: wrap;
   gap: 10px;
 }
+.storySliderCard {
+  width: 360px !important;
+}
 .cat-list {
   width: 350px;
 }
 .mobile-page-category {
   display: none;
+}
+.main-page-video-heading2 {
+  line-height: normal;
 }
 .webStoryBlurredImage {
   /* Add the blur effect */
@@ -37,6 +46,7 @@
 }
 .webStoryControlIcon {
   font-size: 25px;
+  /* position: absolute; */
   color: black;
   background-color: white;
   border-radius: 50%;
@@ -314,11 +324,31 @@
   .video-center-card-text {
     padding: 5px;
   }
+  .storySliderCard {
+    width: 100% !important;
+  }
+  .storyicon1,
+  .storyicon2 {
+    position: absolute;
+    z-index: 5000;
+  }
+  .storyicon1 {
+    left: 95px;
+  }
+  .storyicon2 {
+    right: 95px;
+  }
+  .storySliderCardZoomIn {
+    width: 100% !important;
+  }
   .slide-container {
     display: block;
   }
   .cat-list {
     width: auto;
+  }
+  .ImageCarsouel {
+    width: 91%;
   }
   .main-component-group-left {
     display: none !important;

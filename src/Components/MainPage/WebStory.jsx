@@ -86,26 +86,33 @@ function WebStory() {
 
   return (
     <>
-      <div style={containerStyles()} className="webStoryBlurredImage"></div>
+      {/* <div style={containerStyles()} className="webStoryBlurredImage"></div> */}
 
       <div className="webStoryContainer">
-        <LeftOutlined className="webStoryControlIcon" onClick={Decrement} />
+        <LeftOutlined
+          className="webStoryControlIcon storyicon1"
+          onClick={Decrement}
+        />
         {stories?.length > 0 && (
-          <Stories
-            // isPaused={true}
-            loop={true}
-            keyboardNavigation={true}
-            stories={displayStories}
-            defaultInterval={5500}
-            width={432}
-            height={"100vh"}
-            currentIndex={currentIndex}
-            // onStoryEnd={(s, st) => setCurrentIndex(s)}
-            // onAllStoriesEnd={(s, st) => console.log("all stories ended", s, st)}
-            onStoryStart={(s, st) => setCurrentIndex(s)}
-          />
+          <div className="storySliderCard">
+            <Stories
+              // isPaused={true}
+              loop={true}
+              keyboardNavigation={true}
+              stories={displayStories}
+              defaultInterval={5500}
+              width="100%"
+              currentIndex={currentIndex}
+              // onStoryEnd={(s, st) => setCurrentIndex(s)}
+              // onAllStoriesEnd={(s, st) => console.log("all stories ended", s, st)}
+              onStoryStart={(s, st) => setCurrentIndex(s)}
+            />
+          </div>
         )}
-        <RightOutlined className="webStoryControlIcon" onClick={Increment} />
+        <RightOutlined
+          className="webStoryControlIcon storyicon2"
+          onClick={Increment}
+        />
       </div>
     </>
   );

@@ -20,7 +20,6 @@ import {
 import { Col, Progress, Radio, Row } from "antd";
 import { API_URL } from "../../../API";
 import { Link, useNavigate } from "react-router-dom";
-
 import img1 from "../../assets/img-main1.png";
 import img2 from "../../assets/img-main-2.png";
 import img3 from "../../assets/Rectangle 33.png";
