@@ -100,7 +100,6 @@ const Upload = () => {
         }
       );
 
-  
       // Update the options with the new tag received from the API
       const newTag = {
         value: response.data.text, // Assuming API returns the created tag object
@@ -130,7 +129,6 @@ const Upload = () => {
     value: items.text,
   }));
 
-
   const userCategoryOptions = usercategoryData.map((item) => ({
     label: item,
     value: item,
@@ -155,11 +153,10 @@ const Upload = () => {
   // }, []);
 
   useEffect(() => {
-  
     if (onEdit && location.pathname != "/dashboard/breakingnews") {
       axios.get(`${API_URL}/article?id=${id}`).then((item) => {
         let data = item.data[0];
-      
+
         setTitle(data.title);
         setTopic(data.topic);
         setdesc(data.discription);
@@ -353,10 +350,8 @@ const Upload = () => {
     setLoading(true);
     let formdata = new FormData();
     formdata.append("file", img, img.name);
-   
 
     axios.post(`${API_URL}/image`, formdata).then(async (image) => {
-     
       // console.log("formdata obj : ", {
       //   title: title,
       //   discription: desc,
@@ -450,11 +445,10 @@ const Upload = () => {
     if (Update) {
       let formdata = new FormData();
       formdata.append("file", img, img.name);
-   
 
       axios.post(`${API_URL}/image`, formdata).then(async (image) => {
         setdataImage(image.data.image);
-      
+
         await axios
           .put(`${API_URL}/article/${id}`, {
             title: title,
@@ -474,7 +468,6 @@ const Upload = () => {
             slider: slider,
           })
           .then((data) => {
-         
             message.success("Your article was successfully Edit");
             setTitle("");
             setTopic("");
@@ -521,7 +514,6 @@ const Upload = () => {
           slider: slider,
         })
         .then((data) => {
-        
           message.success("Your article was successfully Edit");
           setTitle("");
           setTopic("");
@@ -551,6 +543,34 @@ const Upload = () => {
 
     setIsVerifyModalOpen(false);
   };
+
+  const [key, setKey] = useState(0); // Key to force re-render
+
+  const handleBlur = (newContent) => {
+    setdesc(newContent); // Update the embed content
+    setKey((prevKey) => prevKey + 1); // Trigger re-render of the embed div
+  };
+
+  useEffect(() => {
+    const processEmbeds = () => {
+      if (window.instgrm && window.instgrm.Embeds) {
+        window.instgrm.Embeds.process(); // Process Instagram embeds
+      } else {
+        console.warn("Instagram embed script not loaded yet.");
+      }
+    };
+
+    // Check if Instagram script is loaded and process the embed
+    const interval = setInterval(() => {
+      if (window.instgrm && window.instgrm.Embeds) {
+        clearInterval(interval); // Stop the interval once the script is ready
+        processEmbeds(); // Process Instagram embeds
+      }
+    }, 100); // Check every 100ms until the script is available
+
+    return () => clearInterval(interval); // Clean up the interval
+  }, [key]); // Run whenever `key` changes
+
   return (
     <>
       {loading ? (
@@ -665,7 +685,7 @@ const Upload = () => {
                   id="file-name"
                   onChange={(e) => {
                     setImg(e.target.files[0]);
-                   
+
                     setUpdate(true);
                   }}
                   style={{ display: "none", overflow: "hidden" }}
@@ -841,9 +861,7 @@ const Upload = () => {
                   ref={editor}
                   value={desc}
                   tabIndex={1}
-                  onBlur={(newContent) => {
-                    setdesc(newContent);
-                  }}
+                  onBlur={handleBlur}
                 />
                 <div style={{ marginBottom: "20px" }}></div>
               </Col>
@@ -925,7 +943,7 @@ const Upload = () => {
                 <Input readOnly placeholder="Publish By" value={publish} />
                 <div style={{ marginBottom: "20px" }}></div>
               </Col>
-             
+
               <Col span={6}>
                 Comment
                 <Switch
@@ -939,7 +957,7 @@ const Upload = () => {
                   }}
                 />
               </Col>
-             
+
               <Col span={6}>
                 priority
                 <Switch
@@ -953,7 +971,7 @@ const Upload = () => {
                   }}
                 />
               </Col>
-             
+
               <Col span={6}>
                 slider
                 <Switch

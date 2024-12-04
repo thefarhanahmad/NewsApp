@@ -63,13 +63,6 @@ const Upload = () => {
     setName(e.target.value);
   };
 
-  const handleBlur = (newContent) => {
-    setdesc(newContent); // Update state with new content
-    if (window.instgrm) {
-      window.instgrm.Embeds.process(); // Re-render Instagram embeds
-    }
-  };
-
   // const addItem = (e) => {
   //   e.preventDefault();
   //   setOptions([...options, { value: name, label: name, key: name }]);
@@ -524,6 +517,34 @@ const Upload = () => {
 
     setIsVerifyModalOpen(false);
   };
+
+  const [key, setKey] = useState(0); // Key to force re-render
+
+  const handleBlur = (newContent) => {
+    setdesc(newContent); // Update the embed content
+    setKey((prevKey) => prevKey + 1); // Trigger re-render of the embed div
+  };
+
+  useEffect(() => {
+    const processEmbeds = () => {
+      if (window.instgrm && window.instgrm.Embeds) {
+        window.instgrm.Embeds.process(); // Process Instagram embeds
+      } else {
+        console.warn("Instagram embed script not loaded yet.");
+      }
+    };
+
+    // Check if Instagram script is loaded and process the embed
+    const interval = setInterval(() => {
+      if (window.instgrm && window.instgrm.Embeds) {
+        clearInterval(interval); // Stop the interval once the script is ready
+        processEmbeds(); // Process Instagram embeds
+      }
+    }, 100); // Check every 100ms until the script is available
+
+    return () => clearInterval(interval); // Clean up the interval
+  }, [key]); // Run whenever `key` changes
+
   return (
     <>
       {loading ? (
@@ -818,29 +839,7 @@ const Upload = () => {
                 />
                 <div style={{ marginBottom: "20px" }}></div>
               </Col>
-              {/* <Col span={24} style={{ marginTop: "20px" }}>
-                <JoditEditor
-                  ref={editor}
-                  value={desc}
-                  config={{
-                    readonly: false, // Allows editing
-                    iframe: true, // Support iframe embedding
-                    toolbar: true, // Show toolbar
-                    buttons: [
-                      "bold",
-                      "italic",
-                      "underline",
-                      "link",
-                      "image",
-                      "video",
-                      "source", // Allows switching to HTML source code for embedding
-                    ],
-                  }}
-                  tabIndex={1} // Sets editor tab index
-                  onBlur={handleBlur} // Handle onBlur event
-                />
-                <div style={{ marginBottom: "20px" }}></div>
-              </Col> */}
+
               <Col span={6}>
                 <Select
                   mode="multiple"
