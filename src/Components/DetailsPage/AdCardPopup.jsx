@@ -54,7 +54,7 @@ const AdCardPopup = ({ type, adPopup, setAdPopup }) => {
   }
   const location = useLocation();
   return (
-    <div className={`adCardPopup ${location.pathname === "/" ? "mt-20" : ""}`}>
+    <div className={`adCardPopup ${location.pathname === "/" ? "mt-28" : ""}`}>
       {/* Display only mobile ad */}
       <div className="relative w-full  h-[70vh] flex md:hidden  lg:h-[500px]   lg:w-[800px] overflow-hidden bg-white rounded-md">
         {adPopup && (

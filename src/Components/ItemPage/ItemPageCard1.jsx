@@ -38,7 +38,7 @@ const ItemPageCard1 = ({ title, discription, date, image, onPress, type }) => {
           <img
             style={{
               width: "100%",
-              height: "80%",
+              height: "76%",
               objectFit: "cover", // Ensures the image fills the container without distortion
               objectPosition: "center", // Centers the image
             }}

@@ -63,6 +63,13 @@ const Upload = () => {
     setName(e.target.value);
   };
 
+  const handleBlur = (newContent) => {
+    setdesc(newContent); // Update state with new content
+    if (window.instgrm) {
+      window.instgrm.Embeds.process(); // Re-render Instagram embeds
+    }
+  };
+
   // const addItem = (e) => {
   //   e.preventDefault();
   //   setOptions([...options, { value: name, label: name, key: name }]);
@@ -807,10 +814,33 @@ const Upload = () => {
                   ref={editor}
                   value={desc}
                   tabIndex={1}
-                  onBlur={(newContent) => setdesc(newContent)}
+                  onBlur={handleBlur}
                 />
                 <div style={{ marginBottom: "20px" }}></div>
               </Col>
+              {/* <Col span={24} style={{ marginTop: "20px" }}>
+                <JoditEditor
+                  ref={editor}
+                  value={desc}
+                  config={{
+                    readonly: false, // Allows editing
+                    iframe: true, // Support iframe embedding
+                    toolbar: true, // Show toolbar
+                    buttons: [
+                      "bold",
+                      "italic",
+                      "underline",
+                      "link",
+                      "image",
+                      "video",
+                      "source", // Allows switching to HTML source code for embedding
+                    ],
+                  }}
+                  tabIndex={1} // Sets editor tab index
+                  onBlur={handleBlur} // Handle onBlur event
+                />
+                <div style={{ marginBottom: "20px" }}></div>
+              </Col> */}
               <Col span={6}>
                 <Select
                   mode="multiple"

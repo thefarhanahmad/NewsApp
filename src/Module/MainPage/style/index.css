@@ -647,7 +647,7 @@
   }
   .main-left-side {
     width: 100%;
-    margin: 5px 0px 15px 0px !important;
+    margin-bottom: 15px !important;
     /* background-color: yellow; */
   }
   .top-stories-all-cards {
