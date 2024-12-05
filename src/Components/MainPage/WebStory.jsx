@@ -85,16 +85,16 @@ function WebStory() {
   }
 
   return (
-    <>
+    <div className=" h-[100vh]">
       {/* <div style={containerStyles()} className="webStoryBlurredImage"></div> */}
 
-      <div className="webStoryContainer">
+      <div className="webStoryContainer h-full">
         <LeftOutlined
           className="webStoryControlIcon storyicon1"
           onClick={Decrement}
         />
         {stories?.length > 0 && (
-          <div className="storySliderCard">
+          <div className="storySliderCard h-full">
             <Stories
               // isPaused={true}
               loop={true}
@@ -102,6 +102,7 @@ function WebStory() {
               stories={displayStories}
               defaultInterval={5500}
               width="100%"
+              height={"100%"}
               currentIndex={currentIndex}
               // onStoryEnd={(s, st) => setCurrentIndex(s)}
               // onAllStoriesEnd={(s, st) => console.log("all stories ended", s, st)}
@@ -114,7 +115,7 @@ function WebStory() {
           onClick={Increment}
         />
       </div>
-    </>
+    </div>
   );
 }
 
