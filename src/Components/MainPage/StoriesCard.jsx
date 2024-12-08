@@ -1,7 +1,7 @@
 import React from "react";
 import img from "../../assets/img-1.png";
 
-const StoriesCard = ({ text, image, OnPress, id ,wid}) => {
+const StoriesCard = ({ text, image, OnPress, id, wid }) => {
   return (
     <>
       <div
@@ -14,7 +14,7 @@ const StoriesCard = ({ text, image, OnPress, id ,wid}) => {
           <img
             src={image ? image : img}
             alt=""
-            className="w-full h-full object-fill"
+            className="w-full h-[120px] object-fill"
           />
         </div>
         <div className="stories-card-text  w-[55%]">

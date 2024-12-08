@@ -66,7 +66,7 @@ const LivePage = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navigation = useNavigate();
-  const [topStories, settopStories] = useState();
+  const [topStories, settopStories] = useState([]);
 
   useEffect(() => {
     axios
@@ -533,13 +533,13 @@ const LivePage = () => {
         </div>
         <div className="container-detail-page-rigth-side">
           <LatesetNewsSection />
-          <div
+          {/* <div
             className="item-page-main-area-2-header-strip"
             style={{ marginLeft: "10px", marginBottom: "10px" }}
           >
             <div style={{ marginLeft: 10 }}>{t("rn")}</div>
-          </div>
-          <div className="video-page-news-cards">
+          </div> */}
+          {/* <div className="video-page-news-cards">
             {topStories?.map((data, index) => {
               let title = data?.title
                 .replace(/[/\%.?]/g, "")
@@ -561,7 +561,7 @@ const LivePage = () => {
                 />
               );
             })}
-          </div>
+          </div> */}
         </div>
       </div>
     </>

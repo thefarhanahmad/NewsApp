@@ -10,34 +10,28 @@ const VisualStories = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
     axios
-    .get(`${API_URL}/story`)
-    .then((data) => {
-    
-      setData(data.data);
-      // setIsLoad(false);
-    })
-    .catch((err) => {
-      // setIsLoad(false);
-      console.log(err);
-    });
-
+      .get(`${API_URL}/story`)
+      .then((data) => {
+        setData(data.data);
+        // setIsLoad(false);
+      })
+      .catch((err) => {
+        // setIsLoad(false);
+        console.log(err);
+      });
   }, []);
 
   return (
-    <div className="main-conatiner container">
-
-      
+    <div className="">
       <div
         id="VisualStories"
         style={{ padding: "0px 10px" }}
         className="visual-stories-main-container container2 container3"
       >
-
-
         <div className="mobileMainPageHeading">{t("vs")}</div>
 
         <div className="main-page-visual-story-Ad-container ">
-          <div className="main-page-visual-story-container">
+          <div className="main-page-visual-story-container vsfw">
             {data.map((story) => {
               console.log("story: ", story);
 
