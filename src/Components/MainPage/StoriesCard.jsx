@@ -14,7 +14,7 @@ const StoriesCard = ({ text, image, OnPress, id, wid }) => {
           <img
             src={image ? image : img}
             alt=""
-            className="w-full h-[120px] object-fill"
+            className="w-full h-[100px] object-fill"
           />
         </div>
         <div className="stories-card-text  w-[55%]">

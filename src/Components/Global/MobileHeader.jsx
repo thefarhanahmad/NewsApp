@@ -219,7 +219,7 @@ const MobileHeader = ({ listitem }) => {
             <li>
               <Link
                 to="http://epaper.loksatya.com"
-                className=" flex  flex-col gap-1 mb-2 items-center justify-center"
+                className=" flex  flex-col gap-1 -mb-4 items-center justify-center"
               >
                 <FaNewspaper size={18} />
                 <span className="text-xs">ई-पेपर</span>
