@@ -257,7 +257,8 @@
 .footer-middle-container {
   display: flex;
   justify-content: center;
-  margin-top: 70px;
+  /* margin-top: 70px; */
+  /* background-color: red; */
 }
 .footer-middle-area {
   width: 80%;
@@ -333,7 +334,7 @@
   width: 80%;
   height: 220px;
   border-radius: 10px;
-  margin: 10px 10px 0px 10px;
+  margin: 10px 0px 0px 0px;
 }
 .ad-card-main-area > img {
   width: 100%;

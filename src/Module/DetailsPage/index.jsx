@@ -498,11 +498,13 @@ const DetailsPage = () => {
                         flexGrow: "1",
                         justifyContent: "space-between",
                       }}
-                      className="related-news-card-text"
+                      className="related-news-card-text "
                     >
-                      {text
-                        ? text
-                        : "The e-Sanjeevani platform is ensuring healthcare to the last mile, by facilitat..."}
+                      <span className=" stories-card-text w-full font-bold">
+                        {text
+                          ? text
+                          : "The e-Sanjeevani platform is ensuring healthcare to the last mile, by facilitat..."}
+                      </span>
                     </div>
                   </div>
                 );

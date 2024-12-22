@@ -288,7 +288,7 @@ const MobileHeader = ({ listitem }) => {
 
         <div
           className={`mobileNavAbsoluteContainer ${
-            topAd && showAd ? "top-[130px]" : "top-[62px]"
+            topAd && showAd ? "top-[128px] " : "top-[62px]"
           }  ${isHamBurgClicked ? "mobileNavAbsoluteContainerCLicked" : ""} `}
         >
           <ul>
@@ -322,6 +322,7 @@ const MobileHeader = ({ listitem }) => {
                 return (
                   <>
                     <li
+                      className=" w-11/12 pb-1 border-b-2 border-gray-300"
                       onClick={() => {
                         setHambergClicked(false);
                         Navigation(`/itempage?item=${data.text}`);

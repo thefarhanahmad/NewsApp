@@ -31,6 +31,7 @@ import { PlayCircleOutlined } from "@ant-design/icons";
 import VdoThumb from "../../Components/common/VdoThumb";
 import { useAd } from "../../Context/TopAdContext";
 import AdCardPopup from "../../Components/DetailsPage/AdCardPopup";
+import AdCard from "../../Components/Global/AdCard";
 
 const MainPage = () => {
   const [sliderItem, setSliderItem] = useState(0);
@@ -539,7 +540,7 @@ const MainPage = () => {
       </div>
       <div className="main-page-conatiner">
         <ul
-          className={`mobileMainPageAnchorSlider  ${
+          className={`mobileMainPageAnchorSlider font-semibold  ${
             showAd && topAd ? "mt-[132px] " : "mt-[65px] "
           } `}
         >
@@ -930,7 +931,8 @@ const MainPage = () => {
               {/* {midAd?.map((data, i) => { */}
               {/* return ( */}
               <>
-                <div className=" w-full ">
+                {/* <div className=" w-full ">
+                  <span>Adevertisement</span>
                   <a
                     href={midAd[0]?.link}
                     target="_blank"
@@ -949,6 +951,9 @@ const MainPage = () => {
                       alt=""
                     />
                   </a>
+                </div> */}
+                <div className="w-[80%] mx-auto">
+                  <AdCard type={"mid"} />
                 </div>
               </>
               {/* ); */}
@@ -2156,7 +2161,7 @@ const MainPage = () => {
           </div>
           {/* see more btn */}
           <div
-            className="more-text"
+            className="more-text -mt-4 sm:mt-[25px]"
             onClick={() => navigate("/itempage2?newsType=videos")}
           >
             {"more"}{" "}
