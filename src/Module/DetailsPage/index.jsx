@@ -35,6 +35,7 @@ import LatesetNewsSection from "../../Components/SharedComponents/LatestNewsSect
 import RelatedNewsSection from "../../Components/SharedComponents/RelatedNewSection";
 import { InstagramFilled } from "@ant-design/icons";
 import AdCardPopup from "../../Components/DetailsPage/AdCardPopup";
+import StoriesCard from "../../Components/MainPage/StoriesCard";
 const { TextArea } = Input;
 
 // Instagram share button (custom implementation)
@@ -462,7 +463,7 @@ const DetailsPage = () => {
         <div className="container3">
           <div className="deatils-main-para-area " id="mob_parar"></div>
 
-          <div className="container-detail-page-rigth-side mt-3">
+          <div className="container-detail-page-rigth-side mt-3 ">
             {relatedNews && (
               <div className="details-page-related-news">
                 <div className="details-page-related-news-heading">
@@ -486,27 +487,39 @@ const DetailsPage = () => {
                 const text = data?.title.substring(0, 45) + "...";
                 const image = data?.image;
 
+                // return (
+                //   <div
+                //     className="related-news-card mobile-related-news-card"
+                //     onClick={OnPress}
+                //   >
+                //     <img src={image ? image : img} alt="" />
+                //     <div
+                //       style={{
+                //         margin: "0px",
+                //         flexGrow: "1",
+                //         justifyContent: "space-between",
+                //       }}
+                //       className="related-news-card-text "
+                //     >
+                //       <span className=" stories-card-text w-full font-bold">
+                //         {text
+                //           ? text
+                //           : "The e-Sanjeevani platform is ensuring healthcare to the last mile, by facilitat..."}
+                //       </span>
+                //     </div>
+                //   </div>
+                // );
                 return (
-                  <div
-                    className="related-news-card mobile-related-news-card"
-                    onClick={OnPress}
-                  >
-                    <img src={image ? image : img} alt="" />
-                    <div
-                      style={{
-                        margin: "0px",
-                        flexGrow: "1",
-                        justifyContent: "space-between",
-                      }}
-                      className="related-news-card-text "
-                    >
-                      <span className=" stories-card-text w-full font-bold">
-                        {text
-                          ? text
-                          : "The e-Sanjeevani platform is ensuring healthcare to the last mile, by facilitat..."}
-                      </span>
-                    </div>
-                  </div>
+                  <StoriesCard
+                    data={data}
+                    key={index}
+                    OnPress={() =>
+                      navigation(`/details2/${title}?id=${data?._id}`)
+                    }
+                    wid="w-[45%] h-[110px]"
+                    image={data?.image}
+                    text={data?.title}
+                  />
                 );
               })}
             </div>
@@ -693,8 +706,8 @@ const DetailsPage = () => {
           </div>
           <RelatedNewsSection currentNewId={storyId} />
           <div className="detalis-page-commment-area1">
-            <div className="details-main-related-new-area-heading">
-              <span>{t("to")} :</span> {data?.topic}
+            <div className=" bg-gradient-to-r text-red-500 p-3 from-white text-2xl to-transparents font-bold">
+              <span className="text-black">{t("to")} :</span> {data?.topic}
             </div>
             {data?.comment ? (
               <div className="details-comment-area">
@@ -762,14 +775,15 @@ const DetailsPage = () => {
             })}
           </div>
         </div>
-        <div className="container-detail-page-rigth-side">
+        <div className="container-detail-page-rigth-side ">
+          <LatesetNewsSection />
           {topStories && (
             <div className="details-page-related-news">
-              <div className="details-page-related-news-heading">{t("rn")}</div>
+              <div className="details-page-related-news-heading">{t("ln")}</div>
             </div>
           )}
           <div className="detail-page-relate-new-cards">
-            {topStories?.map((data, index) => {
+            {breakingNews?.slice(0, 6)?.map((data, index) => {
               let title = data.title
                 .replace(/[/\%.?]/g, "")
                 .split(" ")
@@ -779,28 +793,40 @@ const DetailsPage = () => {
               }
               if (data._id === storyId) return;
 
+              // return (
+              //   <RelatedNewsCard
+              //     data={data}
+              //     key={data._id}
+              //     OnPress={() =>
+              //       navigation(`/details2/${title}?id=${data?._id}`)
+              //     }
+              //     image={data?.image}
+              //     text={data?.title.substring(0, 82) + "..."}
+              //   />
+              // );
               return (
-                <RelatedNewsCard
+                <StoriesCard
                   data={data}
-                  key={data._id}
+                  key={index}
                   OnPress={() =>
                     navigation(`/details2/${title}?id=${data?._id}`)
                   }
+                  wid="w-[45%] h-[110px]"
                   image={data?.image}
-                  text={data?.title.substring(0, 82) + "..."}
+                  text={data?.title}
                 />
               );
             })}
           </div>
-          <LatesetNewsSection />
+
           <div className="details-main-ad-cards">
             <AdCard type={"mid"} />
             <AdCard type={"bottom"} />
           </div>
         </div>
         <div className="detalis-page-commment-area2">
-          <div className="details-main-related-new-area-heading">
-            <span>{t("to")} :</span> {data?.topic}
+          <div className=" bg-gradient-to-r text-red-500 p-3 from-white text-2xl to-transparents font-bold">
+            <span className="text-black">{t("to")} :</span> {data?.topic}
           </div>
           {data?.comment ? (
             <div className="details-comment-area">

@@ -37,6 +37,7 @@ import RelatedNewsSection from "../../Components/SharedComponents/RelatedNewSect
 import LatesetNewsSection from "../../Components/SharedComponents/LatestNewsSection";
 import AdCardPopup from "../../Components/DetailsPage/AdCardPopup";
 import { Helmet } from "react-helmet-async";
+import StoriesCard from "../../Components/MainPage/StoriesCard";
 
 // Instagram share button (custom implementation)
 const InstagramShareButton = ({ url }) => {
@@ -480,15 +481,27 @@ const DetailsPage2 = () => {
                 }
                 if (data._id === storyId) return;
 
+                // return (
+                //   <ItemPageNewsCard
+                //     data={data}
+                //     key={data._id}
+                //     OnPress={() =>
+                //       navigation(`/details/${title}?id=${data?._id}`)
+                //     }
+                //     image={data?.image}
+                //     text={data?.title.substring(0, 82) + "..."}
+                //   />
+                // );
                 return (
-                  <ItemPageNewsCard
+                  <StoriesCard
                     data={data}
-                    key={data._id}
+                    key={index}
                     OnPress={() =>
                       navigation(`/details/${title}?id=${data?._id}`)
                     }
+                    wid="w-[45%] h-[110px]"
                     image={data?.image}
-                    text={data?.title.substring(0, 82) + "..."}
+                    text={data?.title}
                   />
                 );
               })}
@@ -675,8 +688,8 @@ const DetailsPage2 = () => {
           </div>
           <RelatedNewsSection />
           <div className="detalis-page-commment-area1">
-            <div className="details-main-related-new-area-heading">
-              <span>{t("to")} :</span> {data?.topic}
+            <div className=" bg-gradient-to-r text-red-500 p-3 from-white text-2xl to-transparents font-bold">
+              <span className="text-black">{t("to")} :</span> {data?.topic}
             </div>
             {data?.comment ? (
               <div className="details-comment-area">
@@ -745,19 +758,21 @@ const DetailsPage2 = () => {
           </div>
         </div>
         <div
-          className="container-detail-page-rigth-side"
+          className="container-detail-page-rigth-side "
           style={{ marginTop: "40px" }}
         >
+          <LatesetNewsSection />
+
           {topStories && (
             <div className="details-page-related-news ">
-              <div className="details-page-related-news-heading">{t("rn")}</div>
+              <div className="details-page-related-news-heading">{t("ln")}</div>
             </div>
           )}
           <div
             className="item-page-main-area-2-news-cards "
             style={{ width: "100%", marginTop: 10 }}
           >
-            {topStories?.map((data, index) => {
+            {breakingNews?.slice(0, 6)?.map((data, index) => {
               let title = data.title
                 .replace(/[/\%.?]/g, "")
                 .split(" ")
@@ -767,29 +782,40 @@ const DetailsPage2 = () => {
               }
               if (data._id === storyId) return;
 
+              // return (
+              //   <ItemPageNewsCard
+              //     data={data}
+              //     key={data._id}
+              //     OnPress={() =>
+              //       navigation(`/details/${title}?id=${data?._id}`)
+              //     }
+              //     image={data?.image}
+              //     text={data?.title.substring(0, 82) + "..."}
+              //   />
+              // );
               return (
-                <ItemPageNewsCard
+                <StoriesCard
                   data={data}
-                  key={data._id}
+                  key={index}
                   OnPress={() =>
                     navigation(`/details/${title}?id=${data?._id}`)
                   }
+                  wid="w-[45%] h-[110px]"
                   image={data?.image}
-                  text={data?.title.substring(0, 82) + "..."}
+                  text={data?.title}
                 />
               );
             })}
           </div>
-          <LatesetNewsSection />
+
           <div className="details-main-ad-cards">
             <AdCard type={"mid"} />
             <AdCard type={"bottom"} />
           </div>
         </div>
         <div className="detalis-page-commment-area2">
-          <div className="details-main-related-new-area-heading">
-            <span>{t("to")} :</span>
-            {data?.topic}
+          <div className=" bg-gradient-to-r text-red-500 p-3 from-white text-2xl to-transparents font-bold">
+            <span className="text-black">{t("to")} :</span> {data?.topic}
           </div>
           {data?.comment ? (
             <div className="details-comment-area">

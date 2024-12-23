@@ -59,8 +59,9 @@ function LatesetNewsSection({ currentVideoId }) {
   return (
     <>
       {topStories && (
-        <div className="details-page-latest-news ">
+        <div className="details-page-latest-news">
           <div className="details-main-related-new-area-heading">{t("ts")}</div>
+
           <div className="top-stories-all-cards">
             {topStories
               ?.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))

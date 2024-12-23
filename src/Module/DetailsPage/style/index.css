@@ -137,7 +137,14 @@
   font-weight: 600;
   line-height: 33px;
   letter-spacing: 0em;
-  color: rgba(255, 0, 0, 1);
+  font-family: Poppins;
+  min-width: 100%;
+  font-size: 22px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 1);
+  padding: 8px 0px;
+  padding-left: 10px;
+  background: linear-gradient(88.78deg, #ff2424 0.28%, #ff9d9d 100%);
 }
 .details-main-related-new-area-cards {
   display: grid;

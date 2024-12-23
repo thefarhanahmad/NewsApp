@@ -596,7 +596,7 @@
   overflow: hidden;
   border-radius: 10px;
   border: 2px solid white;
-  /* height: 520px; */
+  height: 520px;
   width: 400px;
 }
 
@@ -744,7 +744,7 @@
     overflow: hidden;
     border-radius: 10px;
     border: 2px solid white;
-    /* height: 420px; */
+    height: 420px;
     width: 300px;
   }
 }
