@@ -453,7 +453,7 @@ const DetailsPage2 = () => {
           />
         </div>
         <div className="container3">
-          <div className="deatils-main-para-area " id="mob_parar"></div>
+          <div className="deatils-main-para-area  " id="mob_parar"></div>
 
           <div
             className="container-detail-page-rigth-side"
@@ -468,7 +468,7 @@ const DetailsPage2 = () => {
             )}
             <div
               className="item-page-main-area-2-news-cards "
-              style={{ width: "100%", marginTop: 10 }}
+              style={{ width: "100%", marginTop: 4 }}
             >
               {relatedNews?.slice(0, 5)?.map((data, index) => {
                 console.log("data in related news  :", data);

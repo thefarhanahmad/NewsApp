@@ -26,7 +26,9 @@ const ItemPage = () => {
 
   useEffect(() => {
     axios.get(`${API_URL}/ads?active=true&side=bottom`).then((data) => {
-      setBottomAd(data.data.reverse()[0]);
+      const activeAds = data.data.filter((data) => data.active);
+
+      setBottomAd(activeAds.reverse()[0]);
     });
   }, []);
 

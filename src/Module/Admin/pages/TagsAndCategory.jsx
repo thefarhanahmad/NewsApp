@@ -196,7 +196,7 @@ const TagsAndCategory = () => {
       key: filterItem !== "sub" ? "type" : "category",
       dataIndex: filterItem !== "sub" ? "type" : "category",
       render: (text, record) => {
-        console.log("record in sub category : ", record);
+        // console.log("record in sub category : ", record);
         return (
           <Tag color="geekblue">
             {filterItem !== "sub" ? record.type : record.category}

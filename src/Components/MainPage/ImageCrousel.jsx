@@ -69,7 +69,7 @@ const ImageCrousel = () => {
                         // background: "red",
                         // padding: "10px",
                       }}
-                      className="photoGallery-card"
+                      className="photoGallery-card-crousel"
                       onClick={handleImageClick}
                     >
                       <img
@@ -139,7 +139,7 @@ const ImageCrousel = () => {
                         position: "relative",
                         width: "100%",
                       }}
-                      className="photoGallery-card"
+                      className="photoGallery-card-crousel"
                       onClick={handleImageClick}
                     >
                       <img

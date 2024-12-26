@@ -362,15 +362,19 @@ const MainPage = () => {
   useEffect(() => {
     axios.get(`${API_URL}/ads?active=true&side=top`).then((data) => {
       console.log("top ad data response : ", data);
-      setTopAd(data.data.reverse()[0]);
+      const activeAds = data.data.filter((data) => data.active);
+      setTopAd(activeAds.reverse()[0]);
     });
     axios.get(`${API_URL}/ads?active=true&side=mid`).then((data) => {
       console.log("mid ad data response : ", data);
-      setMidAd(data.data.reverse());
+      const activeAds = data.data.filter((data) => data.active);
+      setMidAd(activeAds.reverse());
     });
     axios.get(`${API_URL}/ads?active=true&side=bottom`).then((data) => {
       console.log("bottom ad data response : ", data);
-      setBottomAd(data.data.reverse()[0]);
+      const activeAds = data.data.filter((data) => data.active);
+
+      setBottomAd(activeAds.reverse()[0]);
     });
   }, []);
   console.log("midads on homepage : ", midAd);
@@ -526,10 +530,7 @@ const MainPage = () => {
       <div>
         {/* Ad Popup */}
         {adPopup && (
-          <div
-            className="fixed px-2 lg:px-0 top-0 left-0 w-full h-full flex items-center justify-center z-50 inset-0 bg-black bg-opacity-40 backdrop-blur-sm "
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className="absolute">
             <AdCardPopup
               type={"top"}
               adPopup={adPopup}

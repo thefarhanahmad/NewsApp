@@ -17,7 +17,7 @@ export const AdProvider = ({ children }) => {
   };
 
   return (
-    <AdContext.Provider value={{ showAd, closeAd }}>
+    <AdContext.Provider value={{ showAd, closeAd}}>
       {children}
     </AdContext.Provider>
   );

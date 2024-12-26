@@ -24,8 +24,11 @@ const AdCardPopup = ({ type, adPopup, setAdPopup }) => {
       .then((response) => {
         console.log("ads in popup : ", response);
 
+        const activeAds = response.data.filter((data) => data.active);
+        console.log("active ads in popup: ", activeAds);
+
         // Reverse data array to ensure latest entries come first
-        const reversedData = response.data.reverse();
+        const reversedData = activeAds.reverse();
 
         // Find the latest entry for mobile and laptop devices
         const latestMobileData = reversedData.find(
@@ -54,70 +57,91 @@ const AdCardPopup = ({ type, adPopup, setAdPopup }) => {
   }
   const location = useLocation();
   return (
-    <div className={`adCardPopup ${location.pathname === "/" ? "mt-28" : ""}`}>
+    <div className="relative">
       {/* Display only mobile ad */}
-      <div className="relative w-full  h-[70vh] flex md:hidden  lg:h-[500px]   lg:w-[800px] overflow-hidden bg-white rounded-md">
-        {adPopup && (
-          <div className="h-full w-full">
-            <div className=" w-full flex mt-2 font-semibold  justify-center items-center text-lg text-black">
-              Advertisement
-            </div>
 
-            <button
-              onClick={() => setAdPopup(false)}
-              className="absolute top-2 right-0  rounded-full"
+      {mobileData && (
+        <div className={`adCardPopup `}>
+          <div
+            className="fixed px-2 md:hidden lg:px-0 top-0 left-0 w-full h-full flex items-center justify-center z-50 inset-0 bg-black bg-opacity-40 backdrop-blur-sm "
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div
+              className={`relative w-full ${
+                location.pathname === "/" ? "mt-28" : ""
+              }  h-[70vh] flex md:hidden  lg:h-[500px]   lg:w-[800px] overflow-hidden bg-white rounded-md`}
             >
-              <IoCloseCircleOutline className="text-3xl md:text-6xl" />
-            </button>
-            {mobileData ? (
-              <a href={mobileData?.link} className="h-full w-full">
-                <div
-                  className="w-full h-full"
-                  onClick={() => onClickAd(mobileData._id)}
-                >
-                  <img
-                    className="object-cover h-full w-full"
-                    src={mobileData?.imgLink}
-                    alt=""
-                  />
+              <div className="h-full w-full">
+                <div className=" w-full flex mt-2 font-semibold  justify-center items-center text-lg text-black">
+                  Advertisement
                 </div>
-              </a>
-            ) : null}
-          </div>
-        )}
-      </div>
 
-      {/* Display only mobile ad */}
-      <div className="relative w-full h-[70vh] hidden md:flex  lg:h-[500px]   lg:w-[800px] overflow-hidden bg-white rounded-md">
-        {adPopup && (
-          <div className="h-full w-full">
-            <div className=" w-full flex mt-2 font-semibold  justify-center items-center text-lg text-black">
-              Advertisement
+                <button
+                  onClick={() => setAdPopup(false)}
+                  className="absolute top-2 right-0  rounded-full"
+                >
+                  <IoCloseCircleOutline className="text-3xl md:text-6xl" />
+                </button>
+                {mobileData ? (
+                  <a href={mobileData?.link} className="h-full w-full">
+                    <div
+                      className="w-full h-full"
+                      onClick={() => onClickAd(mobileData._id)}
+                    >
+                      <img
+                        className="object-cover h-full w-full"
+                        src={mobileData?.imgLink}
+                        alt=""
+                      />
+                    </div>
+                  </a>
+                ) : null}
+              </div>
             </div>
-
-            <button
-              onClick={() => setAdPopup(false)}
-              className="absolute top-2 right-0  rounded-full"
-            >
-              <IoCloseCircleOutline className="text-3xl md:text-6xl" />
-            </button>
-            {laptopData ? (
-              <a href={laptopData?.link} className="h-full">
-                <div
-                  className="w-full h-full"
-                  onClick={() => onClickAd(laptopData._id)}
-                >
-                  <img
-                    className="object-cover h-full  w-full"
-                    src={laptopData?.imgLink}
-                    alt=""
-                  />
-                </div>
-              </a>
-            ) : null}
           </div>
-        )}
-      </div>
+        </div>
+      )}
+
+      {/* Display only desktop ad */}
+      {laptopData && (
+        <div
+          className={`adCardPopup ${location.pathname === "/" ? "mt-28" : ""}`}
+        >
+          <div
+            className="fixed px-2 md:flex hidden lg:px-0 top-0 left-0 w-full h-full  items-center justify-center z-50 inset-0 bg-black bg-opacity-40 backdrop-blur-sm "
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="relative w-full h-[70vh] hidden md:flex  lg:h-[500px]   lg:w-[800px] overflow-hidden bg-white rounded-md">
+              <div className="h-full w-full">
+                <div className=" w-full flex mt-2 font-semibold  justify-center items-center text-lg text-black">
+                  Advertisement
+                </div>
+
+                <button
+                  onClick={() => setAdPopup(false)}
+                  className="absolute top-2 right-0  rounded-full"
+                >
+                  <IoCloseCircleOutline className="text-3xl md:text-6xl" />
+                </button>
+                {laptopData ? (
+                  <a href={laptopData?.link} className="h-full">
+                    <div
+                      className="w-full h-full"
+                      onClick={() => onClickAd(laptopData._id)}
+                    >
+                      <img
+                        className="object-cover h-full  w-full"
+                        src={laptopData?.imgLink}
+                        alt=""
+                      />
+                    </div>
+                  </a>
+                ) : null}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

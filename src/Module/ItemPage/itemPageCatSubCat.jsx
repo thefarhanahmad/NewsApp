@@ -29,7 +29,9 @@ const ItemPage = () => {
 
   useEffect(() => {
     axios.get(`${API_URL}/ads?active=true&side=bottom`).then((data) => {
-      setBottomAd(data.data.reverse()[0]);
+      const activeAds = data.data.filter((data) => data.active);
+
+      setBottomAd(activeAds.reverse()[0]);
     });
   }, []);
 
@@ -97,17 +99,16 @@ const ItemPage = () => {
         axios
           .get(`${API_URL}/video`)
           .then((data) => {
-            console.log("data res in itempage : ", data);
-            setData(data.data);
+            console.log("video res in itempage : ", data);
+            const activeVdos = data.data.filter((data) => data.status);
+            console.log("active videos : ", activeVdos);
+            setData(activeVdos);
             setIsLoad(false);
           })
           .catch(() => {
             setIsLoad(false);
           });
-      } 
-     
-      
-      else {
+      } else {
         axios
           // .get(`${API_URL}/article?newsType=${query.get("newsType")}`)
           // .then((data) => {

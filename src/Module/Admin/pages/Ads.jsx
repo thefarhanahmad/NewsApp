@@ -102,7 +102,7 @@ const Ads = () => {
     });
     fetchAds();
   };
-  console.log("device : ", device);
+  console.log("side of advdvvd : ", side);
   const handleDeleteAd = async (id) => {
     try {
       const res = await axios.delete(`${API_URL}/ads_delete/${id}`);
@@ -352,20 +352,26 @@ const Ads = () => {
               onChange={(e) => setTitle(e.target.value)}
             />
           </Col>
+
           <Col span={6}>
-            <Select
-              placeholder="Select Device"
-              value={device}
-              defaultValue="both"
-              style={{ width: "100%" }}
-              onChange={(e) => setDevice(e)}
-              options={[
-                { label: "Both", value: "both" },
-                { label: "Mobile", value: "mobile" },
-                { label: "Laptop", value: "laptop" },
-              ]}
-            />
+            {side === "popup" ? (
+              <Select
+                placeholder="Select Device"
+                value={device}
+                defaultValue="both"
+                style={{ width: "100%" }}
+                onChange={(e) => setDevice(e)}
+                options={[
+                  { label: "Both", value: "both" },
+                  { label: "Mobile", value: "mobile" },
+                  { label: "Laptop", value: "laptop" },
+                ]}
+              />
+            ) : (
+              <Select value="both" style={{ width: "100%" }} disabled />
+            )}
           </Col>
+
           <Col span={6}></Col>
           <Col span={6} style={{ marginTop: 10 }}>
             <RangePicker

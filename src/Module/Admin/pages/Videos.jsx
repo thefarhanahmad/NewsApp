@@ -169,13 +169,14 @@ const Video = () => {
       // Fetch comments from your API
       const response = await fetch(`${API_URL}/video`);
       const data = await response.json();
+      console.log("get all vdo res  : ", data);
       setAllPhoto(data);
     } catch (error) {
       console.error("Error fetching video:", error);
       message.error("Failed to fetch video. Please try again.");
     }
   }
-
+  console.log("all vdos in page : ", allPhotos);
   const ShowDeleteModal = (photo) => {
     console.log(photo);
     setCurrentPhoto(photo);
@@ -229,7 +230,7 @@ const Video = () => {
       dataIndex: "title", // Assuming 'text' is the property representing the comment
       key: "title",
       render: (text) => {
-        console.log("text", text);
+        // console.log("text", text);
         return (
           <div
             style={{
@@ -270,7 +271,7 @@ const Video = () => {
       dataIndex: "link",
       key: "link",
       render: (_, { link }) => {
-        console.log("yt vdo link in video section : ", link);
+        // console.log("yt vdo link in video section : ", link);
 
         // Function to extract video ID from various YouTube URL formats
         const extractVideoId = (url) => {

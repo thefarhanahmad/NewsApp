@@ -116,8 +116,9 @@ const CreateUser = () => {
 
   const handleTagChange = (value) => {
     // Allow only two tags to be selected
-    const newTags = value.slice(-2);
-    setSelectedKeywords(newTags);
+    // const newTags = value.slice(-2);
+    // setSelectedKeywords(newTags);
+    setSelectedKeywords(value);
   };
 
   const selectedOptions = cateGet.map((item) => ({

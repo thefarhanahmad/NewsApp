@@ -894,6 +894,7 @@ const Photos = () => {
         onOk={id && onEdit ? onUpdate : onUpload}
         onCancel={handleVerifyCancel}
         okText={id && onEdit ? "Update" : "Upload"}
+        okButtonProps={{ disabled: loading }}
       >
         <h3 style={{ fontSize: 20, fontWeight: "600", color: "#2e2e2e" }}>
           Headline:

@@ -8,18 +8,35 @@ import { API_URL } from "../../../API";
 const Report = ({ isAdmin }) => {
   const [data, setData] = useState([]);
   useEffect(() => {
-    axios.get(`${API_URL}/report`).then((res) => {
- 
-      setData(res.data);
-    });
+    axios
+      .get(`${API_URL}/report`)
+      .then((res) => {
+        console.log("report data res : ", res);
+        setData(res.data);
+      })
+      .catch((err) => {
+        console.log("error in getting report : ", err);
+      });
   }, []);
+
   const columns = [
     {
       title: "Id",
       dataIndex: "_id",
       key: "_id",
       render: (value) => {
-        return <div style={{ width: "70px" ,whiteSpace: "nowrap",overflow:"hidden",textOverflow: "ellipsis"}}>{value}</div>
+        return (
+          <div
+            style={{
+              width: "70px",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+          >
+            {value}
+          </div>
+        );
       },
     },
     {
@@ -27,7 +44,18 @@ const Report = ({ isAdmin }) => {
       dataIndex: "userId",
       key: "userId",
       render: (value) => {
-        return <div style={{ width: "70px" ,whiteSpace: "nowrap",overflow:"hidden",textOverflow: "ellipsis"}}>{value}</div>
+        return (
+          <div
+            style={{
+              width: "70px",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+          >
+            {value}
+          </div>
+        );
       },
     },
     {
@@ -35,7 +63,18 @@ const Report = ({ isAdmin }) => {
       dataIndex: "articleId",
       key: "articleId",
       render: (value) => {
-        return <div style={{ width: "70px" ,whiteSpace: "nowrap",overflow:"hidden",textOverflow: "ellipsis"}}>{value}</div>
+        return (
+          <div
+            style={{
+              width: "70px",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+          >
+            {value}
+          </div>
+        );
       },
     },
     {
@@ -43,11 +82,10 @@ const Report = ({ isAdmin }) => {
       dataIndex: "question",
       key: "question",
     },
-    
   ];
   return (
     <>
-    <h1
+      <h1
         style={{
           color: "rgba(0,0,0,0.8)",
           marginBottom: 10,
@@ -57,12 +95,12 @@ const Report = ({ isAdmin }) => {
       >
         Report
       </h1>
-    <Card style={{ width: "100%", height: "100%", minHeight: "80vh" }}>
-      <Row gutter={6}>
-        <Col span={24} style={{ marginTop: 20 }}>
+      <Card style={{ width: "100%", height: "100%", minHeight: "80vh" }}>
+        <Row gutter={6}>
+          <Col span={24} style={{ marginTop: 20 }}>
             <Table columns={columns} dataSource={data} />
           </Col>
-        {/* {data &&
+          {/* {data &&
           data.length > 0 &&
           data.map((item) => {
             return (
@@ -80,8 +118,8 @@ const Report = ({ isAdmin }) => {
               </Col>
             );
           })} */}
-      </Row>
-    </Card>
+        </Row>
+      </Card>
     </>
   );
 };

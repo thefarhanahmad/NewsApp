@@ -111,20 +111,25 @@ const MobileHeader = ({ listitem }) => {
   }, []);
 
   const [topAd, setTopAd] = useState({});
-  console.log("top ad  : ", topAd);
+  console.log("top ad in header  : ", topAd);
   useEffect(() => {
     axios.get(`${API_URL}/ads?active=true&side=top`).then((data) => {
-      // console.log("data res :  ", data.data.reverse()[0]);
+      console.log("topad data res :  ", data);
       // if (data.data.reverse()[0].device === "mobile") {
       //   setTopAd(data.data.reverse()[0]);
       // }
-      setTopAd(data.data.reverse()[0]);
+      const activeAds = data.data.filter((data) => data.active);
+      console.log("active ads : ", activeAds);
+      setTopAd(activeAds.reverse()[0]);
     });
   }, []);
 
   useEffect(() => {
     if (topAd && topAd._id) {
       axios.get(`${API_URL}/ads/click?id=${topAd._id}`).then(() => {});
+    }
+    if (!topAd) {
+      closeAd();
     }
   }, [topAd]);
   async function onClickAd(id) {
@@ -148,31 +153,37 @@ const MobileHeader = ({ listitem }) => {
         />
       )}
       {/* Top Ad */}
-      {location?.pathname === "/" && topAd && showAd && (
-        <div className="fixed top-0 left-0 mb-4 mob-ad z-50 overflow-hidden w-full h-[68px]">
-          <IoCloseCircleOutline
-            onClick={closeAd}
-            className="text-3xl cursor-pointer md:text-5xl top-0 right-0 bg-gray-800 text-white rounded-full absolute"
-          />
-          <a
-            href={topAd?.link}
-            target="_blank"
-            onClick={() => {
-              onClickAd(topAd?._id);
-            }}
-            rel="noreferrer"
-          >
-            <img
-              style={{
-                cursor: "pointer",
-              }}
-              className="top-header-img object-fill w-full h-full"
-              src={topAd?.imgLink}
-              alt=""
-            />
-          </a>
-        </div>
-      )}
+      <div>
+        {topAd && (
+          <div>
+            {location?.pathname === "/" && topAd && showAd && (
+              <div className="fixed top-0 left-0 mb-4 mob-ad z-50 overflow-hidden w-full h-[68px]">
+                <IoCloseCircleOutline
+                  onClick={closeAd}
+                  className="text-3xl cursor-pointer md:text-5xl top-0 right-0 bg-gray-800 text-white rounded-full absolute"
+                />
+                <a
+                  href={topAd?.link}
+                  target="_blank"
+                  onClick={() => {
+                    onClickAd(topAd?._id);
+                  }}
+                  rel="noreferrer"
+                >
+                  <img
+                    style={{
+                      cursor: "pointer",
+                    }}
+                    className="top-header-img object-fill w-full h-full"
+                    src={topAd?.imgLink}
+                    alt=""
+                  />
+                </a>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
 
       <div className="mobileNavBarContainer">
         <div

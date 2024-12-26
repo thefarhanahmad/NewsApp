@@ -124,7 +124,15 @@ const VideoPage2 = () => {
   // };
   // Function to format the date as required
   const formatDatetime = (dateString) => {
+    if (!dateString) {
+      return "Invalid Date"; // Handle undefined or null input
+    }
+
     const date = new Date(dateString);
+
+    if (isNaN(date.getTime())) {
+      return "Invalid Date"; // Handle invalid date strings
+    }
 
     // Define options for formatting
     const optionsDate = {
@@ -152,6 +160,7 @@ const VideoPage2 = () => {
     // Combine them in the desired format
     return `${formattedDate}, ${formattedTime}`;
   };
+
   const [topStories, settopStories] = useState();
 
   console.log("data", storyId);
@@ -231,7 +240,20 @@ const VideoPage2 = () => {
       try {
         const res = await axios.get(`${API_URL}/video/${id}`);
         console.log("video find by id res : ", res.data.data);
-        setVideoData(res.data.data);
+        const videoData = res.data.data;
+        if (videoData.status === false) {
+          setVideoData({
+            ...videoData,
+            image: "",
+            link: "",
+            reportedBy: "",
+            title: "No Data Found",
+            createdAt: "",
+            updatedAt: "",
+          });
+        } else {
+          setVideoData(videoData);
+        }
       } catch (error) {
         console.log("error in vdo detail page : ", error);
       }

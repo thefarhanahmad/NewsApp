@@ -461,7 +461,9 @@ const DetailsPage = () => {
           />
         </div>
         <div className="container3">
-          <div className="deatils-main-para-area " id="mob_parar"></div>
+          <div className="deatils-main-para-area " id="mob_parar">
+            
+          </div>
 
           <div className="container-detail-page-rigth-side mt-3 ">
             {relatedNews && (

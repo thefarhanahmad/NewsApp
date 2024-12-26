@@ -24,17 +24,27 @@ const AdminTable = () => {
   const [value, setValue] = useState("");
   const [filterItem, setfilterItem] = useState("id");
   const [filterItemResponse, setfilterItemResponse] = useState("");
-  useEffect(() => {
-    axios
-      .get(`${API_URL}/user`)
-      .then((users) => {
+
+  const getAllUsers = async () => {
+    try {
+      axios.get(`${API_URL}/user`).then((users) => {
         setUserData(users.data);
         console.log(users);
       });
+    } catch (error) {
+      console.log("error in getting all users : ", error);
+    }
+  };
+
+  useEffect(() => {
+    getAllUsers();
   }, []);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [isVerifyModalOpen, setIsVerifyModalOpen] = useState(false);
+
+  console.log("users in user dashboard  : ", userData);
+
   const showModal = (user) => {
     console.log(user);
     setCurrentUser(user);
@@ -78,15 +88,21 @@ const AdminTable = () => {
     setCurrentUser("");
     setIsModalOpen(false);
   };
+
+  // console.log("current user verff : ", currentUser);
+
   const Verify = () => {
     axios
       .put(`${API_URL}/register`, {
         id: currentUser._id,
       })
-      .then(() => {
+      .then((data) => {
+        console.log("verify user res : ", data);
         message.success("Successfully register Changed");
+        getAllUsers();
       })
       .catch((err) => {
+        console.log("error in verify user : ", err);
         message.error("Register was Not Changed");
       });
     setCurrentUser("");
@@ -95,9 +111,7 @@ const AdminTable = () => {
 
   const OnDelete = () => {
     axios
-      .delete(
-        `${API_URL}/user?id=${currentUser._id}`
-      )
+      .delete(`${API_URL}/user?id=${currentUser._id}`)
       .then(() => {
         message.success("User Has Successfully Deleted");
         setCurrentUser("");
@@ -111,22 +125,19 @@ const AdminTable = () => {
       });
   };
 
-  
+  const onFilter = () => {
+    console.log(filterItem, filterItemResponse);
+    axios
+      .get(`${API_URL}/user?${filterItem}=${filterItemResponse}`)
+      .then((users) => {
+        setUserData(users.data);
+        console.log(users);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
-  const onFilter = () =>{
-    console.log(filterItem,filterItemResponse)
-   axios.get(
-      `${API_URL}/user?${filterItem}=${filterItemResponse}`
-    )
-    .then((users) => {
-      setUserData(users.data);
-      console.log(users)
-    })
-    .catch((err) => {
-      console.log(err);
-      
-    });
-  }
   const columns = [
     {
       title: "Phone Number",
@@ -176,7 +187,16 @@ const AdminTable = () => {
   ];
   return (
     <>
-    <h1 style={{color:"rgba(0,0,0,0.8)",marginBottom:10,textAlign:"left",fontFamily:"Poppins"}}>Users</h1>
+      <h1
+        style={{
+          color: "rgba(0,0,0,0.8)",
+          marginBottom: 10,
+          textAlign: "left",
+          fontFamily: "Poppins",
+        }}
+      >
+        Users
+      </h1>
       <Card style={{ height: "100%" }}>
         <Row gutter={20}>
           <Col span={6}>
@@ -207,44 +227,54 @@ const AdminTable = () => {
           <Col span={6}>
             {filterItem == "id" || filterItem == "phone" ? (
               <>
-                <Input onChange={e=>setfilterItemResponse(e.target.value)} placeholder={filterItem == "id"?"Id":"Phone Number"} style={{ width: "100%" }} />
+                <Input
+                  onChange={(e) => setfilterItemResponse(e.target.value)}
+                  placeholder={filterItem == "id" ? "Id" : "Phone Number"}
+                  style={{ width: "100%" }}
+                />
               </>
             ) : (
               <Select
                 style={{ width: "100%" }}
-                onChange={e=>setfilterItemResponse(e)}
-                options={filterItem=="role"?[
-                  {
-                    value: "user",
-                    label: "User",
-                  },
-                  {
-                    value: "admin",
-                    label: "Admin",
-                  },
-                  {
-                    value: "author",
-                    label: "Author",
-                  },
-                  {
-                    value: "journalist",
-                    label: "Journalist",
-                  },
-                ]:[
-                  {
-                    value: "yes",
-                    label: "Verify",
-                  },
-                  {
-                    value: "no",
-                    label: "UnVerify",
-                  },
-                ]}
+                onChange={(e) => setfilterItemResponse(e)}
+                options={
+                  filterItem == "role"
+                    ? [
+                        {
+                          value: "user",
+                          label: "User",
+                        },
+                        {
+                          value: "admin",
+                          label: "Admin",
+                        },
+                        {
+                          value: "author",
+                          label: "Author",
+                        },
+                        {
+                          value: "journalist",
+                          label: "Journalist",
+                        },
+                      ]
+                    : [
+                        {
+                          value: "yes",
+                          label: "Verify",
+                        },
+                        {
+                          value: "no",
+                          label: "UnVerify",
+                        },
+                      ]
+                }
               />
             )}
           </Col>
           <Col span={4}>
-            <Button type="primary" onClick={onFilter}>Filter</Button>
+            <Button type="primary" onClick={onFilter}>
+              Filter
+            </Button>
           </Col>
           <Col span={24} style={{ marginTop: 20 }}>
             <Table columns={columns} dataSource={userData} />

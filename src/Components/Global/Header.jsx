@@ -132,7 +132,10 @@ const Header = () => {
         setLoading(false);
       });
     axios.get(`${API_URL}/ads?active=true&side=top`).then((data) => {
-      setTopAd(data.data.reverse()[0]);
+      console.log("response desk top ad  :", data);
+      const activeAds = data.data.filter((data) => data.active);
+      console.log("acive ads desktop : ", activeAds);
+      setTopAd(activeAds.reverse()[0]);
     });
   }, []);
 

@@ -86,7 +86,7 @@ const AdminLayout = () => {
 
       <Sider style={siderStyle2}></Sider>
       <Content style={contentStyle}>
-        <Routes element={<ProtectedRoute/>}>
+        <Routes element={<ProtectedRoute />}>
           {access.map((path) => {
             switch (path) {
               case "users":

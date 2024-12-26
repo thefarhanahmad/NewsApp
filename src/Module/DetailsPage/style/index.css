@@ -117,20 +117,22 @@
 .deatils-main-para-area > div > span {
   font-family: Poppins;
   font-size: 25px;
-
   font-weight: 600;
   line-height: 24px;
   letter-spacing: 0em;
   color: rgba(0, 0, 0, 1);
 }
 .deatils-main-para-area {
+  max-width: 100%;
   font-family: Poppins;
   font-size: 14px;
   font-weight: 400;
   line-height: 24px;
   letter-spacing: 0em;
   color: rgba(0, 0, 0, 1);
+  overflow-x: hidden;
 }
+
 .details-main-related-new-area-heading {
   font-family: Poppins;
   font-size: 22px;
@@ -217,7 +219,7 @@
   .detail-page-relate-new-cards {
     display: grid;
     grid-template-columns: 50% 50%;
-    margin: 20px 0 30px 0;
+    margin: 4px 0 30px 0;
   }
   .details-page-video-cards {
     display: grid;
@@ -249,6 +251,7 @@
     font-size: 17px;
     margin-top: 10px;
     padding: 0px 7px;
+    width: 100%;
   }
   .mobileDetailsPage {
     display: block;
