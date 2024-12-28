@@ -397,8 +397,8 @@ const ItemPage = () => {
               </div>
             )}
           </div>
-          <div className="item-page-main-area-2">
-            <div className="item-page-main-area-2-news-cards">
+          <div className="item-page-main-area-2 ">
+            <div className="item-page-main-area-2-news-cards w-full">
               {topStories && (
                 <div className="details-page-related-news">
                   <div className="details-page-related-news-heading">
@@ -418,14 +418,24 @@ const ItemPage = () => {
                   // if (data._id === storyId) return;
 
                   return (
-                    <RelatedNewsCard
+                    // <RelatedNewsCard
+                    //   data={data}
+                    //   key={data._id}
+                    //   OnPress={() =>
+                    //     navigation(`/details2/${title}?id=${data?._id}`)
+                    //   }
+                    //   image={data?.image}
+                    //   text={data?.title.substring(0, 82) + "..."}
+                    // />
+                    <StoriesCard
                       data={data}
-                      key={data._id}
+                      key={index}
                       OnPress={() =>
                         navigation(`/details2/${title}?id=${data?._id}`)
                       }
+                      wid="w-[45%] h-[110px]"
                       image={data?.image}
-                      text={data?.title.substring(0, 82) + "..."}
+                      text={data?.title}
                     />
                   );
                 })}

@@ -284,12 +284,12 @@ const ItemPage = () => {
               </div>
             )}
           </div>
-          <div className="item-page-main-area-2">
+          <div className="item-page-main-area-2 ">
             {/* <div className="item-page-main-area-2-header-strip">
               <div style={{ marginLeft: 10 }}>{t("rn")}</div>
             </div> */}
 
-            <div className="item-page-main-area-2-news-cards">
+            <div className="item-page-main-area-2-news-cards w-full">
               {topStories && (
                 <div className="details-page-related-news">
                   <div className="details-page-related-news-heading">
