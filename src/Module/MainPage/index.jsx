@@ -49,10 +49,10 @@ const MainPage = () => {
   const [isModal2Open, setIsModal2Open] = useState(true);
   const [breakingNews, setbreakingNews] = useState([]);
   const [sliderArticles, setSliderArticles] = useState([]);
-  console.log("Slider articles f: ", sliderArticles);
-  console.log("breaking news f: ", breakingNews);
+  // console.log("Slider articles f: ", sliderArticles);
+  // console.log("breaking news f: ", breakingNews);
   const [combinedNews, setCombinedNews] = useState([]);
-  console.log("combined news f: ", combinedNews);
+  // console.log("combined news f: ", combinedNews);
   const [val, setVal] = useState("");
   const sliderItems = [slider, img1, img2, img4];
   const { t } = useTranslation();
@@ -70,7 +70,7 @@ const MainPage = () => {
   const [DisplayImageCrousal, setDisplayImageCrousal] = useState(false);
   const [technology, setTechnology] = useState([]);
 
-  console.log("topstriies in index: ", topStories);
+  // console.log("topstriies in index: ", topStories);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
   const breakingNewsRef = useRef(null);
@@ -84,7 +84,7 @@ const MainPage = () => {
       });
     }
   };
-
+  console.log("all categories data in index page : ", allCategoriesData);
   const scrollRight = (ref) => {
     const container = ref.current;
     if (container) {
@@ -138,9 +138,10 @@ const MainPage = () => {
     axios
       .get(`${API_URL}/content?type=category`)
       .then((contentResponse) => {
+        console.log("get categories response : ", contentResponse);
         let arr = [];
         for (let i = 0; i < contentResponse.data.length; i++) {
-          console.log("ARR", contentResponse.data);
+          // console.log("ARR", contentResponse.data);
           const element = contentResponse.data.sort((a, b) => {
             const seqA =
               a.sequence !== undefined ? a.sequence : Number.MAX_VALUE;
@@ -160,9 +161,11 @@ const MainPage = () => {
                 `${API_URL}/article?pagenation=true&limit=2&category=${element}&type=vid&newsType=breakingNews&status=online`
               ),
               axios.get(
-                `${API_URL}/article?pagenation=true&limit=5&category=${element}&type=img&newsType=breakingNews&status=online`
+                `${API_URL}/article?pagenation=true&limit=7&category=${element}&type=img&newsType=breakingNews&status=online`
               ),
             ]).then(([vidResponse, imgResponse]) => {
+              console.log("vid cat res : ", vidResponse);
+              console.log("img cat res : ", imgResponse);
               const vidData = vidResponse.data;
               const imgData = imgResponse.data;
               // Filter out entries with empty arrays
@@ -209,7 +212,7 @@ const MainPage = () => {
         const response = await axios.get(`${API_URL}/story`);
 
         // Log the response data for debugging
-        console.log("Raw stories response:", response.data);
+        // console.log("Raw stories response:", response.data);
 
         // Filter stories where status is true
         const filteredStories = response.data.filter(
@@ -217,7 +220,7 @@ const MainPage = () => {
         );
 
         // Log the filtered stories for debugging
-        console.log("Filtered stories:", filteredStories);
+        // console.log("Filtered stories:", filteredStories);
 
         // Set the filtered stories in the state
         setStories(filteredStories);
@@ -236,7 +239,7 @@ const MainPage = () => {
         `${API_URL}/article?pagenation=true&limit=8&type=img&status=online&slider=true`
       )
       .then((sliderData) => {
-        console.log("slider articles nk", sliderData.data);
+        // console.log("slider articles nk", sliderData.data);
 
         // Filter to ensure only articles with status 'online'
         const onlineArticles = sliderData?.data.filter(
@@ -250,7 +253,7 @@ const MainPage = () => {
             `${API_URL}/article?pagenation=true&limit=12&type=img&newsType=breakingNews&status=online&priority=true`
           )
           .then((breakingData) => {
-            console.log("breaking news res : ", breakingData);
+            // console.log("breaking news res : ", breakingData);
 
             setbreakingNews(breakingData?.data);
           })
@@ -268,7 +271,7 @@ const MainPage = () => {
                 )
             );
 
-            console.log("topStories : ", StoryData, uniqueTopStories);
+            // console.log("topStories : ", StoryData, uniqueTopStories);
             settopStories(uniqueTopStories);
           });
         axios
@@ -276,7 +279,7 @@ const MainPage = () => {
             `${API_URL}/article?pagenation=true&limit=14&type=img&newsType=upload&status=online&priority=true`
           )
           .then((latestData) => {
-            console.log("latest news get response  : ", latestData);
+            // console.log("latest news get response  : ", latestData);
             // Filter out articles that are already present in sliderArticles
             // const uniqueLatestData = latestData.data.filter(
             //   (article) =>
@@ -301,8 +304,8 @@ const MainPage = () => {
       })
       .catch(() => {});
   }, []);
-  console.log("latest news on homepage : ", latestNews);
-  console.log("breaking news on homepage : ", breakingNews);
+  // console.log("latest news on homepage : ", latestNews);
+  // console.log("breaking news on homepage : ", breakingNews);
   useEffect(() => {
     axios
       .get(`${API_URL}/polls`)
@@ -320,7 +323,7 @@ const MainPage = () => {
   async function onClickAd(id) {
     try {
       const response = await axios.post(`${API_URL}/ads/click`, { id });
-      console.log("updated Ad", response);
+      // console.log("updated Ad", response);
       // this function works for all ads so handle it respectivly
     } catch (error) {
       console.error("Error updating ads:", error);
@@ -361,23 +364,23 @@ const MainPage = () => {
 
   useEffect(() => {
     axios.get(`${API_URL}/ads?active=true&side=top`).then((data) => {
-      console.log("top ad data response : ", data);
+      // console.log("top ad data response : ", data);
       const activeAds = data.data.filter((data) => data.active);
       setTopAd(activeAds.reverse()[0]);
     });
     axios.get(`${API_URL}/ads?active=true&side=mid`).then((data) => {
-      console.log("mid ad data response : ", data);
+      // console.log("mid ad data response : ", data);
       const activeAds = data.data.filter((data) => data.active);
       setMidAd(activeAds.reverse());
     });
     axios.get(`${API_URL}/ads?active=true&side=bottom`).then((data) => {
-      console.log("bottom ad data response : ", data);
+      // console.log("bottom ad data response : ", data);
       const activeAds = data.data.filter((data) => data.active);
 
       setBottomAd(activeAds.reverse()[0]);
     });
   }, []);
-  console.log("midads on homepage : ", midAd);
+  // console.log("midads on homepage : ", midAd);
   const showModal2 = () => {
     setIsModal2Open(true);
   };
@@ -398,7 +401,7 @@ const MainPage = () => {
         const response = await axios.get(`${API_URL}/video`);
 
         // Log the raw response data for debugging
-        console.log("Raw videos response:", response.data);
+        // console.log("Raw videos response:", response.data);
 
         // Filter videos where status is true
         const filteredVideos = response.data.filter(
@@ -406,7 +409,7 @@ const MainPage = () => {
         );
 
         // Log the filtered videos for debugging
-        console.log("Filtered videos:", filteredVideos);
+        // console.log("Filtered videos:", filteredVideos);
 
         // Set the filtered videos in the state
         setVideo(filteredVideos);
@@ -453,7 +456,7 @@ const MainPage = () => {
               (b.periority === true ? 1 : 0) - (a.periority === true ? 1 : 0)
             );
           });
-        console.log("filtered photos : ", filteredPhotos);
+        // console.log("filtered photos : ", filteredPhotos);
         setPhoto(filteredPhotos); // Update state with filtered and sorted photos
       })
       .catch((error) => {
@@ -461,7 +464,7 @@ const MainPage = () => {
       });
   }, []);
 
-  console.log("photo in gallery on home page : ", photo);
+  // console.log("photo in gallery on home page : ", photo);
   useEffect(() => {
     axios
       .get(`${API_URL}/article?id=6524337309c3cf5a3cca172a`)
@@ -517,10 +520,10 @@ const MainPage = () => {
     };
   }, [flashnews.length]);
 
-  console.log("sliderArticles", sliderArticles);
+  // console.log("sliderArticles", sliderArticles);
 
   const { showAd } = useAd();
-  console.log("showtopad : ", showAd);
+  // console.log("showtopad : ", showAd);
   const [adPopup, setAdPopup] = useState(false);
   useEffect(() => {
     setAdPopup(true);
@@ -1253,13 +1256,13 @@ const MainPage = () => {
               <div className="main-page-visual-story-Ad-container ">
                 <div className="main-page-visual-story-container">
                   {stories.map((story) => {
-                    console.log("story: ", story);
+                    // console.log("story: ", story);
 
                     // Find the image with albumPeriority: true
                     const prioritizedImage = story.images.find(
                       (image) => image.albumPeriority === true
                     );
-                    console.log("prioritized: ", prioritizedImage);
+                    // console.log("prioritized: ", prioritizedImage);
 
                     // If prioritizedImage is found, use it; otherwise, fallback to the 0th image
                     const displayImage = prioritizedImage
@@ -1433,13 +1436,13 @@ const MainPage = () => {
             >
               {photo &&
                 photo.map((img, index) => {
-                  console.log("img to show in thumbnail: ", img);
+                  // console.log("img to show in thumbnail: ", img);
 
                   // Find the image with albumPeriority: true
                   const prioritizedImage = img?.images.find(
                     (image) => image.albumPeriority === true
                   );
-                  console.log("prioritized: ", prioritizedImage);
+                  // console.log("prioritized: ", prioritizedImage);
 
                   // If prioritizedImage is found, use it; otherwise, fallback to the 0th image
                   const displayImage = prioritizedImage
@@ -1926,44 +1929,6 @@ const MainPage = () => {
               </div>
             </div>
             <div className="news-main-rigth-part2">
-              {/* <a
-                href={midAd?.link}
-                target="_blank"
-                style={{ position: "relative" }}
-              >
-                <div
-                  style={{
-                    width: "100%",
-                    height: "20px",
-                    backgroundColor: "white",
-                    position: "absolute",
-                    top: 16,
-                    textAlign: "center",
-                  }}
-                >
-                  advertisement
-                </div>
-                <img
-                  style={{ cursor: "pointer" }}
-                  src={midAd?.imgLink}
-                  alt=""
-                />
-                <div
-                  style={{
-                    width: "100%",
-                    height: "80px",
-                    backgroundColor: "white",
-                    position: "absolute",
-                    bottom: 0,
-                    paddingLeft: 10,
-                  }}
-                >
-                  <div style={{ fontSize: "16px", fontFamily: "Poppins" }}>
-                    {midAd?.slugName}
-                  </div>
-                  <a href={midAd?.link}>{midAd?.link}</a>
-                </div>
-              </a> */}
               {midAd.length > 0 && (
                 <div>
                   {midAd?.slice(0, 4).map((midAd) => {
@@ -1989,45 +1954,7 @@ const MainPage = () => {
                   })}
                 </div>
               )}
-              {/* {topAd && (
-                <a
-                  style={{
-                    background: "white",
-                    padding: "10px",
-                    position: "absolute",
-                    top: "0",
-                    left: "13rem",
-                    width: "20%",
-                    paddingBottom: "0px",
-                    height: "auto",
-                  }}
-                  href={topAd.link}
-                  target="_blank"
-                  onClick={() => {
-                    onClickAd(topAd._id);
-                  }}
-                >
-                  <img src={topAd.imgLink} style={{ width: "100%" }} />
-                  <p style={{ fontSize: "16px", fontFamily: "Poppins" }}>
-                    {topAd.slugName}
-                  </p>
-                </a>
-              )} */}
-              {/* {bottomAd && (
-                <a
-                  // style={{ backgroundColor: "red", padding: "10px" }}
-                  href={bottomAd.link}
-                  target="_blank"
-                  onClick={() => {
-                    onClickAd(bottomAd._id);
-                  }}
-                >
-                  <img src={bottomAd.imgLink} style={{ width: "100%" }} />
-                  <p style={{ fontSize: "16px", fontFamily: "Poppins" }}>
-                    {bottomAd.slugName}
-                  </p>
-                </a>
-              )} */}
+
               <div
                 style={{
                   width: "100%",
@@ -2148,102 +2075,8 @@ const MainPage = () => {
             />
           </div>
         </div>
-        {/* <div
-          id="Videos"
-          className="main-page-videos-conatiner container2 container3 webMainPagecomponent"
-        >
-          <div
-            className="main-page-video-heading"
-            // style={{ backgroundColor: "green" }}
-          >
-            {t("v")}{" "}
-          </div>
-          {/* Video Container */}
-        {/* <div className="video-cards "> */}
-        {/* <div style={{ backgroundColor: "red" }}>video container</div> */}
-        {/* <div
-              className=""
-              style={{
-                // backgroundColor: "yellow",
-                paddingLeft: "5rem",
-                paddingTop: "2rem",
-                // gap:"px",
-                display: "flex",
-                flexWrap: "wrap",
-                width: "100%",
-                justifyContent: "space-between",
-                margin: "auto",
-                // gap:"-20px"
-              }}
-            > */}
-        {/* video container */}
-        {/* {video.slice(0, 4).map((video) => (
-                <div style={{ width: "50%" }} key={video._id}>
-                  {video.link.includes("<iframe") ? (
-                    // If the link already contains iframe, render it with dangerouslySetInnerHTML
-                    <div
-                      // style={{ width: "400px", height: "200px", marginBottom:"10px" }}
-                      dangerouslySetInnerHTML={{
-                        __html: video.link,
-                      }}
-                    />
-                  ) : ( */}
-        {/* // Otherwise, convert the link to an embed URL and use an iframe */}
-        {/* <iframe
-                      width="500"
-                      height="250"
-                      // style={{ marginBottom: "140px" }}
-                      src={convertToEmbedUrl(video.link)}
-                      title={video.title}
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    ></iframe>
-                  )}
-                </div> */}
-        {/* ))} */}
-        {/* </div> */}
-        {/* <div className="video-card-box-1 video-card-box-left">
-            {video && video[0] ? (
-                <VideoCard fromVideoGallery={true} data={video[0]} />
-              ) : null}
-              {video && video[1] ? (
-                // <VideoCard fromVideoGallery={true} data={video && video[1]} />
-                <Link>
-                <img src={video[0].image} alt="thumbnail" />
-                </Link>
-              ) : null}
-            </div> */}
-        {/* <div className="video-box" style={{ marginBottom: "40px" }}>
-              {video && video[2] ? (
-                <VideoCard
-                  fromVideoGallery={true}
-                  isMain={true}
-                  width={500}
-                  data={video && video[2]}
-                />
-              ) : null}
-            <div className="video-items-box">
-                <FaRegCirclePlay size={50} color="red" style={{ zIndex: 1 }} />
-                <div className="video-text-box">
-                  <div>
-                    War Of Words Between Babar, Shaheen After Pakistan's Asia
-                    Cup Exit: Report
-                  </div>
-                </div>
-              </div>
-            </div> */}
-        {/* <div className="video-card-box-1 video-card-box-right">
-              {video && video[3] ? (
-                <VideoCard fromVideoGallery={true} data={video && video[3]} />
-              ) : null}
-              {video && video[4] ? (
-                <VideoCard fromVideoGallery={true} data={video && video[4]} />
-              ) : null}
-            </div>
-          </div>
-        </div>*/}
-        <div className="webMainPagecomponent all-category-data">
+
+        <div className="webMainPagecomponent all-category-data ">
           <AllSectionArticle data={allCategoriesData} />
         </div>
 
@@ -2257,13 +2090,13 @@ const MainPage = () => {
             <div className="main-page-visual-story-Ad-container">
               <div className="main-page-visual-story-container">
                 {stories.map((story) => {
-                  console.log("story: ", story);
+                  // console.log("story: ", story);
 
                   // Find the image with albumPeriority: true
                   const prioritizedImage = story.images.find(
                     (image) => image.albumPeriority === true
                   );
-                  console.log("prioritized: ", prioritizedImage);
+                  // console.log("prioritized: ", prioritizedImage);
 
                   // If prioritizedImage is found, use it; otherwise, fallback to the 0th image
                   const displayImage = prioritizedImage
@@ -2323,35 +2156,6 @@ const MainPage = () => {
               </div>
             </div>
 
-            {/* <div className="visual-stories-main-container2 container3">
-            <div className="visual-stories-main-container-part1">
-              <div
-                className="visual-stories-main-container-main-area"
-                style={{
-                  display: "flex", // Set display to flex
-                  flexWrap: "wrap", // Allow wrapping to the next line
-                }}
-              >
-                {console.log("***************storues",stories)}
-                {stories &&
-                  stories.length > 0 &&
-                  stories.map((story) => (
-                    <Col span={8} key={story._id}>
-                      <Card
-                        hoverable
-                        style={{ marginBottom: 16, flex: 1 }}
-                        cover={<img alt={story.title} src={story.image} />}
-                      >
-                        <Meta
-                          title={story.title}
-                          description="www.instagram.com"
-                        />
-                      </Card>
-                    </Col>
-                  ))}
-              </div>
-            </div>
-          </div> */}
             {/* ... (your existing JSX code) */}
           </div>
         )}
