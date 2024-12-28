@@ -7,10 +7,8 @@ import axios from "axios";
 import "./style/index.css";
 import logo from "../../assets/footer.svg";
 import { API_URL } from "../../../API";
-import { AccordinRegistry } from "../../assets/registry/accordinRegistry";
-
 import { Loading } from "../../Context";
-import AccordinList from "./AccordinList";
+import MobileFooter from "./AccordinList";
 
 const Footer = () => {
   const { t } = useTranslation();
@@ -19,48 +17,9 @@ const Footer = () => {
   const [email, setEmail] = useState();
   const Navigation = useNavigate();
   const [mainObject, setMainObject] = useState({});
-  // useEffect(() => {
-  //   setLoading(true);
-  //   axios
-  //     .get(`${API_URL}/content?type=category`)
-  //     .then((data) => {
-  //       let arr = [];
 
-  //       for (
-  //         let index = 0;
-  //         index < (data.data.length <= 5 ? Number(data.data.length) : 5);
-  //         index++
-  //       ) {
-  //         const element = data.data[index];
+  console.log("main objects footer category", mainObject);
 
-  //         arr.push(element);
-  //       }
-  //       setItsItem(arr);
-  //       setLoading(false);
-
-  //       Promise.all(
-  //         [
-  //           arr?.map(async(cat)=>{
-  //             return (axios.get(`${API_URL}/subcategory?category=${cat.text}`)
-  //             .then((data) => {
-  //               const tempArr=[]
-  //               for (let i = 0; i < 5; i++) {
-  //                 const element = data.data[i];
-  //                 tempArr.push(element);
-  //               }
-  //             }).catch((er)=>{console.log(er)}))
-
-  //           })
-  //         ]
-  //       ).then((data)=>{
-  //         console.log("tempArr",data)
-  //       })
-
-  //     })
-  //     .catch((err) => {
-  //       setLoading(false);
-  //     });
-  // }, []);
   useEffect(() => {
     setLoading(true);
     axios
@@ -121,47 +80,9 @@ const Footer = () => {
     !loading && (
       <div className="footer-main-container ">
         <div className="footer-area-main-accordin">
-          {AccordinRegistry.map((AccItem, index) => (
-            <AccordinList key={index} {...AccItem} />
-          ))}
+          <MobileFooter />
         </div>
         <div className="footer-checkup-main-conatiner">
-          {/* <div className="footer-main" style={{ backgroundColor: "red" }}>
-            {Object.entries(mainObject).map(
-              ([categoryName, subcategories], index) => {
-                if (index <= 3) {
-                  return (
-                    <div className="footer-item-box">
-                      <div
-                        className="footer-heading"
-                        style={{ cursor: "pointer" }}
-                        onClick={() => {
-                          Navigation(`/itempage?item=${categoryName}`);
-                          setEffect(!effect);
-                        }}
-                      >
-                        {categoryName}
-                      </div>
-                      <div className="footer-items">
-                        {subcategories.map((item) => (
-                          <div
-                            onClick={() => {
-                              Navigation(
-                                `/itempage?item=${categoryName}&sub=${item.text}`
-                              );
-                            }}
-                          >
-                            {item.text}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  );
-                }
-              }
-            )}
-          </div> */}
-
           <div
             className="footer-main"
             style={{
@@ -225,107 +146,6 @@ const Footer = () => {
               }
             )}
           </div>
-          {/* 
-                    <div>{arr[0]?.text}</div>
-                    <div>{arr[1]?.text}</div>
-                    <div>{arr[2]?.text}</div>
-                    <div>{arr[3]?.text}</div>
-                    <div>{arr[4]?.text}</div>
-                  */}
-
-          {/* <div className="footer-item-box">
-            <div className="footer-heading">business</div>
-            <div className="footer-items">
-              <div>start-up</div>
-              <div>employees </div>
-              <div>success </div>
-              <div>videos </div>
-              <div>videos </div>
-            </div>
-          </div>
-          <div className="footer-item-box">
-            <div className="footer-heading">travel</div>
-            <div className="footer-items">
-              <div>culture</div>
-              <div>hotel </div>
-              <div>food & stay </div>
-              <div>stay </div>
-              <div>videos </div>
-            </div>
-          </div>
-          <div className="footer-item-box">
-            <div className="footer-heading">sports</div>
-            <div className="footer-items">
-              <div>cricket</div>
-              <div>tennis </div>
-              <div>football </div>
-              <div>racing </div>
-              <div>esports </div>
-            </div>
-          </div>
-          <div className="footer-item-box">
-            <div className="footer-heading">states</div>
-            <div className="footer-items">
-              <div>bihar</div>
-              <div>uttar pradesh </div>
-              <div>haryana </div>
-              <div>delhi </div>
-              <div>Uttarakhand </div>
-            </div>
-          </div> */}
-
-          {/* <div className="footer-main">
-            <div className="footer-item-box">
-              <div className="footer-heading">entertainment</div>
-              <div className="footer-items">
-                <div>movies</div>
-                <div>artist </div>
-                <div>television </div>
-                <div>stars </div>
-                <div>viral </div>
-              </div>
-            </div>
-            <div className="footer-item-box">
-              <div className="footer-heading">special</div>
-              <div className="footer-items">
-                <div>with us</div>
-                <div>on earth </div>
-                <div>independence </div>
-                <div>inside asia </div>
-                <div>return back </div>
-              </div>
-            </div>
-            <div className="footer-item-box">
-              <div className="footer-heading">whether</div>
-              <div className="footer-items">
-                <div>environment</div>
-                <div>wind tracker </div>
-                <div>wildlife </div>
-                <div>earth quick </div>
-                <div>videos </div>
-              </div>
-            </div>
-            <div className="footer-item-box">
-              <div className="footer-heading">extra</div>
-              <div className="footer-items">
-                <div>designs</div>
-                <div>membership </div>
-                <div>investment </div>
-                <div>bulletin </div>
-                <div>support us </div>
-              </div>
-            </div>
-            <div className="footer-item-box">
-              <div className="footer-heading">foreign</div>
-              <div className="footer-items">
-                <div>america</div>
-                <div>russia </div>
-                <div>bhutan</div>
-                <div>japan </div>
-                <div>nepal </div>
-              </div>
-            </div>
-          </div> */}
         </div>
         <div className="footer-line"></div>
         <div className="footer-middle-container">

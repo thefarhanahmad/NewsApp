@@ -22,6 +22,7 @@ import { TfiGallery } from "react-icons/tfi";
 import { FaPhotoVideo } from "react-icons/fa";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import { useAd } from "../../Context/TopAdContext";
+import MobileSidebar from "../common/MobileSidebar";
 function findStoryIdFromUrl(pathname) {
   // Regular expression to find the 'id' parameter and its value
   const idRegex = /id=([^&]+)/;
@@ -73,6 +74,7 @@ const MobileHeader = ({ listitem }) => {
       });
   }, []);
 
+  // Fetching categories for sidebar
   useEffect(() => {
     setLoading(true);
     axios
@@ -96,11 +98,6 @@ const MobileHeader = ({ listitem }) => {
         for (let index = 0; index < data.data.length; index++) {
           const element = data.data[index];
           arr2.push({ value: element.text });
-
-          arr2.push({ value: "Cricket" });
-          // if (index == data.data.length) {
-          //   console.log("arr2");
-          // }
         }
         setItsItem2(arr2);
 
@@ -115,7 +112,7 @@ const MobileHeader = ({ listitem }) => {
   console.log("top ad in header  : ", topAd);
   useEffect(() => {
     axios.get(`${API_URL}/ads?active=true&side=top`).then((data) => {
-      console.log("topad data res :  ", data);
+      console.log("top ad data res :  ", data);
       // if (data.data.reverse()[0].device === "mobile") {
       //   setTopAd(data.data.reverse()[0]);
       // }
@@ -145,6 +142,10 @@ const MobileHeader = ({ listitem }) => {
 
   const { showAd, closeAd } = useAd();
   console.log("showAd : ", showAd);
+
+  console.log("list items means category in sidebar : ", itsItem);
+  console.log("list item2 means category in sidebar : ", itsItem2);
+
   return (
     <>
       {isOpen && (
@@ -186,6 +187,7 @@ const MobileHeader = ({ listitem }) => {
         )}
       </div>
 
+      {/* Navbar container */}
       <div className="mobileNavBarContainer">
         <div
           className={`mobilevisibleNavItems ${
@@ -298,92 +300,13 @@ const MobileHeader = ({ listitem }) => {
           </ul>
         </div>
 
+        {/* Sidebar container */}
         <div
-          className={`mobileNavAbsoluteContainer ${
-            topAd && showAd ? "top-[128px] " : "top-[62px]"
-          }  ${isHamBurgClicked ? "mobileNavAbsoluteContainerCLicked" : ""} `}
+          className={`mobileNavAbsoluteContainer  ${
+            topAd && showAd ? "top-[128px]" : "top-[62px]"
+          } ${isHamBurgClicked ? "mobileNavAbsoluteContainerCLicked" : ""}`}
         >
-          <ul>
-            {itsItem.length > 0 &&
-              itsItem.map((data) => {
-                let arr = [];
-                // let item = [];
-                console.log("arr in sidebar item : ", arr);
-                axios
-                  .get(`${API_URL}/subcategory?category=${data.text}`)
-                  .then((data) => {
-                    for (let i = 0; i < data.data.length; i++) {
-                      const element = data.data[i];
-                      arr.push({
-                        key: element._id,
-                        label: (
-                          <a
-                            target="_blank"
-                            onClick={() => {
-                              Navigation(
-                                `/itempage?item=${element.category}&sub=${element.text}`
-                              );
-                              setEffect(!effect);
-                            }}
-                          >
-                            {element.text}
-                          </a>
-                        ),
-                      });
-                    }
-                  });
-                return (
-                  <>
-                    <li
-                      className=" w-11/12 pb-1 border-b-2 border-gray-300"
-                      onClick={() => {
-                        setHambergClicked(false);
-                        Navigation(`/itempage?item=${data.text}`);
-                        setEffect(!effect);
-                      }}
-                    >
-                      {data.text}
-                    </li>
-                  </>
-                );
-              })}
-
-            {
-              <>
-                {listitem.length > 0 && (
-                  <li className="">
-                    <select
-                      name="Display More"
-                      className="block outline-none shadow-none w-full border-none bg-white"
-                      onChange={(e) => {
-                        setHambergClicked(false);
-                        const selectedItem = listitem.find(
-                          (i) => i.label.props.children === e.target.value
-                        );
-                        if (selectedItem && selectedItem.label.props.onClick) {
-                          selectedItem.label.props.onClick();
-                        }
-                      }}
-                      defaultValue="display-more"
-                    >
-                      <option
-                        value="display-more"
-                        className="p-4 ml-4"
-                        disabled
-                      >
-                        Display More
-                      </option>
-                      {listitem.map((i) => (
-                        <option key={i.key} value={i.label.props.children}>
-                          {i.label.props.children}
-                        </option>
-                      ))}
-                    </select>
-                  </li>
-                )}
-              </>
-            }
-          </ul>
+          <MobileSidebar setHambergClicked={setHambergClicked} />
         </div>
       </div>
     </>

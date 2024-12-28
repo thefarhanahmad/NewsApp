@@ -22,7 +22,7 @@ const AdCardPopup = ({ type, adPopup, setAdPopup }) => {
     axios
       .get(`${API_URL}/ads`)
       .then((response) => {
-        console.log("ads in popup : ", response);
+        // console.log("ads in popup : ", response);
 
         const activeAds = response.data.filter((data) => data.active);
         console.log("active ads in popup: ", activeAds);
