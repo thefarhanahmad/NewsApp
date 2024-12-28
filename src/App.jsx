@@ -29,6 +29,7 @@ import ItemPageCatSub from "./Module/ItemPage/itemPageCatSubCat";
 import Gallerypage from "./Module/MainPage/Gallerypage";
 import VisualStoryPage from "./Module/MainPage/visualstorypage";
 import ProtectedRoute from "./Protected Routes";
+import MenuBelowSlider from "./Components/Global/MenuBelowSlider";
 const App = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [lang, setLang] = useState("ur");
@@ -59,8 +60,12 @@ const App = () => {
             location.pathname.split("/")[1] == "stories" ? (
               <></>
             ) : (
-              <Header />
+              <>
+                <Header />
+                <MenuBelowSlider />
+              </>
             )}
+
             <Routes>
               {/* <Route path="/mobile" element={<MoblieHeader />} /> */}
               <Route
@@ -162,7 +167,6 @@ const App = () => {
                   </ProtectedRoute>
                 }
               />{" "}
-              
               <Route path="*" element={<>Not found</>} />
             </Routes>
             {location.pathname.split("/")[1] == "dashboard" ||

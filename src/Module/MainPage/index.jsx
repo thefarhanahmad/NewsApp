@@ -526,7 +526,7 @@ const MainPage = () => {
     setAdPopup(true);
   }, []);
   return (
-    <div className="relative">
+    <div className="relative ">
       <div>
         {/* Ad Popup */}
         {adPopup && (
@@ -540,32 +540,7 @@ const MainPage = () => {
         )}
       </div>
       <div className="main-page-conatiner">
-        <ul
-          className={`mobileMainPageAnchorSlider font-semibold  ${
-            showAd && topAd ? "mt-[132px] " : "mt-[65px] "
-          } `}
-        >
-          <li>
-            <Link to="/itempage2?newsType=topStories">Top Stories</Link>
-          </li>
-          <li>
-            <Link to="/itempage2?newsType=upload">Latest News</Link>
-          </li>
-          <li>
-            <Link to="/itempage2?newsType=breakingNews">Big News</Link>
-          </li>
-          <li>
-            <Link to="/itempage2?newsType=videos">Videos</Link>
-          </li>
-          <li>
-            <Link to="/story">Visual Stories</Link>
-          </li>
-          <li>
-            <Link to="/photos">Photos</Link>
-          </li>
-        </ul>
-
-        <div className="mobileMainPageContainer">
+        <div className={`mobileMainPageContainer`}>
           {video?.map((item, index) => {
             let title = item.title
               .replace(/[/\%.?]/g, "")

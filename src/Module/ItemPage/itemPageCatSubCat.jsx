@@ -16,6 +16,7 @@ import { API_URL } from "../../../API";
 import SubCardSection from "../../Components/SharedComponents/SubCardSection";
 import RelatedNewsCard from "../../Components/DetailsPage";
 import { data } from "autoprefixer";
+import StoriesCard from "../../Components/MainPage/StoriesCard";
 
 const ItemPage = () => {
   const { t } = useTranslation();
@@ -133,12 +134,13 @@ const ItemPage = () => {
           });
       }
     }, 2000);
-  }, [effect]);
+  }, [newsType]);
+  console.log("news type itempage2 : ", newsType);
 
   return (
     <>
       <div className="container2 container3">
-        <div className="item-page-heading">
+        <div className="item-page-heading details-main-related-new-area-heading">
           {query ? (
             <>
               {query.get("newsType") && query.get("newsType") === "topStories"
@@ -304,9 +306,9 @@ const ItemPage = () => {
               //     />
               //   );
               // })
-              Data?.map((item) => {
+              Data?.map((item, index) => {
                 // Format the date
-                let date = new Date(item.date);
+                let date = new Date(item.date ? item.date : item.createdAt);
                 date = JSON.stringify(date).split("T")[0].split('"')[1];
 
                 // Generate the title or use slug if available
@@ -347,26 +349,46 @@ const ItemPage = () => {
                   : null;
 
                 return (
-                  <ItemPageCard1
-                    onPress={() => {
-                      if (item.type === "img") {
-                        navigation(`/details/${title}?id=${item._id}`);
-                      } else {
-                        navigation(`/videos/${title}?id=${item._id}`);
-                      }
-                    }}
-                    title={item?.title}
-                    discription={item?.discription}
-                    image={
-                      newsType === "videos"
-                        ? videoThumbnail
-                          ? videoThumbnail
-                          : "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/breaking-news-broadcast-youtube-thumbnail-design-template-d06ddc9f11789b47d62564e6e22a7730_screen.jpg?ts=1652194145"
-                        : item?.image
-                    }
-                    date={date ? date : `${formatDate(item?.createdAt)}`}
-                    type={item.type}
-                  />
+                  <>
+                    <div className="hidden sm:block">
+                      <ItemPageCard1
+                        key={index}
+                        onPress={() => {
+                          if (item.type === "img") {
+                            navigation(`/details/${title}?id=${item._id}`);
+                          } else {
+                            navigation(`/videos/${title}?id=${item._id}`);
+                          }
+                        }}
+                        title={item?.title}
+                        discription={item?.discription}
+                        image={
+                          newsType === "videos" ? videoThumbnail : item?.image
+                        }
+                        date={date}
+                        type={item.type}
+                      />
+                    </div>
+                    <div className="block sm:hidden">
+                      <StoriesCard
+                        data={data}
+                        key={index}
+                        OnPress={() => {
+                          if (item.type === "img") {
+                            navigation(`/details/${title}?id=${item._id}`);
+                          } else {
+                            navigation(`/videos/${title}?id=${item._id}`);
+                          }
+                        }}
+                        wid="w-[45%] h-[110px]"
+                        image={
+                          newsType === "videos" ? videoThumbnail : item?.image
+                        }
+                        text={item?.title}
+                        date={date}
+                      />
+                    </div>
+                  </>
                 );
               })
             ) : (

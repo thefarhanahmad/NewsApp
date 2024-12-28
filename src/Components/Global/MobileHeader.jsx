@@ -78,6 +78,7 @@ const MobileHeader = ({ listitem }) => {
     axios
       .get(`${API_URL}/content?type=category`)
       .then((data) => {
+        console.log("category data from api : ", data);
         let arr = [];
 
         for (
@@ -307,6 +308,7 @@ const MobileHeader = ({ listitem }) => {
               itsItem.map((data) => {
                 let arr = [];
                 // let item = [];
+                console.log("arr in sidebar item : ", arr);
                 axios
                   .get(`${API_URL}/subcategory?category=${data.text}`)
                   .then((data) => {

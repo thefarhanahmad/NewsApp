@@ -3,6 +3,7 @@ import { Carousel } from "antd";
 import axios from "axios";
 import { API_URL } from "../../../API";
 import { useParams } from "react-router-dom";
+import ImageGallery from "../../Module/MainPage/ImageGallery";
 
 const ImageCrousel = () => {
   const [photo, setPhoto] = useState([]);
@@ -26,7 +27,7 @@ const ImageCrousel = () => {
   }, [id]);
 
   return (
-    <div className="ImageCarouselContainer">
+    <div className="ImageCarouselContainer ">
       {error && <p style={{ color: "red", textAlign: "center" }}>{error}</p>}
       <div className="w-full bg-gray-600 h-full py-4 px-[1.2rem]">
         {/* Laptop crousel */}
@@ -138,6 +139,7 @@ const ImageCrousel = () => {
                         cursor: "pointer",
                         position: "relative",
                         width: "100%",
+                        height: "100%",
                       }}
                       className="photoGallery-card-crousel"
                       onClick={handleImageClick}
@@ -171,6 +173,7 @@ const ImageCrousel = () => {
             )}
           </div>
         </div>
+        <ImageGallery />
       </div>
     </div>
   );

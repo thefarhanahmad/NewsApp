@@ -76,6 +76,8 @@ body {
   .container3 {
     padding: 3px !important;
     /* margin-top: 65px; */
+    /* background-color: red;
+    padding: 10px; */
   }
   .container2 {
     padding: 0;
@@ -86,6 +88,6 @@ body {
   }
 
   .all-videos {
-    padding: 1rem 0.6rem !important;
+    padding: 0.6rem 0.6rem !important;
   }
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import img from "../../assets/img-1.png";
 
-const StoriesCard = ({ text, image, OnPress, id, wid }) => {
+const StoriesCard = ({ text, image, OnPress, id, wid, date }) => {
   return (
     <>
       <div
@@ -17,9 +17,12 @@ const StoriesCard = ({ text, image, OnPress, id, wid }) => {
             className="w-full h-[100px] object-fill"
           />
         </div>
-        <div className="stories-card-text  w-[55%]">
-          {text ||
-            '"India Have Better...": Sri Lanka Captain Honest World Cup Admission'}
+        <div className=" flex flex-col  w-[55%] h-full">
+          <span className="stories-card-text w-full">
+            {text ||
+              '"India Have Better...": Sri Lanka Captain Honest World Cup Admission'}
+          </span>
+          <span className="text-red-600 pl-[10px]">{date ? date : ""}</span>
         </div>
       </div>
     </>

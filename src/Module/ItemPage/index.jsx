@@ -16,6 +16,7 @@ import { API_URL } from "../../../API";
 import SubCardSection from "../../Components/SharedComponents/SubCardSection";
 import RelatedNewsCard from "../../Components/DetailsPage";
 import { data } from "autoprefixer";
+import StoriesCard from "../../Components/MainPage/StoriesCard";
 
 const ItemPage = () => {
   const { t } = useTranslation();
@@ -126,7 +127,7 @@ const ItemPage = () => {
   return (
     <>
       <div className="container2 container3">
-        <div className="item-page-heading">
+        <div className="item-page-heading details-main-related-new-area-heading">
           {query?.get("item")}
           {query?.get("sub") && (
             <span style={{ fontSize: 16 }}>/{query?.get("sub")}</span>
@@ -227,7 +228,7 @@ const ItemPage = () => {
                 </div>
               </>
             ) : Data.length > 0 ? (
-              Data?.map((item) => {
+              Data?.map((item, index) => {
                 let date = new Date(item.date);
                 date = JSON.stringify(date).split("T")[0].split('"')[1];
                 let title = item.title
@@ -238,20 +239,42 @@ const ItemPage = () => {
                   title = item.slug;
                 }
                 return (
-                  <ItemPageCard1
-                    onPress={() => {
-                      if (item.type === "img") {
-                        navigation(`/details/${title}?id=${item._id}`);
-                      } else {
-                        navigation(`/videos/${title}?id=${item._id}`);
-                      }
-                    }}
-                    title={item?.title}
-                    discription={item?.discription}
-                    image={item?.image}
-                    date={date}
-                    type={item.type}
-                  />
+                  <>
+                    <div className="hidden sm:block">
+                      <ItemPageCard1
+                        key={index}
+                        onPress={() => {
+                          if (item.type === "img") {
+                            navigation(`/details/${title}?id=${item._id}`);
+                          } else {
+                            navigation(`/videos/${title}?id=${item._id}`);
+                          }
+                        }}
+                        title={item?.title}
+                        discription={item?.discription}
+                        image={item?.image}
+                        date={date}
+                        type={item.type}
+                      />
+                    </div>
+                    <div className="block sm:hidden">
+                      <StoriesCard
+                        data={data}
+                        key={index}
+                        OnPress={() => {
+                          if (item.type === "img") {
+                            navigation(`/details/${title}?id=${item._id}`);
+                          } else {
+                            navigation(`/videos/${title}?id=${item._id}`);
+                          }
+                        }}
+                        wid="w-[45%] h-[110px]"
+                        image={item?.image}
+                        text={item?.title}
+                        date={date}
+                      />
+                    </div>
+                  </>
                 );
               })
             ) : (
@@ -286,14 +309,24 @@ const ItemPage = () => {
                   // if (data._id === storyId) return;
 
                   return (
-                    <RelatedNewsCard
+                    // <RelatedNewsCard
+                    //   data={data}
+                    //   key={data._id}
+                    //   OnPress={() =>
+                    //     navigation(`/details2/${title}?id=${data?._id}`)
+                    //   }
+                    //   image={data?.image}
+                    //   text={data?.title.substring(0, 82) + "..."}
+                    // />
+                    <StoriesCard
                       data={data}
-                      key={data._id}
+                      key={index}
                       OnPress={() =>
-                        navigation(`/details2/${title}?id=${data?._id}`)
+                        navigation(`/details/${title}?id=${data?._id}`)
                       }
+                      wid="w-[45%] h-[110px]"
                       image={data?.image}
-                      text={data?.title.substring(0, 82) + "..."}
+                      text={data?.title}
                     />
                   );
                 })}

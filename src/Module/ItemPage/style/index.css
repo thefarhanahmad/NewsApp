@@ -1,8 +1,7 @@
 .item-page-heading {
-  color: rgba(255, 14, 14, 1);
   font-family: Poppins;
-  font-size: 30px;
-  font-weight: 600;
+  /* font-size: 30px;
+  font-weight: 600; */
   margin-top: 80px;
 }
 .item-page-main-area {

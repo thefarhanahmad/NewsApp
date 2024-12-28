@@ -105,29 +105,26 @@ const Footer = () => {
 
       // Send a POST request to the backend
       const response = await axios.post(`${API_URL}/newsletter`, { email });
-   
 
       if (response.status === 201) {
         message.success("Subcribed to News Letter");
         // alert(response.data.message);
       } else {
-      
         throw new Error(response.data.message);
       }
     } catch (error) {
       console.error("Error subscribing to newsletter:", error.message);
-   
     }
   }
 
   return (
     !loading && (
       <div className="footer-main-container ">
-       <div className="footer-area-main-accordin">
-      {AccordinRegistry.map((AccItem, index) => (
-        <AccordinList key={index} {...AccItem} />
-      ))}
-    </div>
+        <div className="footer-area-main-accordin">
+          {AccordinRegistry.map((AccItem, index) => (
+            <AccordinList key={index} {...AccItem} />
+          ))}
+        </div>
         <div className="footer-checkup-main-conatiner">
           {/* <div className="footer-main" style={{ backgroundColor: "red" }}>
             {Object.entries(mainObject).map(
