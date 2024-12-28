@@ -475,6 +475,7 @@ const VideoPage = () => {
               <BsWhatsapp style={{ marginRight: "18px" }} />
             </WhatsappShareButton>
           </div>
+          {/* {console.log("data bideo : ",data)} */}
           {data?.image ? (
             <video
               className="details-page-main-video"
