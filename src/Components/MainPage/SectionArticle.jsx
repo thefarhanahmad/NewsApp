@@ -112,7 +112,7 @@ const SingleArticle = ({ category, imgData, vidData }) => {
       </div>
 
       {/* Laptop categories */}
-      <div className="main-page-technology-area desktok-page-category ">
+      <div className="main-page-technology-area flex flex-col desktok-page-category ">
         <div className="all-technology-cards" style={{ width: "100%" }}>
           {/* Left Portion */}
           {imgData && imgData.length > 0 && (
@@ -143,7 +143,7 @@ const SingleArticle = ({ category, imgData, vidData }) => {
                             height: "auto",
                             borderRadius: 0,
                           }}
-                          height="250px"
+                          height="200px"
                           img={element.image}
                           dis={false}
                           text={element.title}
@@ -180,7 +180,7 @@ const SingleArticle = ({ category, imgData, vidData }) => {
                             height: "auto",
                             borderRadius: 0,
                           }}
-                          height="150px"
+                          height="110px"
                           img={element.image}
                           dis={false}
                           text={element.title}
@@ -239,7 +239,7 @@ const SingleArticle = ({ category, imgData, vidData }) => {
                           height: "auto",
                           borderRadius: 0,
                         }}
-                        height="250px"
+                        height="200px"
                         img={element.image}
                         dis={false}
                         text={element.title}
@@ -251,6 +251,7 @@ const SingleArticle = ({ category, imgData, vidData }) => {
             )}
           </div>
         </div>
+        {/* <Link className="bg-red-500 my-4 h-fit self-end mr-10">See More</Link> */}
       </div>
     </div>
   );

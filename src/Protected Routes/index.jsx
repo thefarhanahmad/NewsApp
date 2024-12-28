@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import AdminLayout from "../Module/Admin/LayOut";
 import { API_URL } from "../../API";
 
@@ -35,9 +35,7 @@ const ProtectedRoute = () => {
   return isAdmin ? (
     <AdminLayout />
   ) : (
-    <div
-      style={{ fontSize: "30px", textAlign: "center", margin: "20px 0" }}
-    >
+    <div style={{ fontSize: "30px", textAlign: "center", margin: "20px 0" }}>
       Not Found
     </div>
   );
