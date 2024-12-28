@@ -19,7 +19,7 @@ export const Login = () => {
       .then((user) => {
         console.log(user.data);
         if (user.data[0].role != "admin") {
-          navigate("/dashboard/dashboard");
+          navigate("/");
         } else {
           navigate("/dashboard/dashboard");
         }
@@ -34,15 +34,9 @@ export const Login = () => {
         password,
       })
       .then((data) => {
-        console.log(data);
+        console.log("loggedin user response : ", data);
         localStorage.setItem("id", data.data._id);
-        navigate(
-          `${
-            data.data.role == "user"
-              ? "/dashboard/dashboard"
-              : "/dashboard/dashboard"
-          }`
-        );
+        navigate(`${data.data.role == "user" ? "/" : "/dashboard/dashboard"}`);
       })
       .catch((err) => {
         message.error("Enter Correct Email or Password");
