@@ -18,7 +18,8 @@ export const Login = () => {
       .get(`${API_URL}/user?id=${localStorage.getItem("id")}`)
       .then((user) => {
         console.log(user.data);
-        if (user.data[0].role != "admin") {
+        // if (user.data[0].role != "admin") {
+        if (user.data[0].role === "user") {
           navigate("/");
         } else {
           navigate("/dashboard/dashboard");

@@ -86,6 +86,7 @@ const AdminTable = () => {
         message.error("Role was Not Changed");
       });
     setCurrentUser("");
+    getAllUsers();
     setIsModalOpen(false);
   };
 
@@ -106,6 +107,7 @@ const AdminTable = () => {
         message.error("Register was Not Changed");
       });
     setCurrentUser("");
+    getAllUsers();
     setIsVerifyModalOpen(false);
   };
 
@@ -116,6 +118,7 @@ const AdminTable = () => {
         message.success("User Has Successfully Deleted");
         setCurrentUser("");
         setIsModalDeleteOpen(false);
+        getAllUsers();
       })
       .catch((err) => {
         console.log(err);
