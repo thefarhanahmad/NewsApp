@@ -14,12 +14,12 @@ const OtpVerify = () => {
     setOTP(OTP);
   }
 
-  useEffect(() => {
-    const forgot = localStorage.getItem("forgot");
-    if (!forgot) {
-      navigate("/forgot");
-    }
-  }, []);
+  // useEffect(() => {
+  //   const forgot = localStorage.getItem("forgot");
+  //   if (!forgot) {
+  //     navigate("/forgot");
+  //   }
+  // }, []);
 
   const onSumbit = async (e) => {
     const _id = localStorage.getItem("id");
@@ -27,11 +27,11 @@ const OtpVerify = () => {
     await axios
       .post(`${API_URL}/verfiy`, { _id, otp: OTP })
       .then((data) => {
-        console.log(data);
+        console.log("Otp verify response : ", data);
         navigate(forgot ? "/newPassword" : `/`);
       })
       .catch((err) => {
-        console.log(err);
+        console.log("error in otp verification : ", err);
         message.error("Error in opt verification");
       });
   };
