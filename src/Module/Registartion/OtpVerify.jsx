@@ -26,7 +26,7 @@ const OtpVerify = () => {
     const _id = localStorage.getItem("id");
     const forgot = localStorage.getItem("forgot");
     await axios
-      .post(`${API_URL}/verfiy`, { _id, otp: OTP })
+      .post(`${API_URL}/verify`, { _id: _id, otp: OTP })
       .then((data) => {
         console.log("Otp verify response : ", data);
         navigate(forgot ? "/newPassword" : `/`);
