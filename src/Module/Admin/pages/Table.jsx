@@ -17,6 +17,7 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { API_URL } from "../../../../API";
+import ChangePasswordModal from "../../../Components/AdminComponets/ChangeUserPasswordModal";
 
 const AdminTable = () => {
   const [userData, setUserData] = useState([]);
@@ -43,7 +44,7 @@ const AdminTable = () => {
   const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false);
   const [isVerifyModalOpen, setIsVerifyModalOpen] = useState(false);
 
-  console.log("users in user dashboard  : ", userData);
+  // console.log("users in user dashboard  : ", userData);
 
   const showModal = (user) => {
     console.log(user);
@@ -64,14 +65,17 @@ const AdminTable = () => {
   const handleCancel = () => {
     setIsModalOpen(false);
     setCurrentUser({});
+    getAllUsers();
   };
   const handleVerifyCancel = () => {
     setIsVerifyModalOpen(false);
     setCurrentUser({});
+    getAllUsers();
   };
   const handleDeleteCancel = () => {
     setIsModalDeleteOpen(false);
     setCurrentUser({});
+    getAllUsers();
   };
   const ChangeRole = () => {
     axios
@@ -141,6 +145,18 @@ const AdminTable = () => {
       });
   };
 
+  // Change user password
+  const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
+  const openChangePasswordModal = (user) => {
+    setCurrentUser(user);
+    setIsChangePasswordOpen(true);
+  };
+
+  const closeChangePasswordModal = () => {
+    setIsChangePasswordOpen(false);
+    setCurrentUser(null);
+    getAllUsers();
+  };
   const columns = [
     {
       title: "Phone Number",
@@ -175,15 +191,32 @@ const AdminTable = () => {
       key: "action",
       render: (user) => (
         <Space size="middle">
-          <a onClick={() => showModal(user)}>Change Role</a>
           <a
+            className="border border-gray-400 rounded py-1 px-2"
+            onClick={() => showModal(user)}
+          >
+            Change Role
+          </a>
+          <a
+            className="border border-gray-400 rounded py-1 px-2"
+            onClick={() => openChangePasswordModal(user)}
+          >
+            Change Password
+          </a>
+          <a
+            className="border border-gray-400 rounded bg-red-300 py-1 px-2"
             onClick={
-              user.role == "admin" ? () => {} : () => ShowDeleteModal(user)
+              user?.role == "admin" ? () => {} : () => ShowDeleteModal(user)
             }
           >
             Delete
           </a>
-          <a onClick={() => showVerifyModal(user)}>Verify</a>
+          <a
+            className="border border-gray-400 rounded py-1 px-2"
+            onClick={() => showVerifyModal(user)}
+          >
+            Verify
+          </a>
         </Space>
       ),
     },
@@ -300,22 +333,22 @@ const AdminTable = () => {
             {
               value: "admin",
               label: "Admin",
-              disabled: currentUser.role == "admin" ? true : false,
+              disabled: currentUser?.role == "admin" ? true : false,
             },
             {
               value: "user",
               label: "User",
-              disabled: currentUser.role == "user" ? true : false,
+              disabled: currentUser?.role == "user" ? true : false,
             },
             {
               value: "journalist",
               label: "Journalist",
-              disabled: currentUser.role == "journalist" ? true : false,
+              disabled: currentUser?.role == "journalist" ? true : false,
             },
             {
               value: "author",
               label: "Author",
-              disabled: currentUser.role == "author" ? true : false,
+              disabled: currentUser?.role == "author" ? true : false,
             },
           ]}
         />
@@ -326,6 +359,11 @@ const AdminTable = () => {
         onOk={Verify}
         onCancel={handleVerifyCancel}
       ></Modal>
+      <ChangePasswordModal
+        isOpen={isChangePasswordOpen}
+        onClose={closeChangePasswordModal}
+        user={currentUser}
+      />
       <Modal
         title="Delete User"
         open={isModalDeleteOpen}
