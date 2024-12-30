@@ -32,6 +32,7 @@ import VdoThumb from "../../Components/common/VdoThumb";
 import { useAd } from "../../Context/TopAdContext";
 import AdCardPopup from "../../Components/DetailsPage/AdCardPopup";
 import AdCard from "../../Components/Global/AdCard";
+import BigNewsCard from "../../Components/MainPage/BigNewsCard";
 
 const MainPage = () => {
   const [sliderItem, setSliderItem] = useState(0);
@@ -1161,7 +1162,7 @@ const MainPage = () => {
                     return (
                       <>
                         <div style={{ width: "100%", height: "100%" }}>
-                          <StoriesCard
+                          <BigNewsCard
                             data={data}
                             key={index}
                             OnPress={() =>
@@ -1169,7 +1170,7 @@ const MainPage = () => {
                             }
                             image={data?.image}
                             text={data?.title}
-                            style={{ with: "100%", height: "100%" }}
+                            style={{ width: "100%", height: "100%" }}
                             id="columnReverse"
                           />
                         </div>
