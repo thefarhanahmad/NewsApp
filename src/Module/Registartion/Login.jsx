@@ -35,7 +35,7 @@ export const Login = () => {
         password,
       })
       .then((data) => {
-        console.log("loggedin user response : ", data);
+        // console.log("loggedin user response : ", data);
         localStorage.setItem("id", data.data._id);
         navigate(`${data.data.role == "user" ? "/" : "/dashboard/dashboard"}`);
       })
