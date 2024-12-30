@@ -40,13 +40,22 @@ const App = () => {
   const location = useLocation();
 
   useEffect(() => {
-    axios
-      .get(`${API_URL}/user?id=${localStorage.getItem("id")}`)
-      .then((user) => {
-        if (user.data[0].role != "user") {
-          setIsAdmin(true);
-        }
-      });
+    const userId = localStorage.getItem("id");
+
+    if (userId) {
+      axios
+        .get(`${API_URL}/user?id=${userId}`)
+        .then((user) => {
+          // If the user role is not 'user', mark as admin
+          if (user.data[0].role !== "user") {
+            setIsAdmin(true);
+          }
+        })
+        .catch((err) => {
+          console.error("Error fetching user data: ", err);
+          // Optional: Redirect user to login page if there is an issue
+        });
+    }
   }, [location]);
 
   ReactGa.initialize("G-1CES7BYV2Q");

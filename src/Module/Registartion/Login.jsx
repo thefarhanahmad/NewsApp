@@ -14,20 +14,25 @@ export const Login = () => {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    axios
-      .get(`${API_URL}/user?id=${localStorage.getItem("id")}`)
-      .then((user) => {
-        console.log(user.data);
-        // if (user.data[0].role != "admin") {
-        if (user.data[0].role === "user") {
-          navigate("/");
-        } else {
-          navigate("/dashboard/dashboard");
-        }
-      });
-  }, []);
+    const userId = localStorage.getItem("id");
+    if (userId) {
+      axios
+        .get(`${API_URL}/user?id=${userId}`)
+        .then((user) => {
+          console.log(user.data);
+          if (user.data[0].role === "user") {
+            navigate("/");
+          } else {
+            navigate("/dashboard/dashboard");
+          }
+        })
+        .catch((err) => {
+          console.error("Error fetching user info: ", err);
+        });
+    }
+  }, [navigate]);
 
-  const onSumbit = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
     axios
       .post(`${API_URL}/login`, {
@@ -35,11 +40,11 @@ export const Login = () => {
         password,
       })
       .then((data) => {
-        // console.log("loggedin user response : ", data);
         localStorage.setItem("id", data.data._id);
-        navigate(`${data.data.role == "user" ? "/" : "/dashboard/dashboard"}`);
+        navigate(`${data.data.role === "user" ? "/" : "/dashboard/dashboard"}`);
       })
       .catch((err) => {
+        console.error("Login failed: ", err);
         message.error("Enter Correct Email or Password");
       });
   };
@@ -47,7 +52,7 @@ export const Login = () => {
   return (
     <div className="user-registration-form">
       <h1>Login</h1>
-      <form onSubmit={onSumbit}>
+      <form onSubmit={onSubmit}>
         <label htmlFor="Email">Email:</label>
         <input
           type="email"
@@ -79,7 +84,6 @@ export const Login = () => {
             )}
           </div>
         </div>
-        {console.log("test")}
         <div
           style={{
             color: "blue",
@@ -103,7 +107,7 @@ export const Login = () => {
           cursor: "pointer",
         }}
       >
-        If you not have account SignUp
+        If you do not have an account, Sign Up
       </div>
     </div>
   );
