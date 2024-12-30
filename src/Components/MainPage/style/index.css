@@ -27,6 +27,9 @@
 .mobile-page-category {
   display: none;
 }
+.desktok-page-category {
+  display: flex;
+}
 .main-page-video-heading2 {
   line-height: normal;
 }
@@ -355,7 +358,7 @@
     display: none !important;
   }
   .desktok-page-category {
-    display: none;
+    display: none !important;
   }
   .mobile-page-category {
     display: block !important;

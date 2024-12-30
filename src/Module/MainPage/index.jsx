@@ -1097,6 +1097,7 @@ const MainPage = () => {
               <div
                 style={{
                   width: "100%",
+
                   display: "flex",
                   justifyContent: "space-between",
                   marginBottom: "10px",
@@ -1140,6 +1141,7 @@ const MainPage = () => {
                   overflowX: "auto",
                   // background: "red",
                   width: "100%",
+                  height: "100%",
                   columnGap: "10px",
                   whiteSpace: "nowrap",
                   scrollBehavior: "smooth",
@@ -1158,7 +1160,7 @@ const MainPage = () => {
 
                     return (
                       <>
-                        <div style={{ width: "100%" }}>
+                        <div style={{ width: "100%", height: "100%" }}>
                           <StoriesCard
                             data={data}
                             key={index}
@@ -1167,7 +1169,7 @@ const MainPage = () => {
                             }
                             image={data?.image}
                             text={data?.title}
-                            style={{ with: "100%" }}
+                            style={{ with: "100%", height: "100%" }}
                             id="columnReverse"
                           />
                         </div>

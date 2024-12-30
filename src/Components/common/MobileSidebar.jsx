@@ -74,7 +74,10 @@ const MobileSidebar = ({ setHambergClicked }) => {
           ) : (
             // Static link for categories without subcategories
             <Link
-              onClick={() => setHambergClicked(false)}
+              onClick={() => {
+                setHambergClicked(false);
+                setShowAllCategories(false);
+              }}
               to={`/itempage?item=${categoryName}`}
               className="mobile-footer-header "
             >
@@ -87,7 +90,10 @@ const MobileSidebar = ({ setHambergClicked }) => {
             <div className="">
               {subcategories.map((subcategory) => (
                 <Link
-                  onClick={() => setHambergClicked(false)}
+                  onClick={() => {
+                    setHambergClicked(false);
+                    setShowAllCategories(false);
+                  }}
                   key={subcategory._id}
                   to={`/itempage?item=${categoryName}&sub=${subcategory.text}`}
                   className=" text-gray-800"
@@ -102,7 +108,10 @@ const MobileSidebar = ({ setHambergClicked }) => {
 
       {/* Show More Button */}
       {!showAllCategories && Object.entries(mainObject).length > 10 && (
-        <button className="show-more-btn" onClick={handleShowMore}>
+        <button
+          className="show-more-btn text-blue-600"
+          onClick={handleShowMore}
+        >
           Show More
         </button>
       )}

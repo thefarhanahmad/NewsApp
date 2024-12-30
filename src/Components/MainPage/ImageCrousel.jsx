@@ -29,9 +29,9 @@ const ImageCrousel = () => {
   return (
     <div className="ImageCarouselContainer ">
       {error && <p style={{ color: "red", textAlign: "center" }}>{error}</p>}
-      <div className="w-full bg-gray-600 h-full py-4 px-[1.2rem]">
+      <div className="w-full bg-white h-full py-4 px-[1.2rem]">
         {/* Laptop crousel */}
-        <div className="hidden sm:block">
+        {/* <div className="hidden sm:block">
           <Carousel className="ImageCarsouel h-full" arrows infinite={false}>
             {photo.length > 0 ? (
               photo.map((img) => {
@@ -101,10 +101,10 @@ const ImageCrousel = () => {
               </div>
             )}
           </Carousel>
-        </div>
+        </div> */}
 
         {/* Phone flex col */}
-        <div className="block sm:hidden mt-16">
+        <div className=" mt-16 mb-6 w-full sm:w-3/4 mx-auto">
           <div className="image-gallery flex flex-col gap-6">
             {photo.length > 0 ? (
               photo.map((img) => {
@@ -121,12 +121,11 @@ const ImageCrousel = () => {
                 return (
                   <div
                     key={img._id}
-                    className="image-card flex flex-col gap-2 bg-white p-4 rounded-lg"
+                    className="image-card flex flex-col gap-2  bg-gray-100 p-4 rounded-lg"
                   >
                     <h3
-                      className="main-page-video-heading2 text-gray-950"
+                      className="main-page-video-heading2 text-[16px] sm:text-[24px] md:text-[30px] text-gray-950"
                       style={{
-                        fontSize: "16px",
                         borderRadius: "10px",
                         overflow: "hidden",
                         marginBottom: "2px",

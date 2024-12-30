@@ -10,7 +10,7 @@ const StoriesCard = ({ text, image, OnPress, id, wid, date }) => {
         id={id}
         style={{ cursor: "pointer" }}
       >
-        <div className={`${wid} overflow-hidden`}>
+        <div className={`${wid}`}>
           <img
             src={image ? image : img}
             alt=""
