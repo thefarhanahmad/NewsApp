@@ -31,6 +31,7 @@ import RelatedNewsSection from "../../Components/SharedComponents/RelatedNewSect
 import LatesetNewsSection from "../../Components/SharedComponents/LatestNewsSection";
 import YouTube from "react-youtube";
 import { InstagramFilled } from "@ant-design/icons";
+import VideoPlayer from "../../Components/common/LiveVideoPlayer";
 
 // Instagram share button (custom implementation)
 const InstagramShareButton = ({ url }) => {
@@ -78,24 +79,6 @@ const LivePage = () => {
       })
       .catch(() => {});
   }, []);
-  const youtubeLink = Data?.link
-    ? Data?.link
-    : "https://www.youtube.com/watch?v=jFrGhodqC08";
-  const startIndex = youtubeLink.indexOf("v=") + 2; // Find the index of "v=" and add 2 to skip it
-  const endIndex =
-    youtubeLink.indexOf("&", startIndex) !== -1
-      ? youtubeLink.indexOf("&", startIndex)
-      : youtubeLink.length;
-  const videoId = youtubeLink.substring(startIndex, endIndex);
-
-  const opts = {
-    height: "390",
-    width: "100%",
-    playerVars: {
-      // https://developers.google.com/youtube/player_parameters
-      autoplay: 0,
-    },
-  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -126,6 +109,39 @@ const LivePage = () => {
 
     return formattedDatetimeStr;
   };
+
+  const opts = {
+    height: "390",
+    width: "100%",
+    playerVars: {
+      // https://developers.google.com/youtube/player_parameters
+      autoplay: 0,
+    },
+  };
+
+  // Helper function to make iframes responsive
+  const makeIframeResponsive = (iframeHtml) => {
+    if (!iframeHtml) return "";
+    return iframeHtml.replace(
+      /width="[^"]+" height="[^"]+"/,
+      'width="100%" height="100%"'
+    );
+  };
+  // Helper: Extract Video ID from Standard YouTube Links
+  const extractVideoId = (link) => {
+    try {
+      const embedMatch = link.match(/\/embed\/([a-zA-Z0-9_-]+)/);
+      if (embedMatch) return embedMatch[1];
+      const url = new URL(link);
+      return url.searchParams.get("v") || null;
+    } catch {
+      return null;
+    }
+  };
+
+  const videoId = extractVideoId(Data?.link);
+  const isIframe = isIframeContent(Data?.link);
+
   return (
     <>
       {/* mobile version  */}
@@ -203,70 +219,12 @@ const LivePage = () => {
               <BsWhatsapp style={{ marginRight: "18px" }} />
             </WhatsappShareButton>
           </div>
-
-          {/* <div style={{margin:" 15px 0px"}} className="details-page-top-item3">
-                {isFav ? (
-                  <>
-                    <AiFillHeart
-                      style={{ marginRight: "18px" }}
-                      color="red"
-                      onClick={() => setIsFav(!isFav)}
-                    />
-                  </>
-                ) : (
-                  <TiHeartOutline
-                    style={{ marginRight: "18px" }}
-                    onClick={() => setIsFav(!isFav)}
-                  />
-                )}
-                
-                
-                <div style={{ position: "relative" }}>
-                  <GrShareOption
-                    style={{ marginRight: "18px", cursor: "pointer" }}
-                    onClick={() => setIsOpen(!isOpen)}
-                  />
-                  <div
-                    style={{
-                      position: "absolute",
-                      height: "30px",
-                      width: "100px",
-                      backgroundColor: "#5a5a5a",
-                      borderRadius: 100,
-                      bottom: -40,
-                      left: -20,
-                      alignItems: "center",
-                      justifyContent: "space-around",
-                      display: isOpen ? "flex" : "none",
-                      paddingTop: 10,
-                    }}
-                  >
-                    <FacebookMessengerShareButton url={window.location.href}>
-                      <FacebookIcon size={25} />
-                    </FacebookMessengerShareButton>
-                    <EmailShareButton url={window.location.href}>
-                      <EmailIcon size={25} />
-                    </EmailShareButton>
-                  </div>
-                </div>
-                <WhatsappShareButton url={window.location.href}>
-                  <BsWhatsapp style={{ marginRight: "18px" }} />
-                </WhatsappShareButton>
-        </div> */}
-          {/* <div className="details-page-top-item3">
-            <TiHeartOutline style={{ marginRight: "18px" }} />
-            <RiMessage2Fill style={{ marginRight: "18px" }} />
-            <GrShareOption style={{ marginRight: "18px" }} />
-            <WhatsappShareButton url={window.location.href}>
-              <BsWhatsapp style={{ marginRight: "18px" }} />
-            </WhatsappShareButton>
-          </div> */}
         </div>
-        <div className="mobileDetailsMainImage  mb-7">
+        <div className="mobileDetailsMainImage  mb-7 p-1">
           <YouTube
             videoId={videoId}
             opts={{
-              height: "200px",
+              height: "250px",
               width: "100%",
               playerVars: {
                 // https://developers.google.com/youtube/player_parameters
@@ -281,57 +239,13 @@ const LivePage = () => {
             <div className="details-main-ad-cards">
               <AdCard type={"mid"} />
             </div>
-            {/* {topStories && (
-              <div className="details-page-related-news">
-                <div className="details-page-related-news-heading">
-                  {t("rn")}
-                </div>
-              </div>
-            )} */}
-            {/* <div className="detail-page-relate-new-cards">
-              {topStories?.map((data, index) => {
-                let title = data?.title
-                  .replace(/[/\%.?]/g, "")
-                  .split(" ")
-                  .join("-");
-                if (data.slug) {
-                  title = data.slug;
-                }
 
-                const OnPress = () => {
-                  navigation(`/details2/${title}?id=${data?._id}`);
-                };
-                const text = data?.title.substring(0, 45) + "...";
-                const image = data?.image;
-
-                return (
-                  <div
-                    className="related-news-card mobile-related-news-card"
-                    onClick={OnPress}
-                  >
-                    <img src={image ? image : img} alt="" />
-                    <div
-                      style={{
-                        margin: "0px",
-                        flexGrow: "1",
-                        justifyContent: "space-between",
-                      }}
-                      className="related-news-card-text"
-                    >
-                      {text
-                        ? text
-                        : "The e-Sanjeevani platform is ensuring healthcare to the last mile, by facilitat..."}
-                    </div>
-                  </div>
-                );
-              })}
-            </div> */}
             <LatesetNewsSection />
           </div>
         </div>
       </div>
 
-      {/* mobile version  */}
+      {/* Laptop version  */}
       <div className="detail-page-top-container container2 container3 webDetailsContainer">
         <div className="container-detail-page-left-side">
           <h1 className="details-page-main-heading">
@@ -413,159 +327,32 @@ const LivePage = () => {
             </div>
           </div>
 
-          <YouTube videoId={videoId} opts={opts} />
-          <div className="deatils-main-para-area">
+          {/* <YouTube videoId={videoId} opts={opts} /> */}
+          {isIframe ? (
+            <div
+              className="w-full h-[390px]"
+              dangerouslySetInnerHTML={{
+                __html: makeIframeResponsive(Data?.link),
+              }}
+            />
+          ) : videoId ? (
+            <YouTube className="w-full h-full" videoId={videoId} opts={opts} />
+          ) : (
+            <p>Video not available</p>
+          )}
+          <div className="deatils-main-para-area text-lg my-1">
             <div id="pararvideo"></div>
           </div>
-          {/*<div className="details-main-text-area">
-          {Data??Data?:""}
-           <div className="details-main-related-new-area-heading">
-            Loksatya Articles
-          </div>
-          <Row gutter={6} style={{ marginTop: "20px" }}>
-            <Col span={12}>
-              <div className="new-detail-area-side-news">
-                <div>
-                  Rohit Sharma on Friday equalled Virat Kohli in the list of an
-                  unwanted record with his two-ball zero against Bangladesh.
-                </div>
-              </div>
-            </Col>
-            <Col span={12}>
-              <div className="new-detail-area-side-news">
-                <div>
-                  Rohit Sharma on Friday equalled Virat Kohli in the list of an
-                  unwanted record with his two-ball zero against Bangladesh.
-                </div>
-              </div>
-            </Col>
-            <Col span={12}>
-              <div className="new-detail-area-side-news">
-                <div>
-                  Rohit Sharma on Friday equalled Virat Kohli in the list of an
-                  unwanted record with his two-ball zero against Bangladesh.
-                </div>
-              </div>
-            </Col>
-            <Col span={12}>
-              <div className="new-detail-area-side-news">
-                <div>
-                  Rohit Sharma on Friday equalled Virat Kohli in the list of an
-                  unwanted record with his two-ball zero against Bangladesh.
-                </div>
-              </div>
-            </Col>
-            <Col span={12}>
-              <div className="new-detail-area-side-news">
-                <div>
-                  Rohit Sharma on Friday equalled Virat Kohli in the list of an
-                  unwanted record with his two-ball zero against Bangladesh.
-                </div>
-              </div>
-            </Col>
-            <Col span={12}>
-              <div className="new-detail-area-side-news">
-                <div>
-                  Rohit Sharma on Friday equalled Virat Kohli in the list of an
-                  unwanted record with his two-ball zero against Bangladesh.
-                </div>
-              </div>
-            </Col>
-          </Row>
-        
-        </div>
-        <div className="details-main-text-area">
-          <div className="details-main-related-new-area-heading">
-            Loksatya Special
-          </div>
-          <Row gutter={6} style={{ marginTop: "20px" }}>
-            <Col span={12}>
-              <div className="new-detail-area-side-news">
-                <div>
-                  Rohit Sharma on Friday equalled Virat Kohli in the list of an
-                  unwanted record with his two-ball zero against Bangladesh.
-                </div>
-              </div>
-            </Col>
-            <Col span={12}>
-              <div className="new-detail-area-side-news">
-                <div>
-                  Rohit Sharma on Friday equalled Virat Kohli in the list of an
-                  unwanted record with his two-ball zero against Bangladesh.
-                </div>
-              </div>
-            </Col>
-            <Col span={12}>
-              <div className="new-detail-area-side-news">
-                <div>
-                  Rohit Sharma on Friday equalled Virat Kohli in the list of an
-                  unwanted record with his two-ball zero against Bangladesh.
-                </div>
-              </div>
-            </Col>
-            <Col span={12}>
-              <div className="new-detail-area-side-news">
-                <div>
-                  Rohit Sharma on Friday equalled Virat Kohli in the list of an
-                  unwanted record with his two-ball zero against Bangladesh.
-                </div>
-              </div>
-            </Col>
-            <Col span={12}>
-              <div className="new-detail-area-side-news">
-                <div>
-                  Rohit Sharma on Friday equalled Virat Kohli in the list of an
-                  unwanted record with his two-ball zero against Bangladesh.
-                </div>
-              </div>
-            </Col>
-            <Col span={12}>
-              <div className="new-detail-area-side-news">
-                <div>
-                  Rohit Sharma on Friday equalled Virat Kohli in the list of an
-                  unwanted record with his two-ball zero against Bangladesh.
-                </div>
-              </div>
-            </Col>
-          </Row> 
-        </div>*/}
+
           <RelatedNewsSection />
         </div>
         <div className="container-detail-page-rigth-side">
           <LatesetNewsSection />
-          {/* <div
-            className="item-page-main-area-2-header-strip"
-            style={{ marginLeft: "10px", marginBottom: "10px" }}
-          >
-            <div style={{ marginLeft: 10 }}>{t("rn")}</div>
-          </div> */}
-          {/* <div className="video-page-news-cards">
-            {topStories?.map((data, index) => {
-              let title = data?.title
-                .replace(/[/\%.?]/g, "")
-                .split(" ")
-                .join("-");
-              if (data.slug) {
-                title = data.slug;
-              }
-
-              return (
-                <RelatedNewsCard
-                  data={data}
-                  key={data._id}
-                  OnPress={() =>
-                    navigation(`/details2/${title}?id=${data?._id}`)
-                  }
-                  image={data?.image}
-                  text={data?.title.substring(0, 45) + "..."}
-                />
-              );
-            })}
-          </div> */}
         </div>
       </div>
     </>
   );
 };
-
+const isIframeContent = (content) =>
+  /<iframe.*src=".*youtube\.com/.test(content);
 export default LivePage;
