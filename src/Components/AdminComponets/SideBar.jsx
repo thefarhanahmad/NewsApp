@@ -226,14 +226,7 @@ const SideBar = () => {
           LogOut
         </Link>
       </Menu.Item>
-      <Menu.Item
-        // style={{
-        //   position: "absolute",
-        //   bottom: 0,
-        // }}
-        key="ten"
-        icon={<RiAdminFill size={22} />}
-      >
+      <Menu.Item key="ten" icon={<RiAdminFill size={22} />}>
         <div
           style={{
             textTransform: "uppercase",

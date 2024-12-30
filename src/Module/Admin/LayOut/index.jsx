@@ -56,6 +56,7 @@ const AdminLayout = () => {
     axios
       .get(`${API_URL}/user?id=${localStorage.getItem("id")}`)
       .then((user) => {
+        // console.log("aloggedin user : ", user);
         if (user.data[0].role === "admin") {
           setAccess(user?.data[0]?.acsses);
           // setAccess([
