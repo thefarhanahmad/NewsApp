@@ -16,8 +16,8 @@ const OtpVerify = () => {
 
   // console.log("otp in otp page : ", OTP);
   useEffect(() => {
-    const forgot = localStorage.getItem("forgot");
-    if (!forgot) {
+    const id = localStorage.getItem("id");
+    if (!id) {
       navigate("/forgot");
     }
   }, []);

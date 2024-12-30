@@ -8,8 +8,8 @@ const NewPassword = () => {
 
   const navigate = useNavigate();
   useEffect(() => {
-    const forgot = localStorage.getItem("forgot");
-    if (!forgot) {
+    const id = localStorage.getItem("id");
+    if (!id) {
       navigate("/forgot");
     }
   }, []);
