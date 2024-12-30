@@ -23,9 +23,11 @@ const NewPassword = () => {
     try {
       const response = await axios.put(`${API_URL}/forgot`, {
         id: _id,
-        Password,
+        password: Password,
       });
-      console.log(response.data);
+      console.log("New password forgot response : ", response);
+      localStorage.removeItem("id");
+      localStorage.removeItem("forgot");
       navigate(`/`);
     } catch (error) {
       console.error(error);

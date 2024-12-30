@@ -14,13 +14,13 @@ const OtpVerify = () => {
     setOTP(OTP);
   }
 
-  console.log("otp in otp page : ", OTP);
-  // useEffect(() => {
-  //   const forgot = localStorage.getItem("forgot");
-  //   if (!forgot) {
-  //     navigate("/forgot");
-  //   }
-  // }, []);
+  // console.log("otp in otp page : ", OTP);
+  useEffect(() => {
+    const forgot = localStorage.getItem("forgot");
+    if (!forgot) {
+      navigate("/forgot");
+    }
+  }, []);
 
   const onSumbit = async (e) => {
     const _id = localStorage.getItem("id");
@@ -36,6 +36,7 @@ const OtpVerify = () => {
         message.error("Error in opt verification");
       });
   };
+
   async function reSendOTP() {
     setClick(true);
     setTimeout(() => {

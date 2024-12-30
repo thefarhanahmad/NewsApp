@@ -7,6 +7,7 @@ import { API_URL } from "../../../API";
 const ForgotPassword = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
+
   const onSumbit = (e) => {
     e.preventDefault();
     axios
