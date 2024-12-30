@@ -312,16 +312,7 @@ const DetailsPage2 = () => {
       <>
         {/* Ad Popup */}
         {adPopup && (
-          <div
-            className="fixed px-2 lg:px-0 top-0 left-0 w-full h-full flex items-center justify-center z-50 inset-0 bg-black bg-opacity-40 backdrop-blur-sm "
-            onClick={(e) => e.stopPropagation()}
-          >
-            <AdCardPopup
-              type={"top"}
-              adPopup={adPopup}
-              setAdPopup={setAdPopup}
-            />
-          </div>
+          <AdCardPopup type={"top"} adPopup={adPopup} setAdPopup={setAdPopup} />
         )}
       </>
       <Helmet>
