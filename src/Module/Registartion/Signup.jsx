@@ -41,7 +41,8 @@ const Signup = ({ isAdmin }) => {
         localStorage.setItem("id", data.data._id);
         navigate(`/verfication/${data.data._id}`);
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log("error in register user : ", err);
         setLoading(false);
         message.error("Error in Register");
       });
