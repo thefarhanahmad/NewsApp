@@ -181,7 +181,7 @@ const SingleArticle = ({ category, imgData, vidData }) => {
               </div>
 
               {/* Center portion */}
-              <div className=" w-1/2 ">
+              <div className=" w-1/2  hidden lg:block">
                 <div className="flex flex-col gap-1">
                   {imgData.slice(2, 5).map((element, index) => {
                     let title = element.title
@@ -231,7 +231,7 @@ const SingleArticle = ({ category, imgData, vidData }) => {
 
           {/*  Right Video Portions */}
 
-          <div className="main-page-technology-first-column">
+          <div className="main-page-technology-first-column  hidden lg:block">
             {/* Video Portion */}
             {/* {vidData && vidData.length > 0 && (
               <div className="main-page-technology-third-column">
