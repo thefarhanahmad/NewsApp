@@ -1617,17 +1617,11 @@ const MainPage = () => {
                 marginTop: "3%",
               }}
             >
-              <div className="main-page-slider-setting p-1">
+              {/* With using rendering even numbers */}
+              <div className="main-page-slider-setting">
                 {sliderItem % 2 === 0 ? (
                   <>
                     {sliderArticles?.map((data, index) => {
-                      // let title = data?.title
-                      //   ?.replace(/[/\%.?]/g, "")
-                      //   .split(" ")
-                      //   .join("-");
-                      // if (data.slug) {
-                      //   title = data.slug;
-                      // }
                       if (index == sliderItem) {
                         return (
                           <div key={index}>
@@ -1688,6 +1682,51 @@ const MainPage = () => {
                     ))}
                 </div>
               </div>
+
+              {/* without using rendering even numbers */}
+              {/* <div className="main-page-slider-setting p-2 bg-red-400">
+                {sliderArticles?.map((data, index) => {
+                  // Check if the current item matches the sliderItem index
+                  if (index === sliderItem) {
+                    return (
+                      <div key={index}>
+                        <ImageCard
+                          img={data.image}
+                          text={data.title}
+                          slug={data.slug}
+                          title={data.title}
+                          id={data._id}
+                          height="50vh"
+                          width="100%"
+                        />
+                      </div>
+                    );
+                  }
+                  return null; // Ensure nothing unnecessary is rendered
+                })}
+
+                <div className="main-page-slider-items">
+                  {sliderArticles
+                    .map((_, i) => i) // Generate index array
+                    .filter((i) => i % 2 === 0) // Filter even indexes
+                    .map((item) => (
+                      <div
+                        key={item}
+                        className={`slider-item ${
+                          sliderItem === item ? "slider-item-active" : ""
+                        }`}
+                        onClick={() => {
+                          setShowItem(false);
+                          setTimeout(() => {
+                            setShowItem(true);
+                            setSliderItem(item);
+                          }, 1000);
+                        }}
+                      ></div>
+                    ))}
+                </div>
+              </div> */}
+
               <div className="main-page-slider-setting ">
                 {sliderItem2 % 2 !== 0 ? (
                   <>
