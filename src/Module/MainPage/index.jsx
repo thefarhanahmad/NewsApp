@@ -85,7 +85,7 @@ const MainPage = () => {
       });
     }
   };
-  console.log("all categories data in index page : ", allCategoriesData);
+  // console.log("all categories data in index page : ", allCategoriesData);
   const scrollRight = (ref) => {
     const container = ref.current;
     if (container) {
@@ -139,7 +139,7 @@ const MainPage = () => {
     axios
       .get(`${API_URL}/content?type=category`)
       .then((contentResponse) => {
-        console.log("get categories response : ", contentResponse);
+        // console.log("get categories response : ", contentResponse);
         let arr = [];
         for (let i = 0; i < contentResponse.data.length; i++) {
           // console.log("ARR", contentResponse.data);
@@ -165,8 +165,8 @@ const MainPage = () => {
                 `${API_URL}/article?pagenation=true&limit=7&category=${element}&type=img&newsType=breakingNews&status=online`
               ),
             ]).then(([vidResponse, imgResponse]) => {
-              console.log("vid cat res : ", vidResponse);
-              console.log("img cat res : ", imgResponse);
+              // console.log("vid cat res : ", vidResponse);
+              // console.log("img cat res : ", imgResponse);
               const vidData = vidResponse.data;
               const imgData = imgResponse.data;
               // Filter out entries with empty arrays
@@ -1630,7 +1630,7 @@ const MainPage = () => {
                       // }
                       if (index == sliderItem) {
                         return (
-                          <>
+                          <div key={index}>
                             <ImageCard
                               img={data.image}
                               text={data.title}
@@ -1640,18 +1640,21 @@ const MainPage = () => {
                               height="50vh"
                               width="100%"
                             />
-                          </>
+                          </div>
                         );
                       } else {
-                        <ImageCard
-                          img={sliderItems[sliderItem]}
-                          text={data.title}
-                          slug={data.slug}
-                          title={data.title}
-                          id={data._id}
-                          height="50vh"
-                          width="100%"
-                        />;
+                        <div key={index}>
+                          <ImageCard
+                            img={sliderItems[sliderItem]}
+                            text={data.title}
+                            slug={data.slug}
+                            title={data.title}
+                            id={data._id}
+                            height="50vh"
+                            width="100%"
+                          />
+                          ;
+                        </div>;
                         // <img
                         //   src={sliderItems[sliderItem]}
                         //   alt=""
@@ -1698,7 +1701,7 @@ const MainPage = () => {
                       // }
                       if (index == sliderItem2) {
                         return (
-                          <>
+                          <div key={index}>
                             <ImageCard
                               img={data.image}
                               text={data.title}
@@ -1708,18 +1711,21 @@ const MainPage = () => {
                               height="50vh"
                               width="100%"
                             />
-                          </>
+                          </div>
                         );
                       } else {
-                        <ImageCard
-                          img={sliderItems[sliderItem2]}
-                          text={data.title}
-                          slug={data.slug}
-                          title={data.title}
-                          id={data._id}
-                          height="50vh"
-                          width="100%"
-                        />;
+                        <div key={index}>
+                          <ImageCard
+                            img={sliderItems[sliderItem2]}
+                            text={data.title}
+                            slug={data.slug}
+                            title={data.title}
+                            id={data._id}
+                            height="50vh"
+                            width="100%"
+                          />
+                        </div>;
+
                         // <img
                         //   src={sliderItems[sliderItem]}
                         //   alt=""

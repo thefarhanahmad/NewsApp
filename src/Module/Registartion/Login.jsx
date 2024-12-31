@@ -19,7 +19,7 @@ export const Login = () => {
       axios
         .get(`${API_URL}/user?id=${userId}`)
         .then((user) => {
-          console.log(user.data);
+          // console.log(user.data);
           if (user.data[0].role === "user") {
             navigate("/");
           } else {

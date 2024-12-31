@@ -115,7 +115,7 @@ const DetailsPage2 = () => {
       .then(async (article) => {
         setArticle(article);
         // let title = article.data[0].title.split(" ").join("-");
-        console.log(article.data[0], "art");
+        // console.log(article.data[0], "art");
         setLoading(false);
         setData(article.data[0]);
         // navigation(`/details/${title}`);
@@ -132,7 +132,7 @@ const DetailsPage2 = () => {
   const [data2, setData2] = useState([]);
   useEffect(() => {
     axios.get(`${API_URL}/comment?id=${query.get("id")}`).then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
       setData2(res.data);
     });
   }, []);
@@ -147,10 +147,10 @@ const DetailsPage2 = () => {
   }, [pathname]);
   const onAdd = () => {
     setLoading2(true);
-    console.log(
-      { email: Email, name, message: comment, postId: data._id },
-      "dd"
-    );
+    // console.log(
+    //   { email: Email, name, message: comment, postId: data._id },
+    //   "dd"
+    // );
     axios
       .post(`${API_URL}/comment`, {
         email: Email,
@@ -190,7 +190,7 @@ const DetailsPage2 = () => {
   };
 
   const newFormatDate = (datetimeStr) => {
-    console.log("newFormatDate", i18n.language);
+    // console.log("newFormatDate", i18n.language);
 
     // Create a Date object from the input string
     const date = new Date(datetimeStr);
@@ -260,10 +260,10 @@ const DetailsPage2 = () => {
   }, []);
 
   // Debugging outputs
-  console.log("data in details : ", data);
-  console.log("breakingg newww : ", breakingNews);
-  console.log("top storri  : ", topStories);
-  console.log("related news : ", relatedNews);
+  // console.log("data in details : ", data);
+  // console.log("breakingg newww : ", breakingNews);
+  // console.log("top storri  : ", topStories);
+  // console.log("related news : ", relatedNews);
 
   useEffect(() => {
     if (!data || !Array.isArray(data.keyWord) || data.keyWord.length === 0) {
@@ -274,7 +274,7 @@ const DetailsPage2 = () => {
 
     // Combine breakingNews and topStories into one array
     const combinedNews = [...breakingNews, ...topStories];
-    console.log("Combined news:", combinedNews);
+    // console.log("Combined news:", combinedNews);
 
     // Step 1: Filter by keywords
     let filteredNews = combinedNews.filter(
@@ -283,7 +283,7 @@ const DetailsPage2 = () => {
         newsItem._id !== data._id // Exclude the current data
     );
 
-    console.log("Filtered news by keywords:", filteredNews);
+    // console.log("Filtered news by keywords:", filteredNews);
 
     // Step 2: If no keyword matches, fallback to newsType
     if (filteredNews.length < 1) {
@@ -295,7 +295,7 @@ const DetailsPage2 = () => {
       );
     }
 
-    console.log("Final filtered news (after fallback):", filteredNews);
+    // console.log("Final filtered news (after fallback):", filteredNews);
 
     // Step 3: Update relatedNews state
     setRelatedNews([...filteredNews]); // Ensure a new reference to trigger state updates
@@ -462,7 +462,7 @@ const DetailsPage2 = () => {
               style={{ width: "100%", marginTop: 4 }}
             >
               {relatedNews?.slice(0, 5)?.map((data, index) => {
-                console.log("data in related news  :", data);
+                // console.log("data in related news  :", data);
                 let title = data.title
                   .replace(/[/\%.?]/g, "")
                   .split(" ")

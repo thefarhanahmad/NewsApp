@@ -48,8 +48,8 @@ const VisualStories = () => {
   const [imgTexts, setImgTexts] = useState({});
 
   useEffect(() => {
-    console.log(id, "id", edit);
-    console.log(onEdit, "onEdit");
+    // console.log(id, "id", edit);
+    // console.log(onEdit, "onEdit");
     if (!edit) {
       setId(null);
       setOnEdit(false);
@@ -57,7 +57,7 @@ const VisualStories = () => {
     if (onEdit && edit) {
       axios.get(`${API_URL}/story?id=${id}`).then((item) => {
         let data = item.data[0];
-        console.log("dataedit", data);
+        // console.log("dataedit", data);
         setTitle(data.title);
         setEditImgs(data.images);
         setEditPeriority(
@@ -68,12 +68,12 @@ const VisualStories = () => {
   }, [onEdit]);
 
   const onFilter = () => {
-    console.log(filterItem, filterItemResponse);
+    // console.log(filterItem, filterItemResponse);
     axios
       .get(`${API_URL}/story?${filterItem}=${filterItemResponse}`)
       .then((poll) => {
         setAllPhoto(poll.data);
-        console.log(poll.data);
+        // console.log(poll.data);
       })
       .catch((err) => {
         console.log(err);
@@ -102,7 +102,7 @@ const VisualStories = () => {
   };
 
   const [thumbnail, setThumbnail] = useState({});
-  console.log("imgTexts,thumbnail : ", imgTexts, thumbnail);
+  // console.log("imgTexts,thumbnail : ", imgTexts, thumbnail);
 
   // Set initial state based on data length
   useEffect(() => {
@@ -141,14 +141,14 @@ const VisualStories = () => {
     try {
       setLoading(true);
 
-      console.log("Images to upload:", imgs);
+      // console.log("Images to upload:", imgs);
 
       // Upload images
       const imageUploadPromises = imgs.map(async (img) => {
         let formData = new FormData();
         formData.append("file", img, img.name);
 
-        console.log("Uploading image:", img.name);
+        // console.log("Uploading image:", img.name);
 
         const imageResponse = await axios.post(`${API_URL}/image`, formData, {
           headers: {
@@ -156,12 +156,12 @@ const VisualStories = () => {
           },
         });
 
-        console.log("Image upload response:", imageResponse.data);
+        // console.log("Image upload response:", imageResponse.data);
         return imageResponse.data.image;
       });
 
       const images = await Promise.all(imageUploadPromises);
-      console.log("Uploaded images:", images);
+      // console.log("Uploaded images:", images);
 
       // Create story
       const storyPayload = {
@@ -171,10 +171,10 @@ const VisualStories = () => {
         imageTexts: imgTexts,
       };
 
-      console.log("Creating story with payload:", storyPayload);
+      // console.log("Creating story with payload:", storyPayload);
 
       const storyResponse = await axios.post(`${API_URL}/story`, storyPayload);
-      console.log("Story creation response:", storyResponse.data);
+      // console.log("Story creation response:", storyResponse.data);
 
       message.success("Your Photo was successfully uploaded");
       setTitle("");
@@ -221,36 +221,36 @@ const VisualStories = () => {
         const imageUploadPromises = imgs.map(async (img) => {
           let formData = new FormData();
           formData.append("file", img, img.name);
-          console.log("FormData in edit vs : ", formData);
+          // console.log("FormData in edit vs : ", formData);
           const imageResponse = await axios.post(`${API_URL}/image`, formData);
-          console.log("imageREsponse in edit vs : ", imageResponse);
+          // console.log("imageREsponse in edit vs : ", imageResponse);
           return imageResponse.data.image;
         });
 
         const images = await Promise.all(imageUploadPromises);
-        console.log("images in visual stories in edit", images);
+        // console.log("images in visual stories in edit", images);
         imgWithText = images?.map((img, index) => ({
           img: img,
           text: imgTexts[index],
         }));
-        console.log("imgwithtxt in vs in edit", imgWithText);
+        // console.log("imgwithtxt in vs in edit", imgWithText);
         setNewImgs(imgWithText);
       }
 
-      console.log("imgWithText", editImgs, imgWithText, title);
-      console.log(
-        "title and editImage and imgwithtxt in vs edit  :",
-        title,
-        editImgs,
-        imgWithText
-      );
+      // console.log("imgWithText", editImgs, imgWithText, title);
+      // console.log(
+      //   "title and editImage and imgwithtxt in vs edit  :",
+      //   title,
+      //   editImgs,
+      //   imgWithText
+      // );
       axios
         .put(`${API_URL}/story/${id}`, {
           title: title,
           images: [...editImgs, ...imgWithText],
         })
         .then((res) => {
-          console.log("visual story Edit Response", res);
+          // console.log("visual story Edit Response", res);
           message.success("Your Photo was successfully updated");
           setTitle("");
           fetchAllPhotos();
@@ -283,7 +283,7 @@ const VisualStories = () => {
       // Fetch comments from your API
       const response = await fetch(`${API_URL}/story`);
       const data = await response.json();
-      console.log("visual stories res : ", data);
+      // console.log("visual stories res : ", data);
       setAllPhoto(data);
     } catch (error) {
       console.error("Error fetching photo:", error);
@@ -292,7 +292,7 @@ const VisualStories = () => {
   }
 
   const ShowDeleteModal = (photo) => {
-    console.log(photo);
+    // console.log(photo);
     setCurrentPhoto(photo);
     setIsModalDeleteOpen(true);
     setOnEdit(false);
@@ -475,7 +475,7 @@ const VisualStories = () => {
     if (filterItem === "title") return "Title";
   }
 
-  console.log("imgTexts", imgTexts);
+  // console.log("imgTexts", imgTexts);
 
   return (
     <>
@@ -604,7 +604,7 @@ const VisualStories = () => {
                     </div>
                   </div>
                 ))}
-              {console.log("edit images in vs: ", editImgs)}
+              {/* {console.log("edit images in vs: ", editImgs)} */}
               {editImgs.length > 0 &&
                 editImgs.map((img, index) => (
                   <div

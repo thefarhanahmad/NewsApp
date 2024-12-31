@@ -28,7 +28,7 @@ const OtpVerify = () => {
     await axios
       .post(`${API_URL}/verify`, { _id: _id, otp: OTP })
       .then((data) => {
-        console.log("Otp verify response : ", data);
+        // console.log("Otp verify response : ", data);
         navigate(forgot ? "/newPassword" : `/`);
       })
       .catch((err) => {
@@ -47,7 +47,7 @@ const OtpVerify = () => {
     axios
       .post(`${API_URL}/resendOTP`, { _id })
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         message.success("OPT resend");
       })
       .catch((err) => {

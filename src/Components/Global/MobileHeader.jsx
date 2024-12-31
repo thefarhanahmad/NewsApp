@@ -80,7 +80,7 @@ const MobileHeader = ({ listitem }) => {
     axios
       .get(`${API_URL}/content?type=category`)
       .then((data) => {
-        console.log("category data from api : ", data);
+        // console.log("category data from api : ", data);
         let arr = [];
 
         for (
@@ -109,15 +109,15 @@ const MobileHeader = ({ listitem }) => {
   }, []);
 
   const [topAd, setTopAd] = useState({});
-  console.log("top ad in header  : ", topAd);
+  // console.log("top ad in header  : ", topAd);
   useEffect(() => {
     axios.get(`${API_URL}/ads?active=true&side=top`).then((data) => {
-      console.log("top ad data res :  ", data);
+      // console.log("top ad data res :  ", data);
       // if (data.data.reverse()[0].device === "mobile") {
       //   setTopAd(data.data.reverse()[0]);
       // }
       const activeAds = data.data.filter((data) => data.active);
-      console.log("active ads : ", activeAds);
+      // console.log("active ads : ", activeAds);
       setTopAd(activeAds.reverse()[0]);
     });
   }, []);
@@ -141,10 +141,10 @@ const MobileHeader = ({ listitem }) => {
   const location = useLocation();
 
   const { showAd, closeAd } = useAd();
-  console.log("showAd : ", showAd);
+  // console.log("showAd : ", showAd);
 
-  console.log("list items means category in sidebar : ", itsItem);
-  console.log("list item2 means category in sidebar : ", itsItem2);
+  // console.log("list items means category in sidebar : ", itsItem);
+  // console.log("list item2 means category in sidebar : ", itsItem2);
 
   return (
     <>

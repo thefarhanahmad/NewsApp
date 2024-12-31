@@ -74,7 +74,7 @@ const Comments = ({ isAdmin }) => {
     ],
   };
   const ShowDeleteModal = (comment) => {
-    console.log(comment);
+    // console.log(comment);
     setCurrentComment(comment);
     setIsModalDeleteOpen(true);
   };

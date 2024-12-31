@@ -112,11 +112,11 @@ const VideoPage = () => {
   }, []);
   useEffect(() => {
     axios.get(`${API_URL}/comment?id=${query.get("id")}`).then((res) => {
-      console.log("api data from video2 routes : ", res.data);
+      // console.log("api data from video2 routes : ", res.data);
       setData2(res.data);
     });
   }, []);
-  console.log("vdo data in vdo2 file : ", data);
+  // console.log("vdo data in vdo2 file : ", data);
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -128,10 +128,10 @@ const VideoPage = () => {
   }, [pathname]);
   const onAdd = () => {
     setLoading2(true);
-    console.log(
-      { email: Email, name, message: comment, postId: data._id },
-      "dd"
-    );
+    // console.log(
+    //   { email: Email, name, message: comment, postId: data._id },
+    //   "dd"
+    // );
     axios
       .post(`${API_URL}/comment`, {
         email: Email,

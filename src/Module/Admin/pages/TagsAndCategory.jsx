@@ -136,10 +136,10 @@ const TagsAndCategory = () => {
   };
 
   const handleDeleteTagCategory = async (id) => {
-    console.log("id to delete tag&cat  : ", id);
+    // console.log("id to delete tag&cat  : ", id);
     try {
       const res = await axios.delete(`${API_URL}/delete_content/${id}`);
-      console.log("delete res tag&cat : ", res);
+      // console.log("delete res tag&cat : ", res);
       if (res.data.status === 200) {
         message.success(res.data.message);
         fetchData(); // Refresh data after deletion

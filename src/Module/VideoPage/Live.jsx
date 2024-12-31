@@ -85,7 +85,7 @@ const LivePage = () => {
   }, [pathname]);
   useEffect(() => {
     axios.get(`${API_URL}/live`).then((data) => {
-      console.log("data", data.data);
+      // console.log("data", data.data);
       const reverseArr = data.data.reverse();
       setData(reverseArr[0]);
       document.getElementById("pararvideo").innerHTML =

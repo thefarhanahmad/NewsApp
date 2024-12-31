@@ -6,7 +6,7 @@ const VdoThumb = ({ data }) => {
   const [thumbnailUrl, setThumbnailUrl] = useState("");
   const title = data?.title?.replace(/[%.?]/g, "")?.split(" ")?.join("-");
 
-  console?.log("data and thumbnail in vdothumb : ", data, thumbnailUrl);
+  // console.log("data and thumbnail in vdothumb : ", data, thumbnailUrl);
 
   // Function to extract video ID from YouTube URL
   const extractVideoId = (url) => {

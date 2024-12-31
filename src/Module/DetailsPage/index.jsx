@@ -105,16 +105,16 @@ const DetailsPage = () => {
   const [breakingNews, setBreakingNews] = useState([]);
   const [relatedNews, setRelatedNews] = useState([]);
 
-  console.log("data in details page : ", data);
+  // console.log("data in details page : ", data);
   useEffect(() => {
     const href = window.location.href;
     axios
       .get(`${API_URL}/article?id=${storyId}&url=${href}`)
       .then(async (article) => {
-        console.log("news detail api response : ", article);
+        // console.log("news detail api response : ", article);
         setArticle(article);
         // let title = article?.data[0].title.split(" ").join("-");
-        console.log(article?.data[0], "art");
+        // console.log(article?.data[0], "art");
         setLoading(false);
         setData(article?.data[0]);
         // navigation(`/details/${title}`);
@@ -128,11 +128,11 @@ const DetailsPage = () => {
         setLoading(false);
       });
   }, [storyId]);
-  console.log("article : ", article);
+  // console.log("article : ", article);
   const [data2, setData2] = useState([]);
   useEffect(() => {
     axios.get(`${API_URL}/comment?id=${query.get("id")}`).then((res) => {
-      console.log("article from api : ", res.data);
+      // console.log("article from api : ", res.data);
       setData2(res.data);
     });
   }, []);
@@ -147,10 +147,10 @@ const DetailsPage = () => {
   }, [pathname]);
   const onAdd = () => {
     setLoading2(true);
-    console.log(
-      { email: Email, name, message: comment, postId: data._id },
-      "dd"
-    );
+    // console.log(
+    //   { email: Email, name, message: comment, postId: data._id },
+    //   "dd"
+    // );
     axios
       .post(`${API_URL}/comment`, {
         email: Email,
@@ -191,10 +191,10 @@ const DetailsPage = () => {
       .catch(() => {});
   }, []);
   // Debugging outputs
-  console.log("data in details : ", data);
-  console.log("breakingg newww : ", breakingNews);
-  console.log("top storri  : ", topStories);
-  console.log("related news : ", relatedNews);
+  // console.log("data in details : ", data);
+  // console.log("breakingg newww : ", breakingNews);
+  // console.log("top storri  : ", topStories);
+  // console.log("related news : ", relatedNews);
 
   useEffect(() => {
     if (!data || !Array.isArray(data.keyWord) || data.keyWord.length === 0) {
@@ -205,7 +205,7 @@ const DetailsPage = () => {
 
     // Combine breakingNews and topStories into one array
     const combinedNews = [...breakingNews, ...topStories];
-    console.log("Combined news:", combinedNews);
+    // console.log("Combined news:", combinedNews);
 
     // Step 1: Filter by keywords
     let filteredNews = combinedNews.filter(
@@ -214,7 +214,7 @@ const DetailsPage = () => {
         newsItem._id !== data._id // Exclude the current data
     );
 
-    console.log("Filtered news by keywords:", filteredNews);
+    // console.log("Filtered news by keywords:", filteredNews);
 
     // Step 2: If no keyword matches, fallback to newsType
     if (filteredNews.length < 1) {
@@ -226,7 +226,7 @@ const DetailsPage = () => {
       );
     }
 
-    console.log("Final filtered news (after fallback):", filteredNews);
+    // console.log("Final filtered news (after fallback):", filteredNews);
 
     // Step 3: Update relatedNews state
     setRelatedNews([...filteredNews]); // Ensure a new reference to trigger state updates
@@ -250,7 +250,7 @@ const DetailsPage = () => {
   };
 
   const newFormatDate = (datetimeStr) => {
-    console.log("newFormatDate", i18n.language);
+    // console.log("newFormatDate", i18n.language);
 
     // Create a Date object from the input string
     const date = new Date(datetimeStr);
@@ -298,7 +298,7 @@ const DetailsPage = () => {
     return formattedDateTime;
   };
 
-  console.log("this is coming from the new article", article);
+  // console.log("this is coming from the new article", article);
 
   const shareurl = article?.data[0].shareUrl;
   const title = "News App";
@@ -595,7 +595,7 @@ const DetailsPage = () => {
             <div className="details-page-top-item1">
               <FaUser style={{ marginRight: "10px" }} />
               {data?.reportedBy}
-              {console.log(data)}
+              {/* {console.log(data)} */}
             </div>
             <div className="details-page-top-item2">
               <AiOutlineCalendar size={22} style={{ marginRight: "10px" }} />

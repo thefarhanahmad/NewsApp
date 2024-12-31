@@ -8,7 +8,7 @@ const MenuBelowSlider = () => {
   const [topAd, setTopAd] = useState({});
   useEffect(() => {
     axios.get(`${API_URL}/ads?active=true&side=top`).then((data) => {
-      console.log("top ad data response : ", data);
+      // console.log("top ad data response : ", data);
       const activeAds = data.data.filter((data) => data.active);
       setTopAd(activeAds.reverse()[0]);
     });

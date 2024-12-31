@@ -25,7 +25,7 @@ const AdCardPopup = ({ type, adPopup, setAdPopup }) => {
         // console.log("ads in popup : ", response);
 
         const activeAds = response.data.filter((data) => data.active);
-        console.log("active ads in popup: ", activeAds);
+        // console.log("active ads in popup: ", activeAds);
 
         // Reverse data array to ensure latest entries come first
         const reversedData = activeAds.reverse();
@@ -46,8 +46,8 @@ const AdCardPopup = ({ type, adPopup, setAdPopup }) => {
         console.error("Error fetching ads data:", error);
       });
   }, []);
-  console.log("mobile data : ", mobileData);
-  console.log("laptop data : ", laptopData);
+  // console.log("mobile data : ", mobileData);
+  // console.log("laptop data : ", laptopData);
   async function onClickAd(id) {
     try {
       await axios.post(`${API_URL}/ads/click`, { id });

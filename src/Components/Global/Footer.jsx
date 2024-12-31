@@ -18,7 +18,7 @@ const Footer = () => {
   const Navigation = useNavigate();
   const [mainObject, setMainObject] = useState({});
 
-  console.log("main objects footer category", mainObject);
+  // console.log("main objects footer category", mainObject);
 
   useEffect(() => {
     setLoading(true);
@@ -101,6 +101,7 @@ const Footer = () => {
                 return (
                   <>
                     <div
+                      key={index}
                       className="footer-item-box"
                       style={{
                         // backgroundColor: "yellow",
@@ -126,8 +127,9 @@ const Footer = () => {
                           }
                         }
                       >
-                        {subcategories.map((item) => (
+                        {subcategories.map((item, i) => (
                           <div
+                            key={i}
                             className="sub-items-f"
                             onClick={() => {
                               Navigation(

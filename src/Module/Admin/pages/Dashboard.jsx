@@ -469,7 +469,7 @@ const Dashboard = () => {
       title: "Category",
       key: "topic",
       render: (topic) => {
-        console.log("topic in colomn : ", topic);
+        // console.log("topic in colomn : ", topic);
 
         return <a>{topic?.topic}</a>;
       },
@@ -579,7 +579,7 @@ const Dashboard = () => {
       dataIndex: "publish",
       render: (data, { publishBy }) => {
         // Log the value to the console
-        console.log("Publish By:", publishBy);
+        // console.log("Publish By:", publishBy);
 
         return <a>{publishBy ? publishBy : "admin@gmail.com"}</a>;
       },
@@ -596,7 +596,7 @@ const Dashboard = () => {
     },
   ];
 
-  console.log("sorted articledata  : ", articleData);
+  // console.log("sorted articledata  : ", articleData);
 
   const dataWithSerialNumbers = sortedArticleData.map((serialNumber) => ({
     ...articleData[serialNumber - 1],
@@ -620,7 +620,7 @@ const Dashboard = () => {
   const uniquePublishBy = [
     ...new Set(publishAndReportedByArray.map((item) => item.publishBy)),
   ];
-  console.log("published by, : ", uniquePublishBy, filterItemResponse);
+  // console.log("published by, : ", uniquePublishBy, filterItemResponse);
   return (
     <>
       <h1
@@ -648,7 +648,7 @@ const Dashboard = () => {
                   : ""
               }
               onChange={(_, dateString) => {
-                console.log(dateString);
+                // console.log(dateString);
                 setfilterItemResponse({
                   ...filterItemResponse,
                   date: dateString,

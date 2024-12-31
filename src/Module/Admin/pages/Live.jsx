@@ -28,7 +28,7 @@ const Live = () => {
   const getAllLive = async () => {
     try {
       const response = await axios.get(`${API_URL}/live`);
-      console.log("live data res : ", response);
+      // console.log("live data res : ", response);
       const livesData = response.data;
       setUserData(livesData.reverse());
     } catch (error) {
@@ -37,7 +37,7 @@ const Live = () => {
     }
   };
 
-  console.log("all live data : ", userData);
+  // console.log("all live data : ", userData);
   useEffect(() => {
     getAllLive();
   }, []);
@@ -62,7 +62,7 @@ const Live = () => {
 
   // Delete Live video
   const handleDelete = (id) => {
-    console.log("id to live delete : ", id);
+    // console.log("id to live delete : ", id);
     fetch(`${API_URL}/live/${id}`, {
       method: "DELETE",
     })
@@ -73,7 +73,7 @@ const Live = () => {
         return response.json();
       })
       .then((data) => {
-        console.log("delete live res : ", data);
+        // console.log("delete live res : ", data);
         message.success("Live stream deleted successfully!");
         getAllLive();
         // Reload or update the table to reflect changes
@@ -143,12 +143,12 @@ const Live = () => {
     setIsModalOpen(false);
   };
   const onFilter = () => {
-    console.log(filterItem, filterItemResponse);
+    // console.log(filterItem, filterItemResponse);
     axios
       .get(`${API_URL}/live?${filterItem}=${filterItemResponse}`)
       .then((poll) => {
         setUserData(poll.data);
-        console.log(poll.data);
+        // console.log(poll.data);
       })
       .catch((err) => {
         console.log(err);

@@ -23,13 +23,13 @@ const Poll = () => {
   const [question, setQuestion] = useState("");
   const [options, setOptions] = useState([{ text: "" }, { text: "" }]);
 
-  console.log(userData);
+  // console.log(userData);
   const handleDeletePoll = async (id) => {
     // console.log("delete btn clicked");
     // console.log("poll id : ", id);
     try {
       const res = await axios.delete(`${API_URL}/delete_pool/${id}`);
-      console.log("polls delete api response : ", res);
+      // console.log("polls delete api response : ", res);
       if (res.data.status === 200) {
         message.success(res.data.message);
       } else {
@@ -106,12 +106,12 @@ const Poll = () => {
     },
   ];
   const onFilter = () => {
-    console.log(filterItem, filterItemResponse);
+    // console.log(filterItem, filterItemResponse);
     axios
       .get(`${API_URL}/polls?${filterItem}=${filterItemResponse}`)
       .then((poll) => {
         setUserData(poll.data);
-        console.log(poll.data);
+        // console.log(poll.data);
       })
       .catch((err) => {
         console.log(err);

@@ -50,11 +50,11 @@ const Photos = () => {
   const [editImgs, setEditImgs] = useState([]);
   const [editPeriority, setEditPeriority] = useState(false);
   const [newImgs, setNewImgs] = useState([]);
-  console.log("editImgs : ", editImgs);
+  // console.log("editImgs : ", editImgs);
   useEffect(() => {
     // setSlug(createSlug(title));
-    console.log(id, "id");
-    console.log(onEdit, "onEdit");
+    // console.log(id, "id");
+    // console.log(onEdit, "onEdit");
     if (!edit) {
       setId(null);
       setOnEdit(false);
@@ -62,7 +62,7 @@ const Photos = () => {
     if (onEdit && edit) {
       axios.get(`${API_URL}/photo?id=${id}`).then((item) => {
         let data = item.data[0];
-        console.log("dataedit", data);
+        // console.log("dataedit", data);
         setTitle(data.title);
         setEditImgs(data?.images);
         setEditPriority(data?.periority);
@@ -74,12 +74,12 @@ const Photos = () => {
   }, [onEdit]);
 
   const onFilter = () => {
-    console.log(filterItem, filterItemResponse);
+    // console.log(filterItem, filterItemResponse);
     axios
       .get(`${API_URL}/photo?${filterItem}=${filterItemResponse}`)
       .then((poll) => {
         setAllPhoto(poll.data);
-        console.log(poll.data);
+        // console.log(poll.data);
       })
       .catch((err) => {
         console.log(err);
@@ -106,7 +106,7 @@ const Photos = () => {
   };
 
   const [thumbnail, setThumbnail] = useState({});
-  console.log("imgUrl,imgTexts,thumbnail : ", imgUrl, imgTexts, thumbnail);
+  // console.log("imgUrl,imgTexts,thumbnail : ", imgUrl, imgTexts, thumbnail);
 
   // Set initial state based on data length
   useEffect(() => {
@@ -158,7 +158,7 @@ const Photos = () => {
         return imageResponse.data.image;
       });
       const images = await Promise.all(imageUploadPromises);
-      console.log("uploaded images", images);
+      // console.log("uploaded images", images);
 
       // // Step 2: Create Story
       // const storyResponse = await axios.post(`${API_URL}/photo`, {
@@ -166,7 +166,7 @@ const Photos = () => {
       //   image: imageResponse.data.image,
       // });
       // Step 2: Create Story
-      console.log("title,priotity : ", title, priority);
+      // console.log("title,priotity : ", title, priority);
       const storyResponse = await axios.post(`${API_URL}/photo`, {
         title,
         image: images, // Store array of image URLs
@@ -176,7 +176,7 @@ const Photos = () => {
         periority: priority,
       });
 
-      console.log("story upload res : ", storyResponse);
+      // console.log("story upload res : ", storyResponse);
       message.success("Your Photo was successfully uploaded");
       setIsVerifyModalOpen(false);
       fetchAllPhotos();
@@ -214,17 +214,17 @@ const Photos = () => {
         const imageUploadPromises = imgs.map(async (img) => {
           let formData = new FormData();
           formData.append("file", img, img.name);
-          console.log("formdata in edit photos: ", formData);
+          // console.log("formdata in edit photos: ", formData);
 
           // Upload each image and get the response
           const imageResponse = await axios.post(`${API_URL}/image`, formData);
-          console.log("imageResponse in edit photos: ", imageResponse);
+          // console.log("imageResponse in edit photos: ", imageResponse);
           return imageResponse.data.image; // Return the uploaded image URL
         });
 
         // Wait for all image uploads to finish
         const images = await Promise.all(imageUploadPromises);
-        console.log("images in Photos in edit:", images);
+        // console.log("images in Photos in edit:", images);
 
         // Combine the uploaded images with their corresponding texts and URLs
         imgWithText = images?.map((img, index) => ({
@@ -232,19 +232,19 @@ const Photos = () => {
           text: imgTexts[index],
           url: imgUrl[index],
         }));
-        console.log("imgWithText in Photos in edit:", imgWithText);
+        // console.log("imgWithText in Photos in edit:", imgWithText);
         setNewImgs(imgWithText); // Set the new images with text
       }
 
       // Step 2: Update Story
-      console.log(
-        "imgWithText:",
-        imgWithText,
-        "title:",
-        title,
-        "editPhoto:",
-        editPhoto
-      );
+      // console.log(
+      //   "imgWithText:",
+      //   imgWithText,
+      //   "title:",
+      //   title,
+      //   "editPhoto:",
+      //   editPhoto
+      // );
 
       // Send the update request with the new images and capture the response
       const res = await axios.put(`${API_URL}/photo/${id}`, {
@@ -253,7 +253,7 @@ const Photos = () => {
         images: [...editImgs, ...imgWithText], // Merge existing and new images
       });
 
-      console.log("Photos Edit Response", res); // Now you can log the response
+      // console.log("Photos Edit Response", res); // Now you can log the response
       message.success("Your Photo was successfully updated");
       setIsVerifyModalOpen(false);
       fetchAllPhotos();
@@ -276,7 +276,7 @@ const Photos = () => {
     setLoading(false); // Ensure loading is false at the end
   };
 
-  console.log("priority : ", priority);
+  // console.log("priority : ", priority);
 
   // .then((res) => {
   //   console.log("storyEditResponse", res);
@@ -306,7 +306,7 @@ const Photos = () => {
       // Fetch comments from your API
       const response = await fetch(`${API_URL}/photo`);
       const data = await response.json();
-      console.log("images from res : ", data);
+      // console.log("images from res : ", data);
       setAllPhoto(data);
     } catch (error) {
       console.error("Error fetching photo:", error);
@@ -334,7 +334,7 @@ const Photos = () => {
   };
 
   const ShowDeleteModal = (photo) => {
-    console.log(photo);
+    // console.log(photo);
     setCurrentPhoto(photo);
     setIsModalDeleteOpen(true);
   };
@@ -406,7 +406,7 @@ const Photos = () => {
       key: "images",
       // render: (_, { images }) => {
       render: (images) => {
-        console.log("image in image section : ", images);
+        // console.log("image in image section : ", images);
         return (
           <div
             style={{
@@ -693,7 +693,7 @@ const Photos = () => {
                     </div>
                   </div>
                 ))}
-              {console.log("edit images in photos : ", editImgs)}
+              {/* {console.log("edit images in photos : ", editImgs)} */}
               {editImgs?.length > 0 &&
                 editImgs.map((img, index) => (
                   <div

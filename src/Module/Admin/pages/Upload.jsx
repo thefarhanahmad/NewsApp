@@ -57,7 +57,7 @@ const Upload = () => {
   // const onNameChange = (event) => {
   //   setName(event.target.value);
   // };
-  console.log("tag name : ", name);
+  // console.log("tag name : ", name);
   // Handle input change for new tag
   const onNameChange = (e) => {
     setName(e.target.value);
@@ -106,7 +106,7 @@ const Upload = () => {
         }
       );
 
-      console.log("Tag added successfully:", response);
+      // console.log("Tag added successfully:", response);
 
       // Update the options with the new tag received from the API
       const newTag = {
@@ -142,36 +142,36 @@ const Upload = () => {
     value: item,
   }));
 
-  console.log(
-    "form data in upload article : ",
-    title,
-    desc,
-    "topic is  :",
-    Topic,
-    keyword,
-    Language,
-    reported,
-    publish,
-    newType,
-    // image: image.data.image,
-    type,
-    subCategory,
-    slug,
-    comment,
-    priority,
-    slider
-  );
+  // console.log(
+  //   "form data in upload article : ",
+  //   title,
+  //   desc,
+  //   "topic is  :",
+  //   Topic,
+  //   keyword,
+  //   Language,
+  //   reported,
+  //   publish,
+  //   newType,
+  //   // image: image.data.image,
+  //   type,
+  //   subCategory,
+  //   slug,
+  //   comment,
+  //   priority,
+  //   slider
+  // );
   useEffect(() => {
     // setSlug(createSlug(title));
-    console.log(id, "id");
-    console.log(onEdit, "onEdit");
+    // console.log(id, "id");
+    // console.log(onEdit, "onEdit");
     if (!edit) {
       setOnEdit(false);
     }
     if (onEdit && edit) {
       axios.get(`${API_URL}/article?id=${id}`).then((item) => {
         let data = item.data[0];
-        console.log("data", data);
+        // console.log("data", data);
         setTitle(data.title);
         setTopic(data.topic);
         setdesc(data.discription);
@@ -231,7 +231,7 @@ const Upload = () => {
         setpublish(user.data[0].email);
         setRole(user.data[0].role);
         setuserCategoryData(user.data[0].selectedKeywords || []);
-        console.log("usercategoryData", usercategoryData);
+        // console.log("usercategoryData", usercategoryData);
       })
       .catch((err) => {
         console.log(err);
@@ -338,10 +338,10 @@ const Upload = () => {
     setLoading(true);
     let formdata = new FormData();
     formdata.append("file", img, img.name);
-    console.log(formdata);
+    // console.log(formdata);
 
     axios.post(`${API_URL}/image`, formdata).then(async (image) => {
-      console.log("upload image response ", image);
+      // console.log("upload image response ", image);
       await axios
         .post(`${API_URL}/article/${localStorage.getItem("id")}`, {
           title: title,
@@ -361,26 +361,26 @@ const Upload = () => {
           slider: slider,
         })
         .then((data) => {
-          console.log("upload article response : ", data);
-          console.log(data.data);
-          console.log(
-            {
-              title: title,
-              discription: desc,
-              topic: Topic,
-              keyWord: keyword,
-              language: Language,
-              reportedBy: reported,
-              publishBy: publish,
-              newsType: newType,
-              image: image.data.image,
-              subCategory: subCategory,
-              comment: comment,
-              priority: priority,
-              slider: slider,
-            },
-            "dddata"
-          );
+          // console.log("upload article response : ", data);
+          // console.log(data.data);
+          // console.log(
+          //   {
+          //     title: title,
+          //     discription: desc,
+          //     topic: Topic,
+          //     keyWord: keyword,
+          //     language: Language,
+          //     reportedBy: reported,
+          //     publishBy: publish,
+          //     newsType: newType,
+          //     image: image.data.image,
+          //     subCategory: subCategory,
+          //     comment: comment,
+          //     priority: priority,
+          //     slider: slider,
+          //   },
+          //   "dddata"
+          // );
           message.success("Your article was successfully Uploaded");
           setTitle("");
           setTopic("");
@@ -416,11 +416,11 @@ const Upload = () => {
     if (Update) {
       let formdata = new FormData();
       formdata.append("file", img, img.name);
-      console.log(formdata);
+      // console.log(formdata);
 
       axios.post(`${API_URL}/image`, formdata).then(async (image) => {
         setdataImage(image.data.image);
-        console.log(image.data.image);
+        // console.log(image.data.image);
         await axios
           .put(`${API_URL}/article/${id}`, {
             title: title,
@@ -440,7 +440,7 @@ const Upload = () => {
             slider: slider,
           })
           .then((data) => {
-            console.log(data.data);
+            // console.log(data.data);
             message.success("Your article was successfully Edit");
             setTitle("");
             setTopic("");
@@ -487,7 +487,7 @@ const Upload = () => {
           slider: slider,
         })
         .then((data) => {
-          console.log(data.data);
+          // console.log(data.data);
           message.success("Your article was successfully Edit");
           setTitle("");
           setTopic("");
@@ -659,7 +659,7 @@ const Upload = () => {
                   id="file-name"
                   onChange={(e) => {
                     setImg(e.target.files[0]);
-                    console.log(e.target.files[0]);
+                    // console.log(e.target.files[0]);
                     setUpdate(true);
                   }}
                   style={{ display: "none", overflow: "hidden" }}
@@ -918,7 +918,7 @@ const Upload = () => {
                 <Input readOnly placeholder="Publish By" value={publish} />
                 <div style={{ marginBottom: "20px" }}></div>
               </Col>
-              {console.log("comment", comment)}
+              {/* {console.log("comment", comment)} */}
               <Col span={6}>
                 Comment
                 <Switch
@@ -932,7 +932,7 @@ const Upload = () => {
                   }}
                 />
               </Col>
-              {console.log("priority", priority)}
+              {/* {console.log("priority", priority)} */}
               <Col span={6}>
                 priority
                 <Switch
@@ -946,7 +946,7 @@ const Upload = () => {
                   }}
                 />
               </Col>
-              {console.log("slider", slider)}
+              {/* {console.log("slider", slider)} */}
               <Col span={6}>
                 slider
                 <Switch

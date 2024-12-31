@@ -30,7 +30,7 @@ const AdminTable = () => {
     try {
       axios.get(`${API_URL}/user`).then((users) => {
         setUserData(users.data);
-        console.log(users);
+        // console.log(users);
       });
     } catch (error) {
       console.log("error in getting all users : ", error);
@@ -47,18 +47,18 @@ const AdminTable = () => {
   // console.log("users in user dashboard  : ", userData);
 
   const showModal = (user) => {
-    console.log(user);
+    // console.log(user);
     setCurrentUser(user);
     setIsModalOpen(true);
   };
   const showVerifyModal = (user) => {
-    console.log(user);
+    // console.log(user);
     setCurrentUser(user);
     setIsVerifyModalOpen(true);
   };
 
   const ShowDeleteModal = (user) => {
-    console.log(user);
+    // console.log(user);
     setCurrentUser(user);
     setIsModalDeleteOpen(true);
   };
@@ -102,7 +102,7 @@ const AdminTable = () => {
         id: currentUser._id,
       })
       .then((data) => {
-        console.log("verify user res : ", data);
+        // console.log("verify user res : ", data);
         message.success("Successfully register Changed");
         getAllUsers();
       })
@@ -133,12 +133,12 @@ const AdminTable = () => {
   };
 
   const onFilter = () => {
-    console.log(filterItem, filterItemResponse);
+    // console.log(filterItem, filterItemResponse);
     axios
       .get(`${API_URL}/user?${filterItem}=${filterItemResponse}`)
       .then((users) => {
         setUserData(users.data);
-        console.log(users);
+        // console.log(users);
       })
       .catch((err) => {
         console.log(err);

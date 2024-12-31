@@ -13,7 +13,7 @@ const ForgotPassword = () => {
     axios
       .post(`${API_URL}/forgot`, { email })
       .then((data) => {
-        console.log("forget password response : ", data);
+        // console.log("forget password response : ", data);
         localStorage.setItem("id", data.data._id);
         localStorage.setItem("forgot", "true");
         navigate(

@@ -38,7 +38,7 @@ const ItemPage = () => {
     const fetchStories = async () => {
       try {
         const response = await axios.get(`${API_URL}/story`);
-        console.log("api response for visual stories : ", response);
+        // console.log("api response for visual stories : ", response);
         setStories(response.data);
       } catch (error) {
         console.error("Error fetching stories:", error);
@@ -62,11 +62,11 @@ const ItemPage = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
-  console.log("i am stand on items2 page");
+  // console.log("i am stand on items2 page");
   async function onClickAd(id) {
     try {
       const response = await axios.post(`${API_URL}/ads/click`, { id });
-      console.log("updated Ad", response);
+      // console.log("updated Ad", response);
       // this function works for all ads so handle it respectivly
     } catch (error) {
       console.error("Error updating ads:", error);
@@ -79,9 +79,9 @@ const ItemPage = () => {
   const { loading, setLoading, effect } = useContext(Loading);
   const query = new URLSearchParams(search);
   const navigation = useNavigate();
-  console.log(query.get("item"));
+  // console.log(query.get("item"));
 
-  console.log("data in item page  :", Data);
+  // console.log("data in item page  :", Data);
 
   useEffect(() => {
     setIsLoad(true);
@@ -107,7 +107,7 @@ const ItemPage = () => {
           }`
         )
         .then((data) => {
-          console.log("DATA", data);
+          // console.log("DATA", data);
 
           // Filter to ensure only articles with status 'online'
           const onlineArticles = data?.data.filter(

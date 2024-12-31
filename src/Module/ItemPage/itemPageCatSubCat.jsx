@@ -68,7 +68,7 @@ const ItemPage = () => {
   async function onClickAd(id) {
     try {
       const response = await axios.post(`${API_URL}/ads/click`, { id });
-      console.log("updated Ad", response);
+      // console.log("updated Ad", response);
       // this function works for all ads so handle it respectivly
     } catch (error) {
       console.error("Error updating ads:", error);
@@ -82,12 +82,12 @@ const ItemPage = () => {
   const [videos, setVideos] = useState([]);
   const query = new URLSearchParams(search);
   const navigation = useNavigate();
-  console.log(query.get("item"));
+  // console.log(query.get("item"));
   const queryParams = new URLSearchParams(window.location.search);
   const newsType = queryParams.get("newsType"); // 'video' or another value
   const [thumbnailUrl, setThumbnailUrl] = useState("");
-  console.log("data in itemconcat page : ", Data);
-  console.log("newstype in itemconcat page : ", newsType);
+  // console.log("data in itemconcat page : ", Data);
+  // console.log("newstype in itemconcat page : ", newsType);
   useEffect(() => {
     if (newsType === "videos") {
       // Function to extract video ID from YouTube URL
@@ -100,9 +100,9 @@ const ItemPage = () => {
         axios
           .get(`${API_URL}/video`)
           .then((data) => {
-            console.log("video res in itempage : ", data);
+            // console.log("video res in itempage : ", data);
             const activeVdos = data.data.filter((data) => data.status);
-            console.log("active videos : ", activeVdos);
+            // console.log("active videos : ", activeVdos);
             setData(activeVdos);
             setIsLoad(false);
           })
@@ -118,7 +118,7 @@ const ItemPage = () => {
           //   setIsLoad(false);
           .get(`${API_URL}/article?newsType=${query.get("newsType")}`)
           .then((data) => {
-            console.log("data res in itempage: ", data);
+            // console.log("data res in itempage: ", data);
 
             // Filter to ensure only articles with status 'online'
             const onlineArticles = data?.data.filter(
@@ -135,7 +135,7 @@ const ItemPage = () => {
       }
     }, 2000);
   }, [newsType]);
-  console.log("news type itempage2 : ", newsType);
+  // console.log("news type itempage2 : ", newsType);
 
   return (
     <>
@@ -321,7 +321,7 @@ const ItemPage = () => {
                 }
 
                 // Log the item data for debugging
-                console.log("data in mapped item: ", item);
+                // console.log("data in mapped item: ", item);
 
                 // Helper function to format date
                 const formatDate = (dateString) => {

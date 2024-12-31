@@ -11,7 +11,7 @@ const Report = ({ isAdmin }) => {
     axios
       .get(`${API_URL}/report`)
       .then((res) => {
-        console.log("report data res : ", res);
+        // console.log("report data res : ", res);
         setData(res.data);
       })
       .catch((err) => {

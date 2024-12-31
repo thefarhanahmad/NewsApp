@@ -18,7 +18,7 @@ const StoriesCard = ({ text, image, OnPress, id, wid, date }) => {
           />
         </div>
         <div className=" flex flex-col  w-[55%] h-full">
-          <span className="stories-card-text w-full">
+          <span className="stories-card-text font-bold w-full">
             {text ||
               '"India Have Better...": Sri Lanka Captain Honest World Cup Admission'}
           </span>

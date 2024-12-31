@@ -10,7 +10,7 @@ function LatesetNewsSection({ currentVideoId }) {
   const { t } = useTranslation();
   const [sliderArticles, setSliderArticles] = useState([]);
   const [topStories, setTopStories] = useState([]); // Initialize state as an empty array
-  console.log("top stories : ", topStories);
+  // console.log("top stories : ", topStories);
   useEffect(() => {
     fetchLatestVidData();
   }, []);
@@ -21,7 +21,7 @@ function LatesetNewsSection({ currentVideoId }) {
         `${API_URL}/article?pagenation=true&limit=8&type=img&status=online&slider=true`
       );
 
-      console.log("slider articles nk", response.data);
+      // console.log("slider articles nk", response.data);
 
       // Filter to ensure only articles with status 'online'
       const onlineArticles = response?.data.filter(
@@ -41,7 +41,7 @@ function LatesetNewsSection({ currentVideoId }) {
         `${API_URL}/article?pagenation=true&limit=10&type=img&newsType=topStories&status=online&priority=true`
       );
 
-      console.log("response topstorieee: ", response);
+      // console.log("response topstorieee: ", response);
       // Filter out articles that are already present in sliderArticles
       const uniqueTopStories = response.data.filter(
         (article) =>
@@ -50,7 +50,7 @@ function LatesetNewsSection({ currentVideoId }) {
           )
       );
 
-      console.log("Top stories:", response.data, uniqueTopStories);
+      // console.log("Top stories:", response.data, uniqueTopStories);
       setTopStories(uniqueTopStories); // Correct state setter (consistent camelCase)
     } catch (error) {
       console.error("Error fetching top stories:", error);

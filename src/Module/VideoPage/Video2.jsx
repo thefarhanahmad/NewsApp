@@ -104,7 +104,7 @@ const VideoPage2 = () => {
   const query = new URLSearchParams(search);
   const [vdoData, setVideoData] = useState("");
   const navigation = useNavigate();
-  console.log("data in videos page : ", data);
+  // console.log("data in videos page : ", data);
   // const formatDatetime = (datetimeStr) => {
   //   if (!datetimeStr) return "12|08|2023 12:15"; // Default date if no datetime string is provided
 
@@ -163,7 +163,7 @@ const VideoPage2 = () => {
 
   const [topStories, settopStories] = useState();
 
-  console.log("data", storyId);
+  // console.log("data", storyId);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -182,7 +182,7 @@ const VideoPage2 = () => {
 
   useEffect(() => {
     axios.get(`${API_URL}/comment?id=${query.get("id")}`).then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
       setData2(res.data);
     });
   }, []);
@@ -229,17 +229,17 @@ const VideoPage2 = () => {
 
   // fetch video details
 
-  console.log("vdo data m : ", vdoData);
+  // console.log("vdo data m : ", vdoData);
 
   const location = useLocation();
   useEffect(() => {
     const fetchVideoData = async () => {
       const queryParams = new URLSearchParams(location.search);
       const id = queryParams.get("id");
-      console.log("id from params : ", id);
+      // console.log("id from params : ", id);
       try {
         const res = await axios.get(`${API_URL}/video/${id}`);
-        console.log("video find by id res : ", res.data.data);
+        // console.log("video find by id res : ", res.data.data);
         const videoData = res.data.data;
         if (videoData.status === false) {
           setVideoData({

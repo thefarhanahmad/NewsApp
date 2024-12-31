@@ -33,13 +33,13 @@ const VisualStories = () => {
         <div className="main-page-visual-story-Ad-container ">
           <div className="main-page-visual-story-container vsfw">
             {data.map((story) => {
-              console.log("story: ", story);
+              // console.log("story: ", story);
 
               // Find the image with albumPeriority: true
               const prioritizedImage = story.images.find(
                 (image) => image.albumPeriority === true
               );
-              console.log("prioritized: ", prioritizedImage);
+              // console.log("prioritized: ", prioritizedImage);
 
               // If prioritizedImage is found, use it; otherwise, fallback to the 0th image
               const displayImage = prioritizedImage

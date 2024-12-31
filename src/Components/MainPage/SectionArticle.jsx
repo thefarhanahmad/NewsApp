@@ -12,7 +12,7 @@ import { Slide } from "react-slideshow-image";
 import VdoThumb from "../common/VdoThumb";
 
 const AllSectionArticle = ({ data }) => {
-  console.log("all categories data from props : ", data);
+  // console.log("all categories data from props : ", data);
   return (
     <>
       {data
@@ -47,7 +47,7 @@ const SingleArticle = ({ category, imgData, vidData }) => {
             <div className="main-page-technology-first-column">
               <div className="slide-container">
                 <Slide indicators={true}>
-                  {console.log("img data in slider : ", imgData)}
+                  {/* {console.log("img data in slider : ", imgData)} */}
                   {imgData.map((element) => {
                     let title = element.title
                       ?.replace(/[%.?]/g, "")

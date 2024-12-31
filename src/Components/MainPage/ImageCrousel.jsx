@@ -14,7 +14,7 @@ const ImageCrousel = () => {
     axios
       .get(`${API_URL}/photo/${id}`)
       .then((response) => {
-        console.log("API Response:", response.data);
+        // console.log("API Response:", response.data);
         setPhoto(response.data.images || []);
       })
       .catch((error) => {

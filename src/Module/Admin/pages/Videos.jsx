@@ -76,12 +76,12 @@ const Video = () => {
   };
 
   const onFilter = () => {
-    console.log(filterItem, filterItemResponse);
+    // console.log(filterItem, filterItemResponse);
     axios
       .get(`${API_URL}/video?${filterItem}=${filterItemResponse}`)
       .then((poll) => {
         setAllPhoto(poll.data);
-        console.log(poll.data);
+        // console.log(poll.data);
       })
       .catch((err) => {
         console.log(err);
@@ -97,7 +97,7 @@ const Video = () => {
   useEffect(() => {
     fetchAllPhotos();
   }, []);
-  console.log("reportedby jn : ", reported);
+  // console.log("reportedby jn : ", reported);
   const showVerifyModal = () => {
     setIsVerifyModalOpen(true);
     document.getElementById("preview").innerHTML = photo;
@@ -127,7 +127,7 @@ const Video = () => {
       if (img) {
         let formData = new FormData();
         formData.append("file", img, img.name);
-        console.log("formData", formData);
+        // console.log("formData", formData);
         imageResponse = await axios.post(`${API_URL}/image`, formData);
       }
 
@@ -169,16 +169,16 @@ const Video = () => {
       // Fetch comments from your API
       const response = await fetch(`${API_URL}/video`);
       const data = await response.json();
-      console.log("get all vdo res  : ", data);
+      // console.log("get all vdo res  : ", data);
       setAllPhoto(data);
     } catch (error) {
       console.error("Error fetching video:", error);
       message.error("Failed to fetch video. Please try again.");
     }
   }
-  console.log("all vdos in page : ", allPhotos);
+  // console.log("all vdos in page : ", allPhotos);
   const ShowDeleteModal = (photo) => {
-    console.log(photo);
+    // console.log(photo);
     setCurrentPhoto(photo);
     setIsModalDeleteOpen(true);
   };
@@ -250,7 +250,7 @@ const Video = () => {
       dataIndex: "image", // Assuming 'likes' is the property representing the likes
       key: "image",
       render: (_, { image }) => {
-        console.log(image);
+        // console.log(image);
 
         return image ? (
           <video

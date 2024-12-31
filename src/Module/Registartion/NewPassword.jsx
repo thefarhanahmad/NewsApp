@@ -25,7 +25,7 @@ const NewPassword = () => {
         id: _id,
         password: Password,
       });
-      console.log("New password forgot response : ", response);
+      // console.log("New password forgot response : ", response);
       localStorage.removeItem("id");
       localStorage.removeItem("forgot");
       navigate(`/`);

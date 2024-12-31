@@ -63,7 +63,7 @@ const Ads = () => {
     fetchAds();
   }, []);
 
-  console.log("userData means ad : ", userData);
+  // console.log("userData means ad : ", userData);
 
   const onUpload = () => {
     setLoading(true);
@@ -102,7 +102,7 @@ const Ads = () => {
     });
     fetchAds();
   };
-  console.log("side of advdvvd : ", side);
+  // console.log("side of advdvvd : ", side);
   const handleDeleteAd = async (id) => {
     try {
       const res = await axios.delete(`${API_URL}/ads_delete/${id}`);

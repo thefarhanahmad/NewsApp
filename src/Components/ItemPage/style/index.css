@@ -14,7 +14,7 @@
 .item-page-card-main-conatiner-img > img {
   transform: scale(0.9, 0.9);
   height: 100%;
-  /* object-fit: contain; */
+  object-fit: contain;
 }
 
 .item-page-card-main-conatiner {

@@ -32,7 +32,7 @@ const MobileFooter = () => {
       .catch((error) => console.error("Error fetching data:", error));
   }, [API_URL]);
 
-  console.log("main object in mobile footer  : ", mainObject);
+  // console.log("main object in mobile footer  : ", mainObject);
 
   return (
     <div className="accordin-main-container-area">
