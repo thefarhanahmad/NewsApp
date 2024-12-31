@@ -253,59 +253,6 @@ const ItemPage = () => {
                 </div>
               </>
             ) : Data.length > 0 ? (
-              // Data?.map((item) => {
-              //   let date = new Date(item.date);
-              //   date = JSON.stringify(date).split("T")[0].split('"')[1];
-              //   let title = item.title
-              //     .replace(/[/\%.?]/g, "")
-              //     .split(" ")
-              //     .join("-");
-              //   if (item.slug) {
-              //     title = item.slug;
-              //   }
-
-              //   console.log("data in mapped item: ", item);
-              //   // Function to format the date
-              //   const formatDate = (dateString) => {
-              //     const date = new Date(dateString);
-              //     return date.toISOString().split("T")[0];
-              //   };
-
-              //   const link = item?.link;
-              //   // Function to extract video ID from a YouTube URL
-              //   const extractVideoId = (link) => {
-              //     const regex =
-              //       /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/;
-              //     const match = url.match(regex);
-              //     return match ? match[1] : null;
-              //   };
-
-              //   // Generate the thumbnail URL using the video ID
-              //   const generateThumbnailUrl = (videoId) => {
-              //     return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-              //   };
-
-              //   return (
-              //     <ItemPageCard1
-              //       onPress={() => {
-              //         if (item.type === "img") {
-              //           navigation(`/details/${title}?id=${item._id}`);
-              //         } else {
-              //           navigation(`/videos/${title}?id=${item._id}`);
-              //         }
-              //       }}
-              //       title={item?.title}
-              //       discription={item?.discription}
-              //       image={
-              //         item?.image
-              //           ? item?.image
-              //           : "yt vido thumbnail"
-              //       }
-              //       date={date ? date : `${formatDate(item?.createdAt)}`}
-              //       type={item.type}
-              //     />
-              //   );
-              // })
               Data?.map((item, index) => {
                 // Format the date
                 let date = new Date(item.date ? item.date : item.createdAt);
@@ -339,7 +286,7 @@ const ItemPage = () => {
 
                 // Generate the thumbnail URL using the video ID
                 const generateThumbnailUrl = (videoId) => {
-                  return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+                  return `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
                 };
 
                 // Check if the link is a YouTube video, and extract the thumbnail if so

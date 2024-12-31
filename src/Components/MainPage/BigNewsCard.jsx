@@ -17,7 +17,7 @@ const BigNewsCard = ({ text, image, OnPress, id, wid, date }) => {
             className="w-full h-[100px] object-fill"
           />
         </div>
-        <div className=" flex flex-col w-full h-full">
+        <div className=" flex flex-col w-full font-bold h-full">
           <span className="stories-card-text  w-full">
             {text.length > 21
               ? text.substring(0, 22) + "..."
