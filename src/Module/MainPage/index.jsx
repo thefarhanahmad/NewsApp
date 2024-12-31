@@ -1815,10 +1815,10 @@ const MainPage = () => {
           <div
             id="LatestNews"
             // style={{ backgroundColor: "red" }}
-            className="news-main-side-left"
+            className="news-main-side-left  flex flex-col pt-3 p-6"
           >
             <div className="main-news-heading">{t("ln")}</div>
-            <div className="news-cards-area container3">
+            <div className="news-cards-area container3  w-full">
               {latestNews.slice(0, 6).map((data, index) => {
                 let title = data?.title
                   ?.replace(/[/\%.?]/g, "")
@@ -1830,10 +1830,7 @@ const MainPage = () => {
                 // Check if title is defined before rendering the NewsCard
                 if (title) {
                   return (
-                    <div
-                      className="news-card-items-area latesteNewsWebVersionCards"
-                      key={data?._id}
-                    >
+                    <div className=" w-1/2" key={data?._id}>
                       <NewsCard
                         data={data}
                         onPress={() =>

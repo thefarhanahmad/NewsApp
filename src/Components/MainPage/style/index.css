@@ -310,7 +310,7 @@
   word-wrap: break-word;
   text-align: start;
   line-height: 1.3em;
-  max-height: calc(4 * 1.3em);
+  max-height: calc(5 * 1.3em);
 }
 
 .news-card-mian-area {

@@ -34,7 +34,7 @@ const MiddleItemsCard = ({ text, image, OnPress, id, wid, date }) => {
   return (
     <div
       onClick={OnPress}
-      className="stories-card mobileMainPageStroyCard  flex w-full"
+      className="stories-card mobileMainPageStroyCard  flex w-full h-full"
       id={id}
       style={{ cursor: "pointer" }}
     >
@@ -42,15 +42,15 @@ const MiddleItemsCard = ({ text, image, OnPress, id, wid, date }) => {
         <img
           src={image ? image : img}
           alt=""
-          className="w-full h-[110px] object-fill"
+          className="w-full h-[129px] object-fill"
         />
       </div>
-      <div className=" flex flex-col  w-[55%] h-full">
-        <span className="stories-card-text-4-line  w-full">
+      <div className=" flex flex-col  w-[55%]  h-full">
+        <span className="stories-card-text-4-line h-full  w-full">
           {text ||
             '"India Have Better...": Sri Lanka Captain Honest World Cup Admission'}
         </span>
-        <span className="text-red-600 pl-[10px]">{date ? date : ""}</span>
+        {/* <span className="text-red-600 pl-[10px]">{date ? date : ""}</span> */}
       </div>
     </div>
   );
@@ -181,7 +181,7 @@ const SingleArticle = ({ category, imgData, vidData }) => {
               </div>
 
               {/* Center portion */}
-              <div className=" w-1/2">
+              <div className=" w-1/2 ">
                 <div className="flex flex-col gap-1">
                   {imgData.slice(2, 5).map((element, index) => {
                     let title = element.title
@@ -218,7 +218,7 @@ const SingleArticle = ({ category, imgData, vidData }) => {
                         OnPress={() =>
                           navigation(`/details/${title}?id=${element?._id}`)
                         }
-                        wid="w-[50%]"
+                        wid="w-[55%]"
                         image={element?.image}
                         text={element?.title}
                       />
