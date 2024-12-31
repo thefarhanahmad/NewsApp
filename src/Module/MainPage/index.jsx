@@ -1819,7 +1819,7 @@ const MainPage = () => {
           >
             <div className="main-news-heading">{t("ln")}</div>
             <div className="news-cards-area container3">
-              {latestNews.slice(0, 6).map((data) => {
+              {latestNews.slice(0, 6).map((data, index) => {
                 let title = data?.title
                   ?.replace(/[/\%.?]/g, "")
                   .split(" ")
@@ -1841,6 +1841,25 @@ const MainPage = () => {
                         }
                       />
                     </div>
+                    // <Link
+                    //   key={data._id}
+                    //   style={{ marginTop: "10px" }}
+                    //   className="cat-list"
+                    //   to={`details/${title}?id=${data._id}`}
+                    // >
+                    //   <ImageCard
+                    //     style={{
+                    //       fontSize: "15px",
+                    //       fontWeight: 400,
+                    //       height: "auto",
+                    //       borderRadius: 0,
+                    //     }}
+                    //     height="110px"
+                    //     img={data.image}
+                    //     dis={false}
+                    //     text={data.title}
+                    //   />
+                    // </Link>
                   );
                 } else {
                   // Handle the case where title is undefined or null

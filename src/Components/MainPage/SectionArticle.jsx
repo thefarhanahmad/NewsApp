@@ -1,6 +1,6 @@
 import { FaGreaterThan } from "react-icons/fa6";
 import ImageCard from "./ImageCard";
-import StoriesCard from "./StoriesCard";
+// import StoriesCard from "./StoriesCard";
 import VideoCard from "./VideoCard";
 
 import "slick-carousel/slick/slick.css";
@@ -27,6 +27,32 @@ const AllSectionArticle = ({ data }) => {
           ))
         : null}
     </>
+  );
+};
+
+const MiddleItemsCard = ({ text, image, OnPress, id, wid, date }) => {
+  return (
+    <div
+      onClick={OnPress}
+      className="stories-card mobileMainPageStroyCard  flex w-full"
+      id={id}
+      style={{ cursor: "pointer" }}
+    >
+      <div className={`${wid}`}>
+        <img
+          src={image ? image : img}
+          alt=""
+          className="w-full h-[110px] object-fill"
+        />
+      </div>
+      <div className=" flex flex-col  w-[55%] h-full">
+        <span className="stories-card-text-4-line  w-full">
+          {text ||
+            '"India Have Better...": Sri Lanka Captain Honest World Cup Admission'}
+        </span>
+        <span className="text-red-600 pl-[10px]">{date ? date : ""}</span>
+      </div>
+    </div>
   );
 };
 
@@ -112,7 +138,7 @@ const SingleArticle = ({ category, imgData, vidData }) => {
       </div>
 
       {/* Laptop categories */}
-      <div className="main-page-technology-area flex flex-col desktok-page-category ">
+      <div className="main-page-technology-area flex flex-col desktok-page-category  ">
         <div className="all-technology-cards" style={{ width: "100%" }}>
           {/* Left Portion */}
           {imgData && imgData.length > 0 && (
@@ -157,7 +183,7 @@ const SingleArticle = ({ category, imgData, vidData }) => {
               {/* Center portion */}
               <div className=" w-1/2">
                 <div className="flex flex-col gap-1">
-                  {imgData.slice(2, 5).map((element) => {
+                  {imgData.slice(2, 5).map((element, index) => {
                     let title = element.title
                       ?.replace(/[%.?]/g, "")
                       .split(" ")
@@ -167,25 +193,35 @@ const SingleArticle = ({ category, imgData, vidData }) => {
                     }
 
                     return (
-                      <Link
-                        key={element._id}
-                        style={{ marginTop: "10px" }}
-                        className="cat-list"
-                        to={`details/${title}?id=${element._id}`}
-                      >
-                        <ImageCard
-                          style={{
-                            fontSize: "15px",
-                            fontWeight: 400,
-                            height: "auto",
-                            borderRadius: 0,
-                          }}
-                          height="110px"
-                          img={element.image}
-                          dis={false}
-                          text={element.title}
-                        />
-                      </Link>
+                      // <Link
+                      //   key={element._id}
+                      //   style={{ marginTop: "10px" }}
+                      //   className="cat-list"
+                      //   to={`details/${title}?id=${element._id}`}
+                      // >
+                      //   <ImageCard
+                      //     style={{
+                      //       fontSize: "15px",
+                      //       fontWeight: 400,
+                      //       height: "auto",
+                      //       borderRadius: 0,
+                      //     }}
+                      //     height="110px"
+                      //     img={element.image}
+                      //     dis={false}
+                      //     text={element.title}
+                      //   />
+                      // </Link>
+                      <MiddleItemsCard
+                        data={element}
+                        key={index}
+                        OnPress={() =>
+                          navigation(`/details/${title}?id=${element?._id}`)
+                        }
+                        wid="w-[50%]"
+                        image={element?.image}
+                        text={element?.title}
+                      />
                     );
                   })}
                 </div>
@@ -215,7 +251,7 @@ const SingleArticle = ({ category, imgData, vidData }) => {
 
             {/* Image section */}
             {imgData && imgData.length > 0 && (
-              <div className="flex flex-col gap-2 w-full">
+              <div className="flex md:ml-10  flex-col gap-2 w-full">
                 {imgData.slice(5, 7).map((element) => {
                   let title = element.title
                     ?.replace(/[%.?]/g, "")
@@ -236,6 +272,8 @@ const SingleArticle = ({ category, imgData, vidData }) => {
                         style={{
                           fontSize: "15px",
                           fontWeight: 400,
+                          width: "100%",
+
                           height: "auto",
                           borderRadius: 0,
                         }}
