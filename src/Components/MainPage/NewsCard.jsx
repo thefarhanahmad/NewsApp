@@ -4,10 +4,14 @@ import img from "../../assets/Rectangle 73.png";
 const NewsCard = ({ data, onPress }) => {
   return (
     <div
-      className="news-card-mian-area h-[230px] overflow-hidden "
+      className="news-card-mian-area h-[230px] overflow-hidden rounded"
       onClick={onPress}
     >
-      <img src={data ? data?.image : img} className="rounded" alt="" />
+      <img
+        src={data ? data?.image : img}
+        className="rounded overflow-hidden"
+        alt=""
+      />
       <div className="news-card-main-area-text stories-card-text w-full">
         {data
           ? data?.title
