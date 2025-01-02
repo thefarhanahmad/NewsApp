@@ -83,7 +83,7 @@ body {
     padding: 0;
   }
   .main-component-group {
-    padding: 20px 8px !important;
+    padding: 10px 8px 20px 8px !important;
     flex-direction: column-reverse !important;
   }
 

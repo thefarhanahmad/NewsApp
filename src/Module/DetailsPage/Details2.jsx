@@ -318,7 +318,6 @@ const DetailsPage2 = () => {
       <Helmet>
         <title>{title}</title>
         <meta name="description" content={description} />
-
         <meta name="url" content={shareurl} />
         <meta name="description" content={description} />
         <meta property="og:type" content="article" />

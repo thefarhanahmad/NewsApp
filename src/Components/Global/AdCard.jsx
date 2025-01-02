@@ -40,17 +40,17 @@ const AdCard = ({ type }) => {
         <div className="border border-gray-600 sm:border-none  overflow-hidden mx-2">
           {data ? (
             <a href={data?.link}>
-              <div className="text-gray-600 flex w-full justify-center items-center -mb-3 text-xs">
+              <div className="text-gray-600 flex w-full justify-center items-center text-xs">
                 advertisement
               </div>
               <div
-                className="ad-card-main-area -mb-5"
+                className="ad-card-main-area"
                 target="_blank"
                 onClick={() => {
                   onClickAd(data._id);
                 }}
               >
-                <img src={data?.imgLink} alt="" className="" />
+                <img src={data?.imgLink} alt="" className="h-full" />
                 <div className="ad-card-main-area-text">
                   {data
                     ? data.slugName

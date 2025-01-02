@@ -347,48 +347,53 @@ const ItemPage = () => {
           </div>
           <div className="item-page-main-area-2 ">
             <div className="item-page-main-area-2-news-cards w-full">
-              {/* {topStories && (
-                <div className="details-page-related-news">
-                  <div className="details-page-related-news-heading">
-                    {t("rn")}
-                  </div>
-                </div>
-              )}
-              <div className="detail-page-relate-new-cards">
-                {topStories?.map((data, index) => {
-                  let title = data.title
-                    .replace(/[/\%.?]/g, "")
-                    .split(" ")
-                    .join("-");
-                  if (data.slug) {
-                    title = data.slug;
-                  }
-                  // if (data._id === storyId) return;
-
-                  return (
-                    // <RelatedNewsCard
-                    //   data={data}
-                    //   key={data._id}
-                    //   OnPress={() =>
-                    //     navigation(`/details2/${title}?id=${data?._id}`)
-                    //   }
-                    //   image={data?.image}
-                    //   text={data?.title.substring(0, 82) + "..."}
-                    // />
-                    <StoriesCard
-                      data={data}
-                      key={index}
-                      OnPress={() =>
-                        navigation(`/details2/${title}?id=${data?._id}`)
+              {newsType === "topStories" ? (
+                <div>
+                  {topStories && (
+                    <div className="details-page-related-news">
+                      <div className="details-page-related-news-heading">
+                        {t("rn")}
+                      </div>
+                    </div>
+                  )}
+                  <div className="detail-page-relate-new-cards">
+                    {topStories?.map((data, index) => {
+                      let title = data.title
+                        .replace(/[/\%.?]/g, "")
+                        .split(" ")
+                        .join("-");
+                      if (data.slug) {
+                        title = data.slug;
                       }
-                      wid="w-[45%] h-[110px]"
-                      image={data?.image}
-                      text={data?.title}
-                    />
-                  );
-                })}
-              </div> */}
-              <LatesetNewsSection />
+                      // if (data._id === storyId) return;
+
+                      return (
+                        // <RelatedNewsCard
+                        //   data={data}
+                        //   key={data._id}
+                        //   OnPress={() =>
+                        //     navigation(`/details2/${title}?id=${data?._id}`)
+                        //   }
+                        //   image={data?.image}
+                        //   text={data?.title.substring(0, 82) + "..."}
+                        // />
+                        <StoriesCard
+                          data={data}
+                          key={index}
+                          OnPress={() =>
+                            navigation(`/details2/${title}?id=${data?._id}`)
+                          }
+                          wid="w-[45%] h-[110px]"
+                          image={data?.image}
+                          text={data?.title}
+                        />
+                      );
+                    })}
+                  </div>{" "}
+                </div>
+              ) : (
+                <LatesetNewsSection />
+              )}
             </div>
             {/* <SubCardSection/> */}
           </div>

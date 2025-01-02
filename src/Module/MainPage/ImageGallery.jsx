@@ -90,13 +90,13 @@ const ImageGallery = () => {
       >
         {data &&
           data.map((img, index) => {
-            console.log("img to show in thumbnail: ", img);
+            // console.log("img to show in thumbnail: ", img);
 
             // Find the image with albumPeriority: true
             const prioritizedImage = img?.images.find(
               (image) => image.albumPeriority === true
             );
-            console.log("prioritized: ", prioritizedImage);
+            // console.log("prioritized: ", prioritizedImage);
 
             // If prioritizedImage is found, use it; otherwise, fallback to the 0th image
             const displayImage = prioritizedImage

@@ -932,7 +932,7 @@ const MainPage = () => {
                     />
                   </a>
                 </div> */}
-                <div className="w-[80%] mx-auto">
+                <div className="w-full">
                   <AdCard type={"mid"} />
                 </div>
               </>
@@ -941,8 +941,11 @@ const MainPage = () => {
             </div>
           </div>
           <div
-            className="webMainPagecomponent  main-component-group flex gap-7"
-            style={{ padding: "20px 30px", width: "100%", display: "flex" }}
+            className="webMainPagecomponent main-component-group flex gap-7"
+            style={{
+              width: "100%",
+              display: "flex",
+            }}
           >
             <div className="main-component-group-left" style={{ width: "70%" }}>
               <div className="image-conatiner">

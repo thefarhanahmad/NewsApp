@@ -338,14 +338,15 @@
   align-items: center;
 }
 .ad-card-main-area {
-  width: 80%;
-  height: 220px;
+  width: 100%;
+  /* background-color: aqua; */
+  height: 240px;
   border-radius: 10px;
   margin: 10px 0px 0px 0px;
 }
 .ad-card-main-area > img {
   width: 100%;
-  height: 170px;
+  height: 215px;
 }
 .ad-card-main-area-text {
   font-family: Poppins;
