@@ -148,7 +148,7 @@ const LivePage = () => {
       <div className="mobileDetailsPage">
         <h1
           style={{ fontSize: "16px" }}
-          className="details-page-main-heading  px-2"
+          className="details-page-main-heading font-bold  px-2"
         >
           {Data?.title
             ? Data?.title
@@ -248,7 +248,7 @@ const LivePage = () => {
       {/* Laptop version  */}
       <div className="detail-page-top-container container2 container3 webDetailsContainer">
         <div className="container-detail-page-left-side">
-          <h1 className="details-page-main-heading">
+          <h1 className="details-page-main-heading font-bold">
             {Data?.title
               ? Data?.title
               : "100 Hours On, Forces Locked In Jungle Warfare With Terrorists InKashmir"}

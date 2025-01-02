@@ -17,6 +17,7 @@ import SubCardSection from "../../Components/SharedComponents/SubCardSection";
 import RelatedNewsCard from "../../Components/DetailsPage";
 import { data } from "autoprefixer";
 import StoriesCard from "../../Components/MainPage/StoriesCard";
+import LatesetNewsSection from "../../Components/SharedComponents/LatestNewsSection";
 
 const ItemPage = () => {
   const { t } = useTranslation();
@@ -346,7 +347,7 @@ const ItemPage = () => {
           </div>
           <div className="item-page-main-area-2 ">
             <div className="item-page-main-area-2-news-cards w-full">
-              {topStories && (
+              {/* {topStories && (
                 <div className="details-page-related-news">
                   <div className="details-page-related-news-heading">
                     {t("rn")}
@@ -386,7 +387,8 @@ const ItemPage = () => {
                     />
                   );
                 })}
-              </div>
+              </div> */}
+              <LatesetNewsSection />
             </div>
             {/* <SubCardSection/> */}
           </div>

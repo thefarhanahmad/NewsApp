@@ -49,15 +49,15 @@ const MobileFooter = () => {
           </div>
 
           {/* Subcategories */}
-          <div className="footer-items pl-4">
+          <div className="footer-items pl-2 flex gap-2">
             {subcategories.map((subcategory, index) => (
               <Link
                 key={index}
                 to={`/itempage?item=${categoryName}&sub=${subcategory.text}`}
-                className="atag"
+                className="atag "
               >
                 <div
-                  className={`subtitle text-sm text-gray-400 my-1 w-fit py-0 pr-3 ${
+                  className={`subtitle  text-sm text-gray-400 my-1 w-fit py-0 pr-3 ${
                     subcategories.length > 1 &&
                     index !== subcategories.length - 1
                       ? "border-r"

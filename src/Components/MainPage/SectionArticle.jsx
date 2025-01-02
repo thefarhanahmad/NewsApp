@@ -60,7 +60,7 @@ const SingleArticle = ({ category, imgData, vidData }) => {
   const navigation = useNavigate();
 
   return (
-    <div className="main-page-technology-container container2 container3 border border-collapse sm:border-0 sm:m-0 m-1 border-gray-500">
+    <div className="main-page-technology-container container2 container3 border border-collapse sm:m-2 m-1 sm:border-gray-700 border-gray-500">
       <div className="main-page-technology-heading border-b sm:border-0 sm:mb-0 border-gray-500 mb-4">
         <Link to={`/itempage?item=${category}`}> {category}</Link>
       </div>

@@ -79,7 +79,7 @@ const MobileSidebar = ({ setHambergClicked }) => {
                 setShowAllCategories(false);
               }}
               to={`/itempage?item=${categoryName}`}
-              className="mobile-footer-header "
+              className="mobile-footer-header"
             >
               {categoryName}
             </Link>
@@ -87,8 +87,8 @@ const MobileSidebar = ({ setHambergClicked }) => {
 
           {/* Subcategories */}
           {expandedCategory === categoryName && subcategories.length > 0 && (
-            <div className="">
-              {subcategories.map((subcategory) => (
+            <div className=" text-sm mt-1 flex gap-x-2 flex-wrap">
+              {subcategories.map((subcategory, index) => (
                 <Link
                   onClick={() => {
                     setHambergClicked(false);
@@ -96,7 +96,12 @@ const MobileSidebar = ({ setHambergClicked }) => {
                   }}
                   key={subcategory._id}
                   to={`/itempage?item=${categoryName}&sub=${subcategory.text}`}
-                  className=" text-gray-800"
+                  className={`subtitle text-gray-900 text-sm my-1 w-fit py-0 pr-2 ${
+                    subcategories.length > 1 &&
+                    index !== subcategories.length - 1
+                      ? "border-r border-gray-900 "
+                      : ""
+                  }`}
                 >
                   {subcategory.text}
                 </Link>

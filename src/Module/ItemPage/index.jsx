@@ -13,6 +13,7 @@ import { Empty, Skeleton, Space } from "antd";
 import { Loading } from "../../Context";
 import axios from "axios";
 import { API_URL } from "../../../API";
+import LatesetNewsSection from "../../Components/SharedComponents/LatestNewsSection";
 import SubCardSection from "../../Components/SharedComponents/SubCardSection";
 import RelatedNewsCard from "../../Components/DetailsPage";
 import { data } from "autoprefixer";
@@ -127,10 +128,13 @@ const ItemPage = () => {
   return (
     <>
       <div className="container2 container3">
-        <div className="item-page-heading details-main-related-new-area-heading">
+        <div className="item-page-heading  details-main-related-new-area-heading">
           {query?.get("item")}
           {query?.get("sub") && (
-            <span style={{ fontSize: 16 }}>/{query?.get("sub")}</span>
+            // <span style={{ fontSize: 16 }}>/{query?.get("sub")}</span>
+            <div className="-mt-2 text-gray-900">
+              <span style={{ fontSize: 16 }}>{query?.get("sub")}</span>
+            </div>
           )}
         </div>
         <div className="item-page-main-area">
@@ -289,15 +293,15 @@ const ItemPage = () => {
               <div style={{ marginLeft: 10 }}>{t("rn")}</div>
             </div> */}
 
-            <div className="item-page-main-area-2-news-cards w-full">
-              {topStories && (
+            <div className="item-page-main-area-2-news-cards w-full ">
+              {/* {topStories && (
                 <div className="details-page-related-news">
                   <div className="details-page-related-news-heading">
                     {t("rn")}
                   </div>
                 </div>
-              )}
-              <div className="detail-page-relate-new-cards">
+              )} */}
+              {/* <div className="detail-page-relate-new-cards">
                 {topStories?.map((data, index) => {
                   let title = data.title
                     .replace(/[/\%.?]/g, "")
@@ -330,7 +334,8 @@ const ItemPage = () => {
                     />
                   );
                 })}
-              </div>
+              </div> */}
+              <LatesetNewsSection />
             </div>
             {/* <SubCardSection /> */}
           </div>

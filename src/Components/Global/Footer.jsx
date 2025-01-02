@@ -1,14 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { message } from "antd";
 import axios from "axios";
 
 import "./style/index.css";
-import logo from "../../assets/footer.svg";
+import logo from "../../assets/logo-small.png";
 import { API_URL } from "../../../API";
 import { Loading } from "../../Context";
 import MobileFooter from "./AccordinList";
+import { HiOutlineChevronDoubleRight } from "react-icons/hi";
 
 const Footer = () => {
   const { t } = useTranslation();
@@ -54,6 +55,8 @@ const Footer = () => {
       });
   }, []);
 
+  const navigate = useNavigate();
+
   async function subscribeToNewsLetter() {
     try {
       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -78,78 +81,79 @@ const Footer = () => {
 
   return (
     !loading && (
-      <div className="footer-main-container ">
+      <div className="footer-main-container  py-0">
         <div className="footer-area-main-accordin">
           <MobileFooter />
         </div>
         <div className="footer-checkup-main-conatiner">
           <div
-            className="footer-main"
+            className="footer-main mt-0"
             style={{
               // backgroundColor: "red",
-              // width: "100%",
               display: "flex",
+              flexDirection: "column",
               justifyContent: "flex-start",
-              // alignItems: "center",
-              gap: "15px",
+              gap: "5px",
               flexWrap: "wrap",
+              padding: "20px",
             }}
           >
             {Object.entries(mainObject).map(
-              ([categoryName, subcategories], index) => {
-                // if (index >= 4 && index <= 7) {
-                return (
-                  <>
-                    <div
-                      key={index}
-                      className="footer-item-box"
-                      style={{
-                        // backgroundColor: "yellow",
-                        width: "10%",
-                      }}
-                    >
-                      <div
-                        className="footer-heading"
-                        style={{ cursor: "pointer" }}
-                        onClick={() => {
-                          Navigation(`/itempage?item=${categoryName}`);
-                          setEffect(!effect);
-                        }}
+              ([categoryName, subcategories], index) => (
+                <div
+                  key={index}
+                  className="footer-item-box"
+                  style={{
+                    // backgroundColor: "yellow",
+                    width: "100%",
+                    padding: "10px",
+                    borderRadius: "5px",
+                  }}
+                >
+                  {/* Category Header */}
+                  <div
+                    className="footer-heading flex gap-2 items-center"
+                    style={{
+                      cursor: "pointer",
+                      fontSize: "16px",
+                      fontWeight: "bold",
+                      // marginBottom: "10px",
+                    }}
+                    onClick={() => navigate(`/itempage?item=${categoryName}`)}
+                  >
+                    <span>{categoryName}</span>
+                    <span>
+                      <HiOutlineChevronDoubleRight className="text-lg" />
+                    </span>
+                  </div>
+
+                  {/* Subcategories */}
+                  <div className="footer-items pl-2 flex gap-2">
+                    {subcategories.map((item, index) => (
+                      <Link
+                        key={index}
+                        to={`/itempage?item=${categoryName}&sub=${item.text}`}
+                        className="atag "
                       >
-                        {categoryName}
-                      </div>
-                      <div
-                        className="footer-items"
-                        style={
-                          {
-                            //  backgroundColor: "blue"
-                            // marginBottom: "5px",
-                          }
-                        }
-                      >
-                        {subcategories.map((item, i) => (
-                          <div
-                            key={i}
-                            className="sub-items-f"
-                            onClick={() => {
-                              Navigation(
-                                `/itempage?item=${categoryName}&sub=${item.text}`
-                              );
-                            }}
-                          >
-                            {item.text}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </>
-                );
-                // }
-              }
+                        <div
+                          className={`subtitle  text-sm text-gray-400 my-1 w-fit py-0 pr-3 ${
+                            subcategories.length > 1 &&
+                            index !== subcategories.length - 1
+                              ? "border-r"
+                              : ""
+                          }`}
+                        >
+                          {item.text}
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )
             )}
           </div>
         </div>
-        <div className="footer-line"></div>
+        <div className="footer-line mt-0 "></div>
         <div className="footer-middle-container">
           <div className="footer-middle-area">
             <div className="footer-img">
