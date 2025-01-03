@@ -171,18 +171,25 @@ const TagsAndCategory = () => {
             justifyContent: "space-around",
           }}
         >
-          <p>{record.sequence}</p>
-          <Space size="middle">
-            <a
-              onClick={() => {
-                setIsEditModalOpen(true);
-                setSelectedData(record); // Set selected record
-                setEditSequence(record.sequence); // Initialize with current sequence
-              }}
-            >
-              Edit
-            </a>
-          </Space>
+          {console.log("record in sequence : ", record)}
+          {record.type === "category" ? (
+            <>
+              <p>{record.sequence}</p>
+              <Space size="middle">
+                <a
+                  onClick={() => {
+                    setIsEditModalOpen(true);
+                    setSelectedData(record); // Set selected record
+                    setEditSequence(record.sequence); // Initialize with current sequence
+                  }}
+                >
+                  Edit
+                </a>
+              </Space>
+            </>
+          ) : (
+            <div></div> // Render an empty div for non-category types
+          )}
         </div>
       ),
     },

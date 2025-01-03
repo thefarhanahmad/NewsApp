@@ -74,29 +74,12 @@ const Upload = () => {
     }
 
     try {
-      // Generate a unique 4-digit sequence
-      let uniqueSequence;
-      const existingSequences = options.map(
-        (option) => option.sequence || option.key
-      ); // Use sequence or key
-
-      // Function to generate a 4-digit random number
-      const generateUniqueSequence = () => {
-        return Math.floor(1000 + Math.random() * 9000); // Generates a number between 1000 and 9999
-      };
-
-      // Ensure the generated sequence is unique
-      do {
-        uniqueSequence = generateUniqueSequence();
-      } while (existingSequences.includes(uniqueSequence));
-
       // Here you should call your API to save the new tag
       const response = await axios.post(
         `${API_URL}/content?id=${localStorage.getItem("id")}`,
         {
           type: "tag",
           text: name,
-          sequence: uniqueSequence,
         }
       );
 
@@ -105,7 +88,6 @@ const Upload = () => {
         value: response.data.text, // Assuming API returns the created tag object
         label: response.data.text,
         key: response.data._id, // Assuming the API returns an ID for the tag
-        sequence: uniqueSequence, // Store the sequence for future reference
       };
 
       // Update local state with the new tag
