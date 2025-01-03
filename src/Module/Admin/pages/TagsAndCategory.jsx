@@ -87,7 +87,7 @@ const TagsAndCategory = () => {
         .post(`${API_URL}/content?id=${localStorage.getItem("id")}`, {
           type,
           text,
-          sequence: userData?.length + 1,
+          ...(type === "category" && { sequence: userData?.length + 1 }), // Include sequence only for 'category'
         })
         .then(() => {
           message.success("Successfully Added");
@@ -96,7 +96,7 @@ const TagsAndCategory = () => {
         })
         .catch((err) => {
           console.log(err);
-          message.error("Error adding item");
+          message.error(err.response?.data?.message || "Error adding item"); // Display backend error message if available
         });
     } else {
       axios

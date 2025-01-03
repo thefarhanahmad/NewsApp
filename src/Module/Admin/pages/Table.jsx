@@ -277,8 +277,8 @@ const AdminTable = () => {
                   filterItem == "role"
                     ? [
                         {
-                          value: "user",
-                          label: "User",
+                          value: "staff",
+                          label: "Staff",
                         },
                         {
                           value: "admin",
@@ -336,9 +336,9 @@ const AdminTable = () => {
               disabled: currentUser?.role == "admin" ? true : false,
             },
             {
-              value: "user",
-              label: "User",
-              disabled: currentUser?.role == "user" ? true : false,
+              value: "staff",
+              label: "Staff",
+              disabled: currentUser?.role == "staff" ? true : false,
             },
             {
               value: "journalist",

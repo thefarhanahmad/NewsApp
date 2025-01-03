@@ -9,7 +9,7 @@ const CreateUser = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [role, setRole] = useState("user");
+  const [role, setRole] = useState("staff");
   const [cateGet, setCateGet] = useState([]);
   const [selectedKeywords, setSelectedKeywords] = useState([]);
   const [acsses, setAcsses] = useState([]);
@@ -194,8 +194,8 @@ const CreateUser = () => {
                   placeholder="Select Role"
                   options={[
                     {
-                      value: "user",
-                      label: "User",
+                      value: "staff",
+                      label: "Staff",
                     },
                     {
                       value: "admin",
