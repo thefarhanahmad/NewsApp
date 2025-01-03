@@ -53,6 +53,15 @@
   font-weight: 600;
   text-overflow: ellipsis !important;
 }
+.itempage-desc {
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* Limits to 4 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.5; /* Adjust line height for readability */
+  max-height: calc(1.5em * 4); /* Ensures the height fits 4 lines */
+}
 .item-page-card-main-conatiner:hover {
   background-color: rgba(0, 0, 0, 0.06);
   border-radius: 10px;

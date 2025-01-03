@@ -434,6 +434,8 @@
   }
   .header-row-box {
     justify-content: end;
+
+    width: 100;
   }
   .ham-burger-area {
     transition: all 2s ease-in-out;

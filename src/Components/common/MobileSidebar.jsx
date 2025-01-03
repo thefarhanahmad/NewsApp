@@ -60,16 +60,27 @@ const MobileSidebar = ({ setHambergClicked }) => {
           {/* Category Header */}
           {subcategories.length > 0 ? (
             // Dropdown for categories with subcategories
-            <div
-              className=" flex gap-3 items-center"
-              onClick={() => toggleCategory(categoryName)}
-            >
-              <span className="">{categoryName}</span>
-              {expandedCategory === categoryName ? (
-                <BiChevronUp className="text-xl" />
-              ) : (
-                <BiChevronDown className="text-xl" />
-              )}
+            <div className=" flex gap-3 items-center justify-between">
+              <Link
+                onClick={() => {
+                  setHambergClicked(false);
+                  setShowAllCategories(false);
+                }}
+                to={`/itempage?item=${categoryName}`}
+                className="mobile-footer-header "
+              >
+                {categoryName}
+              </Link>
+              <button
+                onClick={() => toggleCategory(categoryName)}
+                className=" w-1/4 flex justify-end items-center"
+              >
+                {expandedCategory === categoryName ? (
+                  <BiChevronUp className="text-2xl" />
+                ) : (
+                  <BiChevronDown className="text-2xl" />
+                )}
+              </button>
             </div>
           ) : (
             // Static link for categories without subcategories
@@ -79,7 +90,7 @@ const MobileSidebar = ({ setHambergClicked }) => {
                 setShowAllCategories(false);
               }}
               to={`/itempage?item=${categoryName}`}
-              className="mobile-footer-header"
+              className="mobile-footer-header "
             >
               {categoryName}
             </Link>

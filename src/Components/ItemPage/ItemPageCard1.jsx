@@ -6,53 +6,33 @@ import { useEffect } from "react";
 
 const ItemPageCard1 = ({ title, discription, date, image, onPress, type }) => {
   const [desc, SetDesc] = useState(discription);
-  useEffect(() => {
-    let tt = "";
-    let times = desc?.length > 100 ? 100 : desc?.length;
 
-    for (let i = 0; i < times; i++) {
-      tt += desc[i];
-    }
-    SetDesc(tt + "...");
-  }, []);
+  // useEffect(() => {
+  //   if (discription?.length > 100) {
+  //     // Truncate and add "..." if description is too long
+  //     SetDesc(discription.substring(0, 100) + "...");
+  //   } else {
+  //     // Keep the original description if it's short
+  //     SetDesc(discription);
+  //   }
+  // }, [discription]);
   return (
     <div style={{ padding: "3px" }} className="">
       <div className="line"></div>
       <div
-        className="item-page-card-main-conatiner  h-fit sm:h-[200px]"
-        // style={{ height: "100%" }}
+        className="item-page-card-main-conatiner flex py-2  h-fit sm:h-[253px]"
         onClick={onPress ? onPress : () => {}}
       >
-        <div className="item-page-card-main-conatiner-img">
+        <div className=" w-[380px] h-full overflow-hidden">
           <img
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "fill",
-              objectPosition: "center",
-            }}
             src={image}
             alt=""
-            className="hidden md:block"
-          />
-          <img
-            style={{
-              width: "100%",
-              height: "76%",
-              objectFit: "cover", // Ensures the image fills the container without distortion
-              objectPosition: "center", // Centers the image
-            }}
-            src={image}
-            alt=""
-            className="md:hidden"
+            className="  h-full w-full box-border object-cover"
           />
         </div>
 
-        <div
-          className="item-page-card-main-conatiner-text"
-          style={{ width: "55%" }}
-        >
-          <div className="heading-item-page-card-main-conatiner-text">
+        <div className="item-page-card-main-conatiner-text">
+          <div className="heading-item-page-card-main-conatiner-text mt-0">
             {title}
             {/* New Health Campaign, ‘Ayushman Bhava’ To Reach Out 7 Crore Families:
             All You Need To Know About The Initiative */}
@@ -61,12 +41,12 @@ const ItemPageCard1 = ({ title, discription, date, image, onPress, type }) => {
             {date}
             {/* 15 august 2023 */}
           </div>
-          {/* <div
-            className="text-item-page-card-main-conatiner-text "
+          <div
+            className="text-item-page-card-main-conatiner-text text-sm  py-2 text-gray-500 itempage-desc"
             dangerouslySetInnerHTML={{ __html: desc }}
-          > */}
-          {/* {desc} */}
-          {/* </div> */}
+          >
+            {/* {desc} */}
+          </div>
         </div>
       </div>
     </div>

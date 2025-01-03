@@ -612,134 +612,7 @@ const MainPage = () => {
               </div>
             </div>
           </div>
-          {/* second */}
-          {/* <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              marginTop: "3%",
-              padding: "0 9px",
-            }}
-          >
-            <div className="main-page-slider-setting">
-              {sliderItem % 2 === 0 ? (
-                <>
-                  {sliderArticles?.map((data, index) => {
-                    if (index == sliderItem) {
-                      return (
-                        <ImageCard
-                          key={index}
-                          img={data.image}
-                          text={data.title}
-                          slug={data.slug}
-                          title={data.title}
-                          id={data._id}
-                          height="50vh"
-                          width="100%"
-                        />
-                      );
-                    } else {
-                      <ImageCard
-                        img={sliderItems[sliderItem]}
-                        text={data.title}
-                        slug={data.slug}
-                        title={data.title}
-                        id={data._id}
-                        height="50vh"
-                        width="100%"
-                      />;
-                    }
-                  })}
-                </>
-              ) : (
-                <></>
-              )}
 
-              <div className="main-page-slider-items">
-                {sliderArticles
-                  .map((_, i) => i)
-                  .filter((i) => i % 2 === 0)
-                  .map((item, index) => (
-                    <div
-                      key={item}
-                      className={`slider-item ${
-                        sliderItem === item ? "slider-item-active" : ""
-                      }`}
-                      onClick={() => {
-                        setShowItem(false);
-                        setTimeout(() => {
-                          setShowItem(true);
-                          setSliderItem(item);
-                        }, 1000);
-                      }}
-                    ></div>
-                  ))}
-              </div>
-            </div>
-            <div className="main-page-slider-setting">
-              {sliderItem2 % 2 !== 0 ? (
-                <>
-                  {sliderArticles?.map((data, index) => {
-                    // let title = data?.title
-                    //   ?.replace(/[/\%.?]/g, "")
-                    //   .split(" ")
-                    //   .join("-");
-                    // if (data.slug) {
-                    //   title = data.slug;
-                    // }
-                    if (index == sliderItem2) {
-                      return (
-                        <ImageCard
-                          key={index}
-                          img={data.image}
-                          text={data.title}
-                          slug={data.slug}
-                          title={data.title}
-                          id={data._id}
-                          height="50vh"
-                          width="100%"
-                        />
-                      );
-                    } else {
-                      <ImageCard
-                        img={sliderItems[sliderItem2]}
-                        text={data.title}
-                        slug={data.slug}
-                        title={data.title}
-                        id={data._id}
-                        height="50vh"
-                        width="100%"
-                      />;
-                    }
-                  })}
-                </>
-              ) : (
-                <></>
-              )}
-
-              <div className="main-page-slider-items">
-                {sliderArticles
-                  .map((_, i) => i)
-                  .filter((i) => i % 2 !== 0)
-                  .map((item) => (
-                    <div
-                      key={item}
-                      className={`slider-item ${
-                        sliderItem2 === item ? "slider-item-active" : ""
-                      }`}
-                      onClick={() => {
-                        setShowItem(false);
-                        setTimeout(() => {
-                          setShowItem(true);
-                          setSliderItem2(item);
-                        }, 1000);
-                      }}
-                    ></div>
-                  ))}
-              </div>
-            </div>
-          </div> */}
           <div
             style={{
               display: "flex",
@@ -773,171 +646,14 @@ const MainPage = () => {
             </div>
           </div>
 
-          {/* third */}
-          {/* <div className="main-conatiner container container3">
-            <div
-              className="main-page-slider-setting"
-              style={{ width: "100%", marginBottom: "20px" }}
-            >
-              {sliderArticles?.length > 0 ? (
-                <Slide
-                  easing="ease"
-                  duration={2000}
-                  indicators={(index) => (
-                    <div
-                      style={{
-                        display: "inline-block",
-                        width: "8px",
-                        height: "8px",
-                        margin: "0 4px",
-                        backgroundColor:
-                          currentIndex === index ? "black" : "gray",
-                        borderRadius: "50%",
-                      }}
-                    ></div>
-                  )}
-                >
-                  {sliderArticles?.slice(0, 10).map((data) => (
-                    <div key={data._id} className="each-slide">
-                      <ImageCard
-                        img={data?.image}
-                        text={data.title}
-                        title={data.title}
-                        slug={data.slug}
-                        id={data._id}
-                        height="35vh"
-                        width="100%"
-                      />
-                    </div>
-                  ))}
-                </Slide>
-              ) : (
-                <div>Loading...</div>
-              )}
-            </div> */}
-
-          {/* Breaking news section */}
-          {/* <div id="LatestNews" className="main-left-side">
-              <div className="mobileMainPageHeading">
-                <div>{t("ln")}</div>
-              </div>
-              <div className="top-stories-all-cards">
-                {breakingNews.map((data, index) => {
-                  let title = data.title
-                    .replace(/[/\%.?]/g, "")
-                    .split(" ")
-                    .join("-");
-                  if (data.slug) {
-                    title = data.slug;
-                  }
-                  if (index > 3) {
-                    return (
-                      <StoriesCard
-                        data={data}
-                        key={index}
-                        OnPress={() =>
-                          navigation(`/details/${title}?id=${data?._id}`)
-                        }
-                        image={data?.image}
-                        text={data?.title}
-                      />
-                    );
-                  } else {
-                    return null;
-                  }
-                })}
-              </div>
-            </div>
-
-            {/* Top stories section */}
-          {/* <div id="TopStories" className="main-left-side">
-              <div className="mobileMainPageHeading">
-                <div>{t("ts")}</div>
-              </div>
-              <div className="mobile-main-page-videos-container flex-col">
-                {topStories?.map((item, index) => {
-                  let title = item.title
-                    .replace(/[/\%.?]/g, "")
-                    .split(" ")
-                    .join("-");
-                  if (item.slug) {
-                    title = item.slug;
-                  }
-
-                  if (title && index < 6) {
-                    return (
-                      <div
-                        key={index}
-                        onClick={() =>
-                          navigation(`/details/${title}?id=${item?._id}`, {
-                            state: item,
-                          })
-                        }
-                        className="mobileTopStoryCard flex-row-reverse"
-                      >
-                        <img
-                          style={{
-                            width: "150px",
-                            height: "118px",
-                            objectFit: "cover",
-                            objectPosition: "center",
-                          }}
-                          src={item.image}
-                        />
-                        <div
-                          style={{
-                            height: "50%",
-                            width: "100%",
-                            fontSize: "13px",
-                            padding: "10px",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          {item.title}
-                        </div>
-                      </div>
-                    );
-                  } else {
-                    return null;
-                  }
-                })}
-              </div>
-            </div>
-          </div>  */}
-
           {/* sheersh aalekh */}
           <div>
             <div className=" flex items-center justify-center my-2 mt-4">
-              {/* {midAd?.map((data, i) => { */}
-              {/* return ( */}
               <>
-                {/* <div className=" w-full ">
-                  <span>Adevertisement</span>
-                  <a
-                    href={midAd[0]?.link}
-                    target="_blank"
-                    onClick={() => {
-                      onClickAd(midAd[0]?._id);
-                    }}
-                    rel="noreferrer"
-                  >
-                    <img
-                      style={{
-                        cursor: "pointer",
-                        padding: "2px",
-                      }}
-                      className="h-56 w-[80%] mx-auto"
-                      src={midAd[0]?.imgLink}
-                      alt=""
-                    />
-                  </a>
-                </div> */}
                 <div className="w-full">
                   <AdCard type={"mid"} />
                 </div>
               </>
-              {/* ); */}
-              {/* })} */}
             </div>
           </div>
           <div
@@ -1027,7 +743,7 @@ const MainPage = () => {
                   navigation(`/itempage2?newsType=topStories`);
                 }}
               >
-                {"more"}{" "}
+                {"और भी"}{" "}
                 <FaGreaterThan
                   style={{
                     marginLeft: "6px",
@@ -1309,85 +1025,6 @@ const MainPage = () => {
               </div>
             </div>
           </div>
-          {/* <div
-            id="Photos"
-            className="main-video-gallery-main-container container2 container3"
-          >
-            <div className="main-page-video-heading2">{t("ph")}</div>
-            <div className="main-page-photoGallery-container">
-              {photo &&
-                photo.map((img, index) => {
-                  console.log("img to show in thumbnail : ", img);
-
-                  // Find the image with albumPeriority: true
-                  const prioritizedImage = img?.images.find(
-                    (image) => image.albumPeriority === true
-                  );
-                  console.log("prioritized: ", prioritizedImage);
-
-                  // If prioritizedImage is found, use it; otherwise, fallback to the 0th image
-                  const displayImage = prioritizedImage
-                    ? prioritizedImage.img
-                    : img?.images[0]?.img;
-
-                  const displayText = prioritizedImage
-                    ? prioritizedImage.text
-                    : img?.images[0]?.text;
-                  return (
-                    <div key={index}>
-                      <a
-                        href={`/photos/${img?._id}`}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        <div className="photoGallery-card">
-                          <img src={displayImage} alt={displayText} />
-                        </div>
-                      </a>
-                      <div
-                        className=""
-                        style={{
-                          // background: "red",
-                          display: "flex",
-                          width: "100%",
-                          justifyContent: "space-between",
-                          // marginTop: "0.5rem",
-                          alignItems: "center",
-                          // padding:"0px 3px"
-                        }}
-                      >
-                        <span className="pgt">{img?.title.toUpperCase()}</span>
-
-                        <div className="pgt-r">
-                          <div
-                            style={{
-                              display: "flex",
-                              gap: "5px",
-                              alignItems: "center", // This aligns items vertically
-                            }}
-                          >
-                            <span
-                              style={{
-                                display: "flex",
-                                alignItems: "center",
-                                lineHeight: "1",
-                              }}
-                            >
-                              <IoCameraSharp />
-                            </span>
-                            <span style={{ lineHeight: "1" }}>
-                              {img?.images?.length < 10
-                                ? "0" + img?.images?.length
-                                : img?.images?.length}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-            </div>
-          </div> */}
 
           <div
             id="Photos"
@@ -1540,7 +1177,7 @@ const MainPage = () => {
           </div>
         </div>
         {/*  */}
-        <div className="main-conatiner container container3 webMainPagecomponent mainwebSecond">
+        <div className="main-conatiner container container3 webMainPagecomponent mainwebSecond ">
           <div className="main-rigth-side">
             <div className="image-conatiner">
               <div className="main-conatiner-image-1">
@@ -1577,40 +1214,6 @@ const MainPage = () => {
                 />
               </div>
             </div>
-
-            {/* <div className="image-conatiner" style={{ marginTop: "5%" }}>
-              <div className="main-conatiner-image-1">
-                <ImageCard
-                  height="100%"
-                  width="100%"
-                  img={sliderArticles?.[0]?.image}
-                  text={sliderArticles?.[0]?.title}
-                  title={sliderArticles?.[0]?.title
-                    .replace(/[/\%.?]/g, "")
-                    .split(" ")
-                    .join("-")}
-                  id={sliderArticles?.[0]?._id}
-                />
-              </div>
-              <div
-                className="main-conatiner-image-2"
-                style={{
-                  marginLeft: "10px",
-                }}
-              >
-                <ImageCard
-                  img={sliderArticles?.[1]?.image}
-                  text={sliderArticles?.[1]?.title}
-                  title={sliderArticles?.[1]?.title
-                    .replace(/[/\%.?]/g, "")
-                    .split(" ")
-                    .join("-")}
-                  id={sliderArticles?.[1]?._id}
-                  height="100%"
-                  width="100%"
-                />
-              </div>
-            </div> */}
 
             <div
               style={{
@@ -1652,11 +1255,6 @@ const MainPage = () => {
                           />
                           ;
                         </div>;
-                        // <img
-                        //   src={sliderItems[sliderItem]}
-                        //   alt=""
-                        //   className={`slider-img ${showItem ? "show" : ""}`}
-                        // />;
                       }
                     })}
                   </>
@@ -1767,12 +1365,6 @@ const MainPage = () => {
                             width="100%"
                           />
                         </div>;
-
-                        // <img
-                        //   src={sliderItems[sliderItem]}
-                        //   alt=""
-                        //   className={`slider-img ${showItem ? "show" : ""}`}
-                        // />;
                       }
                     })}
                   </>
@@ -1808,7 +1400,7 @@ const MainPage = () => {
                 navigation(`/itempage2?newsType=topStories`);
               }}
             >
-              {"more"}{" "}
+              {"और भी"}{" "}
               <FaGreaterThan
                 style={{
                   marginLeft: "6px",
@@ -1880,25 +1472,6 @@ const MainPage = () => {
                         }
                       />
                     </div>
-                    // <Link
-                    //   key={data._id}
-                    //   style={{ marginTop: "10px" }}
-                    //   className="cat-list"
-                    //   to={`details/${title}?id=${data._id}`}
-                    // >
-                    //   <ImageCard
-                    //     style={{
-                    //       fontSize: "15px",
-                    //       fontWeight: 400,
-                    //       height: "auto",
-                    //       borderRadius: 0,
-                    //     }}
-                    //     height="110px"
-                    //     img={data.image}
-                    //     dis={false}
-                    //     text={data.title}
-                    //   />
-                    // </Link>
                   );
                 } else {
                   // Handle the case where title is undefined or null
@@ -1913,7 +1486,7 @@ const MainPage = () => {
                 navigation(`/itempage2?newsType=upload`);
               }}
             >
-              {"more"}{" "}
+              {"और भी"}{" "}
               <FaGreaterThan
                 style={{
                   marginLeft: "6px",
@@ -1987,7 +1560,7 @@ const MainPage = () => {
                   navigation(`/itempage2?newsType=breakingNews`);
                 }}
               >
-                {"more"}{" "}
+                {"और भी"}{" "}
                 <FaGreaterThan
                   style={{
                     marginLeft: "6px",
@@ -2052,7 +1625,7 @@ const MainPage = () => {
                       <Col xs={12} key={index}>
                         <div
                           style={{
-                            width: "90%",
+                            width: "100%",
                             minHeight: "40px",
                             maxHeight: "60px",
                             overflow: "hidden",
@@ -2077,7 +1650,7 @@ const MainPage = () => {
                           >
                             <div
                               style={{
-                                fontSize: "18px",
+                                fontSize: "15px",
                                 fontWeight: "600",
                                 marginTop: "-10px",
                               }}
@@ -2131,7 +1704,7 @@ const MainPage = () => {
           </div>
           {/* see more btn */}
           <div
-            className="more-text -mt-4 sm:mt-[25px] text-gray-300"
+            className="-mt-4 sm:mt-[25px] more-text"
             onClick={() => navigate("/itempage2?newsType=videos")}
           >
             {"और भी"}{" "}
@@ -2304,53 +1877,6 @@ const MainPage = () => {
               })}
           </div>
         </div>
-        {/* <Slider
-            className="main-video-gallery-imgs"
-            dots={true}
-            infinite={true}
-            slidesToShow={4}
-            slidesToScroll={1}
-          >
-            <div>
-              <img src={Article.length > 0 ? Article[0].image : null} alt="" />
-            </div>
-            
-            <div>
-              <img src={Article.length > 0 ? Article[1].image : null} alt="" />
-            </div>
-            <div>
-              <img src={Article.length > 0 ? Article[2].image : null} alt="" />
-            </div>
-            <div>
-              <img src={Article.length > 0 ? Article[0].image : null} alt="" />
-            </div>
-            <div>
-              <img src={Article.length > 0 ? Article[0].image : null} alt="" />
-            </div>
-            <div>
-              <img src={Article.length > 0 ? Article[0].image : null} alt="" />
-            </div>
-            <div>
-              <img src={Article.length > 0 ? Article[0].image : null} alt="" />
-            </div>
-          </Slider> */}
-
-        {/* <Modal
-        title="Polling Modal"
-        open={isModal2Open}
-        onCancel={handleCancel2}
-        onOk={() => {
-          sessionStorage.setItem("data", "yes");
-          handleCancel2();
-        }}
-      >
-        <div>{userData.question}</div>
-        <Radio.Group>
-          <Radio value={1}>{userData.option1}</Radio>
-          <br />
-          <Radio value={2}>{userData.option2}</Radio>
-        </Radio.Group>
-      </Modal> */}
       </div>
     </div>
   );

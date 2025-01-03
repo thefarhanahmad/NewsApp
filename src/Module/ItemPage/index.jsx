@@ -18,6 +18,7 @@ import SubCardSection from "../../Components/SharedComponents/SubCardSection";
 import RelatedNewsCard from "../../Components/DetailsPage";
 import { data } from "autoprefixer";
 import StoriesCard from "../../Components/MainPage/StoriesCard";
+import { HiOutlineChevronDoubleRight } from "react-icons/hi";
 
 const ItemPage = () => {
   const { t } = useTranslation();
@@ -127,15 +128,22 @@ const ItemPage = () => {
 
   return (
     <>
-      <div className="container2 container3">
+      <div className="container2 container3 ">
         <div className="item-page-heading  details-main-related-new-area-heading">
-          {query?.get("item")}
-          {query?.get("sub") && (
-            // <span style={{ fontSize: 16 }}>/{query?.get("sub")}</span>
-            <div className="-mt-2 text-gray-900">
-              <span style={{ fontSize: 16 }}>{query?.get("sub")}</span>
-            </div>
-          )}
+          <div className="w-fit flex items-center gap-1">
+            <span>{query?.get("item")} </span>
+            <span>
+              {query?.get("sub") && <HiOutlineChevronDoubleRight />}
+            </span>{" "}
+          </div>
+          <div>
+            {query?.get("sub") && (
+              // <span style={{ fontSize: 16 }}>/{query?.get("sub")}</span>
+              <div className="-mt-2 text-gray-900">
+                <span style={{ fontSize: 16 }}>{query?.get("sub")}</span>
+              </div>
+            )}
+          </div>
         </div>
         <div className="item-page-main-area">
           <div

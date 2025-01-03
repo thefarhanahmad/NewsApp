@@ -22,6 +22,7 @@ const AdCard = ({ type }) => {
     } else if (type === "bottom") {
       axios.get(`${API_URL}/ads?active=true&side=bottom`).then((data) => {
         const activeAds = data.data.filter((data) => data.active);
+
         setData(activeAds.reverse()[0]);
       });
     }

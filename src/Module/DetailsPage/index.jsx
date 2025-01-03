@@ -337,7 +337,7 @@ const DetailsPage = () => {
       </Helmet>
 
       {/* mobile version  */}
-      <div className="mobileDetailsPage">
+      <div className="mobileDetailsPage ">
         <div className="">
           <AdCard type={"mid"} />
         </div>
@@ -515,9 +515,8 @@ const DetailsPage = () => {
               })}
             </div>
             <LatesetNewsSection />
-            <div className="details-main-ad-cards">
-              <AdCard type={"mid"} />
-              <AdCard />
+            <div className="w-full ">
+              <AdCard type={"bottom"} />
             </div>
             {data?.comment ? (
               <div className="details-comment-area">
@@ -587,9 +586,9 @@ const DetailsPage = () => {
         </div>
       </div>
 
-      {/* mobile version  */}
-      <div className="detail-page-top-container container2 container3 webDetailsContainer">
-        <div className="container-detail-page-left-side">
+      {/* Laptop version  */}
+      <div className="detail-page-top-container container2 container3 webDetailsContainer ">
+        <div className="container-detail-page-left-side ">
           <h1 className="details-page-main-heading">{data?.title}</h1>
           <div className="details-page-top-items">
             <div className="details-page-top-item1">
@@ -765,9 +764,15 @@ const DetailsPage = () => {
               );
             })}
           </div>
+          <div className="w-full mt-4">
+            <AdCard type={"bottom"} />
+          </div>
         </div>
         <div className="container-detail-page-rigth-side ">
           <LatesetNewsSection />
+          <div className="w-full">
+            <AdCard type={"mid"} />
+          </div>
           {topStories && (
             <div className="details-page-related-news">
               <div className="details-page-related-news-heading">{t("ln")}</div>
@@ -809,13 +814,9 @@ const DetailsPage = () => {
               );
             })}
           </div>
-
-          <div className="details-main-ad-cards">
-            <AdCard type={"mid"} />
-            <AdCard type={"bottom"} />
-          </div>
         </div>
-        <div className="detalis-page-commment-area2">
+
+        <div className="detalis-page-commment-area2 ">
           <div className=" bg-gradient-to-r text-red-500 p-3 from-white text-2xl to-transparents font-bold">
             <span className="text-black">{t("to")} :</span> {data?.topic}
           </div>

@@ -125,7 +125,7 @@ const SingleArticle = ({ category, imgData, vidData }) => {
                 />
               ))}
               <div className="more-text">
-                {"more"}{" "}
+                {"और भी"}{" "}
                 <FaGreaterThan
                   style={{
                     marginLeft: "6px",

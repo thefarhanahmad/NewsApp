@@ -199,6 +199,7 @@
 .detalis-page-commment-area2 {
   display: none;
 }
+
 @media screen and (max-width: 1000px) {
   .detail-page-top-container {
     flex-direction: column;

@@ -131,7 +131,7 @@ const TagsAndCategory = () => {
       })
       .catch((err) => {
         console.log(err);
-        message.error("Error editing sequence");
+        message.error(err.response.data.err);
       });
   };
 
@@ -171,7 +171,6 @@ const TagsAndCategory = () => {
             justifyContent: "space-around",
           }}
         >
-          {console.log("record in sequence : ", record)}
           {record.type === "category" ? (
             <>
               <p>{record.sequence}</p>

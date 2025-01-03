@@ -497,9 +497,8 @@ const DetailsPage2 = () => {
               })}
             </div>
             <LatesetNewsSection />
-            <div className="details-main-ad-cards">
-              <AdCard type={"mid"} />
-              <AdCard />
+            <div className="w-full">
+              <AdCard type={"bottom"} />
             </div>
           </div>
           {data?.comment ? (
@@ -571,7 +570,7 @@ const DetailsPage2 = () => {
         </div>
       </div>
 
-      {/* mobile version  */}
+      {/* Laptop version  */}
       <div className="detail-page-top-container container2 container3 webDetailsContainer">
         <div className="container-detail-page-left-side">
           <h1 className="details-page-main-heading">{data?.title}</h1>
@@ -746,13 +745,18 @@ const DetailsPage2 = () => {
               );
             })}
           </div>
+          <div className="w-full">
+            <AdCard type={"bottom"} />
+          </div>
         </div>
         <div
           className="container-detail-page-rigth-side "
           style={{ marginTop: "40px" }}
         >
           <LatesetNewsSection />
-
+          <div className="w-full mb-2">
+            <AdCard type={"mid"} />
+          </div>
           {topStories && (
             <div className="details-page-related-news ">
               <div className="details-page-related-news-heading">{t("ln")}</div>
@@ -798,10 +802,10 @@ const DetailsPage2 = () => {
             })}
           </div>
 
-          <div className="details-main-ad-cards">
+          {/* <div className="details-main-ad-cards">
             <AdCard type={"mid"} />
             <AdCard type={"bottom"} />
-          </div>
+          </div> */}
         </div>
         <div className="detalis-page-commment-area2">
           <div className=" bg-gradient-to-r text-red-500 p-3 from-white text-2xl to-transparents font-bold">
