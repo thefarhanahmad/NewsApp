@@ -87,7 +87,7 @@ const MobileSidebar = ({ setHambergClicked }) => {
 
           {/* Subcategories */}
           {expandedCategory === categoryName && subcategories.length > 0 && (
-            <div className=" text-sm mt-1 flex gap-x-2 flex-wrap">
+            <div className=" text-sm mt-1 flex  gap-x-2 flex-wrap">
               {subcategories.map((subcategory, index) => (
                 <Link
                   onClick={() => {

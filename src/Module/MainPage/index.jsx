@@ -2131,10 +2131,10 @@ const MainPage = () => {
           </div>
           {/* see more btn */}
           <div
-            className="more-text -mt-4 sm:mt-[25px]"
+            className="more-text -mt-4 sm:mt-[25px] text-gray-300"
             onClick={() => navigate("/itempage2?newsType=videos")}
           >
-            {"more"}{" "}
+            {"और भी"}{" "}
             <FaGreaterThan
               style={{
                 marginLeft: "6px",

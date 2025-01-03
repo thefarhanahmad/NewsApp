@@ -14,7 +14,7 @@ const ImageCard = ({
   dis,
 }) => {
   const navigate = useNavigate();
-
+  
   // Slider settings for 5-second autoplay
   const sliderSettings = {
     dots: true,
@@ -24,7 +24,6 @@ const ImageCard = ({
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: false,
-    
   };
 
   return (

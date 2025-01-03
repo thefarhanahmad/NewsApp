@@ -5,7 +5,7 @@ import { message } from "antd";
 import axios from "axios";
 
 import "./style/index.css";
-import logo from "../../assets/logo-small.png";
+import logo from "../../assets/LOGO LOKSATYA.png";
 import { API_URL } from "../../../API";
 import { Loading } from "../../Context";
 import MobileFooter from "./AccordinList";
